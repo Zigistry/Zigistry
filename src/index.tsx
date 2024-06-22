@@ -4,6 +4,7 @@ import { LocationProvider, Router, Route } from 'preact-iso';
 import { Header } from './components/Header.jsx';
 import { Home } from './pages/Home/index.jsx';
 import { NotFound } from './pages/_404.jsx';
+import { Manage } from './pages/Manage/manage.jsx'
 import './style.css';
 
 export function App() {
@@ -13,6 +14,7 @@ export function App() {
 			<main>
 				<Router>
 					<Route path="/" component={Home} />
+					<Route path="/*" component={Manage} />
 					<Route default component={NotFound} />
 				</Router>
 			</main>

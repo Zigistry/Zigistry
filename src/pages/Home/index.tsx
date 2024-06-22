@@ -4,10 +4,11 @@ import { FaStar } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import { GoIssueOpened } from "react-icons/go";
 import { FaCodeFork } from "react-icons/fa6";
+
 export function Home() {
 	const [repository, setRepository] = useState(null);
 	const url = "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json";
-
+	
 	useEffect(() => {
 		fetch(url)
 			.then(response => {
@@ -48,7 +49,7 @@ export function Home() {
 							</p>
 							<p className="flex items-center">
 								<FaStar size={20} color='#cfbc0e' />&nbsp;{item.stargazers_count}&nbsp;&nbsp;&nbsp;&nbsp; <FaEye color="skyblue" />&nbsp;{item.watchers_count}&nbsp;&nbsp;&nbsp;&nbsp;<FaCodeFork color="lightpink" />&nbsp;{item.forks_count}&nbsp;&nbsp;&nbsp;&nbsp;<GoIssueOpened color="lightgreen" />&nbsp;{item.open_issues}</p>
-							<Button color="dark" pill>
+							<Button href={item.full_name} color="dark" pill>
 								View package
 							</Button>
 						</Card>
