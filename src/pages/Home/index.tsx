@@ -3,8 +3,7 @@ import { Card, TextInput } from 'flowbite-react';
 
 export function Home() {
 	const [repository, setRepository] = useState(null);
-	const [repositoryImage, setRepositoryImage] = useState(null);
-	const url = "https://api.github.com/search/repositories?q=topic:zig-package&page=1&per_page=100";
+	const url = "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json";
 
 	useEffect(() => {
 		fetch(url)
