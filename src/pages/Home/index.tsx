@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'preact/hooks';
-import { Card, TextInput } from 'flowbite-react';
+import { Button, Card, TextInput } from 'flowbite-react';
 import { FaStar } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import { GoIssueOpened } from "react-icons/go";
@@ -48,6 +48,9 @@ export function Home() {
 							</p>
 							<p className="flex items-center">
 								<FaStar size={20} color='#cfbc0e' />&nbsp;{item.stargazers_count}&nbsp;&nbsp;&nbsp;&nbsp; <FaEye color="skyblue" />&nbsp;{item.watchers_count}&nbsp;&nbsp;&nbsp;&nbsp;<FaCodeFork color="lightpink" />&nbsp;{item.forks_count}&nbsp;&nbsp;&nbsp;&nbsp;<GoIssueOpened color="lightgreen" />&nbsp;{item.open_issues}</p>
+								<Button color="dark" pill>
+									View plugin
+                </Button>
 						</Card>
 					))
 				) : (
