@@ -7,6 +7,8 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"axios": "^1.7.2",
+		"cheerio": "^1.0.0-rc.12",
 		"flowbite": "^2.3.0",
 		"flowbite-react": "^0.10.1",
 		"preact": "^10.20.0",

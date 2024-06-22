@@ -3,6 +3,7 @@ import { Card, TextInput } from 'flowbite-react';
 
 export function Home() {
 	const [repository, setRepository] = useState(null);
+	const [repositoryImage, setRepositoryImage] = useState(null);
 	const url = "https://api.github.com/search/repositories?q=topic:zig-package&page=1&per_page=100";
 
 	useEffect(() => {
@@ -34,18 +35,10 @@ export function Home() {
 					repository.map((item, index) => (
 						<Card
 							key={index}
-							className="max-w-sm my-2 hover:scale-110 transition-transform transform-cpu"
-							renderImage={() => (
-								<img
-									width={500}
-									height={500}
-									src={item.owner.avatar_url}
-									alt={item.name}
-								/>
-							)}
-						>
+							className="w-72 my-2 hover:scale-110 transition-transform transform-cpu"
+						><img className="w-10 rounded-full" src={item.owner.avatar_url}/>
 							<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-								{item.name}
+								{item.name[0].toUpperCase() + item.name.slice(1, item.name.length)}
 							</h5>
 							<p className="text-gray-400">{item.full_name}</p>
 							<p className="font-normal text-gray-700 dark:text-gray-400">
