@@ -1,30 +1,31 @@
 {
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"dev": "vite",
-		"build": "vite build",
-		"preview": "vite preview"
-	},
-	"dependencies": {
-		"axios": "^1.7.2",
-		"cheerio": "^1.0.0-rc.12",
-		"flowbite": "^2.3.0",
-		"flowbite-react": "^0.10.1",
-		"preact": "^10.20.0",
-		"preact-iso": "^2.6.3"
-	},
-	"devDependencies": {
-		"@preact/preset-vite": "^2.8.2",
-		"autoprefixer": "^10.4.19",
-		"eslint": "^8.57.0",
-		"eslint-config-preact": "^1.4.0",
-		"postcss": "^8.4.38",
-		"tailwindcss": "^3.4.4",
-		"typescript": "^5.5.2",
-		"vite": "^5.2.2"
-	},
-	"eslintConfig": {
-		"extends": "preact"
-	}
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cheerio": "^1.0.0-rc.12",
+    "flowbite": "^2.3.0",
+    "flowbite-react": "^0.10.1",
+    "preact": "^10.20.0",
+    "preact-iso": "^2.6.3",
+    "react-icons": "^5.2.1"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.8.2",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
+    "eslint-config-preact": "^1.4.0",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.5.2",
+    "vite": "^5.2.2"
+  },
+  "eslintConfig": {
+    "extends": "preact"
+  }
 }
