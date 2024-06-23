@@ -3,14 +3,15 @@
 import { Button } from 'flowbite-react';
 import { FaRegClipboard } from "react-icons/fa";
 import { marked } from 'marked';
+import Image from 'next/image';
 
-export default function Manage({ repository, readme, tags, contentIsCorrect }) {
+export default function Manage({ repository, readme, tags, contentIsCorrect }:any) {
   return (
     <>
       {contentIsCorrect && repository ? (
         <>
           <div className="w-full flex items-center justify-center mt-9">
-            <img className="w-20 rounded-full mr-2 border-2" src={repository.owner.avatar_url} alt={`${repository.owner.login}'s avatar`} />
+            <Image height={20} width={20} className="w-20 rounded-full mr-2 border-2" src={repository.owner.avatar_url} alt={`${repository.owner.login}'s avatar`} />
             <h1 className="text-center font-bold text-7xl">{repository.name[0].toUpperCase() + repository.name.slice(1)}</h1>
           </div>
           <div className="flex mx-5 items-center justify-center mt-8 font-mono">
@@ -30,7 +31,7 @@ export default function Manage({ repository, readme, tags, contentIsCorrect }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context:any) {
   const { params, req } = context;
   const url_on_user_side = params.user + "/" + params.project_name;
   const github_url = "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json";
@@ -44,7 +45,7 @@ export async function getServerSideProps(context) {
     const response = await fetch(github_url);
     if (!response.ok) throw new Error(`Error: ${response.statusText}`);
     const data = await response.json();
-    repository = data.items.find((item) => item.full_name === url_on_user_side) || null;
+    repository = data.items.find((item:any) => item.full_name === url_on_user_side) || null;
     if (repository) {
       contentIsCorrect = true;
       const tagsResponse = await fetch(repository.tags_url);
