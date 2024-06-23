@@ -1,5 +1,4 @@
 import { Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle } from "flowbite-react";
-import logo from "../assets/logo.svg";
 
 export function Header() {
   return (
@@ -12,7 +11,7 @@ export function Header() {
         <NavbarLink href="/" active>
           Home
         </NavbarLink>
-        <NavbarLink href="/">
+        <NavbarLink href="/about">
           About
         </NavbarLink>
         <NavbarLink href="#">Services</NavbarLink>
