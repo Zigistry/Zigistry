@@ -1,6 +1,6 @@
 import { Footer, FooterCopyright, FooterLink, FooterLinkGroup } from "flowbite-react";
 
-export function Foooter() {
+export default function Foooter() {
   return (
     <Footer container>
       <FooterCopyright href="/" by="Rohan Vashisht" year={2024} />

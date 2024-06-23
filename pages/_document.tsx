@@ -1,6 +1,6 @@
 import { Html, Head, Main, NextScript } from 'next/document'
-import { Header } from './components/Header'
-import { Foooter } from './components/Foooter'
+import Header from './components/Header'
+import Foooter from './components/Foooter'
 
 export default function Document() {
   return (

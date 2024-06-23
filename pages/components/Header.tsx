@@ -1,7 +1,7 @@
 import { Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle } from "flowbite-react";
 import Link from "next/link";
 
-export function Header() {
+export default function Header() {
   return (
     <Navbar className="border-b-orange-300" style={{ borderBottom: "2px solid #faca15" }} rounded>
       <NavbarBrand>
