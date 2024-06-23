@@ -8,7 +8,7 @@ import { FaCodeFork } from "react-icons/fa6";
 export function Home() {
 	const [repository, setRepository] = useState(null);
 	const url = "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json";
-	
+
 	useEffect(() => {
 		fetch(url)
 			.then(response => {
