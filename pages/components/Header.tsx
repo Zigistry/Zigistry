@@ -1,14 +1,15 @@
 import { Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle } from "flowbite-react";
+import Link from "next/link";
 
 export function Header() {
   return (
     <Navbar className="border-b-orange-300" style={{ borderBottom: "2px solid #faca15" }} rounded>
-      <NavbarBrand href="/">
-        <span className="self-center whitespace-nowrap dark:text-white font-extrabold text-2xl"><span class="text-yellow-300">Zig</span>istry</span>
+      <NavbarBrand>
+          <span className="self-center whitespace-nowrap dark:text-white font-extrabold text-2xl"><span className="text-yellow-300">Zig</span>istry</span>
       </NavbarBrand>
       <NavbarToggle />
       <NavbarCollapse>
-        <NavbarLink href="/" active>
+        <NavbarLink as={Link} href="/" active>
           Home
         </NavbarLink>
         <NavbarLink href="/about">

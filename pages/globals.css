@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html,
+		body {
+			min-height: 100vh;
+			background: rgb(31, 41, 55);
+			background: linear-gradient(180deg, rgba(31, 41, 55, 1) 0%, rgba(17, 24, 39, 1) 100%);
+            color:white;
+		}
+
+		:root {
+			min-height: 100vh;
+		}
