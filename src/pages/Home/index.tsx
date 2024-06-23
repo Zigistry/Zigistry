@@ -21,20 +21,25 @@ export function Home() {
 		})();
 	}, []);
 	const handleSearchChange = (event) => {
-		if (unchangeable) {
-			let i = 0;
-			let my_list = [];
-			for (; i < unchangeable.length; i++) {
-				if (unchangeable[i].full_name.toLowerCase().includes(event.target.value.toLowerCase())) {
-					my_list.push(unchangeable[i]);
-				}
-				if (unchangeable[i].description) {
-					if (unchangeable[i].description.toLowerCase().includes(event.target.value.toLowerCase())) {
+		if (event.target.value == "") {
+			set_show_mapped(unchangeable);
+		}
+		else {
+			if (unchangeable) {
+				let i = 0;
+				let my_list = [];
+				for (; i < unchangeable.length; i++) {
+					if (unchangeable[i].full_name.toLowerCase().includes(event.target.value.toLowerCase())) {
 						my_list.push(unchangeable[i]);
 					}
+					if (unchangeable[i].description) {
+						if (unchangeable[i].description.toLowerCase().includes(event.target.value.toLowerCase())) {
+							my_list.push(unchangeable[i]);
+						}
+					}
 				}
+				set_show_mapped(my_list);
 			}
-			set_show_mapped(my_list);
 		}
 	};
 	return (
