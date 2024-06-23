@@ -31,6 +31,7 @@ export function Home() {
 				for (; i < unchangeable.length; i++) {
 					if (unchangeable[i].full_name.toLowerCase().includes(event.target.value.toLowerCase())) {
 						my_list.push(unchangeable[i]);
+						continue;
 					}
 					if (unchangeable[i].description) {
 						if (unchangeable[i].description.toLowerCase().includes(event.target.value.toLowerCase())) {
