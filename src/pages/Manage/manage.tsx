@@ -6,7 +6,7 @@ export function Manage() {
   const url_on_user_side = url.slice(1, url.length);
   const [repository, setRepository] = useState(null);
   const [content_is_correct, set_content_correct] = useState(false);
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState(null);
   const github_url = "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json";
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export function Manage() {
             <h1 className="text-center font-bold text-7xl">{repository.name[0].toUpperCase() + repository.name.slice(1)}</h1>
           </div>
           <div className="flex items-center justify-center mt-8 font-mono">
-            <div dangerouslySetInnerHTML={{ __html: `<span style='color:gold'>zig</span> <span style='color:skyblue'>fetch</span> <span style='color:gray'>--save</span> <span style='color:lightgreen'>${tags?tags[0].tarball_url:"This project doesn't has any releases"}</span>` }} className="bg-slate-800 p-2 rounded">
+            <div dangerouslySetInnerHTML={{ __html: `<span style='color:gold'>zig</span> <span style='color:skyblue'>fetch</span> <span style='color:gray'>--save</span> <span style='color:lightgreen'>${tags?tags[0].tarball_url?"https://github.com/"+repository.full_name+"/archive/refs/tags/"+tags[0].name+".tar.gz":"This project doesn't has any releases":"This project doesn't has any releases"}</span>` }} className="bg-slate-800 p-2 rounded">
                 
             </div>
           </div>
