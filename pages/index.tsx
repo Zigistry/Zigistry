@@ -8,8 +8,8 @@ import { IoMdFastforward } from "react-icons/io";
 
 
 export default function Home({ most_used, top10LatestRepos }: any) {
-	const [most_used_repo, set_most_used_repo] = useState(top10LatestRepos);
-	const [recent_repo, set_recent_repo] = useState(most_used);
+	const [most_used_repo, set_most_used_repo] = useState(most_used);
+	const [recent_repo, set_recent_repo] = useState(top10LatestRepos);
 	const [unchangeable, setUnchangeable] = useState(most_used);
 
 	const handleSearchChange = (event: any) => {
