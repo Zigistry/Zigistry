@@ -1,9 +1,11 @@
-import "./globals.css";
+import { JSX } from "react"
+import Layout from "./components/layout"
+import './globals.css'
 
-import { AppProps } from "next/app";
-
-const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
-    return <Component {...pageProps} />;
+export default function MyApp(Props: { Component: JSX.ElementType, pageProps: JSX.IntrinsicAttributes }): JSX.Element {
+  return (
+    <Layout>
+      <Props.Component {...Props.pageProps} />
+    </Layout>
+  )
 }
-
-export default MyApp;

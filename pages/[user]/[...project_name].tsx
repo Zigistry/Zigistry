@@ -1,28 +1,25 @@
-// pages/[...slug].js
-
-import { Button } from 'flowbite-react';
-import { FaRegClipboard } from "react-icons/fa";
 import { marked } from 'marked';
 import Image from 'next/image';
+import Repo from '@/types/custom_types';
 
-export default function Manage({ repository, readme, tags, contentIsCorrect }:any) {
+export default function Manage(props: { compressed_repo: Repo }) {
   return (
     <>
-      {contentIsCorrect && repository ? (
+      {props.compressed_repo.contentIsCorrect ? (
         <>
           <div className="w-full flex items-center justify-center mt-9">
-            <Image height={20} width={20} className="w-20 rounded-full mr-2 border-2" src={repository.owner.avatar_url} alt={`${repository.owner.login}'s avatar`} />
-            <h1 className="text-center font-bold text-7xl">{repository.name[0].toUpperCase() + repository.name.slice(1)}</h1>
+            <Image height={20} width={20} className="w-20 rounded-full mr-2 border-2" src={props.compressed_repo.owner.avatar_url} alt='' />
+            <h1 className="text-center font-bold text-7xl">{props.compressed_repo.name[0].toUpperCase() + props.compressed_repo.name.slice(1)}</h1>
           </div>
           <div className="flex mx-5 items-center justify-center mt-8 font-mono">
             <div
               dangerouslySetInnerHTML={{
-                __html: `<span style='color:gold'>zig</span>&nbsp;<span style='color:skyblue'>fetch</span>&nbsp;<span style='color:gray'>--save</span>&nbsp;<span style='color:lightgreen'>${tags?.[0]?.tarball_url ? "https://github.com/" + repository.full_name + "/archive/refs/tags/" + tags[0].name + ".tar.gz" : "This project doesn't have any releases"}</span>&nbsp;<button class="btn btn-dark"><FaRegClipboard /></button>`,
+                __html: props.compressed_repo.specials ? props.compressed_repo.specials : ""
               }}
               className="bg-slate-800 p-2 rounded w-fit flex items-center justify-center"
             ></div>
           </div>
-          <div id="" className="bg-slate-900 sm:mx-40 mx-10 rounded-2xl p-20" dangerouslySetInnerHTML={{ __html: readme ? readme : "" }}></div>
+          <div id="" className="bg-slate-900 sm:mx-40 mx-10 rounded-2xl p-20" dangerouslySetInnerHTML={{ __html: props.compressed_repo.readme_content ? props.compressed_repo.readme_content : "" }}></div>
         </>
       ) : (
         <>404</>
@@ -30,46 +27,43 @@ export default function Manage({ repository, readme, tags, contentIsCorrect }:an
     </>
   );
 }
-
-export async function getServerSideProps(context:any) {
-  const { params, req } = context;
-  const url_on_user_side = params.user + "/" + params.project_name;
-  const github_url = "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json";
-
-  let repository = null;
-  let readme = null;
-  let tags = null;
-  let contentIsCorrect = false;
+export async function getServerSideProps(props: { params: { user: string; project_name: string; } }): Promise<{
+  props: {
+    compressed_repo: Repo;
+  };
+} | {
+  props: null;
+}> {
+  const { user, project_name } = props.params;
+  const github_url: string = "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json";
+  const repoPath: string = `${user}/${project_name}`;
 
   try {
-    const response = await fetch(github_url);
-    if (!response.ok) throw new Error(`Error: ${response.statusText}`);
-    const data = await response.json();
-    repository = data.items.find((item:any) => item.full_name === url_on_user_side) || null;
-    if (repository) {
-      contentIsCorrect = true;
-      const tagsResponse = await fetch(repository.tags_url);
-      if (!tagsResponse.ok) throw new Error(`Error: ${tagsResponse.statusText}`);
-      tags = await tagsResponse.json();
-
-      const readmeContent = await fetch(`https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch}/README.md`);
-      if (readmeContent.ok) {
-        const rdata = await readmeContent.text();
-        readme = marked(rdata);
-      } else {
-        readme = "No readme was provided.";
-      }
+    const data: any = await (await fetch(github_url)).json();
+    const repository: Repo = data.items.find((item: { full_name: string; }) => item.full_name === repoPath);
+    if (repository && repository.tags_url) {
+      const readme = await fetch(`https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch}/README.md`);
+      if (!readme) throw new Error("Error");
+      const compressed_repo: Repo = {
+        contentIsCorrect: true,
+        name: repository.name,
+        full_name: repository.full_name,
+        readme_content: await readme.text(),
+        created_at: repository.created_at,
+        description: repository.description,
+        open_issues: repository.open_issues,
+        stargazers_count: repository.stargazers_count,
+        forks_count: repository.forks_count,
+        tags_url: await (await fetch(repository.tags_url)).json(),
+        watchers_count: repository.watchers_count,
+        owner: {
+          avatar_url: repository.owner.avatar_url
+        }
+      };
+      return { props: { compressed_repo } };
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Fetch error:', error);
   }
-
-  return {
-    props: {
-      repository: repository || null,
-      readme: readme || null,
-      tags: tags || null,
-      contentIsCorrect: contentIsCorrect || false,
-    },
-  };
+  return { props: null };
 }

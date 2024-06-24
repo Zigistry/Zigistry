@@ -1,13 +1,13 @@
-import { useState } from 'react';
 import { Button, Card, TextInput } from 'flowbite-react';
 import { FaStar, FaEye } from "react-icons/fa";
 import { GoIssueOpened } from "react-icons/go";
 import { FaCodeFork } from "react-icons/fa6";
 import Image from 'next/image';
 import { IoMdFastforward } from "react-icons/io";
+import Link from 'next/link';
+import Repo from '@/types/custom_types';
 
-
-export default function Home({ most_used, top10LatestRepos }: any) {
+export default function Home(props: { most_used: Repo[], top10LatestRepos: Repo[] }): JSX.Element {
 	return (
 		<div>
 			<div className='flex flex-col items-center'>
@@ -15,9 +15,9 @@ export default function Home({ most_used, top10LatestRepos }: any) {
 				<TextInput placeholder="Search libraries" id="base" type="text" sizing="md" className="w-72 mb-5" />
 			</div>
 			<h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded"><IoMdFastforward size={25} />&nbsp;Recently released:</h1>
-			<div className="w-full flex flex-wrap justify-evenly">
-				{top10LatestRepos ? (
-					top10LatestRepos.map((item: any, index: any) => (
+			<section className="w-full flex flex-wrap justify-evenly">
+				{props.top10LatestRepos ? (
+					props.top10LatestRepos.map((item: Repo, index: number) => (
 						<Card key={index} className="w-72 my-2 hover:scale-110 transition-transform transform-cpu">
 							<Image width="50" height="50" className="w-10 rounded-full" src={item.owner.avatar_url} alt={item.name} />
 							<h5 className="text-2xl font-bold text-gray-900 dark:text-white">{item.name}</h5>
@@ -29,7 +29,7 @@ export default function Home({ most_used, top10LatestRepos }: any) {
 								&nbsp;&nbsp;&nbsp;&nbsp;<FaCodeFork color="lightpink" />&nbsp;{item.forks_count}
 								&nbsp;&nbsp;&nbsp;&nbsp;<GoIssueOpened color="lightgreen" />&nbsp;{item.open_issues}
 							</div>
-							<Button href={item.full_name} color="dark" pill>
+							<Button as={Link} href={item.full_name} color="dark" pill>
 								View package
 							</Button>
 						</Card>
@@ -37,11 +37,11 @@ export default function Home({ most_used, top10LatestRepos }: any) {
 				) : (
 					<p>Loading...</p>
 				)}
-			</div>
+			</section>
 			<h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded"><FaStar size={25} />&nbsp;Most used:</h1>
-			<div className="w-full flex flex-wrap justify-evenly">
-				{most_used ? (
-					most_used.map((item: any, index: any) => (
+			<section className="w-full flex flex-wrap justify-evenly">
+				{props.most_used ? (
+					props.most_used.map((item: Repo, index: number) => (
 						<Card key={index} className="w-72 my-2 hover:scale-110 transition-transform transform-cpu">
 							<Image width="50" height="50" className="w-10 rounded-full" src={item.owner.avatar_url} alt={item.name} />
 							<h5 className="text-2xl font-bold text-gray-900 dark:text-white">{item.name}</h5>
@@ -53,44 +53,48 @@ export default function Home({ most_used, top10LatestRepos }: any) {
 								&nbsp;&nbsp;&nbsp;&nbsp;<FaCodeFork color="lightpink" />&nbsp;{item.forks_count}
 								&nbsp;&nbsp;&nbsp;&nbsp;<GoIssueOpened color="lightgreen" />&nbsp;{item.open_issues}
 							</div>
-							<Button href={item.full_name} color="dark" pill>
-								View package
+							<Button as={Link} href={item.full_name} color="dark" pill>
+									View package
 							</Button>
 						</Card>
 					))
 				) : (
 					<p>Loading...</p>
 				)}
-			</div>
+			</section>
 		</div>
 	);
 }
 
 
-interface Repo {
-	created_at: string;
-	[key: string]: any;
-}
-
-
-export async function getServerSideProps() {
+export async function getServerSideProps(): Promise<{
+	props: {
+		most_used: Repo[];
+		top10LatestRepos: Repo[];
+	};
+}> {
 	try {
 		const response = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json");
 		if (!response.ok) throw new Error(`Error: ${response.statusText}`);
 		const ori = await response.json();
+		const items: Repo[] = ori.items;
+		const sortedRepos: Repo[] = items.slice().sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
-		// Create a deep copy of ori to ensure data is a separate object
-		const data = JSON.parse(JSON.stringify(ori));
+		const most_used: Repo[] = items.slice(0, 20).map(({ name, full_name, created_at, description, owner, stargazers_count, watchers_count, forks_count, open_issues }) => ({
+			name, full_name, created_at, description, owner: { avatar_url: owner.avatar_url }, stargazers_count, watchers_count, forks_count, open_issues
+		}));
 
-		const sortedRepos = data.items.sort((a: Repo, b: Repo) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+		const top10LatestRepos: Repo[] = sortedRepos.slice(0, 10).map(({ name, full_name, created_at, description, owner, stargazers_count, watchers_count, forks_count, open_issues }) => ({
+			name, full_name, created_at, description, owner: { avatar_url: owner.avatar_url }, stargazers_count, watchers_count, forks_count, open_issues
+		}));
 
 		return {
 			props: {
-				most_used: ori.items.slice(0, 20),
-				top10LatestRepos: sortedRepos.slice(0, 10),
+				most_used,
+				top10LatestRepos,
 			},
 		};
-	} catch (error) {
+	} catch (error: unknown) {
 		console.error('Fetch error:', error);
 		return {
 			props: {
