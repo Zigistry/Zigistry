@@ -65,36 +65,38 @@ export default function Home({ most_used, top10LatestRepos }: any) {
 		</div>
 	);
 }
-interface Repo {
-	created_at: string; 
-	[key: string]: any; 
-  }
-  
-  
-  export async function getServerSideProps() {
-	try {
-	  const response = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json");
-	  if (!response.ok) throw new Error(`Error: ${response.statusText}`);
-	  const ori = await response.json();
 
-	  // Create a deep copy of ori to ensure data is a separate object
-	  const data = JSON.parse(JSON.stringify(ori));
-  
-	  const sortedRepos = data.items.sort((a: Repo, b: Repo) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-  
-	  return {
-		props: {
-		  most_used: ori.items.slice(0, 20),
-		  top10LatestRepos: sortedRepos.slice(0, 10),
-		},
-	  };
+
+interface Repo {
+	created_at: string;
+	[key: string]: any;
+}
+
+
+export async function getServerSideProps() {
+	try {
+		const response = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json");
+		if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+		const ori = await response.json();
+
+		// Create a deep copy of ori to ensure data is a separate object
+		const data = JSON.parse(JSON.stringify(ori));
+
+		const sortedRepos = data.items.sort((a: Repo, b: Repo) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+
+		return {
+			props: {
+				most_used: ori.items.slice(0, 20),
+				top10LatestRepos: sortedRepos.slice(0, 10),
+			},
+		};
 	} catch (error) {
-	  console.error('Fetch error:', error);
-	  return {
-		props: {
-		  most_used: [],
-		  top10LatestRepos: [],
-		},
-	  };
+		console.error('Fetch error:', error);
+		return {
+			props: {
+				most_used: [],
+				top10LatestRepos: [],
+			},
+		};
 	}
 }
