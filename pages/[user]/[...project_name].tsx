@@ -14,7 +14,7 @@ export default function Manage(props: { compressed_repo: Repo }) {
           <div className="flex mx-5 items-center justify-center mt-8 font-mono">
             <div
               dangerouslySetInnerHTML={{
-                __html: props.compressed_repo.specials ? props.compressed_repo.specials : ""
+                __html: props.compressed_repo.specials ? props.compressed_repo.specials : "specials"
               }}
               className="bg-slate-800 p-2 rounded w-fit flex items-center justify-center"
             ></div>
@@ -37,33 +37,50 @@ export async function getServerSideProps(props: { params: { user: string; projec
   const { user, project_name } = props.params;
   const github_url: string = "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json";
   const repoPath: string = `${user}/${project_name}`;
-
-  try {
-    const data: any = await (await fetch(github_url)).json();
-    const repository: Repo = data.items.find((item: { full_name: string; }) => item.full_name === repoPath);
-    if (repository && repository.tags_url) {
-      const readme = await fetch(`https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch}/README.md`);
-      if (!readme) throw new Error("Error");
-      const compressed_repo: Repo = {
-        contentIsCorrect: true,
-        name: repository.name,
-        full_name: repository.full_name,
-        readme_content: await readme.text(),
-        created_at: repository.created_at,
-        description: repository.description,
-        open_issues: repository.open_issues,
-        stargazers_count: repository.stargazers_count,
-        forks_count: repository.forks_count,
-        tags_url: await (await fetch(repository.tags_url)).json(),
-        watchers_count: repository.watchers_count,
-        owner: {
-          avatar_url: repository.owner.avatar_url
-        }
-      };
-      return { props: { compressed_repo } };
+  const data: any = await (await fetch(github_url)).json();
+  const repository: Repo = data.items.find((item: { full_name: string; }) => item.full_name === repoPath);
+  if (repository && repository.tags_url) {
+    const readme = await fetch(`https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch}/README.md`);
+    const tag_details = await (await fetch(repository.tags_url)).json();
+    let specials = ""
+    if (tag_details[0]){
+      specials = `<span style='color:gold'>zig</span>&nbsp;<span style='color:skyblue'>fetch</span>&nbsp;<span style='color:gray'>--save</span>&nbsp;<span style='color:lightgreen'>${"https://github.com/" + repository.full_name + "/archive/refs/tags/" + tag_details[0].name + ".tar.gz"}</span>`;
+    } else {
+      specials = `<span style='color:gold'>zig</span>&nbsp;<span style='color:skyblue'>fetch</span>&nbsp;<span style='color:gray'>--save</span>&nbsp;<span style='color:lightgreen'>${"git+https://github.com/" + repository.full_name}</span>`;
     }
-  } catch (error: unknown) {
-    console.error('Fetch error:', error);
+    const compressed_repo: Repo = {
+      contentIsCorrect: true,
+      name: repository.name,
+      full_name: repository.full_name,
+      readme_content: await marked(await readme.text()),
+      created_at: repository.created_at,
+      description: repository.description,
+      open_issues: repository.open_issues,
+      specials,
+      stargazers_count: repository.stargazers_count,
+      forks_count: repository.forks_count,
+      tags_url: await (await fetch(repository.tags_url)).json(),
+      watchers_count: repository.watchers_count,
+      owner: {
+        avatar_url: repository.owner.avatar_url
+      }
+    };
+    return { props: { compressed_repo } };
+  } else {
+    const compressed_repo: Repo = {
+      contentIsCorrect: false,
+      name: '',
+      full_name: '',
+      created_at: '',
+      description: '',
+      open_issues: '',
+      stargazers_count: '',
+      forks_count: '',
+      watchers_count: '',
+      owner: {
+        avatar_url: ''
+      }
+    };
+    return { props: { compressed_repo } };
   }
-  return { props: null };
 }
