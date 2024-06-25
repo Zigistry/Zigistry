@@ -16,7 +16,7 @@ export default async function handler(
       .map(({ name, full_name, created_at, description, owner, stargazers_count, watchers_count, forks_count, open_issues }) => ({
         name, full_name, created_at, description, owner: { avatar_url: owner.avatar_url }, stargazers_count, watchers_count, forks_count, open_issues
       }))
-      .filter(item => item.name.includes(q));
+      .filter(item => item.name.includes(q.toString()));
     return res.status(200).json(my_list);
   }
   return res.status(200).json([]);
