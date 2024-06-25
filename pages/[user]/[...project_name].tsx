@@ -19,6 +19,7 @@ export default function Manage(props: { compressed_repo: Repo }) {
               className="bg-slate-800 p-2 rounded w-fit flex items-center justify-center"
             ></div>
           </div>
+          <iframe src="https://render.githubusercontent.com/view/rohanvashisht1234/zigistry/main.README.md"></iframe>
           <div id="" className="bg-slate-900 sm:mx-40 mx-10 rounded-2xl p-20" dangerouslySetInnerHTML={{ __html: props.compressed_repo.readme_content ? props.compressed_repo.readme_content : "" }}></div>
         </>
       ) : (
