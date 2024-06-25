@@ -14,7 +14,7 @@ export default function Manage(props: { compressed_repo: Repo }) {
           <div className="flex mx-5 items-center justify-center mt-8 font-mono">
             <div
               dangerouslySetInnerHTML={{
-                __html: props.compressed_repo.specials ? props.compressed_repo.specials : "specials"
+                __html: props.compressed_repo.specials ? props.compressed_repo.specials : "Loading..."
               }}
               className="bg-slate-800 p-2 rounded w-fit flex items-center justify-center"
             ></div>
