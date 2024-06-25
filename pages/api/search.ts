@@ -1,4 +1,4 @@
-import { Repo } from '@/types/custom_types';
+import Repo from '@/types/custom_types';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
