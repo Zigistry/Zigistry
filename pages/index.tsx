@@ -21,6 +21,4 @@ export default function Home({ most_used, top10LatestRepos }: { most_used: Repo[
   );
 }
 
-export async function getServerSideProps() {
-  return recommendation_backend();
-}
+export { recommendation_backend as getServerSideProps };
