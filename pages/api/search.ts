@@ -5,8 +5,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Repo[]>
 ) {
-  const { q } = req.query;
-  
+  const q: string | string[] | undefined = req.query.q;
+
   if (q) {
     const response = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json");
     if (!response.ok) throw new Error(`Error: ${response.statusText}`);

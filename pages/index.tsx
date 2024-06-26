@@ -4,7 +4,6 @@ import { GoIssueOpened } from "react-icons/go";
 import { useState } from "react";
 import { FaCodeFork } from "react-icons/fa6";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { IoMdFastforward } from "react-icons/io";
 import Link from "next/link";
 import Repo from "@/types/custom_types";
@@ -26,7 +25,6 @@ export default function Home(props: {
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       fetchData(); // We have now got the result
-      const x = data;
       set_show_default(false);
     }
   };
@@ -282,6 +280,7 @@ export async function getServerSideProps(): Promise<{
     console.error("Fetch error:", error);
     return {
       props: {
+        most_used: [],
         top10LatestRepos: [],
       },
     };
