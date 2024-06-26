@@ -1,9 +1,9 @@
 import { TextInput } from "flowbite-react";
 import { useState } from "react";
 import Repo from "@/types/custom_types";
-import Recommendations from "../components/show_recommendations";
+import Recommendations from "@/components/show_recommendations";
 import recommendation_backend from "./api/recommendations_generator";
-import CustomCard from "../components/CustomCard";
+import CustomCard from "@/components/CustomCard";
 
 export default function Home({ most_used, top10LatestRepos }: { most_used: Repo[], top10LatestRepos: Repo[] }) {
   const [data, setData] = useState(top10LatestRepos);

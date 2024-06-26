@@ -1,6 +1,6 @@
 import { TextInput } from "flowbite-react";
 import { useRouter } from 'next/router';
-import Recommendations from "../components/show_recommendations";
+import Recommendations from "@/components/show_recommendations";
 import Repo from "@/types/custom_types";
 import recommendation_backend from "./api/recommendations_generator";
 
