@@ -22,13 +22,11 @@ async function main() {
         open_issues: repo.open_issues
     });
 
-    function fetchAndTransform(url: string) {
-        return fetch(url)
-            .then(response => {
-                if (!response.ok) throw new Error(`Failed to fetch: ${response.statusText}`);
-                return response.json();
-            })
-            .then(data => data.items.map(transformRepo));
+    async function fetchAndTransform(url: string) {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Failed to fetch: ${response.statusText}`);
+        const data = await response.json();
+        return data.items.map(transformRepo);
     }
 
     try {
