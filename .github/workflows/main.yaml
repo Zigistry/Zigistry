@@ -1,0 +1,26 @@
+name: Check dist/
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  Update_json:
+    runs-on: ubuntu-latest
+
+    steps:
+        - uses: silverlyra/script-action@v0.2
+          with:
+            script: >
+                import fs from "fs"
+                console.log("Hello, world!");
+            input: 'null'
+            input-encoding: 'json'
+            result-encoding: 'json'
+        
+            # Directory to change into
+            cwd: '.'
+      
+            github-token: ${{ github.token }}   
