@@ -14,6 +14,7 @@ async function main() {
         full_name: repo.full_name,
         created_at: repo.created_at,
         description: repo.description,
+        tags_url: repo.tags_url,
         owner: { avatar_url: repo.owner.avatar_url },
         stargazers_count: repo.stargazers_count,
         watchers_count: repo.watchers_count,

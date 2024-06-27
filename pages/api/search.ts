@@ -12,8 +12,8 @@ export default async function handler(
     if (!response.ok) throw new Error(`Error: ${response.statusText}`);
     const items: Repo[] = await response.json();
     const my_list: Repo[] = items
-      .map(({ name, full_name, created_at, description, owner, stargazers_count, watchers_count, forks_count, open_issues }) => ({
-        name, full_name, created_at, description, owner: { avatar_url: owner.avatar_url }, stargazers_count, watchers_count, forks_count, open_issues
+      .map(({ name, full_name, created_at, description, owner, stargazers_count, watchers_count, forks_count, open_issues, tags_url }) => ({
+        name, full_name, created_at, description, owner: { avatar_url: owner.avatar_url }, stargazers_count, watchers_count, forks_count, open_issues, tags_url
       }))
       .filter(item => item.name.includes(q.toString()));
     return res.status(200).json(my_list);

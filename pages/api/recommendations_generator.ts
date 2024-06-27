@@ -4,7 +4,7 @@ export default async function recommendation_backend() {
   const response = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json");
   if (!response.ok) throw new Error(`Error: ${response.statusText}`);
 
-  const items: Repo[] = await response.json();
+  const items: Repo[] = JSON.parse(JSON.stringify(await response.json()));
   const sortedRepos = items.slice().sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
   const transformRepo = ({ name, full_name, created_at, description, owner, stargazers_count, watchers_count, forks_count, open_issues }: Repo) => ({

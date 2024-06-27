@@ -9,7 +9,7 @@ export default interface Repo {
     forks_count: string;
     watchers_count: string;
     contentIsCorrect?: boolean;
-    tags_url?: string;
+    tags_url: string;
     owner: { avatar_url: string };
     readme_content?: string;
     specials?: string;
