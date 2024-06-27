@@ -39,7 +39,7 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
   const repository = data.find(repo => repo.full_name === repoPath);
   if (repository) {
     const readmeResponse = await fetch(`https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch}/README.md`);
-    const readmeContent = readmeResponse.ok ? await readmeResponse.text() : '';
+    const readmeContent = readmeResponse.ok ? await readmeResponse.text() : '404';
     const tagsResponse = await fetch(repository.tags_url);
     const tagDetails = tagsResponse.ok ? await tagsResponse.json() : [];
 
