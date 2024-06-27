@@ -22,6 +22,7 @@ export default function Layout(props: { children: JSX.Element }): JSX.Element {
                 <link rel="canonical" href="https://zigistry.dev/" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <meta name="author" content="Rohan Vashisht" />
+                <script async defer src="https://buttons.github.io/buttons.js"></script>
             </Head>
             <main>{props.children}</main>
             <Foooter />
