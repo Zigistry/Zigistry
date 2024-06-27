@@ -10,8 +10,7 @@ export default async function handler(
   if (q) {
     const response = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json");
     if (!response.ok) throw new Error(`Error: ${response.statusText}`);
-    const ori = await response.json();
-    const items: Repo[] = ori.items;
+    const items: Repo[] = await response.json();
     const my_list: Repo[] = items
       .map(({ name, full_name, created_at, description, owner, stargazers_count, watchers_count, forks_count, open_issues }) => ({
         name, full_name, created_at, description, owner: { avatar_url: owner.avatar_url }, stargazers_count, watchers_count, forks_count, open_issues
