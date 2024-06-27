@@ -135,7 +135,6 @@ export async function getServerSideProps(): Promise<{
         );
   
       const most_used: Repo[] = items
-        .slice()
         .slice(0, 20)
         .map(
           ({
@@ -145,6 +144,7 @@ export async function getServerSideProps(): Promise<{
             description,
             owner,
             stargazers_count,
+            tags_url,
             watchers_count,
             forks_count,
             open_issues,
@@ -152,6 +152,7 @@ export async function getServerSideProps(): Promise<{
             name,
             full_name,
             created_at,
+            tags_url,
             description,
             owner: { avatar_url: owner.avatar_url },
             stargazers_count,
@@ -169,6 +170,7 @@ export async function getServerSideProps(): Promise<{
             full_name,
             created_at,
             description,
+            tags_url,
             owner,
             stargazers_count,
             watchers_count,
@@ -178,6 +180,7 @@ export async function getServerSideProps(): Promise<{
             name,
             full_name,
             created_at,
+            tags_url,
             description,
             owner: { avatar_url: owner.avatar_url },
             stargazers_count,
