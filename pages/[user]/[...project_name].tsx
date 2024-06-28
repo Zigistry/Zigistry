@@ -8,7 +8,7 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
       {compressed_repo.contentIsCorrect ? (
         <>
           <div className="w-full flex items-center justify-center mt-9">
-            <Image height={20} width={20} className="w-20 rounded-full mr-2 border-2" src={compressed_repo.owner.avatar_url} alt="" />
+            <Image height={20} width={20} className="w-20 rounded-full mr-2 border-2" src={compressed_repo.avatar_url} alt="" />
             <h1 className="text-center font-bold text-7xl">{compressed_repo.name[0].toUpperCase() + compressed_repo.name.slice(1)}</h1>
           </div>
           <div className="flex mx-5 items-center justify-center mt-8 font-mono">
