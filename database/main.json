@@ -1,5 +1,4 @@
-[Processing file: a.json
-
+[
 {
   "name": "capy",
   "full_name" : "capy-ui/capy",
@@ -419,8 +418,7 @@
     "avatar_url": "https://avatars.githubusercontent.com/u/5728002?v=4"
   },
   "created_at": "2021-06-19T23:19:14Z"
-},Processing file: b.json
-
+},
 {
   "name": "capy",
   "full_name" : "capy-ui/capy",
@@ -840,8 +838,7 @@
     "avatar_url": "https://avatars.githubusercontent.com/u/5728002?v=4"
   },
   "created_at": "2021-06-19T23:19:14Z"
-},Processing file: c.json
-
+},
 {
   "name": "capy",
   "full_name" : "capy-ui/capy",
