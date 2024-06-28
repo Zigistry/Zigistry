@@ -2,8 +2,8 @@ const std = @import("std");
 const print = std.debug.print;
 
 fn print_repos(my_items: []std.json.Value) !void {
-    for (my_items) |item| {
-        print(",\n{{\n", .{});
+    for (my_items, 0..) |item, i| {
+        print("\n{{\n", .{});
         print("  \"name\": \"{s}\",\n", .{item.object.get("name").?.string});
         print("  \"full_name\" : \"{s}\",\n", .{item.object.get("full_name").?.string});
         if (item.object.get("description").? == .string) {
@@ -18,7 +18,11 @@ fn print_repos(my_items: []std.json.Value) !void {
         print("  \"tags_url\",\"{s}\",\n", .{item.object.get("tags_url").?.string});
         print("  \"owner\":{{\n    \"avatar_url\": \"{s}\" \n  }}\n", .{item.object.get("owner").?.object.get("avatar_url").?.string});
         print("  \"created_at\": \"{s}\"\n", .{item.object.get("created_at").?.string});
-        print("}}\n", .{});
+        if (i == my_items.len - 1) {
+            print("}}\n", .{});
+        } else {
+            print("}},\n", .{});
+        }
     }
 }
 
@@ -41,5 +45,4 @@ pub fn main() !void {
         try print_repos(my_items);
     }
     print("]", .{});
-
 }
