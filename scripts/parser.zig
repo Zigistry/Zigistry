@@ -26,8 +26,8 @@ fn print_json(x: []const u8, y: []const u8, end_with_comma: bool) void {
 
 fn print_json_int(x: []const u8, y: i64, end_with_comma: bool) void {
     if (end_with_comma) {
-        print("\"{s}\" : \"{}\",\n", .{ x, y });
-    } else print("\"{s}\" : \"{}\"\n", .{ x, y });
+        print("\"{s}\":\"{}\",\n", .{ x, y });
+    } else print("\"{s}\":\"{}\"\n", .{ x, y });
 }
 
 fn print_repos(my_items: []std.json.Value, is_last_file: bool) !void {
