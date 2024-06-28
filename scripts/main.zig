@@ -1,68 +1,64 @@
 const std = @import("std");
 const writer = std.io.getStdOut().writer();
+const file_functions = std.fs.cwd();
+const file_names = [3][]const u8{ "a.json", "b.json", "c.json" };
+const global_allocator = std.heap.page_allocator;
+
+fn print(comptime format: []const u8, args: anytype) void {
+    writer.print(format, args) catch return;
+}
 
 fn replace(allocator: std.mem.Allocator, str: []const u8, char_to_replace: u8, replace_with: u8) ![]const u8 {
     var my_custom = std.ArrayList(u8).init(allocator);
     errdefer my_custom.deinit();
-    for (str) |char| {
+    for (str) |char|
         if (char == char_to_replace) {
             try my_custom.append(replace_with);
-        } else {
-            try my_custom.append(char);
-        }
-    }
+        } else try my_custom.append(char);
     return my_custom.toOwnedSlice();
+}
+
+fn print_json(x: []const u8, y: []const u8, end_with_comma: bool) void {
+    if (end_with_comma) {
+        print("\"{s}\" : \"{s}\",\n", .{ x, y });
+    } else print("\"{s}\" : \"{s}\"\n", .{ x, y });
 }
 
 fn print_repos(my_items: []std.json.Value, is_last_file: bool) !void {
     for (my_items, 0..) |item, i| {
-        try writer.print("\n{{\n", .{});
-        try writer.print("  \"name\": \"{s}\",\n", .{item.object.get("name").?.string});
-        try writer.print("  \"full_name\" : \"{s}\",\n", .{item.object.get("full_name").?.string});
+        print("\n{{\n", .{});
+        print_json("name", item.object.get("name").?.string, true);
+        print_json("full_name", item.object.get("full_name").?.string, true);
         if (item.object.get("description").? == .string) {
-            const my_alloc = std.heap.page_allocator;
-            const my_var = try replace(my_alloc, item.object.get("description").?.string, '"', '\'');
-            defer my_alloc.free(my_var);
-            try writer.print("  \"description\":\"{s}\",\n", .{my_var});
-        } else {
-            try writer.print("  \"description\":\"{s}\",\n", .{"This repo has no desciption."});
-        }
-        try writer.print("  \"watchers_count\" :{},\n", .{item.object.get("watchers_count").?.integer});
-        try writer.print("  \"forks_count\":{},\n", .{item.object.get("forks_count").?.integer});
-        try writer.print("  \"open_issues\":{},\n", .{item.object.get("open_issues").?.integer});
-        try writer.print("  \"stargazers_count\":{},\n", .{item.object.get("stargazers_count").?.integer});
-        try writer.print("  \"tags_url\":\"{s}\",\n", .{item.object.get("tags_url").?.string});
-        try writer.print("  \"owner\":{{\n    \"avatar_url\": \"{s}\"\n  }},\n", .{item.object.get("owner").?.object.get("avatar_url").?.string});
-        try writer.print("  \"created_at\": \"{s}\"\n", .{item.object.get("created_at").?.string});
+            const my_var = try replace(global_allocator, item.object.get("description").?.string, '"', '\'');
+            defer global_allocator.free(my_var);
+            print_json("description", my_var, true);
+        } else print_json("description", "This repository has no description.", true);
+        print_json("watchers_count", item.object.get("watchers_count").?.string, true);
+        print_json("forks_count", item.object.get("forks_count").?.string, true);
+        print_json("open_issues", item.object.get("open_issues").?.string, true);
+        print_json("stargazers_count", item.object.get("stargazers_count").?.string, true);
+        print_json("tags_url", item.object.get("tags_url").?.string, true);
+        print_json("created_at", item.object.get("created_at").?.string, true);
+        print_json("avatar_url", item.object.get("owner").?.object.get("avatar_url").?.string, false);
         if (is_last_file and i == my_items.len - 1) {
-            try writer.print("}}", .{});
-        } else {
-            try writer.print("}},", .{});
-        }
+            print("}}\n", .{});
+        } else print("}},", .{});
     }
 }
 
 pub fn main() !void {
-    const file_names = [3][]const u8{ "a.json", "b.json", "c.json" };
-    try writer.print("[", .{});
+    print("[", .{});
     for (file_names, 0..) |file_name, i| {
-        const file = try std.fs.cwd().openFile(file_name, .{});
-        const buf_alloc = std.heap.page_allocator;
-        const buf = try file.readToEndAlloc(buf_alloc, try file.getEndPos());
-        defer buf_alloc.free(buf);
-        const parsed = try std.json.parseFromSlice(
-            std.json.Value,
-            std.heap.page_allocator,
-            buf,
-            .{},
-        );
+        const file = try file_functions.openFile(file_name, .{});
+        const buf = try file.readToEndAlloc(global_allocator, try file.getEndPos());
+        defer global_allocator.free(buf);
+        const parsed = try std.json.parseFromSlice(std.json.Value, global_allocator, buf, .{});
         defer parsed.deinit();
         const my_items = parsed.value.object.get("items").?.array.items;
         if (i == file_names.len - 1) {
             try print_repos(my_items, true);
-        } else {
-            try print_repos(my_items, false);
-        }
+        } else try print_repos(my_items, false);
     }
-    try writer.print("]", .{});
+    print("]", .{});
 }
