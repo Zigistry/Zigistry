@@ -1,9 +1,8 @@
 const std = @import("std");
 const writer = std.io.getStdOut().writer();
 
-
-fn print_repos(my_items: []std.json.Value) !void {
-    for (my_items) |item| {
+fn print_repos(my_items: []std.json.Value, is_last_file:bool) !void {
+    for (my_items, 0..) |item,i| {
         try writer.print("\n{{\n", .{});
         try writer.print("  \"name\": \"{s}\",\n", .{item.object.get("name").?.string});
         try writer.print("  \"full_name\" : \"{s}\",\n", .{item.object.get("full_name").?.string});
@@ -19,6 +18,13 @@ fn print_repos(my_items: []std.json.Value) !void {
         try writer.print("  \"tags_url\":\"{s}\",\n", .{item.object.get("tags_url").?.string});
         try writer.print("  \"owner\":{{\n    \"avatar_url\": \"{s}\"\n  }},\n", .{item.object.get("owner").?.object.get("avatar_url").?.string});
         try writer.print("  \"created_at\": \"{s}\"\n", .{item.object.get("created_at").?.string});
+        if (is_last_file) {
+            if (i == my_items.len - 1) {
+                try writer.print("}}", .{});
+            } else {
+                try writer.print("}},", .{});
+            }
+        }
     }
 }
 
@@ -38,11 +44,10 @@ pub fn main() !void {
         );
         defer parsed.deinit();
         const my_items = parsed.value.object.get("items").?.array.items;
-        try print_repos(my_items);
-        if (i == my_items.len - 1) {
-            try writer.print("}}\n", .{});
+        if (i == file_names.len - 1) {
+            try print_repos(my_items, true);
         } else {
-            try writer.print("}},\n", .{});
+            try print_repos(my_items, false);
         }
     }
     try writer.print("]", .{});
