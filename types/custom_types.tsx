@@ -1,4 +1,5 @@
 export default interface Repo {
+    avatar_url: string;
     name: string;
     full_name: string;
     created_at: string;
@@ -10,7 +11,6 @@ export default interface Repo {
     watchers_count: string;
     contentIsCorrect?: boolean;
     tags_url: string;
-    owner: { avatar_url: string };
     readme_content?: string;
     specials?: string;
 }

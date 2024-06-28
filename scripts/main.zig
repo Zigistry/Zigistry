@@ -34,10 +34,10 @@ fn print_repos(my_items: []std.json.Value, is_last_file: bool) !void {
             defer global_allocator.free(my_var);
             print_json("description", my_var, true);
         } else print_json("description", "This repository has no description.", true);
-        print_json("watchers_count", item.object.get("watchers_count").?.string, true);
-        print_json("forks_count", item.object.get("forks_count").?.string, true);
-        print_json("open_issues", item.object.get("open_issues").?.string, true);
-        print_json("stargazers_count", item.object.get("stargazers_count").?.string, true);
+        print_json("watchers_count", item.object.get("watchers_count").?.integer, true);
+        print_json("forks_count", item.object.get("forks_count").?.integer, true);
+        print_json("open_issues", item.object.get("open_issues").?.integer, true);
+        print_json("stargazers_count", item.object.get("stargazers_count").?.integer, true);
         print_json("tags_url", item.object.get("tags_url").?.string, true);
         print_json("created_at", item.object.get("created_at").?.string, true);
         print_json("avatar_url", item.object.get("owner").?.object.get("avatar_url").?.string, false);

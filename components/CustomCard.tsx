@@ -9,7 +9,7 @@ import Link from "next/link";
 export default function CustomCard(props: { item: Repo }) {
   return (
     <Card className="w-72 my-2 hover:scale-110 transition-transform transform-cpu">
-      <Image width="50" height="50" className="w-10 rounded-full" src={props.item.owner.avatar_url} alt={props.item.name} />
+      <Image width="50" height="50" className="w-10 rounded-full" src={props.item.avatar_url} alt={props.item.name} />
       <h5 className="text-2xl font-bold text-gray-900 dark:text-white">
         {props.item.name}
       </h5>
