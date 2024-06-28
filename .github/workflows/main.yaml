@@ -36,6 +36,6 @@ jobs:
       - name: Git add
         run: git add .
       - name: Commit images
-        run: git commit -m '[CI] Updated images'
+        run: git commit -m '[CI] Updated database'
       - name: Push changes
         run: git push
