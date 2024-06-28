@@ -27,7 +27,7 @@ fn print_repos(my_items: []std.json.Value) !void {
 }
 
 pub fn main() !void {
-    const file_names = [4][]const u8{ "a.json", "b.json", "c.json" };
+    const file_names = [3][]const u8{ "a.json", "b.json", "c.json" };
     print("[", .{});
     for (file_names) |file_name| {
         const file = try std.fs.cwd().openFile(file_name, .{});
