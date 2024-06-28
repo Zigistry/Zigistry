@@ -1,5 +1,3 @@
-export const runtime = 'edge';
-
 import Repo from "@/types/custom_types";
 
 export default async function recommendation_backend() {
