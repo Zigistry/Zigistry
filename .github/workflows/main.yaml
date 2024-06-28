@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-
-
 jobs:
   Update_json:
     runs-on: macos-latest
@@ -14,14 +12,19 @@ jobs:
       - uses: actions/checkout@v4 
       - name: Install brew
         run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      - name: Runner
-        run: | 
-          brew install zig
+      - name: install zig
+        run: brew install zig
+      - name: download jsons
+        run: |
           curl -o ./a.json https://api.github.com/search/repositories?q=topic:zig-package&page=1&per_page=100
           curl -o ./b.json https://api.github.com/search/repositories?q=topic:zig-package&page=2&per_page=100
           curl -o ./c.json https://api.github.com/search/repositories?q=topic:zig-package&page=3&per_page=100
-          zig cc ./scripts/main.zig
-          ./a.out > ./database/main.json
+      - name: Compile zig
+        run: zig cc ./scripts/main.zig
+      - name: Run zig
+        run: ./a.out > ./database/main.json
+      - name: Remove
+        run: |
           rm -rf ./a.json
           rm -rf ./b.json
           rm -rf ./c.json
