@@ -1,4 +1,4 @@
-name: Check dist/
+name: Check
 
 on:
   push:
@@ -8,19 +8,19 @@ on:
 
 jobs:
   Update_json:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
-        - uses: silverlyra/script-action@v0.2
-          with:
-            script: >
-                import fs from "fs"
-                console.log("Hello, world!");
-            input: 'null'
-            input-encoding: 'json'
-            result-encoding: 'json'
-        
-            # Directory to change into
-            cwd: '.'
-      
-            github-token: ${{ github.token }}   
+      - uses: actions/checkout@v4 
+      - name: Install brew
+        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      - name: Runner
+        run: ./scripts/runner.sh
+      - name: Config email
+        run: git config --global user.name "Github Actions" && git config --global user.email "<>"
+      - name: Git add
+        run: git add .
+      - name: Commit images
+        run: git commit -m '[CI] Updated images'
+      - name: Push changes
+        run: git push
