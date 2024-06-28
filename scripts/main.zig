@@ -3,7 +3,7 @@ const writer = std.io.getStdOut().writer();
 
 
 fn print_repos(my_items: []std.json.Value) !void {
-    for (my_items, 0..) |item, i| {
+    for (my_items) |item| {
         try writer.print("\n{{\n", .{});
         try writer.print("  \"name\": \"{s}\",\n", .{item.object.get("name").?.string});
         try writer.print("  \"full_name\" : \"{s}\",\n", .{item.object.get("full_name").?.string});
@@ -19,18 +19,13 @@ fn print_repos(my_items: []std.json.Value) !void {
         try writer.print("  \"tags_url\":\"{s}\",\n", .{item.object.get("tags_url").?.string});
         try writer.print("  \"owner\":{{\n    \"avatar_url\": \"{s}\"\n  }},\n", .{item.object.get("owner").?.object.get("avatar_url").?.string});
         try writer.print("  \"created_at\": \"{s}\"\n", .{item.object.get("created_at").?.string});
-        if (i == my_items.len - 1) {
-            try writer.print("}}\n", .{});
-        } else {
-            try writer.print("}},\n", .{});
-        }
     }
 }
 
 pub fn main() !void {
     const file_names = [3][]const u8{ "a.json", "b.json", "c.json" };
     try writer.print("[", .{});
-    for (file_names) |file_name| {
+    for (file_names, 0..) |file_name, i| {
         const file = try std.fs.cwd().openFile(file_name, .{});
         const buf_alloc = std.heap.page_allocator;
         const buf = try file.readToEndAlloc(buf_alloc, try file.getEndPos());
@@ -44,6 +39,11 @@ pub fn main() !void {
         defer parsed.deinit();
         const my_items = parsed.value.object.get("items").?.array.items;
         try print_repos(my_items);
+        if (i == my_items.len - 1) {
+            try writer.print("}}\n", .{});
+        } else {
+            try writer.print("}},\n", .{});
+        }
     }
     try writer.print("]", .{});
 }
