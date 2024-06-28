@@ -25,7 +25,6 @@ fn print_repos(my_items: []std.json.Value, is_last_file: bool) !void {
             const my_var = try replace(my_alloc,item.object.get("description").?.string, '"', '\'');
             defer my_alloc.free(my_var);
             try writer.print("  \"description\":\"{s}\",\n", .{my_var});
-            
         } else {
             try writer.print("  \"description\":\"{s}\",\n", .{"This repo has no desciption."});
         }
