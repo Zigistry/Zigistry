@@ -28,6 +28,8 @@ jobs:
           rm -rf ./a.json
           rm -rf ./b.json
           rm -rf ./c.json
+          rm -rf ./a.out
+          rm -rf ./a.out.o
       - name: Config email
         run: git config --global user.name "Github Actions" && git config --global user.email "<>"
       - name: Git add
