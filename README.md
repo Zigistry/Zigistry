@@ -7,4 +7,7 @@
 ## Support:
 - ⭐ This github repo, create PRs, discussions, any sort of support/contribution is welcomed 😃.
 ## Contributing:
-- Feel free to create a PR, create discussions, 
+- Feel free to create a PR, create discussions,
+
+## Legal:
+The contents inside the database folder doesn't belong to me, the main.json file has been created/updated by parsing Github's APIs.
