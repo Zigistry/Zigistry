@@ -17,7 +17,7 @@ fn print_repos(my_items: []std.json.Value) !void {
         try writer.print("  \"open_issues\":{},\n", .{item.object.get("open_issues").?.integer});
         try writer.print("  \"stargazers_count\":{},\n", .{item.object.get("stargazers_count").?.integer});
         try writer.print("  \"tags_url\":\"{s}\",\n", .{item.object.get("tags_url").?.string});
-        try writer.print("  \"owner\":{{\n    \"avatar_url\": \"{s}\",\n  }}\n", .{item.object.get("owner").?.object.get("avatar_url").?.string});
+        try writer.print("  \"owner\":{{\n    \"avatar_url\": \"{s}\"\n  }},\n", .{item.object.get("owner").?.object.get("avatar_url").?.string});
         try writer.print("  \"created_at\": \"{s}\"\n", .{item.object.get("created_at").?.string});
         if (i == my_items.len - 1) {
             try writer.print("}}\n", .{});
