@@ -54,15 +54,13 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
       readme_content: await marked(readmeContent),
       created_at: repository.created_at,
       description: repository.description,
-      tags_url:repository.tags_url,
+      tags_url: repository.tags_url,
       open_issues: repository.open_issues,
       specials,
       stargazers_count: repository.stargazers_count,
       forks_count: repository.forks_count,
       watchers_count: repository.watchers_count,
-      owner: {
-        avatar_url: repository.owner.avatar_url
-      }
+      avatar_url: repository.avatar_url
     };
     return { props: { compressed_repo } };
   } else {
