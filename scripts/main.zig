@@ -20,6 +20,12 @@ fn replace(allocator: std.mem.Allocator, str: []const u8, char_to_replace: u8, r
 
 fn print_json(x: []const u8, y: []const u8, end_with_comma: bool) void {
     if (end_with_comma) {
+        print("\"{s}\":\"{s}\",\n", .{ x, y });
+    } else print("\"{s}\":\"{s}\"\n", .{ x, y });
+}
+
+fn print_json_int(x: []const u8, y: i8, end_with_comma: bool) void {
+    if (end_with_comma) {
         print("\"{s}\" : \"{s}\",\n", .{ x, y });
     } else print("\"{s}\" : \"{s}\"\n", .{ x, y });
 }
@@ -34,10 +40,10 @@ fn print_repos(my_items: []std.json.Value, is_last_file: bool) !void {
             defer global_allocator.free(my_var);
             print_json("description", my_var, true);
         } else print_json("description", "This repository has no description.", true);
-        print_json("watchers_count", item.object.get("watchers_count").?.integer, true);
-        print_json("forks_count", item.object.get("forks_count").?.integer, true);
-        print_json("open_issues", item.object.get("open_issues").?.integer, true);
-        print_json("stargazers_count", item.object.get("stargazers_count").?.integer, true);
+        print_json_int("watchers_count", item.object.get("watchers_count").?.integer, true);
+        print_json_int("forks_count", item.object.get("forks_count").?.integer, true);
+        print_json_int("open_issues", item.object.get("open_issues").?.integer, true);
+        print_json_int("stargazers_count", item.object.get("stargazers_count").?.integer, true);
         print_json("tags_url", item.object.get("tags_url").?.string, true);
         print_json("created_at", item.object.get("created_at").?.string, true);
         print_json("avatar_url", item.object.get("owner").?.object.get("avatar_url").?.string, false);
