@@ -16,16 +16,16 @@ fn replace(allocator: std.mem.Allocator, str: []const u8, char_to_replace: u8, r
 }
 
 fn print_json(x: []const u8, y: []const u8, end_with_comma: bool) void {
-    if (end_with_comma) print("\"{s}\":\"{s}\",\n", .{ x, y }) else print("\"{s}\":\"{s}\"\n", .{ x, y });
+    if (end_with_comma) print("\"{s}\":\"{s}\"", .{ x, y }) else print("\"{s}\":\"{s}\"", .{ x, y });
 }
 
 fn print_json_int(x: []const u8, y: i64, end_with_comma: bool) void {
-    if (end_with_comma) print("\"{s}\":{},\n", .{ x, y }) else print("\"{s}\":{}\n", .{ x, y });
+    if (end_with_comma) print("\"{s}\":{},", .{ x, y }) else print("\"{s}\":{}", .{ x, y });
 }
 
 fn print_repos(my_items: []std.json.Value, is_last_file: bool) !void {
     for (my_items, 0..) |item, i| {
-        print("\n{{\n", .{});
+        print("{{", .{});
         print_json("name", item.object.get("name").?.string, true);
         print_json("full_name", item.object.get("full_name").?.string, true);
         if (item.object.get("description").? == .string) {
@@ -41,7 +41,7 @@ fn print_repos(my_items: []std.json.Value, is_last_file: bool) !void {
         print_json("created_at", item.object.get("created_at").?.string, true);
         print_json("avatar_url", item.object.get("owner").?.object.get("avatar_url").?.string, false);
         // If it is the last file and the last line
-        if (is_last_file and i == my_items.len - 1) print("}}\n", .{}) else print("}},", .{});
+        if (is_last_file and i == my_items.len - 1) print("}}", .{}) else print("}},", .{});
     }
 }
 
@@ -57,5 +57,5 @@ pub fn main() !void {
         // If it is the last file
         if (i == file_names.len - 1) try print_repos(my_items, true) else try print_repos(my_items, false);
     }
-    print("]", .{});
+    print("]\n", .{});
 }
