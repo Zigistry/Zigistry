@@ -19,6 +19,8 @@ export default function Layout(props: { children: JSX.Element }): JSX.Element {
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:image" content="https://zigistry.dev/zigistry.png" />
                 <meta name="twitter:title" content="Zigistry: Library Registry for Zig Programming Language" />
+                <meta property="og:image" content="https://zigistry.dev/zigistry.png"></meta>
+                <meta property="og:site_name" content="Zigistry"></meta>
                 <meta name="twitter:description" content="Discover and contribute to Zigistry, the central hub for Zig programming language libraries." />
                 <link rel="canonical" href="https://zigistry.dev/" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
