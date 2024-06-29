@@ -1,7 +1,7 @@
 const std = @import("std");
 const writer = std.io.getStdOut().writer();
 const file_functions = std.fs.cwd();
-const file_names = [_][]const u8{ "a.json", "b.json", "c.json" };
+const file_names = [3][]const u8{ "a.json", "b.json", "c.json" };
 const global_allocator = std.heap.page_allocator;
 
 fn print(comptime format: []const u8, args: anytype) void {
@@ -9,34 +9,37 @@ fn print(comptime format: []const u8, args: anytype) void {
 }
 
 fn replace(allocator: std.mem.Allocator, str: []const u8, char_to_replace: u8, replace_with: u8) ![]const u8 {
-    var arr = std.ArrayList(u8).init(allocator);
-    errdefer arr.deinit();
-    for (str) |char| try arr.append(if (char == char_to_replace) replace_with else char);
-    return arr.toOwnedSlice();
+    var my_custom = std.ArrayList(u8).init(allocator);
+    errdefer my_custom.deinit();
+    for (str) |char|
+        if (char == char_to_replace) {
+            try my_custom.append(replace_with);
+        } else try my_custom.append(char);
+    return my_custom.toOwnedSlice();
 }
 
-fn print_json(x: []const u8, y: []const u8, comma: bool) void {
-    print("\"{s}\":\"{s}\"", .{ x, y });
-    if (comma) print(",", .{});
-    print("\n", .{});
+fn print_json(x: []const u8, y: []const u8, end_with_comma: bool) void {
+    if (end_with_comma) {
+        print("\"{s}\":\"{s}\",\n", .{ x, y });
+    } else print("\"{s}\":\"{s}\"\n", .{ x, y });
 }
 
-fn print_json_int(x: []const u8, y: i64, comma: bool) void {
-    print("\"{s}\":{}", .{ x, y });
-    if (comma) print(",", .{});
-    print("\n", .{});
+fn print_json_int(x: []const u8, y: i64, end_with_comma: bool) void {
+    if (end_with_comma) {
+        print("\"{s}\":{},\n", .{ x, y });
+    } else print("\"{s}\":{}\n", .{ x, y });
 }
 
-fn print_repos(items: []std.json.Value, last_file: bool) !void {
-    for (items, 0..) |item, i| {
+fn print_repos(my_items: []std.json.Value, is_last_file: bool) !void {
+    for (my_items, 0..) |item, i| {
         print("\n{{\n", .{});
         print_json("name", item.object.get("name").?.string, true);
         print_json("full_name", item.object.get("full_name").?.string, true);
-        const desc = if (item.object.get("description").? == .string)
-            try replace(global_allocator, item.object.get("description").?.string, '"', '\'')
-            else "This repository has no description.";
-        if (desc != "This repository has no description.") defer global_allocator.free(desc);
-        print_json("description", desc, true);
+        if (item.object.get("description").? == .string) {
+            const my_var = try replace(global_allocator, item.object.get("description").?.string, '"', '\'');
+            defer global_allocator.free(my_var);
+            print_json("description", my_var, true);
+        } else print_json("description", "This repository has no description.", true);
         print_json_int("watchers_count", item.object.get("watchers_count").?.integer, true);
         print_json_int("forks_count", item.object.get("forks_count").?.integer, true);
         print_json_int("open_issues", item.object.get("open_issues").?.integer, true);
@@ -44,7 +47,9 @@ fn print_repos(items: []std.json.Value, last_file: bool) !void {
         print_json("tags_url", item.object.get("tags_url").?.string, true);
         print_json("created_at", item.object.get("created_at").?.string, true);
         print_json("avatar_url", item.object.get("owner").?.object.get("avatar_url").?.string, false);
-        print(if (last_file and i == items.len - 1) "}}\n" else "}},", .{});
+        if (is_last_file and i == my_items.len - 1) { // If it is the last file and the last line
+            print("}}\n", .{});
+        } else print("}},", .{});
     }
 }
 
@@ -56,8 +61,10 @@ pub fn main() !void {
         defer global_allocator.free(buf);
         const parsed = try std.json.parseFromSlice(std.json.Value, global_allocator, buf, .{});
         defer parsed.deinit();
-        const items = parsed.value.object.get("items").?.array.items;
-        try print_repos(items, i == file_names.len - 1);
+        const my_items = parsed.value.object.get("items").?.array.items;
+        if (i == file_names.len - 1) { // If it is the last file
+            try print_repos(my_items, true);
+        } else try print_repos(my_items, false);
     }
     print("]", .{});
 }
