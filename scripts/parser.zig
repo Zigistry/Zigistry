@@ -16,7 +16,7 @@ fn replace(allocator: std.mem.Allocator, str: []const u8, char_to_replace: u8, r
 }
 
 fn print_json(x: []const u8, y: []const u8, end_with_comma: bool) void {
-    if (end_with_comma) print("\"{s}\":\"{s}\",\n", .{ x, y }) else print("\"{s}\":\"{s}\"\n", .{ x, y });
+    if (end_with_comma) print("\"{s}\":\"{s}\",", .{ x, y }) else print("\"{s}\":\"{s}\"", .{ x, y });
 }
 
 fn print_json_int(x: []const u8, y: i64, end_with_comma: bool) void {
@@ -57,5 +57,5 @@ pub fn main() !void {
         // If it is the last file
         if (i == file_names.len - 1) try print_repos(my_items, true) else try print_repos(my_items, false);
     }
-    print("]\n", .{});
+    print("]", .{});
 }
