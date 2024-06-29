@@ -2,6 +2,10 @@
 
 ## How to add your zig library on this website?
 - Just add a `zig-package` topic to your repository.
+
+![](https://raw.githubusercontent.com/RohanVashisht1234/cdn/main/zigistry/zig-package_example.mp4)
+
+
 - if you don't want to add the `zig-package` topic, you can mention your libraries [here](https://github.com/RohanVashisht1234/zigistry/discussions/1).
 
 ## Support:
