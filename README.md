@@ -3,7 +3,8 @@
 ## How to add your zig library on this website?
 - Just add a `zig-package` topic to your repository.
 
-![](https://raw.githubusercontent.com/RohanVashisht1234/cdn/main/zigistry/zig-package_example.mp4)
+
+https://github.com/RohanVashisht1234/zigistry/assets/81112205/962b147c-16ce-44d8-a958-57c0f0e1447b
 
 
 - if you don't want to add the `zig-package` topic, you can mention your libraries [here](https://github.com/RohanVashisht1234/zigistry/discussions/1).
