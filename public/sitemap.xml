@@ -9,163 +9,278 @@
 
 <url>
   <loc>https://zigistry.dev/</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/about</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/ATTron/astroz</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/softprops/zig-iter</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://zigistry.dev/Mariuspersen/zig-libzip</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/softprops/zig-doh</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/kassane/druntime-zigbuild</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/RohanVashisht1234/zorsig</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/fig-eater/zig-function-overloading</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/kassane/ffi-flang-zig</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/bcrist/zig-percent-encoding</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/karlseguin/mqttz</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/nitrogenez/zig-river-config</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://zigistry.dev/nektro/zig-intrusive-parser</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/capy-ui/capy</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/ZigEmbeddedGroup/microzig</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/Hejsil/zig-clap</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/orhun/linuxwave</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/Not-Nik/raylib-zig</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/zigcc/awesome-zig</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/karlseguin/http.zig</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/ikskuh/zig-network</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/Hejsil/mecha</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/ziglibs/zgl</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/hexops/mach-glfw</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/ikskuh/SDL.zig</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/ikskuh/ZigAndroidTemplate</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/TinyVG/sdk</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/karlseguin/websocket.zig</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/kubkon/zld</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/ikskuh/zig-args</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/natecraddock/ziglua</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/ziglibs/known-folders</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://zigistry.dev/ikskuh/LoLa</loc>
-  <lastmod>2024-06-27T09:37:46+00:00</lastmod>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
   <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/fig-eater/src/overloading.zig</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/fig-eater/build.zig</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/fig-eater/src/example.zig</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/fig-eater/LICENSE</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/ZigEmbeddedGroup/docs/design.md</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/orhun/.github/workflows/cd.yml</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/orhun/.github/workflows/docker.yml</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/orhun/Dockerfile</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/orhun/CONTRIBUTING.md</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/orhun/CODE_OF_CONDUCT.md</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/orhun/LICENSE</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/ikskuh/examples/async.zig</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/ziglibs/binding.zig</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/ikskuh/build.zig</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/ikskuh/examples</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/ikskuh/examples/lola</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/ikskuh/documentation/README.md</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/ikskuh/examples/lola/README.md</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/ikskuh/examples/host</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/ikskuh/src</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/ikskuh/src/library/compiler/grammar.yy</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/ikskuh/src/library/compiler/yy.l</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://zigistry.dev/ikskuh/src/test</loc>
+  <lastmod>2024-06-29T20:20:33+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 
 
