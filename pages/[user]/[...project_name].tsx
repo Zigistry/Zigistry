@@ -15,33 +15,33 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
     <>
       {compressed_repo.contentIsCorrect ? (
         <>
-        <div className='flex justify-center items-center'>
-          <Card className="w-72 my-5 transition-transform transform-cpu">
-            <Image width="50" height="50" className="w-10 rounded-full" src={compressed_repo.avatar_url} alt={compressed_repo.name} />
-            <h5 className="text-2xl font-bold text-gray-900 dark:text-white">
-              {compressed_repo.name}
-            </h5>
-            <p className="text-gray-400">{compressed_repo.full_name}</p>
-            <p className="font-normal text-gray-700 dark:text-gray-400">
-              {compressed_repo.description}
-            </p>
-            <div className="flex items-center">
-              <FaStar size={20} color="#cfbc0e" />
-              &nbsp;{compressed_repo.stargazers_count}
-              &nbsp;&nbsp;&nbsp;&nbsp;
-              <FaEye color="skyblue" />
-              &nbsp;{compressed_repo.watchers_count}
-              &nbsp;&nbsp;&nbsp;&nbsp;
-              <FaCodeFork color="lightpink" />
-              &nbsp;{compressed_repo.forks_count}
-              &nbsp;&nbsp;&nbsp;&nbsp;
-              <GoIssueOpened color="lightgreen" />
-              &nbsp;{compressed_repo.open_issues}
-            </div>
-            <Button as={Link} href={"https://github.com/" + compressed_repo.full_name} color="dark" pill>
-              View on Github &nbsp;<FaGithub size={20}/>
-            </Button>
-          </Card>
+          <div className='flex justify-center items-center'>
+            <Card className="w-72 my-5 transition-transform transform-cpu">
+              <Image width="50" height="50" className="w-10 rounded-full" src={compressed_repo.avatar_url} alt={compressed_repo.name} />
+              <h5 className="text-2xl font-bold text-gray-900 dark:text-white">
+                {compressed_repo.name}
+              </h5>
+              <p className="text-gray-400">{compressed_repo.full_name}</p>
+              <p className="font-normal text-gray-700 dark:text-gray-400">
+                {compressed_repo.description}
+              </p>
+              <div className="flex items-center">
+                <FaStar size={20} color="#cfbc0e" />
+                &nbsp;{compressed_repo.stargazers_count}
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <FaEye color="skyblue" />
+                &nbsp;{compressed_repo.watchers_count}
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <FaCodeFork color="lightpink" />
+                &nbsp;{compressed_repo.forks_count}
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <GoIssueOpened color="lightgreen" />
+                &nbsp;{compressed_repo.open_issues}
+              </div>
+              <Button as={Link} target='_blank' rel="noreferrer" href={"https://github.com/" + compressed_repo.full_name} color="dark" pill>
+                View on Github &nbsp;<FaGithub size={20} />
+              </Button>
+            </Card>
           </div>
           <div className="flex mx-5 items-center justify-center font-mono">
             <div
