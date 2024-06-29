@@ -924,18 +924,6 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/34946442?v=4"
 },
 {
-"name":"zig-lv2",
-"full_name":"ziglibs/zig-lv2",
-"description":"Zig-intuitive bindings for LV2.",
-"watchers_count":29,
-"forks_count":0,
-"open_issues":1,
-"stargazers_count":29,
-"tags_url":"https://api.github.com/repos/ziglibs/zig-lv2/tags",
-"created_at":"2021-03-12T01:49:18Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/65570835?v=4"
-},
-{
 "name":"zig-libgit2",
 "full_name":"leecannon/zig-libgit2",
 "description":"Zig bindings to libgit2",
@@ -946,6 +934,18 @@
 "tags_url":"https://api.github.com/repos/leecannon/zig-libgit2/tags",
 "created_at":"2021-08-18T07:08:41Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/2286349?v=4"
+},
+{
+"name":"zig-lv2",
+"full_name":"ziglibs/zig-lv2",
+"description":"Zig-intuitive bindings for LV2.",
+"watchers_count":29,
+"forks_count":0,
+"open_issues":1,
+"stargazers_count":29,
+"tags_url":"https://api.github.com/repos/ziglibs/zig-lv2/tags",
+"created_at":"2021-03-12T01:49:18Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/65570835?v=4"
 },
 {
 "name":"metrics.zig",
@@ -1308,18 +1308,6 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/2286349?v=4"
 },
 {
-"name":"zig-x86_64",
-"full_name":"leecannon/zig-x86_64",
-"description":"Support for x86_64 specific instructions (e.g. TLB flush), registers (e.g. control registers), and structures (e.g. page tables)",
-"watchers_count":14,
-"forks_count":2,
-"open_issues":0,
-"stargazers_count":14,
-"tags_url":"https://api.github.com/repos/leecannon/zig-x86_64/tags",
-"created_at":"2020-07-25T14:44:59Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/2286349?v=4"
-},
-{
 "name":"zetaframe",
 "full_name":"zetaframe/zetaframe",
 "description":"lightweight zig game framework.",
@@ -1330,6 +1318,18 @@
 "tags_url":"https://api.github.com/repos/zetaframe/zetaframe/tags",
 "created_at":"2020-04-19T19:50:11Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/60146383?v=4"
+},
+{
+"name":"zig-x86_64",
+"full_name":"leecannon/zig-x86_64",
+"description":"Support for x86_64 specific instructions (e.g. TLB flush), registers (e.g. control registers), and structures (e.g. page tables)",
+"watchers_count":14,
+"forks_count":2,
+"open_issues":0,
+"stargazers_count":14,
+"tags_url":"https://api.github.com/repos/leecannon/zig-x86_64/tags",
+"created_at":"2020-07-25T14:44:59Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/2286349?v=4"
 },
 {
 "name":"zig-hpke",
@@ -1560,18 +1560,6 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/107519028?v=4"
 },
 {
-"name":"zig-mime",
-"full_name":"nektro/zig-mime",
-"description":"This repository has no description.",
-"watchers_count":10,
-"forks_count":1,
-"open_issues":1,
-"stargazers_count":10,
-"tags_url":"https://api.github.com/repos/nektro/zig-mime/tags",
-"created_at":"2023-02-28T04:18:01Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
-},
-{
 "name":"zig-releaser",
 "full_name":"knadh/zig-releaser",
 "description":"A simple hack to use GoReleaser to build, release, and publish Zig projects.",
@@ -1594,6 +1582,18 @@
 "tags_url":"https://api.github.com/repos/karlseguin/smtp_client.zig/tags",
 "created_at":"2023-08-18T10:15:56Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/206480?v=4"
+},
+{
+"name":"zig-mime",
+"full_name":"nektro/zig-mime",
+"description":"This repository has no description.",
+"watchers_count":10,
+"forks_count":1,
+"open_issues":1,
+"stargazers_count":10,
+"tags_url":"https://api.github.com/repos/nektro/zig-mime/tags",
+"created_at":"2023-02-28T04:18:01Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
 },
 {
 "name":"zig-json",
@@ -1908,18 +1908,6 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/86081585?v=4"
 },
 {
-"name":"zig-editor-core",
-"full_name":"GoNZooo/zig-editor-core",
-"description":"Eventually the core of an editor, interactive shell put on top.",
-"watchers_count":5,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":5,
-"tags_url":"https://api.github.com/repos/GoNZooo/zig-editor-core/tags",
-"created_at":"2019-11-13T08:45:45Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/1327032?v=4"
-},
-{
 "name":"zig-crc",
 "full_name":"Hejsil/zig-crc",
 "description":"This repository has no description.",
@@ -1932,28 +1920,16 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/3759175?v=4"
 },
 {
-"name":"zig-essence",
-"full_name":"aoemods/zig-essence",
-"description":"Zig impl of Relic Entertainment's Essence formats",
-"watchers_count":5,
-"forks_count":0,
-"open_issues":4,
-"stargazers_count":5,
-"tags_url":"https://api.github.com/repos/aoemods/zig-essence/tags",
-"created_at":"2021-11-25T00:57:22Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/95108673?v=4"
-},
-{
-"name":"zig-gap-buffer",
-"full_name":"fivemoreminix/zig-gap-buffer",
-"description":"A gap buffer implementation for Zig.",
+"name":"zig-editor-core",
+"full_name":"GoNZooo/zig-editor-core",
+"description":"Eventually the core of an editor, interactive shell put on top.",
 "watchers_count":5,
 "forks_count":0,
 "open_issues":0,
 "stargazers_count":5,
-"tags_url":"https://api.github.com/repos/fivemoreminix/zig-gap-buffer/tags",
-"created_at":"2020-06-09T15:57:26Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/13669835?v=4"
+"tags_url":"https://api.github.com/repos/GoNZooo/zig-editor-core/tags",
+"created_at":"2019-11-13T08:45:45Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/1327032?v=4"
 },
 {
 "name":"zig-envy",
@@ -1978,6 +1954,30 @@
 "tags_url":"https://api.github.com/repos/nektro/zig-leven/tags",
 "created_at":"2021-07-27T06:59:53Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
+},
+{
+"name":"zig-essence",
+"full_name":"aoemods/zig-essence",
+"description":"Zig impl of Relic Entertainment's Essence formats",
+"watchers_count":5,
+"forks_count":0,
+"open_issues":4,
+"stargazers_count":5,
+"tags_url":"https://api.github.com/repos/aoemods/zig-essence/tags",
+"created_at":"2021-11-25T00:57:22Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/95108673?v=4"
+},
+{
+"name":"zig-gap-buffer",
+"full_name":"fivemoreminix/zig-gap-buffer",
+"description":"A gap buffer implementation for Zig.",
+"watchers_count":5,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":5,
+"tags_url":"https://api.github.com/repos/fivemoreminix/zig-gap-buffer/tags",
+"created_at":"2020-06-09T15:57:26Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/13669835?v=4"
 },
 {
 "name":"lepto.zig",
@@ -2028,18 +2028,6 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/48649707?v=4"
 },
 {
-"name":"random_variable",
-"full_name":"PauloCampana/random_variable",
-"description":"This repository has no description.",
-"watchers_count":4,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":4,
-"tags_url":"https://api.github.com/repos/PauloCampana/random_variable/tags",
-"created_at":"2023-11-07T14:49:54Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/101306295?v=4"
-},
-{
 "name":"zig-pc_keyboard",
 "full_name":"leecannon/zig-pc_keyboard",
 "description":"PS/2 Keyboard Decoder",
@@ -2088,6 +2076,18 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
 },
 {
+"name":"random_variable",
+"full_name":"PauloCampana/random_variable",
+"description":"This repository has no description.",
+"watchers_count":4,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":4,
+"tags_url":"https://api.github.com/repos/PauloCampana/random_variable/tags",
+"created_at":"2023-11-07T14:49:54Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/101306295?v=4"
+},
+{
 "name":"9p-zig",
 "full_name":"dantecatalfamo/9p-zig",
 "description":"9P2000 protocol implemented in zig",
@@ -2100,18 +2100,6 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/43040593?v=4"
 },
 {
-"name":"date-zig",
-"full_name":"travisstaloch/date-zig",
-"description":"Fast calendar algorithms ported to zig",
-"watchers_count":4,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":4,
-"tags_url":"https://api.github.com/repos/travisstaloch/date-zig/tags",
-"created_at":"2023-12-16T04:45:27Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/1562827?v=4"
-},
-{
 "name":"clarp",
 "full_name":"travisstaloch/clarp",
 "description":"A command line argument parsing library in zig",
@@ -2121,6 +2109,18 @@
 "stargazers_count":4,
 "tags_url":"https://api.github.com/repos/travisstaloch/clarp/tags",
 "created_at":"2024-03-17T05:24:16Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/1562827?v=4"
+},
+{
+"name":"date-zig",
+"full_name":"travisstaloch/date-zig",
+"description":"Fast calendar algorithms ported to zig",
+"watchers_count":4,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":4,
+"tags_url":"https://api.github.com/repos/travisstaloch/date-zig/tags",
+"created_at":"2023-12-16T04:45:27Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/1562827?v=4"
 },
 {
@@ -2268,6 +2268,18 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/2242?v=4"
 },
 {
+"name":"tmpfile.zig",
+"full_name":"liyu1981/tmpfile.zig",
+"description":"a convenient util to use tmp files with zig",
+"watchers_count":3,
+"forks_count":2,
+"open_issues":2,
+"stargazers_count":3,
+"tags_url":"https://api.github.com/repos/liyu1981/tmpfile.zig/tags",
+"created_at":"2024-03-13T04:29:41Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/499599?v=4"
+},
+{
 "name":"zig-mbedtls",
 "full_name":"mattnite/zig-mbedtls",
 "description":"compile mbedtls in your build.zig",
@@ -2302,18 +2314,6 @@
 "tags_url":"https://api.github.com/repos/FObersteiner/zdt/tags",
 "created_at":"2024-05-04T10:06:10Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/31826595?v=4"
-},
-{
-"name":"tmpfile.zig",
-"full_name":"liyu1981/tmpfile.zig",
-"description":"a convenient util to use tmp files with zig",
-"watchers_count":3,
-"forks_count":2,
-"open_issues":2,
-"stargazers_count":3,
-"tags_url":"https://api.github.com/repos/liyu1981/tmpfile.zig/tags",
-"created_at":"2024-03-13T04:29:41Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/499599?v=4"
 },
 {
 "name":"zig_regex",
@@ -2448,18 +2448,6 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/60146383?v=4"
 },
 {
-"name":"combinatorics.zig",
-"full_name":"travisstaloch/combinatorics.zig",
-"description":"A port of Julia's combinatorics library along with miscellaneous related tools.",
-"watchers_count":2,
-"forks_count":0,
-"open_issues":1,
-"stargazers_count":2,
-"tags_url":"https://api.github.com/repos/travisstaloch/combinatorics.zig/tags",
-"created_at":"2021-05-15T02:19:27Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/1562827?v=4"
-},
-{
 "name":"zig-asn1",
 "full_name":"nektro/zig-asn1",
 "description":"Zig parser for ASN.1 DER binary encoding.",
@@ -2472,28 +2460,16 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
 },
 {
-"name":"parzig",
-"full_name":"notCalle/parzig",
-"description":"Parser Combinator library for Zig",
+"name":"combinatorics.zig",
+"full_name":"travisstaloch/combinatorics.zig",
+"description":"A port of Julia's combinatorics library along with miscellaneous related tools.",
 "watchers_count":2,
 "forks_count":0,
-"open_issues":3,
+"open_issues":1,
 "stargazers_count":2,
-"tags_url":"https://api.github.com/repos/notCalle/parzig/tags",
-"created_at":"2020-10-27T09:23:07Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/11694033?v=4"
-},
-{
-"name":"minimd-zig",
-"full_name":"Chanyon/minimd-zig",
-"description":"simple markdown parser",
-"watchers_count":2,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":2,
-"tags_url":"https://api.github.com/repos/Chanyon/minimd-zig/tags",
-"created_at":"2023-04-05T14:34:03Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/40350332?v=4"
+"tags_url":"https://api.github.com/repos/travisstaloch/combinatorics.zig/tags",
+"created_at":"2021-05-15T02:19:27Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/1562827?v=4"
 },
 {
 "name":"zig-iso-3166-countrys",
@@ -2505,6 +2481,18 @@
 "stargazers_count":2,
 "tags_url":"https://api.github.com/repos/nektro/zig-iso-3166-countrys/tags",
 "created_at":"2023-11-02T01:53:10Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
+},
+{
+"name":"zig-sqlite3",
+"full_name":"nektro/zig-sqlite3",
+"description":"sqlite3 wrapper for Zig",
+"watchers_count":2,
+"forks_count":0,
+"open_issues":1,
+"stargazers_count":2,
+"tags_url":"https://api.github.com/repos/nektro/zig-sqlite3/tags",
+"created_at":"2020-11-15T20:02:47Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
 },
 {
@@ -2532,28 +2520,28 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
 },
 {
-"name":"zig-sqlite3",
-"full_name":"nektro/zig-sqlite3",
-"description":"sqlite3 wrapper for Zig",
+"name":"parzig",
+"full_name":"notCalle/parzig",
+"description":"Parser Combinator library for Zig",
 "watchers_count":2,
 "forks_count":0,
-"open_issues":1,
+"open_issues":3,
 "stargazers_count":2,
-"tags_url":"https://api.github.com/repos/nektro/zig-sqlite3/tags",
-"created_at":"2020-11-15T20:02:47Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
+"tags_url":"https://api.github.com/repos/notCalle/parzig/tags",
+"created_at":"2020-10-27T09:23:07Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/11694033?v=4"
 },
 {
-"name":"Standalone-Server",
-"full_name":"kassane/Standalone-Server",
-"description":"Asio standalone C++ HTTP/S Server (uses zig build-system)",
+"name":"minimd-zig",
+"full_name":"Chanyon/minimd-zig",
+"description":"simple markdown parser",
 "watchers_count":2,
 "forks_count":0,
-"open_issues":1,
+"open_issues":0,
 "stargazers_count":2,
-"tags_url":"https://api.github.com/repos/kassane/Standalone-Server/tags",
-"created_at":"2023-05-25T12:42:07Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/6756180?v=4"
+"tags_url":"https://api.github.com/repos/Chanyon/minimd-zig/tags",
+"created_at":"2023-04-05T14:34:03Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/40350332?v=4"
 },
 {
 "name":"wavefront-obj",
@@ -2568,6 +2556,18 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/65570835?v=4"
 },
 {
+"name":"zig-intrusive-parser",
+"full_name":"nektro/zig-intrusive-parser",
+"description":"Core plumbing to make text or binary document parsers with Data Oriented Design",
+"watchers_count":2,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":2,
+"tags_url":"https://api.github.com/repos/nektro/zig-intrusive-parser/tags",
+"created_at":"2024-06-04T19:37:19Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
+},
+{
 "name":"zig-flag",
 "full_name":"nektro/zig-flag",
 "description":"Config management for Zig.",
@@ -2580,16 +2580,16 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
 },
 {
-"name":"zig-intrusive-parser",
-"full_name":"nektro/zig-intrusive-parser",
-"description":"Core plumbing to make text or binary document parsers with Data Oriented Design",
+"name":"Standalone-Server",
+"full_name":"kassane/Standalone-Server",
+"description":"Asio standalone C++ HTTP/S Server (uses zig build-system)",
 "watchers_count":2,
 "forks_count":0,
-"open_issues":0,
+"open_issues":1,
 "stargazers_count":2,
-"tags_url":"https://api.github.com/repos/nektro/zig-intrusive-parser/tags",
-"created_at":"2024-06-04T19:37:19Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
+"tags_url":"https://api.github.com/repos/kassane/Standalone-Server/tags",
+"created_at":"2023-05-25T12:42:07Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/6756180?v=4"
 },
 {
 "name":"basis-universal-zig",
@@ -2808,30 +2808,6 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/3932972?v=4"
 },
 {
-"name":"zobench",
-"full_name":"jdknezek/zobench",
-"description":"Simple Zig benchmarking",
-"watchers_count":1,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":1,
-"tags_url":"https://api.github.com/repos/jdknezek/zobench/tags",
-"created_at":"2020-06-19T03:18:54Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/1338?v=4"
-},
-{
-"name":"Zig-TempAllocator",
-"full_name":"bcrist/Zig-TempAllocator",
-"description":"Arena allocator for interactive programs and simulations",
-"watchers_count":1,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":1,
-"tags_url":"https://api.github.com/repos/bcrist/Zig-TempAllocator/tags",
-"created_at":"2022-07-26T05:46:09Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
-},
-{
 "name":"basis_concept-zig",
 "full_name":"eldesh/basis_concept-zig",
 "description":"A collection of basis concept and their operations",
@@ -2866,6 +2842,30 @@
 "tags_url":"https://api.github.com/repos/nitrogenez/zig-river-config/tags",
 "created_at":"2024-06-05T21:31:10Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/112193680?v=4"
+},
+{
+"name":"zobench",
+"full_name":"jdknezek/zobench",
+"description":"Simple Zig benchmarking",
+"watchers_count":1,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":1,
+"tags_url":"https://api.github.com/repos/jdknezek/zobench/tags",
+"created_at":"2020-06-19T03:18:54Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/1338?v=4"
+},
+{
+"name":"Zig-TempAllocator",
+"full_name":"bcrist/Zig-TempAllocator",
+"description":"Arena allocator for interactive programs and simulations",
+"watchers_count":1,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":1,
+"tags_url":"https://api.github.com/repos/bcrist/Zig-TempAllocator/tags",
+"created_at":"2022-07-26T05:46:09Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
 },
 {
 "name":"zig-unidecode",
@@ -2916,18 +2916,6 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/99132213?v=4"
 },
 {
-"name":"Zig-SX",
-"full_name":"bcrist/Zig-SX",
-"description":"S-Expression [de]serialization in Zig",
-"watchers_count":0,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":0,
-"tags_url":"https://api.github.com/repos/bcrist/Zig-SX/tags",
-"created_at":"2022-10-21T04:46:37Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
-},
-{
 "name":"zig-doh",
 "full_name":"softprops/zig-doh",
 "description":"DNS over HTTPS client",
@@ -2940,6 +2928,18 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/2242?v=4"
 },
 {
+"name":"Zig-SX",
+"full_name":"bcrist/Zig-SX",
+"description":"S-Expression [de]serialization in Zig",
+"watchers_count":0,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":0,
+"tags_url":"https://api.github.com/repos/bcrist/Zig-SX/tags",
+"created_at":"2022-10-21T04:46:37Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
+},
+{
 "name":"zorsig",
 "full_name":"RohanVashisht1234/zorsig",
 "description":"This repository has no description.",
@@ -2950,6 +2950,18 @@
 "tags_url":"https://api.github.com/repos/RohanVashisht1234/zorsig/tags",
 "created_at":"2024-06-20T18:09:44Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/81112205?v=4"
+},
+{
+"name":"Zig-ConsoleHelper",
+"full_name":"bcrist/Zig-ConsoleHelper",
+"description":"Console Helpers for command line applications",
+"watchers_count":0,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":0,
+"tags_url":"https://api.github.com/repos/bcrist/Zig-ConsoleHelper/tags",
+"created_at":"2023-06-17T17:55:03Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
 },
 {
 "name":"zkittle",
@@ -2976,15 +2988,39 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
 },
 {
-"name":"Zig-ConsoleHelper",
-"full_name":"bcrist/Zig-ConsoleHelper",
-"description":"Console Helpers for command line applications",
+"name":"zig-zlib",
+"full_name":"nektro/zig-zlib",
+"description":"This repository has no description.",
 "watchers_count":0,
 "forks_count":0,
 "open_issues":0,
 "stargazers_count":0,
-"tags_url":"https://api.github.com/repos/bcrist/Zig-ConsoleHelper/tags",
-"created_at":"2023-06-17T17:55:03Z",
+"tags_url":"https://api.github.com/repos/nektro/zig-zlib/tags",
+"created_at":"2020-12-17T09:46:55Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
+},
+{
+"name":"projavu",
+"full_name":"DISTREAT/projavu",
+"description":"A program for on-disk storing and managing of project ideas.",
+"watchers_count":0,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":0,
+"tags_url":"https://api.github.com/repos/DISTREAT/projavu/tags",
+"created_at":"2023-08-03T14:34:16Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/99132213?v=4"
+},
+{
+"name":"Zig-S-Records",
+"full_name":"bcrist/Zig-S-Records",
+"description":"Motorola S-Record library in Zig",
+"watchers_count":0,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":0,
+"tags_url":"https://api.github.com/repos/bcrist/Zig-S-Records/tags",
+"created_at":"2023-10-28T04:12:02Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
 },
 {
@@ -3036,42 +3072,6 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/6756180?v=4"
 },
 {
-"name":"zig-zlib",
-"full_name":"nektro/zig-zlib",
-"description":"This repository has no description.",
-"watchers_count":0,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":0,
-"tags_url":"https://api.github.com/repos/nektro/zig-zlib/tags",
-"created_at":"2020-12-17T09:46:55Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
-},
-{
-"name":"projavu",
-"full_name":"DISTREAT/projavu",
-"description":"A program for on-disk storing and managing of project ideas.",
-"watchers_count":0,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":0,
-"tags_url":"https://api.github.com/repos/DISTREAT/projavu/tags",
-"created_at":"2023-08-03T14:34:16Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/99132213?v=4"
-},
-{
-"name":"Zig-S-Records",
-"full_name":"bcrist/Zig-S-Records",
-"description":"Motorola S-Record library in Zig",
-"watchers_count":0,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":0,
-"tags_url":"https://api.github.com/repos/bcrist/Zig-S-Records/tags",
-"created_at":"2023-10-28T04:12:02Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
-},
-{
 "name":"sysexits-zig",
 "full_name":"sorairolake/sysexits-zig",
 "description":"The system exit codes as defined by <sysexits.h> for Zig",
@@ -3082,6 +3082,90 @@
 "tags_url":"https://api.github.com/repos/sorairolake/sysexits-zig/tags",
 "created_at":"2024-05-04T11:55:57Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/48999343?v=4"
+},
+{
+"name":"zig-utilities",
+"full_name":"Ang3lERR404/zig-utilities",
+"description":"Utilities for zig, in a smol, convenient file",
+"watchers_count":0,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":0,
+"tags_url":"https://api.github.com/repos/Ang3lERR404/zig-utilities/tags",
+"created_at":"2024-06-03T17:01:27Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/170934839?v=4"
+},
+{
+"name":"ffi-flang-zig",
+"full_name":"kassane/ffi-flang-zig",
+"description":"FFI flang-new runtime with Zig",
+"watchers_count":0,
+"forks_count":0,
+"open_issues":2,
+"stargazers_count":0,
+"tags_url":"https://api.github.com/repos/kassane/ffi-flang-zig/tags",
+"created_at":"2024-06-18T15:16:52Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/6756180?v=4"
+},
+{
+"name":"Zig-fmtHelper",
+"full_name":"bcrist/Zig-fmtHelper",
+"description":"Some std.fmt helpers for Zig programs",
+"watchers_count":0,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":0,
+"tags_url":"https://api.github.com/repos/bcrist/Zig-fmtHelper/tags",
+"created_at":"2024-05-13T22:42:38Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
+},
+{
+"name":"Zig-LC4k",
+"full_name":"bcrist/Zig-LC4k",
+"description":"Generate ispMach4000 CPLD bitstreams directly from Zig code",
+"watchers_count":0,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":0,
+"tags_url":"https://api.github.com/repos/bcrist/Zig-LC4k/tags",
+"created_at":"2022-11-25T19:45:28Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
+},
+{
+"name":"Zig-DeepHashMap",
+"full_name":"bcrist/Zig-DeepHashMap",
+"description":"Zig std.HashMaps with deep keys",
+"watchers_count":0,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":0,
+"tags_url":"https://api.github.com/repos/bcrist/Zig-DeepHashMap/tags",
+"created_at":"2023-10-28T04:43:58Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
+},
+{
+"name":"cutenet-zig",
+"full_name":"thechampagne/cutenet-zig",
+"description":"Zig binding for cutenet a networking library for games requiring an optional reliability layer over UDP with a baked in security scheme.",
+"watchers_count":0,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":0,
+"tags_url":"https://api.github.com/repos/thechampagne/cutenet-zig/tags",
+"created_at":"2023-04-20T12:58:27Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/13811862?v=4"
+},
+{
+"name":"zig-percent-encoding",
+"full_name":"bcrist/zig-percent-encoding",
+"description":"Percent (URL) Encoding and Decoding for Zig",
+"watchers_count":0,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":0,
+"tags_url":"https://api.github.com/repos/bcrist/zig-percent-encoding/tags",
+"created_at":"2024-06-09T23:53:14Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
 },
 {
 "name":"zig-fs-check",
@@ -3132,114 +3216,6 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/4678790?v=4"
 },
 {
-"name":"zig-utilities",
-"full_name":"Ang3lERR404/zig-utilities",
-"description":"Utilities for zig, in a smol, convenient file",
-"watchers_count":0,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":0,
-"tags_url":"https://api.github.com/repos/Ang3lERR404/zig-utilities/tags",
-"created_at":"2024-06-03T17:01:27Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/170934839?v=4"
-},
-{
-"name":"Zig-DeepHashMap",
-"full_name":"bcrist/Zig-DeepHashMap",
-"description":"Zig std.HashMaps with deep keys",
-"watchers_count":0,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":0,
-"tags_url":"https://api.github.com/repos/bcrist/Zig-DeepHashMap/tags",
-"created_at":"2023-10-28T04:43:58Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
-},
-{
-"name":"Zig-fmtHelper",
-"full_name":"bcrist/Zig-fmtHelper",
-"description":"Some std.fmt helpers for Zig programs",
-"watchers_count":0,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":0,
-"tags_url":"https://api.github.com/repos/bcrist/Zig-fmtHelper/tags",
-"created_at":"2024-05-13T22:42:38Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
-},
-{
-"name":"Zig-LC4k",
-"full_name":"bcrist/Zig-LC4k",
-"description":"Generate ispMach4000 CPLD bitstreams directly from Zig code",
-"watchers_count":0,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":0,
-"tags_url":"https://api.github.com/repos/bcrist/Zig-LC4k/tags",
-"created_at":"2022-11-25T19:45:28Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
-},
-{
-"name":"ffi-flang-zig",
-"full_name":"kassane/ffi-flang-zig",
-"description":"FFI flang-new runtime with Zig",
-"watchers_count":0,
-"forks_count":0,
-"open_issues":2,
-"stargazers_count":0,
-"tags_url":"https://api.github.com/repos/kassane/ffi-flang-zig/tags",
-"created_at":"2024-06-18T15:16:52Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/6756180?v=4"
-},
-{
-"name":"cutenet-zig",
-"full_name":"thechampagne/cutenet-zig",
-"description":"Zig binding for cutenet a networking library for games requiring an optional reliability layer over UDP with a baked in security scheme.",
-"watchers_count":0,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":0,
-"tags_url":"https://api.github.com/repos/thechampagne/cutenet-zig/tags",
-"created_at":"2023-04-20T12:58:27Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/13811862?v=4"
-},
-{
-"name":"zig-percent-encoding",
-"full_name":"bcrist/zig-percent-encoding",
-"description":"Percent (URL) Encoding and Decoding for Zig",
-"watchers_count":0,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":0,
-"tags_url":"https://api.github.com/repos/bcrist/zig-percent-encoding/tags",
-"created_at":"2024-06-09T23:53:14Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
-},
-{
-"name":"zig-hc256",
-"full_name":"quentin-k/zig-hc256",
-"description":"Hc256 Cipher in zig",
-"watchers_count":0,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":0,
-"tags_url":"https://api.github.com/repos/quentin-k/zig-hc256/tags",
-"created_at":"2021-12-15T16:46:17Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/49767738?v=4"
-},
-{
-"name":"zig-ci-detect",
-"full_name":"nektro/zig-ci-detect",
-"description":"Detect what kind of CI environment the program is running in",
-"watchers_count":0,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":0,
-"tags_url":"https://api.github.com/repos/nektro/zig-ci-detect/tags",
-"created_at":"2021-07-20T08:02:54Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
-},
-{
 "name":"cnbt-zig",
 "full_name":"thechampagne/cnbt-zig",
 "description":"Zig binding for cNBT an NBT file parser and manipulator library.",
@@ -3286,18 +3262,6 @@
 "tags_url":"https://api.github.com/repos/bcrist/Zig-Intel-Hex/tags",
 "created_at":"2023-10-28T04:17:10Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
-},
-{
-"name":"astroz",
-"full_name":"ATTron/astroz",
-"description":"Astronomical and Spacecraft Toolkit Written in Zig for Zig!",
-"watchers_count":0,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":0,
-"tags_url":"https://api.github.com/repos/ATTron/astroz/tags",
-"created_at":"2024-06-25T00:35:54Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/12820359?v=4"
 },
 {
 "name":"fasthttpparser",
@@ -3384,16 +3348,40 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
 },
 {
-"name":"shittip",
-"full_name":"bcrist/shittip",
-"description":"Another shitty HTTP server",
+"name":"astroz",
+"full_name":"ATTron/astroz",
+"description":"Astronomical and Spacecraft Toolkit Written in Zig for Zig!",
 "watchers_count":0,
 "forks_count":0,
 "open_issues":0,
 "stargazers_count":0,
-"tags_url":"https://api.github.com/repos/bcrist/shittip/tags",
-"created_at":"2024-03-30T23:44:17Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
+"tags_url":"https://api.github.com/repos/ATTron/astroz/tags",
+"created_at":"2024-06-25T00:35:54Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/12820359?v=4"
+},
+{
+"name":"zig-hc256",
+"full_name":"quentin-k/zig-hc256",
+"description":"Hc256 Cipher in zig",
+"watchers_count":0,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":0,
+"tags_url":"https://api.github.com/repos/quentin-k/zig-hc256/tags",
+"created_at":"2021-12-15T16:46:17Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/49767738?v=4"
+},
+{
+"name":"zig-ci-detect",
+"full_name":"nektro/zig-ci-detect",
+"description":"Detect what kind of CI environment the program is running in",
+"watchers_count":0,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":0,
+"tags_url":"https://api.github.com/repos/nektro/zig-ci-detect/tags",
+"created_at":"2021-07-20T08:02:54Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
 },
 {
 "name":"zig-netip",
@@ -3418,6 +3406,18 @@
 "tags_url":"https://api.github.com/repos/kassane/druntime-zigbuild/tags",
 "created_at":"2024-06-22T16:32:24Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/6756180?v=4"
+},
+{
+"name":"shittip",
+"full_name":"bcrist/shittip",
+"description":"Another shitty HTTP server",
+"watchers_count":0,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":0,
+"tags_url":"https://api.github.com/repos/bcrist/shittip/tags",
+"created_at":"2024-03-30T23:44:17Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
 },
 {
 "name":"esvc2",
