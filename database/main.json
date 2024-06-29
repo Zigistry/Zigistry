@@ -111,10 +111,10 @@
 "name":"zgl",
 "full_name":"ziglibs/zgl",
 "description":"Zig OpenGL Wrapper",
-"watchers_count":366,
+"watchers_count":367,
 "forks_count":58,
 "open_issues":3,
-"stargazers_count":366,
+"stargazers_count":367,
 "tags_url":"https://api.github.com/repos/ziglibs/zgl/tags",
 "created_at":"2020-07-03T13:19:40Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/65570835?v=4"
@@ -279,10 +279,10 @@
 "name":"zero-graphics",
 "full_name":"ikskuh/zero-graphics",
 "description":"Application framework based on OpenGL ES 2.0. Runs on desktop machines, Android phones and the web",
-"watchers_count":142,
+"watchers_count":143,
 "forks_count":17,
 "open_issues":2,
-"stargazers_count":142,
+"stargazers_count":143,
 "tags_url":"https://api.github.com/repos/ikskuh/zero-graphics/tags",
 "created_at":"2021-05-17T22:27:59Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/3932972?v=4"
@@ -948,6 +948,18 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/65570835?v=4"
 },
 {
+"name":"metrics.zig",
+"full_name":"karlseguin/metrics.zig",
+"description":"Prometheus metrics for library and application developers",
+"watchers_count":28,
+"forks_count":3,
+"open_issues":0,
+"stargazers_count":28,
+"tags_url":"https://api.github.com/repos/karlseguin/metrics.zig/tags",
+"created_at":"2024-01-18T10:36:15Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/206480?v=4"
+},
+{
 "name":"zig-win32",
 "full_name":"GoNZooo/zig-win32",
 "description":"Bindings for win32, with and without WIN32_LEAN_AND_MEAN",
@@ -958,18 +970,6 @@
 "tags_url":"https://api.github.com/repos/GoNZooo/zig-win32/tags",
 "created_at":"2019-09-06T08:02:55Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/1327032?v=4"
-},
-{
-"name":"metrics.zig",
-"full_name":"karlseguin/metrics.zig",
-"description":"Prometheus metrics for library and application developers",
-"watchers_count":27,
-"forks_count":3,
-"open_issues":0,
-"stargazers_count":27,
-"tags_url":"https://api.github.com/repos/karlseguin/metrics.zig/tags",
-"created_at":"2024-01-18T10:36:15Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/206480?v=4"
 },
 {
 "name":"zimalloc",
@@ -2484,6 +2484,18 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
 },
 {
+"name":"zig-sqlite3",
+"full_name":"nektro/zig-sqlite3",
+"description":"sqlite3 wrapper for Zig",
+"watchers_count":2,
+"forks_count":0,
+"open_issues":1,
+"stargazers_count":2,
+"tags_url":"https://api.github.com/repos/nektro/zig-sqlite3/tags",
+"created_at":"2020-11-15T20:02:47Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
+},
+{
 "name":"parzig",
 "full_name":"notCalle/parzig",
 "description":"Parser Combinator library for Zig",
@@ -2529,18 +2541,6 @@
 "stargazers_count":2,
 "tags_url":"https://api.github.com/repos/nektro/zig-cookies/tags",
 "created_at":"2023-02-28T04:19:10Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
-},
-{
-"name":"zig-sqlite3",
-"full_name":"nektro/zig-sqlite3",
-"description":"sqlite3 wrapper for Zig",
-"watchers_count":2,
-"forks_count":0,
-"open_issues":1,
-"stargazers_count":2,
-"tags_url":"https://api.github.com/repos/nektro/zig-sqlite3/tags",
-"created_at":"2020-11-15T20:02:47Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
 },
 {
@@ -3264,30 +3264,6 @@
 "avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
 },
 {
-"name":"zig-hc256",
-"full_name":"quentin-k/zig-hc256",
-"description":"Hc256 Cipher in zig",
-"watchers_count":0,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":0,
-"tags_url":"https://api.github.com/repos/quentin-k/zig-hc256/tags",
-"created_at":"2021-12-15T16:46:17Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/49767738?v=4"
-},
-{
-"name":"zig-ci-detect",
-"full_name":"nektro/zig-ci-detect",
-"description":"Detect what kind of CI environment the program is running in",
-"watchers_count":0,
-"forks_count":0,
-"open_issues":0,
-"stargazers_count":0,
-"tags_url":"https://api.github.com/repos/nektro/zig-ci-detect/tags",
-"created_at":"2021-07-20T08:02:54Z",
-"avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
-},
-{
 "name":"fasthttpparser",
 "full_name":"ajkachnic/fasthttpparser",
 "description":"A moderately fast HTTP 1.1 parser written in Zig.",
@@ -3370,6 +3346,30 @@
 "tags_url":"https://api.github.com/repos/bcrist/tempora/tags",
 "created_at":"2024-03-09T02:04:51Z",
 "avatar_url":"https://avatars.githubusercontent.com/u/2828351?v=4"
+},
+{
+"name":"zig-hc256",
+"full_name":"quentin-k/zig-hc256",
+"description":"Hc256 Cipher in zig",
+"watchers_count":0,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":0,
+"tags_url":"https://api.github.com/repos/quentin-k/zig-hc256/tags",
+"created_at":"2021-12-15T16:46:17Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/49767738?v=4"
+},
+{
+"name":"zig-ci-detect",
+"full_name":"nektro/zig-ci-detect",
+"description":"Detect what kind of CI environment the program is running in",
+"watchers_count":0,
+"forks_count":0,
+"open_issues":0,
+"stargazers_count":0,
+"tags_url":"https://api.github.com/repos/nektro/zig-ci-detect/tags",
+"created_at":"2021-07-20T08:02:54Z",
+"avatar_url":"https://avatars.githubusercontent.com/u/5464072?v=4"
 },
 {
 "name":"zig-netip",
