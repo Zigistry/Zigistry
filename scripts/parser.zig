@@ -47,7 +47,7 @@ fn print_repos(my_items: []std.json.Value, is_last_file: bool) !void {
         print_json("tags_url", item.object.get("tags_url").?.string, true);
         print_json("created_at", item.object.get("created_at").?.string, true);
         print_json("avatar_url", item.object.get("owner").?.object.get("avatar_url").?.string, false);
-        if (is_last_file and i == my_items.len - 1) {
+        if (is_last_file and i == my_items.len - 1) { // If it is the last file and the last line
             print("}}\n", .{});
         } else print("}},", .{});
     }
@@ -62,7 +62,7 @@ pub fn main() !void {
         const parsed = try std.json.parseFromSlice(std.json.Value, global_allocator, buf, .{});
         defer parsed.deinit();
         const my_items = parsed.value.object.get("items").?.array.items;
-        if (i == file_names.len - 1) {
+        if (i == file_names.len - 1) { // If it is the last file
             try print_repos(my_items, true);
         } else try print_repos(my_items, false);
     }

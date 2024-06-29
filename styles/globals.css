@@ -14,3 +14,34 @@ body {
 :root {
 	min-height: 100vh;
 }
+
+.readmeDiv{
+	all:unset !important;
+	font-weight: 700;
+	overflow-x: scroll;
+}
+
+
+.readmeDiv > h1{
+	font-size: 40px;
+}
+
+.readmeDiv > h2{
+	font-size: 35px;
+}
+
+.readmeDiv > h3{
+	font-size: 30px;
+}
+
+.readmeDiv > pre {
+	padding: 20px !important;
+	overflow-x: scroll;
+	background-color: #151d28 !important;
+	border-radius: 10px !important;
+}
+
+.readmeDiv > p {
+	display: flex !important;
+	padding: 5px 5px 5px 0 !important;
+}
