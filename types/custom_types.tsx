@@ -13,6 +13,7 @@ export default interface Repo {
     tags_url: string;
     readme_content?: string;
     specials?: string;
+    topics?:Array<string>;
 }
 
 

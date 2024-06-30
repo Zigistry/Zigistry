@@ -1,8 +1,9 @@
-import { Button, Card } from "flowbite-react";
+import { Badge, Button, Card, Tooltip } from "flowbite-react";
 import Image from "next/image";
 import Repo from "@/types/custom_types";
 import { FaStar, FaEye } from "react-icons/fa";
 import { FaCodeFork } from "react-icons/fa6";
+import { BsInfoSquareFill } from "react-icons/bs";
 import { GoIssueOpened } from "react-icons/go";
 import Link from "next/link";
 
@@ -29,6 +30,11 @@ export default function CustomCard(props: { item: Repo }) {
         &nbsp;&nbsp;&nbsp;&nbsp;
         <GoIssueOpened color="lightgreen" />
         &nbsp;{props.item.open_issues}
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <BsInfoSquareFill color="darkorange" />
+        <Tooltip content={props.item.topics?.join(", ")}>
+          &nbsp;{props.item.topics?.length}
+        </Tooltip>
       </div>
       <Button as={Link} href={"packages/" + props.item.full_name} color="light" pill>
         View package

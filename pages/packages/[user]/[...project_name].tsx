@@ -4,9 +4,10 @@ import Repo from '@/types/custom_types';
 import DOMPurify from 'isomorphic-dompurify';
 import { GoIssueOpened } from 'react-icons/go';
 import { FaCodeFork, FaEye, FaStar } from 'react-icons/fa6';
-import { Button, Card } from 'flowbite-react';
+import { Button, Card, Tooltip } from 'flowbite-react';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
+import { BsInfoSquareFill } from 'react-icons/bs';
 
 export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
   return (
@@ -35,6 +36,11 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <GoIssueOpened color="lightgreen" />
                 &nbsp;{compressed_repo.open_issues}
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <BsInfoSquareFill color="darkorange" />
+                <Tooltip content={compressed_repo.topics?.join(", ")}>
+                  &nbsp;{compressed_repo.topics?.length}
+                </Tooltip>
               </div>
               <Button as={Link} target='_blank' rel="noreferrer" href={"https://github.com/" + compressed_repo.full_name} color="light" pill>
                 View on Github &nbsp;<FaGithub size={20} />
@@ -96,6 +102,7 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
       stargazers_count: repository.stargazers_count,
       forks_count: repository.forks_count,
       watchers_count: repository.watchers_count,
+      topics: repository.topics,
       avatar_url: repository.avatar_url
     };
     return { props: { compressed_repo } };
