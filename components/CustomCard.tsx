@@ -30,7 +30,7 @@ export default function CustomCard(props: { item: Repo }) {
         <GoIssueOpened color="lightgreen" />
         &nbsp;{props.item.open_issues}
       </div>
-      <Button as={Link} href={props.item.full_name} color="dark" pill>
+      <Button as={Link} href={"packages/" + props.item.full_name} color="light" pill>
         View package
       </Button>
     </Card>

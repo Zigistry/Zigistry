@@ -2,14 +2,16 @@ import Navbar from './Header'
 import Foooter from './Foooter'
 import Head from 'next/head'
 import Script from 'next/script'
+import { ThemeModeScript } from "flowbite-react";
 
 export default function Layout(props: { children: JSX.Element }): JSX.Element {
     return (
-        <main className='dark'>
+        <main className="dark:bg-custom-gradient bg-white dark:text-white text-black">
             <Navbar />
             <Head>
                 <title>Zigistry: Library Registry for Zig Programming Language</title>
                 <link rel="icon" href="/zigistry.png" sizes="any" />
+                <ThemeModeScript />
                 <meta name="description" content="Explore Zigistry, your comprehensive registry for all Zig programming language libraries. Find, discover, and contribute to the Zig community effortlessly." />
                 <meta name="keywords" content="Zigistry, Zig libraries, Zig programming language, library registry, Zig community, Zig ecosystem, open-source Zig, Zig projects" />
                 <meta property="og:title" content="Zigistry: Library Registry for Zig Programming Language" />

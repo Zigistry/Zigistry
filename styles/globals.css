@@ -6,9 +6,8 @@
 html,
 body {
 	min-height: 100vh;
-	background: rgb(31, 41, 55);
-	background: linear-gradient(180deg, rgba(31, 41, 55, 1) 0%, rgba(17, 24, 39, 1) 100%);
-	color: white;
+	/* background: rgb(31, 41, 55); */
+	/* background: linear-gradient(180deg, rgba(31, 41, 55, 1) 0%, rgba(17, 24, 39, 1) 100%); */
 }
 
 :root {
@@ -37,10 +36,11 @@ body {
 .readmeDiv > pre {
 	padding: 20px !important;
 	overflow-x: scroll;
-	background-color: #151d28 !important;
 	border-radius: 10px !important;
+	border:solid #475569 2px;
 }
 
+  
 .readmeDiv > p {
 	display: flex !important;
 	padding: 5px 5px 5px 0 !important;

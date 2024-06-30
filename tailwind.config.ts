@@ -11,6 +11,11 @@ const config: Config = {
     flowbite.content(),
   ],
   theme: {
+    extend:{
+      backgroundImage: {
+        'custom-gradient': 'linear-gradient(180deg, rgba(31, 41, 55, 1) 0%, rgba(17, 24, 39, 1) 100%)',
+      },
+    }
   },
   plugins: [
     flowbite.plugin(),

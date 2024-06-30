@@ -2,8 +2,6 @@ import { marked } from 'marked';
 import Image from 'next/image';
 import Repo from '@/types/custom_types';
 import DOMPurify from 'isomorphic-dompurify';
-import { ALL } from 'dns';
-import CustomCard from '@/components/CustomCard';
 import { GoIssueOpened } from 'react-icons/go';
 import { FaCodeFork, FaEye, FaStar } from 'react-icons/fa6';
 import { Button, Card } from 'flowbite-react';
@@ -38,7 +36,7 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
                 <GoIssueOpened color="lightgreen" />
                 &nbsp;{compressed_repo.open_issues}
               </div>
-              <Button as={Link} target='_blank' rel="noreferrer" href={"https://github.com/" + compressed_repo.full_name} color="dark" pill>
+              <Button as={Link} target='_blank' rel="noreferrer" href={"https://github.com/" + compressed_repo.full_name} color="light" pill>
                 View on Github &nbsp;<FaGithub size={20} />
               </Button>
             </Card>
@@ -48,11 +46,11 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
               dangerouslySetInnerHTML={{
                 __html: compressed_repo.specials ? DOMPurify.sanitize(compressed_repo.specials) : "Loading..."
               }}
-              className="bg-[#151d28] p-4 rounded w-fit flex items-center justify-center mb-4"
+              className="dark:bg-[#151d28] bg-slate-600 p-4 rounded w-fit flex items-center justify-center mb-4"
             ></div>
           </div>
           <div className='flex items-center justify-center mb-4'>
-            <div className="bg-slate-800 border-2 border-slate-600 sm:w-3/5 w-4/5 rounded-2xl py-10 sm:px-20 px-10">
+            <div className="dark:bg-slate-800 bg-white border-2 border-slate-600 sm:w-3/5 w-4/5 rounded-2xl py-10 sm:px-20 px-10">
               <div className="readmeDiv" dangerouslySetInnerHTML={{ __html: compressed_repo.readme_content ? DOMPurify.sanitize(compressed_repo.readme_content) : "" }}>
               </div>
             </div>
@@ -82,8 +80,8 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
     const tagDetails = tagsResponse.ok ? await tagsResponse.json() : [];
 
     const specials = tagDetails[0]
-      ? `<span style='color:gold'>zig</span>&nbsp;<span style='color:skyblue'>fetch</span>&nbsp;<span style='color:gray'>--save</span>&nbsp;<span style='color:lightgreen'>${"https://github.com/" + repository.full_name + "/archive/refs/tags/" + tagDetails[0].name + ".tar.gz"}</span>`
-      : `<span style='color:gold'>zig</span>&nbsp;<span style='color:skyblue'>fetch</span>&nbsp;<span style='color:gray'>--save</span>&nbsp;<span style='color:lightgreen'>${"git+https://github.com/" + repository.full_name}</span>`;
+      ? `<span style='color:gold'>zig</span>&nbsp;<span style='color:skyblue'>fetch</span>&nbsp;<span style='color:lightgray'>--save</span>&nbsp;<span style='color:lightgreen'>${"https://github.com/" + repository.full_name + "/archive/refs/tags/" + tagDetails[0].name + ".tar.gz"}</span>`
+      : `<span style='color:gold'>zig</span>&nbsp;<span style='color:skyblue'>fetch</span>&nbsp;<span style='color:lightgray'>--save</span>&nbsp;<span style='color:lightgreen'>${"git+https://github.com/" + repository.full_name}</span>`;
 
     const compressed_repo: Repo = {
       contentIsCorrect: true,
