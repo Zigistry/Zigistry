@@ -8,6 +8,7 @@ import { Button, Card, Tooltip } from 'flowbite-react';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { BsInfoSquareFill } from 'react-icons/bs';
+import { Clipboard } from "flowbite-react"
 
 export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
   return (
@@ -49,11 +50,10 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
           </div>
           <div className="flex mx-5 items-center justify-center font-mono">
             <div
-              dangerouslySetInnerHTML={{
-                __html: compressed_repo.specials ? DOMPurify.sanitize(compressed_repo.specials) : "Loading..."
-              }}
-              className="dark:bg-[#151d28] bg-slate-600 p-4 rounded w-fit flex items-center justify-center mb-4"
-            ></div>
+              className="dark:bg-[#151d28] bg-slate-600 pr-7 py-3 pl-4 rounded w-fit flex items-center justify-center mb-4"
+            ><span style={{ color: "gold" }}>zig</span>&nbsp;<span style={{ color: "skyblue" }}>fetch</span>&nbsp;<span style={{ color: "lightgray" }}>--save</span>&nbsp;<span style={{ color: "lightgreen" }}>{compressed_repo.specials}</span>
+            <Clipboard className='ml-3' valueToCopy={"zig fetch --save " + compressed_repo.specials} label="Copy" />
+            </div>
           </div>
           <div className='flex items-center justify-center mb-4'>
             <div className="dark:bg-slate-800 bg-white border-2 border-slate-600 sm:w-3/5 w-4/5 rounded-2xl py-10 sm:px-20 px-10">
@@ -86,8 +86,8 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
     const tagDetails = tagsResponse.ok ? await tagsResponse.json() : [];
 
     const specials = tagDetails[0]
-      ? `<span style='color:gold'>zig</span>&nbsp;<span style='color:skyblue'>fetch</span>&nbsp;<span style='color:lightgray'>--save</span>&nbsp;<span style='color:lightgreen'>${"https://github.com/" + repository.full_name + "/archive/refs/tags/" + tagDetails[0].name + ".tar.gz"}</span>`
-      : `<span style='color:gold'>zig</span>&nbsp;<span style='color:skyblue'>fetch</span>&nbsp;<span style='color:lightgray'>--save</span>&nbsp;<span style='color:lightgreen'>${"git+https://github.com/" + repository.full_name}</span>`;
+      ? "https://github.com/" + repository.full_name + "/archive/refs/tags/" + tagDetails[0].name + ".tar.gz"
+      : "git+https://github.com/" + repository.full_name
 
     const compressed_repo: Repo = {
       contentIsCorrect: true,
