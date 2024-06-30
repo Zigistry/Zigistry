@@ -29,6 +29,7 @@ export default function Layout(props: { children: JSX.Element }): JSX.Element {
                 <meta name="author" content="Rohan Vashisht" />
             </Head>
             <Script async defer src="https://buttons.github.io/buttons.js"/>
+            <Script src="/checkDarkMode.js"/>
             <main>{props.children}</main>
             <Foooter />
         </main>
