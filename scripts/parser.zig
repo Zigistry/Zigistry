@@ -39,6 +39,17 @@ fn print_repos(my_items: []std.json.Value, is_last_file: bool) !void {
         print_json_int("stargazers_count", item.object.get("stargazers_count").?.integer, true);
         print_json("tags_url", item.object.get("tags_url").?.string, true);
         print_json("created_at", item.object.get("created_at").?.string, true);
+        if (item.object.get("topics").? == .array) {
+            print("\"topics\":[", .{});
+            for (item.object.get("topics").?.array.items, 0..) |my_item, index| {
+                if (index == item.object.get("topics").?.array.items.len - 1) {
+                    print("\"{s}\"", .{my_item.string});
+                } else {
+                    print("\"{s}\",", .{my_item.string});
+                }
+            }
+            print("],", .{});
+        }
         print_json("avatar_url", item.object.get("owner").?.object.get("avatar_url").?.string, false);
         // If it is the last file and the last line
         if (is_last_file and i == my_items.len - 1) print("}}", .{}) else print("}},", .{});
