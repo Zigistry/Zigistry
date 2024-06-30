@@ -52,7 +52,7 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
             <div
               className="dark:bg-[#151d28] bg-slate-600 pr-7 py-3 pl-4 rounded w-fit flex items-center justify-center mb-4"
             ><span style={{ color: "gold" }}>zig</span>&nbsp;<span style={{ color: "skyblue" }}>fetch</span>&nbsp;<span style={{ color: "lightgray" }}>--save</span>&nbsp;<span style={{ color: "lightgreen" }}>{compressed_repo.specials}</span>
-            <Clipboard className='ml-3' valueToCopy={"zig fetch --save " + compressed_repo.specials} label="Copy" />
+              <Clipboard className='ml-3' valueToCopy={"zig fetch --save " + compressed_repo.specials} label="Copy" />
             </div>
           </div>
           <div className='flex items-center justify-center mb-4'>
@@ -79,9 +79,15 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
   const repository = data.find(repo => repo.full_name === repoPath);
   if (repository) {
     const masdf = repository.default_branch ? `https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch}/README.md` : `https://raw.githubusercontent.com/${repository.full_name}/master/README.md`;
-    console.log(masdf);
-    const readmeResponse = await fetch(masdf);
-    const readmeContent = await readmeResponse.text();
+    var readmeResponse = await fetch(masdf);
+    var readmeContent = "404";
+    if (readmeResponse.ok) {
+      readmeContent = await readmeResponse.text();
+    } else {
+      const myreadme = repository.default_branch ? `https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch}/readme.md` : `https://raw.githubusercontent.com/${repository.full_name}/master/readme.md`;
+      readmeResponse = await fetch(myreadme);
+      readmeContent = await readmeResponse.text();
+    }
     const tagsResponse = await fetch(repository.tags_url);
     const tagDetails = tagsResponse.ok ? await tagsResponse.json() : [];
 
@@ -105,6 +111,7 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
       topics: repository.topics,
       avatar_url: repository.avatar_url
     };
+
     return { props: { compressed_repo } };
   } else {
     return { props: { compressed_repo: { contentIsCorrect: false } as Repo } };
