@@ -1,12 +1,37 @@
+/*===============================================================================*/
+/*                           Custom Card component                               */
+/*===============================================================================*/
+
+/*
+ | Author:
+ | Rohan Vashisht
+ |
+ | Details:
+ | This is the export for custom card component, it is
+ | mostly based off of the flowbite-react Card component.
+ | Please check license file for copyright details.
+ */
+
+// ===================
+//       Imports
+// ===================
+
+// ---------- Types -----------
+import type Repo from "@/types/custom_types";
+
+// -------- Components ---------
 import { Badge, Button, Card, Tooltip } from "flowbite-react";
 import Image from "next/image";
-import Repo from "@/types/custom_types";
 import { FaStar, FaEye } from "react-icons/fa";
 import { FaCodeFork } from "react-icons/fa6";
 import { BsInfoSquareFill } from "react-icons/bs";
 import { GoIssueOpened } from "react-icons/go";
 import Link from "next/link";
 
+
+// =====================================================
+//       Exports function (Component) Custom Card
+// =====================================================
 export default function CustomCard(props: { item: Repo }) {
   return (
     <Card className="w-72 my-2 hover:scale-110 transition-transform transform-cpu">

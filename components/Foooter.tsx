@@ -1,5 +1,27 @@
+/*===============================================================================*/
+/*                               Foooter Component                               */
+/*===============================================================================*/
+
+/*
+ | Author:
+ | Rohan Vashisht
+ |
+ | Details:
+ | This is the default Footer (Foooter) component.
+ | Please check license file for copyright details.
+ */
+
+// ===================
+//       Imports
+// ===================
+
+// ------- Components ---------
 import { Footer, FooterCopyright, FooterLink, FooterLinkGroup } from "flowbite-react";
 
+
+// ============================================
+//       Exports default Foooter component
+// ============================================
 export default function Foooter() {
   return (
     <Footer container>

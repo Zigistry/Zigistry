@@ -1,9 +1,29 @@
+/*===============================================================================*/
+/*                       Show recommendations component                          */
+/*===============================================================================*/
+
+/*
+ | Author:
+ | Rohan Vashisht
+ |
+ | Details:
+ | This is the default show recommendations component.
+ | Please check license file for copyright details.
+ */
+
+// ===================
+//       Imports
+// ===================
+
+// ------- Components ---------
 import { FaStar } from "react-icons/fa";
 import { IoMdFastforward } from "react-icons/io";
 import Repo from "@/types/custom_types";
 import CustomCard from "./CustomCard";
 
-
+// =================================================
+//       Exports default Recommendations view
+// =================================================
 export default function Recommendations(props: {
   most_used: Repo[];
   top10LatestRepos: Repo[];

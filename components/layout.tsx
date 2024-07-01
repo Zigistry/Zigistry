@@ -1,9 +1,32 @@
+/*===============================================================================*/
+/*                               Layout Component                                */
+/*===============================================================================*/
+
+/*
+ | Author:
+ | Rohan Vashisht
+ |
+ | Details:
+ | This file contains the boiler plate code to be used
+ | throughout this website.
+ | Please check license file for copyright details.
+ */
+
+// ===================
+//       Imports
+// ===================
+
+// ------- Components ---------
 import Navbar from './Header'
 import Foooter from './Foooter'
 import Head from 'next/head'
 import Script from 'next/script'
 import { ThemeModeScript } from "flowbite-react";
 
+
+// =====================================
+//       Exports Layout component
+// =====================================
 export default function Layout(props: { children: JSX.Element }): JSX.Element {
     return (
         <main className="dark:bg-custom-gradient bg-white dark:text-white text-black">

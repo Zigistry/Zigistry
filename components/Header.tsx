@@ -1,9 +1,30 @@
+/*===============================================================================*/
+/*                               Navbar Component                                */
+/*===============================================================================*/
+
+/*
+ | Author:
+ | Rohan Vashisht
+ |
+ | Details:
+ | This is the default Navbar component.
+ | Please check license file for copyright details.
+ */
+
+// ===================
+//       Imports
+// ===================
+
+// ------- Components ---------
 import { Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle } from "flowbite-react";
 import Link from "next/link";
 import { DarkThemeToggle, Flowbite } from "flowbite-react";
 
-
+// =====================================
+//       Export navbar component
+// =====================================
 export default function Header(): JSX.Element {
+  // Using as={Link} to avoid page reloading.
   return (
     <Navbar className="border-b-orange-300" style={{ borderBottom: "2px solid #faca15" }} rounded>
       <NavbarBrand as={Link} href="/">
