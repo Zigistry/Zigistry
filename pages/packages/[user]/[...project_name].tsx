@@ -1,7 +1,29 @@
-import { marked } from 'marked';
-import Image from 'next/image';
+/*===============================================================================*/
+/*                  Show Library "/packages/[user]/[project_name]"               */
+/*===============================================================================*/
+
+/*
+ | Author:
+ | Rohan Vashisht
+ |
+ | Details:
+ | This page is used to display the details of a single library.
+ | Please check license file for copyright details.
+ */
+
+// ===================
+//       Imports
+// ===================
+
+// ----------- Types -----------
 import Repo from '@/types/custom_types';
+
+// --------- Functions ---------
+import { marked } from 'marked';
 import DOMPurify from 'isomorphic-dompurify';
+
+// -------- Components ---------
+import Image from 'next/image';
 import { GoIssueOpened } from 'react-icons/go';
 import { FaCodeFork, FaEye, FaStar } from 'react-icons/fa6';
 import { Button, Card, Tooltip } from 'flowbite-react';
@@ -10,6 +32,9 @@ import { FaGithub } from 'react-icons/fa';
 import { BsInfoSquareFill } from 'react-icons/bs';
 import { Clipboard } from "flowbite-react"
 
+// =========================================================================
+//       Exports show library page "/packages/[user]/[project_name]"
+// =========================================================================
 export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
   return (
     <>
@@ -69,32 +94,45 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
   );
 }
 
+// ==================================
+//       Get Server Side Props
+// ==================================
 export async function getServerSideProps({ params: { user, project_name } }: { params: { user: string; project_name: string; } }) {
-  const github_url = "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json";
+
+  // -------- Get url path parameters ---------
   const repoPath = `${user}/${project_name}`;
-  const response = await fetch(github_url);
+
+  // ------------ Fetch Database --------------
+  const response = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json");
   if (!response.ok) throw new Error(`Failed to fetch data: ${response.statusText}`);
   const data: Repo[] = await response.json();
 
+  // ------ Check if user/project exists ------
   const repository = data.find(repo => repo.full_name === repoPath);
   if (repository) {
-    const masdf = repository.default_branch ? `https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch}/README.md` : `https://raw.githubusercontent.com/${repository.full_name}/master/README.md`;
-    var readmeResponse = await fetch(masdf);
+
+    // -------------- Fetch Readme ------------------
+    var readmeURL = repository.default_branch ? `https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch}/README.md` : `https://raw.githubusercontent.com/${repository.full_name}/master/README.md`;
+    var readmeResponse = await fetch(readmeURL);
     var readmeContent = "404";
     if (readmeResponse.ok) {
       readmeContent = await readmeResponse.text();
     } else {
-      const myreadme = repository.default_branch ? `https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch}/readme.md` : `https://raw.githubusercontent.com/${repository.full_name}/master/readme.md`;
-      readmeResponse = await fetch(myreadme);
+      readmeURL = repository.default_branch ? `https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch}/readme.md` : `https://raw.githubusercontent.com/${repository.full_name}/master/readme.md`;
+      readmeResponse = await fetch(readmeURL);
       readmeContent = await readmeResponse.text();
     }
+
+    // ----------------- Fetch tags -----------------
     const tagsResponse = await fetch(repository.tags_url);
     const tagDetails = tagsResponse.ok ? await tagsResponse.json() : [];
 
+    // ------- Generate Installation Commands -------
     const specials = tagDetails[0]
       ? "https://github.com/" + repository.full_name + "/archive/refs/tags/" + tagDetails[0].name + ".tar.gz"
       : "git+https://github.com/" + repository.full_name
 
+    // --------- Generate repository struct ---------
     const compressed_repo: Repo = {
       contentIsCorrect: true,
       name: repository.name,
@@ -112,6 +150,7 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
       avatar_url: repository.avatar_url
     };
 
+    // ---------- Return repository struct ----------
     return { props: { compressed_repo } };
   } else {
     return { props: { compressed_repo: { contentIsCorrect: false } as Repo } };
