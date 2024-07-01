@@ -35,7 +35,7 @@ fn print(comptime format: []const u8, args: anytype) void {
     writer.print(format, args) catch return;
 }
 
-/// ===| Replaces all occurances of same characters from a string, returns a new string |===
+/// ===| Replaces all occurrences of same characters from a string, returns a new string |===
 fn replace(allocator: std.mem.Allocator, str: []const u8, char_to_replace: u8, replace_with: u8) ![]const u8 {
     var my_custom = std.ArrayList(u8).init(allocator);
     errdefer my_custom.deinit();
