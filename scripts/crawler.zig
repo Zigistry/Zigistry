@@ -1,13 +1,41 @@
+//!===============================================================================//
+//!                             Database Compiler                                 //
+//!===============================================================================//
+
+//! Author:
+//! Rohan Vashisht
+//!
+//! Details:
+//! This is a program that reads data from multiple json files downloaded using wget
+//! from GitHub's api's and creates database from their data. The database is a
+//! main.json file that is present inside the database directory. This program is
+//! executed using github workflows, so that the database is updated automatically.
+//! 
+//! Please check license file for copyright details.
+
+/// =============================
+///            Imports
+/// =============================
 const std = @import("std");
+
+/// =============================
+///           Constants
+/// =============================
 const writer = std.io.getStdOut().writer();
 const file_functions = std.fs.cwd();
 const file_names = [3][]const u8{ "a.json", "b.json", "c.json", "d.json" };
 const global_allocator = std.heap.page_allocator;
 
+/// =============================
+///           Functions
+/// =============================
+
+/// ===| Prints data to stdout |===
 fn print(comptime format: []const u8, args: anytype) void {
     writer.print(format, args) catch return;
 }
 
+/// ===| Replaces all occurances of same characters from a string, returns a new string |===
 fn replace(allocator: std.mem.Allocator, str: []const u8, char_to_replace: u8, replace_with: u8) ![]const u8 {
     var my_custom = std.ArrayList(u8).init(allocator);
     errdefer my_custom.deinit();
@@ -15,14 +43,17 @@ fn replace(allocator: std.mem.Allocator, str: []const u8, char_to_replace: u8, r
     return my_custom.toOwnedSlice();
 }
 
+// ===| Prints json (string : string) to stdout. |===
 fn print_json(x: []const u8, y: []const u8, end_with_comma: bool) void {
     if (end_with_comma) print("\"{s}\":\"{s}\",", .{ x, y }) else print("\"{s}\":\"{s}\"", .{ x, y });
 }
 
+// ===| Prints json (string : int) to stdout. |===
 fn print_json_int(x: []const u8, y: i64, end_with_comma: bool) void {
     if (end_with_comma) print("\"{s}\":{},", .{ x, y }) else print("\"{s}\":{}", .{ x, y });
 }
 
+// ===| Prints inivisual repo details as json to stdout. |===
 fn print_repos(my_items: []std.json.Value, is_last_file: bool) !void {
     for (my_items, 0..) |item, i| {
         print("{{", .{});
@@ -56,6 +87,7 @@ fn print_repos(my_items: []std.json.Value, is_last_file: bool) !void {
     }
 }
 
+// ===| Main function |===
 pub fn main() !void {
     print("[", .{});
     for (file_names, 0..) |file_name, i| {
