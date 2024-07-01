@@ -20,6 +20,7 @@ jobs:
           wget -O ./a.json "https://api.github.com/search/repositories?q=topic:zig-package&page=1&per_page=100"
           wget -O ./b.json "https://api.github.com/search/repositories?q=topic:zig-package&page=2&per_page=100"
           wget -O ./c.json "https://api.github.com/search/repositories?q=topic:zig-package&page=3&per_page=100"
+          wget -O ./d.json "https://api.github.com/search/repositories?q=topic:zig-package&page=4&per_page=100"
       - name: Compile zig
         run: zig cc ./scripts/parser.zig
       - name: Run zig
@@ -29,6 +30,7 @@ jobs:
           rm -rf ./a.json
           rm -rf ./b.json
           rm -rf ./c.json
+          rm -rf ./d.json
           rm -rf ./a.out
           rm -rf ./a.out.o
       - name: Config email

@@ -1,7 +1,7 @@
 const std = @import("std");
 const writer = std.io.getStdOut().writer();
 const file_functions = std.fs.cwd();
-const file_names = [3][]const u8{ "a.json", "b.json", "c.json" };
+const file_names = [3][]const u8{ "a.json", "b.json", "c.json", "d.json" };
 const global_allocator = std.heap.page_allocator;
 
 fn print(comptime format: []const u8, args: anytype) void {
