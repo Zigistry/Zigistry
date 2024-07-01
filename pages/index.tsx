@@ -48,6 +48,6 @@ export default function Home({ most_used, top10LatestRepos }: { most_used: Repo[
 }
 
 // ==================================
-//       Get Server Side Props
+//       Get Static Props
 // ==================================
-export { recommendation_backend as getServerSideProps };
+export { recommendation_backend as getStaticProps };
