@@ -1,5 +1,26 @@
+/*===============================================================================*/
+/*                            About Page "/about"                                */
+/*===============================================================================*/
+
+/*
+ | Author:
+ | Rohan Vashisht
+ |
+ | Details:
+ | The about page.
+ | Please check license file for copyright details.
+ */
+
+// ===================
+//       Imports
+// ===================
+
+// ------- Components ---------
 import { BsFillLightningChargeFill } from "react-icons/bs";
 
+// =============================
+//       Exports "/about"
+// =============================
 export default function About() {
     return (
         <div className="flex items-center justify-center" style={{ height: "calc(100vh - 122px)" }}>

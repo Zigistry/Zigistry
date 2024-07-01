@@ -1,11 +1,37 @@
-import { TextInput } from "flowbite-react";
-import { useRouter } from 'next/router';
-import Recommendations from "@/components/show_recommendations";
-import Repo from "@/types/custom_types";
-import recommendation_backend from "./api/recommendations_generator";
+/*===============================================================================*/
+/*                                Index Page "/"                                 */
+/*===============================================================================*/
 
+/*
+ | Author:
+ | Rohan Vashisht
+ |
+ | Details:
+ | This has the same view as the search page.
+ | When the search box is clicked, the user is redirected to "/search".
+ | Please check license file for copyright details.
+ */
+
+// ===================
+//       Imports
+// ===================
+
+// ------- Components ---------
+import { TextInput } from "flowbite-react";
+import Recommendations from "@/components/show_recommendations";
+
+// ------- Functions ----------
+import { useRouter } from 'next/router';
+import Repo from "@/types/custom_types";
+import recommendation_backend from "../backend/recommendations_generator";
+
+// =======================
+//       Exports "/"
+// =======================
 export default function Home({ most_used, top10LatestRepos }: { most_used: Repo[], top10LatestRepos: Repo[] }) {
   const router = useRouter();
+
+  // Change the route to /search when person clicks on the search box.
   const changeRoute = () => router.push("/search");
 
   return (
@@ -21,4 +47,7 @@ export default function Home({ most_used, top10LatestRepos }: { most_used: Repo[
   );
 }
 
+// ==================================
+//       Get Server Side Props
+// ==================================
 export { recommendation_backend as getServerSideProps };
