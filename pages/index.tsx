@@ -71,7 +71,7 @@ export default function Home({ most_used, top10LatestRepos, gui_items, gaming_it
       ) : (
         <section className="w-full flex flex-wrap justify-evenly">
           {data.length ? (
-            data.map((item, index) => (
+            data.map((item:any, index:any) => (
               <CustomCard key={index} item={item} />
             ))
           ) : (
