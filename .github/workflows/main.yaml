@@ -32,11 +32,11 @@ jobs:
            zig cc ./scripts/gui.zig
            zig cc ./scripts/games.zig
       - name: adf
-        run: ./web > ./database/web.json
+        run: ./web > ./database/out/web.json
       - name: ksld
-        run: ./gui > ./database/gui.json
+        run: ./gui > ./database/out/gui.json
       - name: skdj
-        run: ./games > ./database/games.json
+        run: ./games > ./database/out/games.json
            
       - name: Remove
         run: |
