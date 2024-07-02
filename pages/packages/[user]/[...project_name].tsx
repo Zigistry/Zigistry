@@ -26,7 +26,7 @@ import DOMPurify from 'isomorphic-dompurify';
 import Image from 'next/image';
 import { GoIssueOpened } from 'react-icons/go';
 import { FaCodeFork, FaEye, FaStar } from 'react-icons/fa6';
-import { Button, Card, Tooltip } from 'flowbite-react';
+import { Button, Card, Tooltip, Badge } from 'flowbite-react';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { BsInfoSquareFill } from 'react-icons/bs';
@@ -46,7 +46,9 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
               <h5 className="text-2xl font-bold text-gray-900 dark:text-white">
                 {compressed_repo.name}
               </h5>
-              <p className="text-gray-400">{compressed_repo.full_name}</p>
+              <p className="text-gray-400">{compressed_repo.full_name}
+                  <Badge color={""} className="bg-slate-600 w-fit mt-4">{compressed_repo.license}</Badge>
+              </p>
               <p className="font-normal text-gray-700 dark:text-gray-400">
                 {compressed_repo.description}
               </p>
@@ -143,6 +145,7 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
       tags_url: repository.tags_url,
       open_issues: repository.open_issues,
       specials,
+      license: repository.license,
       stargazers_count: repository.stargazers_count,
       forks_count: repository.forks_count,
       watchers_count: repository.watchers_count,

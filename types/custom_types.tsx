@@ -11,6 +11,7 @@ export default interface Repo {
     watchers_count: string;
     contentIsCorrect?: boolean;
     tags_url: string;
+    license:string;
     readme_content?: string;
     specials?: string;
     topics?:Array<string>;
