@@ -44,7 +44,7 @@ export default function Home({ most_used, top10LatestRepos }: { most_used: Repo[
     setData(result);
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event:any) => {
 	  if (event.key == "Enter") {
 		  fetchData();
 		  setShowDefault(false);
