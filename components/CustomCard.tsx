@@ -16,9 +16,11 @@
 //       Imports
 // ===================
 
-// ---------- Types -----------
+// ---------- Types ------------
 import type Repo from "@/types/custom_types";
 
+// -------- Functions ----------
+import { number_as_letters } from "@/backend/helper_functions";
 // -------- Components ---------
 import { Badge, Button, Card, Tooltip } from "flowbite-react";
 import Image from "next/image";
@@ -33,18 +35,6 @@ import Link from "next/link";
 //       Exports function (Component) Custom Card
 // =====================================================
 export default function CustomCard(props: { item: Repo }) {
-
-  //------ Convert nubmers to letter ---------
-  function number_as_letters(i: number) {
-	var generated_string = "";
-	if(i.toString().length > 3){
-		var my_num = i / 1000;
-		generated_string = my_num.toString().slice(0,3) + "K";
-	} else {
-		generated_string = i.toString();
-	}
-        return generated_string;
-  }
   return (
     <Card className="w-72 my-2 hover:scale-110 transition-transform transform-cpu">
       <Image width="50" height="50" className="w-10 rounded-full" src={props.item.avatar_url} alt={props.item.name} />

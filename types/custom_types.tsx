@@ -5,10 +5,10 @@ export default interface Repo {
     created_at: string;
     description: string;
     default_branch?:string;
-    open_issues: string;
-    stargazers_count: string;
-    forks_count: string;
-    watchers_count: string;
+    open_issues: number;
+    stargazers_count: number;
+    forks_count: number;
+    watchers_count: number;
     contentIsCorrect?: boolean;
     tags_url: string;
     license:string;
@@ -17,7 +17,7 @@ export default interface Repo {
     topics?:Array<string>;
 }
 
-
+/*
 export default interface Blog {
     avatar_url: string;
     name: string;
@@ -34,3 +34,4 @@ export default interface Blog {
     readme_content?: string;
     specials?: string;
 }
+*/

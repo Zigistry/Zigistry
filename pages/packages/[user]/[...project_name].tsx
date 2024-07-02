@@ -31,6 +31,7 @@ import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { BsInfoSquareFill } from 'react-icons/bs';
 import { Clipboard } from "flowbite-react"
+import { number_as_letters } from '@/backend/helper_functions';
 
 // =========================================================================
 //       Exports show library page "/packages/[user]/[project_name]"
@@ -47,27 +48,23 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
                 {compressed_repo.name}
               </h5>
               <p className="text-gray-400">{compressed_repo.full_name}
-                  <Badge color={""} className="bg-slate-600 w-fit mt-4">{compressed_repo.license}</Badge>
+                <Badge color={""} className="bg-slate-600 w-fit mt-4">{compressed_repo.license}</Badge>
               </p>
               <p className="font-normal text-gray-700 dark:text-gray-400">
                 {compressed_repo.description}
               </p>
               <div className="flex items-center">
-                <FaStar size={20} color="#cfbc0e" />
-                &nbsp;{compressed_repo.stargazers_count}
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <FaEye color="skyblue" />
-                &nbsp;{compressed_repo.watchers_count}
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <FaCodeFork color="lightpink" />
-                &nbsp;{compressed_repo.forks_count}
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <GoIssueOpened color="lightgreen" />
-                &nbsp;{compressed_repo.open_issues}
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <BsInfoSquareFill color="darkorange" />
-                <Tooltip content={compressed_repo.topics?.join(", ")}>
-                  &nbsp;{compressed_repo.topics?.length}
+                <FaStar size={20} color="#cfbc0e" className="mr-2" />
+                {number_as_letters(compressed_repo.stargazers_count)}
+                <FaEye className="ml-2 mr-1" color="skyblue" />
+                {number_as_letters(compressed_repo.watchers_count)}
+                <FaCodeFork className="ml-2 mr-1" color="lightpink" />
+                {number_as_letters(compressed_repo.forks_count)}
+                <GoIssueOpened className="ml-2 mr-1" color="lightgreen" />
+                {number_as_letters(compressed_repo.open_issues)}
+                <BsInfoSquareFill className="ml-2 mr-1" color="darkorange" />
+                <Tooltip className="ml-2 mr-1" content={compressed_repo.topics?.join(", ")}>
+                  {compressed_repo.topics?.length}
                 </Tooltip>
               </div>
               <Button as={Link} target='_blank' rel="noreferrer" href={"https://github.com/" + compressed_repo.full_name} color="light" pill>
