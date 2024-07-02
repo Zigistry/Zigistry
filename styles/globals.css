@@ -12,6 +12,7 @@ body {
 
 :root {
 	min-height: 100vh;
+	background: rgb(31, 41, 55);
 }
 
 .readmeDiv{
@@ -44,4 +45,9 @@ body {
 .readmeDiv > p {
 	display: flex !important;
 	padding: 5px 5px 5px 0 !important;
+}
+
+.readmeDiv a {
+	color: lightblue !important;
+	text-decoration: underline !important;
 }

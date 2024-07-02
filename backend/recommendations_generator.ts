@@ -7,7 +7,7 @@
  | Rohan Vashisht
  |
  | Details:
- | This page is used as the getStaticProps for Index and Search pages.
+ | This page is used as the getStaticProps for Index page.
  | Please check license file for copyright details.
  */
 
@@ -18,9 +18,9 @@
 // --------- Types -----------
 import Repo from "@/types/custom_types";
 
-// ==================================================================
-//       Exports getStaticProps for Index and Search pages.
-// ==================================================================
+// =======================================================
+//       Exports getStaticProps for the Index page.
+// =======================================================
 export default async function recommendation_backend() {
   
   // -------------- Fetch ----------------
