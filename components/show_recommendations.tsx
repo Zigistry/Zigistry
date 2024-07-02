@@ -27,6 +27,9 @@ import CustomCard from "./CustomCard";
 export default function Recommendations(props: {
   most_used: Repo[];
   top10LatestRepos: Repo[];
+  gaming_response: Repo[];
+  web_response: Repo[];
+  gui_response: Repo[];
 }): JSX.Element {
   return (
     <>
@@ -50,6 +53,45 @@ export default function Recommendations(props: {
       <section className="w-full flex flex-wrap justify-evenly">
         {props.most_used ? (
           props.most_used.map((item: Repo, index: number) => (
+            <CustomCard key={index} item={item} />
+          ))
+        ) : (
+          <p>Loading...</p>
+        )}
+      </section>
+      <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+        <FaStar size={25} />
+        &nbsp;Famous Game libs:
+      </h1>
+      <section className="w-full flex flex-wrap justify-evenly">
+        {props.gaming_response ? (
+          props.gaming_response.map((item: Repo, index: number) => (
+            <CustomCard key={index} item={item} />
+          ))
+        ) : (
+          <p>Loading...</p>
+        )}
+      </section>
+      <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+        <FaStar size={25} />
+        &nbsp;Famous GUI libs:
+      </h1>
+      <section className="w-full flex flex-wrap justify-evenly">
+        {props.gui_response ? (
+          props.gui_response.map((item: Repo, index: number) => (
+            <CustomCard key={index} item={item} />
+          ))
+        ) : (
+          <p>Loading...</p>
+        )}
+      </section>
+      <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+        <FaStar size={25} />
+        &nbsp;Famous Web libs:
+      </h1>
+      <section className="w-full flex flex-wrap justify-evenly">
+        {props.web_response ? (
+          props.web_response.map((item: Repo, index: number) => (
             <CustomCard key={index} item={item} />
           ))
         ) : (
