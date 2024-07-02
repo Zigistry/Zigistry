@@ -40,5 +40,5 @@ bun.lockb
 package-lock.json
 
 # binaries
-*.out
+database_compiler
 *.o
