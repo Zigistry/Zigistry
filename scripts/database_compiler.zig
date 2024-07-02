@@ -64,7 +64,12 @@ fn print_repos(my_items: []std.json.Value, is_last_file: bool) !void {
         } else print_json("description", "This repository has no description.", true);
         print_json_int("watchers_count", item.object.get("watchers_count").?.integer, true);
         print_json_int("forks_count", item.object.get("forks_count").?.integer, true);
-        print_json("license", item.object.get("license").?.object.get("spdx_id").?.string, true);
+        if(item.object.get("license").? == .null){
+             print_json("license", "-", true);
+        } else{
+             print_json("license", item.object.get("license").?.object.get("spdx_id").?.string, true);
+
+        }
         print_json_int("open_issues", item.object.get("open_issues").?.integer, true);
         print_json_int("stargazers_count", item.object.get("stargazers_count").?.integer, true);
         print_json("tags_url", item.object.get("tags_url").?.string, true);
