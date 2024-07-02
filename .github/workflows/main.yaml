@@ -27,13 +27,14 @@ jobs:
       - name: Ok run
         run: sh ./scripts/featured.sh
       - name: Run
-        run: |
+        run: | 
            zig build-exe ./scripts/web.zig
+           ./web > ./database/web.json
            zig build-exe ./scripts/gui.zig
+           ./gui > ./database/gui.json
            zig build-exe ./scripts/games.zig
            ./games > ./database/games.json
-           ./web > ./database/web.json
-           ./gui > ./database/gui.json
+           
       - name: Remove
         run: |
           rm -rf ./a.json
