@@ -27,13 +27,16 @@ jobs:
       - name: Ok run
         run: sh ./scripts/featured.sh
       - name: Run
-        run: | 
-           zig build-exe ./scripts/web.zig
-           ./web > ./database/web.json
-           zig build-exe ./scripts/gui.zig
-           ./gui > ./database/gui.json
-           zig build-exe ./scripts/games.zig
-           ./games > ./database/games.json
+        run: |
+           zig cc ./scripts/web.zig
+           zig cc ./scripts/gui.zig
+           zig cc ./scripts/games.zig
+      - name: adf
+        run: ./web > ./database/web.json
+      - name: ksld
+        run: ./gui > ./database/gui.json
+      - name: skdj
+        run: ./games > ./database/games.json
            
       - name: Remove
         run: |
