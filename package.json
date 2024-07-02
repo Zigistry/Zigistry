@@ -10,7 +10,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "dompurify": "^3.1.5",
     "flowbite": "^2.3.0",
     "flowbite-react": "^0.10.1",
     "isomorphic-dompurify": "^2.12.0",
