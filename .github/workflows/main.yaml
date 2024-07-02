@@ -24,6 +24,16 @@ jobs:
         run: zig build-exe ./scripts/database_compiler.zig
       - name: Run zig
         run: ./database_compiler > ./database/main.json
+      - name: Ok run
+        run: sh ./scripts/featured.sh
+      - name: Run
+        run: |
+           zig build-exe ./scripts/web.zig
+           zig build-exe ./scripts/gui.zig
+           zig build-exe ./scripts/games.zig
+           ./games > ./database/games.json
+           ./web > ./database/web.json
+           ./gui > ./database/gui.json
       - name: Remove
         run: |
           rm -rf ./a.json

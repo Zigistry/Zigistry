@@ -5,10 +5,10 @@
 //! Rohan Vashisht
 //!
 //! Details:
-//! This is a program that generated the featured repositories. These repositories
-//! are downloaded using wget from GitHub's api's and creates database from their data
-//! The database is a main.json file that is present inside the database directory.
-//! This program executed using github workflows, so that the database is updated automatically.
+//! This is a program that reads data from multiple json files downloaded using wget
+//! from GitHub's api's and creates database from their data. The database is a
+//! main.json file that is present inside the database directory. This program is
+//! executed using github workflows, so that the database is updated automatically.
 //!
 //! Please check license file for copyright details.
 
@@ -22,51 +22,18 @@ const std = @import("std");
 /// =============================
 const writer = std.io.getStdOut().writer();
 const file_functions = std.fs.cwd();
+const file_names = [1][]const u8{ "./database/gui.json"};
 const global_allocator = std.heap.page_allocator;
 
 /// =============================
-///             Data
+///           Functions
 /// =============================
-const games = [5][]const u8{
-    "Not-Nik/raylib-zig", // #1
-    "hexops/mach", // #2
-    "zig-gamedev/zig-gamedev", // #3
-    "Jack-Ji/jok", // #4
-    "prime31/zig-gamekit", // #5
-};
-
-const web = [5][]const u8{
-    "zigzap/zap", // #1
-    "jetzig-framework/jetzig", // #2
-    "karlseguin/http.zig", // #3
-    "karlseguin/websocket.zig", // #4
-    "ikskuh/zig-network", // #5
-};
-
-const gui = [5][]const u8{
-    "zigzap/zap", // #1
-    "jetzig-framework/jetzig", // #2
-    "karlseguin/http.zig", // #3
-    "karlseguin/websocket.zig", // #4
-    "ikskuh/zig-network", // #5
-};
-
+/// ===| Prints data to stdout |===
 fn print(comptime format: []const u8, args: anytype) void {
     writer.print(format, args) catch return;
 }
 
-fn concatenate(allocator: std.mem.Allocator, x: []const u8, y: []const u8) ![]const u8 {
-    var my_custom = std.ArrayList(u8).init(allocator);
-    errdefer my_custom.deinit();
-    for (x) |char| {
-        try my_custom.append(char);
-    }
-    for (y) |my_char| {
-        try my_custom.append(my_char);
-    }
-    return my_custom.toOwnedSlice();
-}
-
+/// ===| Replaces all occurrences of same characters from a string, returns a new string |===
 fn replace(allocator: std.mem.Allocator, str: []const u8, char_to_replace: u8, replace_with: u8) ![]const u8 {
     var my_custom = std.ArrayList(u8).init(allocator);
     errdefer my_custom.deinit();
@@ -97,10 +64,11 @@ fn print_repos(my_items: []std.json.Value, is_last_file: bool) !void {
         } else print_json("description", "This repository has no description.", true);
         print_json_int("watchers_count", item.object.get("watchers_count").?.integer, true);
         print_json_int("forks_count", item.object.get("forks_count").?.integer, true);
-        if (item.object.get("license").? == .null) {
-            print_json("license", "-", true);
-        } else {
-            print_json("license", item.object.get("license").?.object.get("spdx_id").?.string, true);
+        if(item.object.get("license").? == .null){
+             print_json("license", "-", true);
+        } else{
+             print_json("license", item.object.get("license").?.object.get("spdx_id").?.string, true);
+
         }
         print_json_int("open_issues", item.object.get("open_issues").?.integer, true);
         print_json_int("stargazers_count", item.object.get("stargazers_count").?.integer, true);
@@ -123,15 +91,18 @@ fn print_repos(my_items: []std.json.Value, is_last_file: bool) !void {
     }
 }
 
-pub fn main() !u8 {
-    for (games) |game| {
-        print("{s}", .{game});
-        _ = try std.process.Child.run(.{
-            .allocator = global_allocator,
-            .argv = &[_][]const u8{ "wget", "-O", "", try concatenate(global_allocator, "https://api.github.com/repos/", game) },
-        });
-        const exit_code = "ok";
-        std.debug.print("Process exited with code: {s}\n", .{exit_code});
+// ===| Main function |===
+pub fn main() !void {
+    print("[", .{});
+    for (file_names, 0..) |file_name, i| {
+        const file = try file_functions.openFile(file_name, .{});
+        const buf = try file.readToEndAlloc(global_allocator, try file.getEndPos());
+        defer global_allocator.free(buf);
+        const parsed = try std.json.parseFromSlice(std.json.Value, global_allocator, buf, .{});
+        defer parsed.deinit();
+        const my_items = parsed.value.array.items;
+        // If it is the last file
+        if (i == file_names.len - 1) try print_repos(my_items, true) else try print_repos(my_items, false);
     }
-    return 0;
+    print("]", .{});
 }

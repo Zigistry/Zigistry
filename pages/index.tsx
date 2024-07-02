@@ -29,7 +29,7 @@ import { useState } from "react";
 // =============================
 //       Exports "/search"
 // =============================
-export default function Home({ most_used, top10LatestRepos }: { most_used: Repo[], top10LatestRepos: Repo[] }) {
+export default function Home({ most_used, top10LatestRepos, gui_items, gaming_items, web_items }: { most_used: Repo[], top10LatestRepos: Repo[] }) {
 
   // The data is going to be manipulated so setting it to top10LatestRepos
   // just to prevent errors.
@@ -67,7 +67,7 @@ export default function Home({ most_used, top10LatestRepos }: { most_used: Repo[
         />
       </div>
       {showDefault ? (
-        <Recommendations most_used={most_used} top10LatestRepos={top10LatestRepos} />
+        <Recommendations gaming_items={gaming_items} gui_items={gui_items} web_items={web_items} most_used={most_used} top10LatestRepos={top10LatestRepos} />
       ) : (
         <section className="w-full flex flex-wrap justify-evenly">
           {data.length ? (

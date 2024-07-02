@@ -30,7 +30,7 @@ export default async function recommendation_backend() {
 
   const gaming_response = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/games.json");
   if (!gaming_response.ok) throw new Error(`Error: ${gaming_response.statusText}`);
-  const gaming_items: Repo[] = await response.json();
+  const gaming_items: Repo[] = await gaming_response.json();
 
   const web_response = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/web.json");
   if (!web_response.ok) throw new Error(`Error: ${web_response.statusText}`);

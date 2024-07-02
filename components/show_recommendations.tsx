@@ -27,9 +27,9 @@ import CustomCard from "./CustomCard";
 export default function Recommendations(props: {
   most_used: Repo[];
   top10LatestRepos: Repo[];
-  gaming_response: Repo[];
-  web_response: Repo[];
-  gui_response: Repo[];
+  gaming_items: Repo[];
+  web_items: Repo[];
+  gui_items: Repo[];
 }): JSX.Element {
   return (
     <>
@@ -64,8 +64,8 @@ export default function Recommendations(props: {
         &nbsp;Famous Game libs:
       </h1>
       <section className="w-full flex flex-wrap justify-evenly">
-        {props.gaming_response ? (
-          props.gaming_response.map((item: Repo, index: number) => (
+        {props.gaming_items ? (
+          props.gaming_items.map((item: Repo, index: number) => (
             <CustomCard key={index} item={item} />
           ))
         ) : (
@@ -77,8 +77,8 @@ export default function Recommendations(props: {
         &nbsp;Famous GUI libs:
       </h1>
       <section className="w-full flex flex-wrap justify-evenly">
-        {props.gui_response ? (
-          props.gui_response.map((item: Repo, index: number) => (
+        {props.gui_items ? (
+          props.gui_items.map((item: Repo, index: number) => (
             <CustomCard key={index} item={item} />
           ))
         ) : (
@@ -90,8 +90,8 @@ export default function Recommendations(props: {
         &nbsp;Famous Web libs:
       </h1>
       <section className="w-full flex flex-wrap justify-evenly">
-        {props.web_response ? (
-          props.web_response.map((item: Repo, index: number) => (
+        {props.web_items ? (
+          props.web_items.map((item: Repo, index: number) => (
             <CustomCard key={index} item={item} />
           ))
         ) : (
