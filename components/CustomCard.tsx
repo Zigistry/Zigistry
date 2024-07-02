@@ -41,7 +41,7 @@ export default function CustomCard(props: { item: Repo }) {
       <h5 className="text-2xl font-bold text-gray-900 dark:text-white">
         {props.item.name}
       </h5>
-      <p className="text-gray-400">{props.item.full_name} <Badge color={"darkblue"}  className="w-fit bg-slate-600 mt-4">{props.item.license}</Badge></p>
+      <p className="text-gray-400">{props.item.full_name} <Badge color={"darkblue"}  className="w-fit dark:bg-slate-600 bg-white dark:border-none border-slate-200 border mt-4">{props.item.license}</Badge></p>
       <p className="font-normal text-gray-700 dark:text-gray-400">
         {props.item.description}
       </p>

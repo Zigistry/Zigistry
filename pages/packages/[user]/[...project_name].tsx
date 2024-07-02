@@ -48,7 +48,7 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
                 {compressed_repo.name}
               </h5>
               <p className="text-gray-400">{compressed_repo.full_name}
-                <Badge color={""} className="bg-slate-600 w-fit mt-4">{compressed_repo.license}</Badge>
+                <Badge color={""} className="w-fit dark:bg-slate-600 bg-white dark:border-none border-slate-200 border mt-4">{compressed_repo.license}</Badge>
               </p>
               <p className="font-normal text-gray-700 dark:text-gray-400">
                 {compressed_repo.description}
