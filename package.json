@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mdx-js/loader": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@next/mdx": "^14.2.4",
+    "@types/mdx": "^2.0.13",
     "flowbite": "^2.4.1",
     "flowbite-react": "^0.10.1",
     "isomorphic-dompurify": "^2.12.0",
