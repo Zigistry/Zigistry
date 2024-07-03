@@ -18,10 +18,9 @@ const std = @import("std");
 /// =============================
 ///           Constants
 /// =============================
-const writer = std.io.getStdOut().writer();
-const file_functions = std.fs.cwd();
-const file_names = [4][]const u8{ "a.json", "b.json", "c.json", "d.json" };
-const global_allocator = std.heap.page_allocator;
+pub const writer = std.io.getStdOut().writer();
+pub const file_functions = std.fs.cwd();
+pub const global_allocator = std.heap.page_allocator;
 
 /// =============================
 ///           Functions
