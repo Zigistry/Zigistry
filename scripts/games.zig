@@ -30,6 +30,6 @@ pub fn main() !void {
     defer parsed.deinit();
     const my_items = parsed.value.array.items;
     // If it is the last file
-    try helper_functions.print_repos(my_items, true);
+    try helper_functions.compress_and_print_repos(my_items, true);
     helper_functions.print("]", .{});
 }

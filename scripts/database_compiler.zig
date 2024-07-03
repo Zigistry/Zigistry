@@ -7,7 +7,7 @@ pub fn main() !void {
     helper_functions.print("[", .{});
     for (file_names, 0..) |file_name, i| {
         const file = try helper_functions.file_functions.openFile(file_name, .{});
-        const buf = try helper_functions.file.readToEndAlloc(helper_functions.global_allocator, try file.getEndPos());
+        const buf = try file.readToEndAlloc(helper_functions.global_allocator, try file.getEndPos());
         defer helper_functions.global_allocator.free(buf);
         const parsed = try std.json.parseFromSlice(std.json.Value, helper_functions.global_allocator, buf, .{});
         defer parsed.deinit();
