@@ -28,9 +28,9 @@ jobs:
         run: sh ./scripts/featured.sh
       - name: Run
         run: |
-           zig build-exe ./scripts/web.zig
-           zig build-exe ./scripts/gui.zig
-           zig build-exe ./scripts/games.zig
+           zig cc -o web ./scripts/web.zig
+           zig cc -o gui ./scripts/gui.zig
+           zig cc -o games ./scripts/games.zig
       - name: adf
         run: ./web > ./database/out/web.json
       - name: ksld

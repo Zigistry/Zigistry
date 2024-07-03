@@ -42,3 +42,4 @@ package-lock.json
 # binaries
 database_compiler
 *.o
+*.out
