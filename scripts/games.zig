@@ -25,7 +25,7 @@ pub fn main() !void {
     helper_functions.print("[", .{});
     const file = try helper_functions.file_functions.openFile(file_name, .{});
     const buf = try file.readToEndAlloc(helper_functions.global_allocator, try file.getEndPos());
-    helper_functions.global_allocator.free(buf);
+    defer helper_functions.global_allocator.free(buf);
     const parsed = try std.json.parseFromSlice(std.json.Value, helper_functions.global_allocator, buf, .{});
     defer parsed.deinit();
     const my_items = parsed.value.array.items;
