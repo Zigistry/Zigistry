@@ -18,7 +18,7 @@ const helper_functions = @import("./libs/functions_provider.zig");
 /// =============================
 ///           Constants
 /// =============================
-const file_name = "./database/web.json";
+const file_name = "./web.json";
 
 // ===| Main function |===
 pub fn main() !void {
