@@ -14,9 +14,9 @@ pub fn main() !void {
         const my_items = parsed.value.object.get("items").?.array.items;
         // If it is the last file
         if (i == file_names.len - 1) {
-            try helper_functions.print_repos(my_items, true);
+            try helper_functions.compress_and_print_repos(my_items, true);
         } else {
-            try helper_functions.print_repos(my_items, false);
+            try helper_functions.compress_and_print_repos(my_items, false);
         }
     }
     helper_functions.print("]", .{});
