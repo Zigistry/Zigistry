@@ -106,8 +106,21 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
   if (!response.ok) throw new Error(`Failed to fetch data: ${response.statusText}`);
   const data: Repo[] = await response.json();
 
+  const response_game = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/games.json");
+  if (!response_game.ok) throw new Error(`Failed to fetch data: ${response_game.statusText}`);
+  const data_game: Repo[] = await response_game.json();
+
+  const response_gui = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/gui.json");
+  if (!response_gui.ok) throw new Error(`Failed to fetch data: ${response_gui.statusText}`);
+  const data_gui: Repo[] = await response_gui.json();
+
+
+  const response_web = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/web.json");
+  if (!response_web.ok) throw new Error(`Failed to fetch data: ${response_web.statusText}`);
+  const data_web: Repo[] = await response_web.json();
+
   // ------ Check if user/project exists ------
-  const repository = data.find(repo => repo.full_name === repoPath);
+  const repository = data.find(repo => repo.full_name === repoPath) || data_game.find(repo => repo.full_name === repoPath) || data_gui.find(repo => repo.full_name === repoPath) || data_web.find(repo => repo.full_name === repoPath);
   if (repository) {
 
     // -------------- Fetch Readme ------------------

@@ -19,6 +19,9 @@
 import { FaStar } from "react-icons/fa";
 import { IoMdFastforward } from "react-icons/io";
 import Repo from "@/types/custom_types";
+import { IoLogoGameControllerB } from "react-icons/io";
+import { SlGlobe } from "react-icons/sl";
+import { IoIosApps } from "react-icons/io";
 import CustomCard from "./CustomCard";
 
 // =================================================
@@ -60,8 +63,8 @@ export default function Recommendations(props: {
         )}
       </section>
       <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
-        <FaStar size={25} />
-        &nbsp;Famous Game libs: (This website section is WIP)
+        <IoLogoGameControllerB size={25} />
+        &nbsp;Famous Game libs:
       </h1>
       <section className="w-full flex flex-wrap justify-evenly">
         {props.gaming_items ? (
@@ -73,8 +76,8 @@ export default function Recommendations(props: {
         )}
       </section>
       <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
-        <FaStar size={25} />
-        &nbsp;Famous GUI libs: (This website section is WIP)
+        <IoIosApps size={25} />
+        &nbsp;Famous GUI libs:
       </h1>
       <section className="w-full flex flex-wrap justify-evenly">
         {props.gui_items ? (
@@ -86,8 +89,8 @@ export default function Recommendations(props: {
         )}
       </section>
       <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
-        <FaStar size={25} />
-        &nbsp;Famous Web libs: (This website section is WIP)
+        <SlGlobe size={25} />
+        &nbsp;Famous Web libs:
       </h1>
       <section className="w-full flex flex-wrap justify-evenly">
         {props.web_items ? (
