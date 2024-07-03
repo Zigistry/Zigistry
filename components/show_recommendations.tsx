@@ -61,7 +61,7 @@ export default function Recommendations(props: {
       </section>
       <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
         <FaStar size={25} />
-        &nbsp;Famous Game libs:
+        &nbsp;Famous Game libs: (This website section is WIP)
       </h1>
       <section className="w-full flex flex-wrap justify-evenly">
         {props.gaming_items ? (
@@ -74,7 +74,7 @@ export default function Recommendations(props: {
       </section>
       <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
         <FaStar size={25} />
-        &nbsp;Famous GUI libs:
+        &nbsp;Famous GUI libs: (This website section is WIP)
       </h1>
       <section className="w-full flex flex-wrap justify-evenly">
         {props.gui_items ? (
@@ -87,7 +87,7 @@ export default function Recommendations(props: {
       </section>
       <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
         <FaStar size={25} />
-        &nbsp;Famous Web libs:
+        &nbsp;Famous Web libs: (This website section is WIP)
       </h1>
       <section className="w-full flex flex-wrap justify-evenly">
         {props.web_items ? (
