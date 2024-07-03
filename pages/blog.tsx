@@ -26,7 +26,7 @@ export default function Blog({ posts }: BlogProps) {
   return (
     <ul>
       <div className='flex items-center flex-col'>
-        <h1 className="text-center font-semibold text-2xl my-5">Search Ziglang Blogs</h1>
+        <h1 className="text-center font-semibold text-2xl my-5">Search Ziglang Blogs (Work in progress)</h1>
         <TextInput
           onChange={(e) => my_func(e.target.value)}
           placeholder="Search libraries"
