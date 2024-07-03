@@ -12,7 +12,7 @@ URL5="https://api.github.com/repos/prime31/zig-gamekit"
 
 
 # Define the final output file
-OUTPUT_FILE="./database/games.json"
+OUTPUT_FILE="./games.json"
 
 # Download the content from each URL, format it, and save it to the final file
 {
@@ -45,7 +45,7 @@ URL5="https://api.github.com/repos/ikskuh/zig-network"
 
 
 # Define the final output file
-OUTPUT_FILE="./database/web.json"
+OUTPUT_FILE="./web.json"
 
 # Download the content from each URL, format it, and save it to the final file
 {
@@ -78,7 +78,7 @@ URL5="https://api.github.com/repos/Aransentin/ZWL"
 
 
 # Define the final output file
-OUTPUT_FILE="./database/gui.json"
+OUTPUT_FILE="./gui.json"
 
 # Download the content from each URL, format it, and save it to the final file
 {

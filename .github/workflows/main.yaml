@@ -32,11 +32,11 @@ jobs:
            zig cc -o gui ./scripts/gui.zig
            zig cc -o games ./scripts/games.zig
       - name: adf
-        run: ./web > ./database/out/web.json
+        run: ./web > ./database/web.json
       - name: ksld
-        run: ./gui > ./database/out/gui.json
+        run: ./gui > ./database/gui.json
       - name: skdj
-        run: ./games > ./database/out/games.json
+        run: ./games > ./database/games.json
            
       - name: Remove
         run: |
@@ -46,9 +46,9 @@ jobs:
           rm -rf ./d.json
           rm -rf ./database_compiler
           rm -rf ./database_compiler.o
-          rm -rf ./database/gui.json
-          rm -rf ./database/games.json
-          rm -rf ./database/web.json
+          rm -rf ./gui.json
+          rm -rf ./games.json
+          rm -rf ./web.json
       - name: Config email
         run: git config --global user.name "Github Actions" && git config --global user.email "<>"
       - name: Git add
