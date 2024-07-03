@@ -43,3 +43,6 @@ package-lock.json
 database_compiler
 *.o
 *.out
+games
+gui
+web
