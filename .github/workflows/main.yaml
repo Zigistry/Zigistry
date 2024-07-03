@@ -47,7 +47,7 @@ jobs:
           rm -rf ./database_compiler
           rm -rf ./database_compiler.o
           rm -rf ./database/gui.json
-          rm -rf ./database/main.json
+          rm -rf ./database/games.json
           rm -rf ./database/web.json
       - name: Config email
         run: git config --global user.name "Github Actions" && git config --global user.email "<>"
