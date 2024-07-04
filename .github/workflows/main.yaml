@@ -27,16 +27,13 @@ jobs:
       - name: Ok run
         run: sh ./scripts/featured.sh
       - name: Run
-        run: |
-           zig cc -o web ./scripts/web.zig
-           zig cc -o gui ./scripts/gui.zig
-           zig cc -o games ./scripts/games.zig
+        run: zig cc -o compressor ./scripts/repo_list_compressor.zig
       - name: adf
-        run: ./web > ./database/web.json
+        run: ./compressor ./web.json > ./database/web.json
       - name: ksld
-        run: ./gui > ./database/gui.json
+        run: ./compressor ./gui.json > ./database/gui.json
       - name: skdj
-        run: ./games > ./database/games.json
+        run: ./compressor ./games.json > ./database/games.json
            
       - name: Remove
         run: |

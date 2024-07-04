@@ -1,11 +1,11 @@
 //!===============================================================================//
-//!                             Games libs Compiler                                 //
+//!                             Web libs Compiler                                 //
 //!===============================================================================//
 //! Author:
 //! Rohan Vashisht
 //!
 //! Details:
-//! This is a program compiles the compressed repository for featured web packages.
+//! This is a program compresses the json files provided to it in a specific format.
 //!
 //! Please check license file for copyright details.
 
@@ -18,10 +18,12 @@ const helper_functions = @import("./libs/functions_provider.zig");
 /// =============================
 ///           Constants
 /// =============================
-const file_name = "./games.json";
 
 // ===| Main function |===
 pub fn main() !void {
+    var args = std.process.args();
+    _ = args.skip();
+    const file_name:[]const u8 = args.next().?; 
     helper_functions.print("[", .{});
     const file = try helper_functions.file_functions.openFile(file_name, .{});
     const buf = try file.readToEndAlloc(helper_functions.global_allocator, try file.getEndPos());
