@@ -54,10 +54,10 @@ export default function analyze(user_input:string): string {
     if(user_input.includes('what') && user_input.includes('is') && user_input.includes('the')) {
         return "You can find detailed information about Zig on their [official website](https";
     }
-    if(user_input.includes('how') && user_input.includes('do') && user_input.includes('I')) {
+    if(user_input.includes('how') && user_input.includes('do') && user_input.includes('i ')) {
         return "You can get started with Zig by following their [official tutorials](https";
     }
-    if(user_input.includes('where') && user_input.includes('can') && user_input.includes('I')) {
+    if(user_input.includes('where') && user_input.includes('can') && user_input.includes('i ')) {
         return "You can find Zig libraries on [Zigistry](https";
     }
     if(user_input.includes('which') && user_input.includes('library') && user_input.includes('for')) {
@@ -66,7 +66,7 @@ export default function analyze(user_input:string): string {
     if(user_input.includes('what') && user_input.includes('are') && user_input.includes('the')) {
         return "Zig has many features including performance optimizations and a powerful compiler.";
     }
-    if(user_input.includes('why') && user_input.includes('should') && user_input.includes('I')) {
+    if(user_input.includes('why') && user_input.includes('should') && user_input.includes('i ')) {
         return "Zig is great for systems programming due to its performance and safety features.";
     }
     if(user_input.includes('when') && user_input.includes('is') && user_input.includes('the')) {
@@ -75,7 +75,7 @@ export default function analyze(user_input:string): string {
     if(user_input.includes('is') && user_input.includes('zig') && user_input.includes('good')) {
         return "Yes, Zig is excellent for high-performance systems programming.";
     }
-    if(user_input.includes('can') && user_input.includes('I') && user_input.includes('learn')) {
+    if(user_input.includes('can') && user_input.includes('i ') && user_input.includes('learn')) {
         return "Absolutely! You can start with the [official tutorials](https";
     }
     if(user_input.includes('do') && user_input.includes('you') && user_input.includes('have')) {
@@ -102,16 +102,16 @@ export default function analyze(user_input:string): string {
     if(user_input.includes('how') && user_input.includes('do') && user_input.includes('install')) {
         return "You can install Zig by following the instructions on their [download page](https";
     }
-    if(user_input.includes('can') && user_input.includes('I') && user_input.includes('use')) {
+    if(user_input.includes('can') && user_input.includes('i ') && user_input.includes('use')) {
         return "Yes, Zig supports multiple platforms including Windows, Linux, and macOS.";
     }
-    if(user_input.includes('how') && user_input.includes('do') && user_input.includes('I')) {
+    if(user_input.includes('how') && user_input.includes('do') && user_input.includes('i ')) {
         return "You can update Zig by downloading the latest version from their website.";
     }
     if(user_input.includes('what') && user_input.includes('is') && user_input.includes('new')) {
         return "The latest updates in Zig can be found on their [official blog](https";
     }
-    if(user_input.includes('do') && user_input.includes('I') && user_input.includes('need')) {
+    if(user_input.includes('do') && user_input.includes('i ') && user_input.includes('need')) {
         return "You need a basic understanding of programming to start with Zig.";
     }
     if(user_input.includes('can') && user_input.includes('you') && user_input.includes('explain')) {
@@ -245,6 +245,18 @@ export default function analyze(user_input:string): string {
     }
     if(user_input.includes('contributions') && user_input.includes('zig') && user_input.includes('open')) {
         return "Zig welcomes contributions from the community to improve the language and tools.";
+    }
+    if(user_input.includes('hello') && user_input.includes('hello') && user_input.includes('hello')) {
+        return "Hey!";
+    }
+    if(user_input.includes('hi') && user_input.includes('hi') && user_input.includes('hi')) {
+        return "Hello!";
+    }
+    if(user_input.includes('yo') && user_input.includes('yo') && user_input.includes('yo')) {
+        return "Yo!";
+    }
+    if(user_input.includes('howdy') && user_input.includes('howdy') && user_input.includes('howdy')) {
+        return "I am fine!";
     }
     return "Sorry, i didn't understand what you said, could you please re-send it in a better way.";
 }
