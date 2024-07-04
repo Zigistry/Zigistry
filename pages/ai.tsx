@@ -30,7 +30,7 @@ import Link from "next/link";
 // =============================
 //       Exports "/search"
 // =============================
-export default function ai() {
+export default function AI() {
 
     // The data is going to be manipulated so setting it to top10LatestRepos
     // just to prevent errors.
