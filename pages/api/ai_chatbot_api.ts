@@ -38,7 +38,7 @@ export default async function handler(
 
     // ----- Check q's existence -----
     if (typeof q == "string") {
-        return res.status(200).json({ answer: analyze(q) });
+        return res.status(200).json({ answer: analyze(q.toLowerCase()) });
     }
 
     // -------- Return no results ---------
