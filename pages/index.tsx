@@ -37,18 +37,23 @@ export default function Home({ most_used, top10LatestRepos, gui_items, gaming_it
   const [data, setData] = useState(top10LatestRepos);
   const [showDefault, setShowDefault] = useState(true);
   const [inputValue, setInputValue] = useState("");
+  // ------- prevent user ddos --------
+  const [data_in_the_textbox_changed,set_data_in_the_textbox_changed] = useState(false);
 
   // ----------- Fetch search results -------------
   const fetchData = async () => {
     const val: HTMLSelectElement = document.getElementById("get") as HTMLSelectElement;
-    var response;
-    if (val.value === "No Filter") {
-      response = await fetch("/api/search?q=" + inputValue);
-    } else {
-      response = await fetch("/api/search?q=" + inputValue + "&mine=" + val.value);
+    if (inputValue !== "" && data_in_the_textbox_changed) {
+      set_data_in_the_textbox_changed(false);
+      var response;
+      if (val.value === "No Filter") {
+        response = await fetch("/api/search?q=" + inputValue);
+      } else {
+        response = await fetch("/api/search?q=" + inputValue + "&mine=" + val.value);
+      }
+      const result: Repo[] = await response.json();
+      setData(result);
     }
-    const result: Repo[] = await response.json();
-    setData(result);
   };
 
   const handleKeyDown = (event: any) => {
@@ -58,6 +63,7 @@ export default function Home({ most_used, top10LatestRepos, gui_items, gaming_it
     }
   }
   function handleOnChage(z: string) {
+    set_data_in_the_textbox_changed(true);
     if (z == "") {
       setShowDefault(true);
     } else {
