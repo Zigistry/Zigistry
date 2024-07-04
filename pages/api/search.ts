@@ -48,7 +48,7 @@ export default async function handler(
       search_results = items.filter(item =>
         (item.full_name.toLowerCase().includes(q.toString().toLowerCase()) ||
           item.description.toLowerCase().includes(q.toString().toLowerCase())) &&
-        item.topics?.includes(q.toString().toLowerCase())
+        item.topics?.includes(mine.toString().toLowerCase())
       )
     } else if (mine) {
       search_results = items.filter(item =>

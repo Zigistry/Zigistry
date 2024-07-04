@@ -17,7 +17,7 @@
 // ===================
 
 // ------- Components ---------
-import { TextInput } from "flowbite-react";
+import { Button, Dropdown, DropdownItem, Select, TextInput } from "flowbite-react";
 import CustomCard from "@/components/CustomCard";
 import Recommendations from "@/components/show_recommendations";
 
@@ -25,6 +25,7 @@ import Recommendations from "@/components/show_recommendations";
 import Repo from "@/types/custom_types";
 import recommendation_backend from "../backend/recommendations_generator";
 import { useState } from "react";
+import Link from "next/link";
 
 // =============================
 //       Exports "/search"
@@ -39,39 +40,56 @@ export default function Home({ most_used, top10LatestRepos, gui_items, gaming_it
 
   // ----------- Fetch search results -------------
   const fetchData = async () => {
-    const response = await fetch("/api/search?q=" + inputValue);
+    const val:HTMLSelectElement = document.getElementById("get") as HTMLSelectElement;
+    var response;
+    if(val.value === "No Filter"){
+    response = await fetch("/api/search?q=" + inputValue);
+    } else {
+      response = await fetch("/api/search?q=" + inputValue + "&mine=" + val.value);
+    }
     const result: Repo[] = await response.json();
     setData(result);
   };
 
-  const handleKeyDown = (event:any) => {
-	  if (event.key == "Enter") {
-		  fetchData();
-		  setShowDefault(false);
-	  }
-	  if(event.key == "Backspace" && inputValue.length < 2) {
-		  setShowDefault(true);
-	  }
+  const handleKeyDown = (event: any) => {
+    if (event.key == "Enter") {
+      fetchData();
+      setShowDefault(false);
+    }
+    if (event.key == "Backspace" && inputValue.length < 2) {
+      setShowDefault(true);
+    }
   }
 
   return (
     <>
       <div className="flex flex-col items-center">
         <h1 className="text-center font-semibold text-2xl my-5">Search Ziglang Packages</h1>
+        <div className="flex">
         <TextInput
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Search libraries"
-          className="w-72 mb-5"
+          className="w-72 mb-5 mr-2"
           autoFocus
         />
+        <Select id="get" required={false}>
+          <option>No Filter</option>
+          <option>api</option>
+          <option>http</option>
+          <option>rest</option>
+          <option>gamedev</option>
+          <option>gui</option>
+          <option>cross-platform</option>
+        </Select>
+        </div>
       </div>
       {showDefault ? (
         <Recommendations gaming_items={gaming_items} gui_items={gui_items} web_items={web_items} most_used={most_used} top10LatestRepos={top10LatestRepos} />
       ) : (
         <section className="w-full flex flex-wrap justify-evenly">
           {data.length ? (
-            data.map((item:any, index:any) => (
+            data.map((item: any, index: any) => (
               <CustomCard key={index} item={item} />
             ))
           ) : (
