@@ -22,6 +22,7 @@ import Foooter from './Foooter'
 import Head from 'next/head'
 import Script from 'next/script'
 import { ThemeModeScript } from "flowbite-react";
+import { Analytics } from "@vercel/analytics/react";
 
 
 // =====================================
@@ -51,6 +52,7 @@ export default function Layout(props: { children: JSX.Element }): JSX.Element {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <meta name="author" content="Rohan Vashisht" />
             </Head>
+            <Analytics/>
             <Script async defer src="https://buttons.github.io/buttons.js"/>
             <Script src="/checkDarkMode.js"/>
             <main>{props.children}</main>
