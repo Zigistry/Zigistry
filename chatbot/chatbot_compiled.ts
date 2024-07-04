@@ -246,6 +246,9 @@ export default function analyze(user_input:string): string {
     if(user_input.includes('contributions') && user_input.includes('zig') && user_input.includes('open')) {
         return "Zig welcomes contributions from the community to improve the language and tools.";
     }
+    if(user_input.includes('what') && user_input.includes('is') && user_input.includes('zig')) {
+        return "Zig is a general-purpose programming language designed for robustness, optimality, and clarity. It focuses on providing developers with precise control over system resources while maintaining a straightforward and readable syntax.";
+    }
     if(user_input.includes('hello') && user_input.includes('hello') && user_input.includes('hello')) {
         return "Hey!";
     }
