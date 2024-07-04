@@ -34,10 +34,6 @@ jobs:
         run: ./compressor ./gui.json > ./database/gui.json
       - name: skdj
         run: ./compressor ./games.json > ./database/games.json
-      - name: compile AI chat bot compiler
-        run: zig cc -o ai_compiler ./chatbot/src/compiler.zig
-      - name: Run AI chat bot compiler
-        run: ./ai_compiler > ./chatbot/chatbot_compiled.ts
       - name: Remove
         run: |
           rm -rf ./a.json
