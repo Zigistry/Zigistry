@@ -80,6 +80,7 @@ modules,zig,creation:Creating modules in Zig is straightforward and well-documen
 features,zig,overview:Zig has a wide range of features suitable for systems programming.
 community,zig,events:Zig hosts various community events and meetups.
 contributions,zig,open:Zig welcomes contributions from the community to improve the language and tools.
+what,is,zig:Zig is a general-purpose programming language designed for robustness, optimality, and clarity. It focuses on providing developers with precise control over system resources while maintaining a straightforward and readable syntax.
 hello,hello,hello:Hey!
 hi,hi,hi:Hello!
 yo,yo,yo:Yo!
