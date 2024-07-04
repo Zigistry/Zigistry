@@ -56,18 +56,21 @@ export default function Home({ most_used, top10LatestRepos, gui_items, gaming_it
       fetchData();
       setShowDefault(false);
     }
-    if (event.key == "Backspace" && inputValue.length < 2) {
+  }
+  function handleOnChage(z: string) {
+    if (z == "") {
       setShowDefault(true);
+    } else {
+      setInputValue(z)
     }
   }
-
   return (
     <>
       <div className="flex flex-col items-center">
         <h1 className="text-center font-semibold text-2xl my-5">Search Ziglang Packages</h1>
         <div className="flex">
           <TextInput
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={(e) => handleOnChage(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Search libraries"
             className="w-72 mb-5 mr-2"
