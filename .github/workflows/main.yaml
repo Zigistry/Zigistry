@@ -46,6 +46,7 @@ jobs:
           rm -rf ./gui.json
           rm -rf ./games.json
           rm -rf ./web.json
+          rm -rf ./compressor
       - name: Config email
         run: git config --global user.name "Github Actions" && git config --global user.email "<>"
       - name: Git add

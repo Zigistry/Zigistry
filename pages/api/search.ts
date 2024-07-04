@@ -19,6 +19,7 @@
 
 // --------- Types -----------
 import Repo from '@/types/custom_types';
+import { assert } from 'console';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 
@@ -31,10 +32,10 @@ export default async function handler(
 ) {
 
   // The query from the url parameters is extracted here.
-  const { q } = req.query;
+  const { q, mine } = req.query;
 
   // ----- Check q's existence -----
-  if (q) {
+  if (q && typeof (q) === typeof ("")) {
 
     // -------------- Fetch -------------------
     const response = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json");
@@ -42,10 +43,25 @@ export default async function handler(
     const items: Repo[] = await response.json();
 
     // -------------- Filter ------------------
-    const search_results = items.filter(item =>
-      item.full_name.toLowerCase().includes(q.toString().toLowerCase()) ||
-      item.description.toLowerCase().includes(q.toString().toLowerCase())
-    );
+    var search_results: Repo[] = [];
+    if (typeof mine === "string") {
+      search_results = items.filter(item =>
+        (item.full_name.toLowerCase().includes(q.toString().toLowerCase()) ||
+          item.description.toLowerCase().includes(q.toString().toLowerCase())) &&
+        item.topics?.includes(q.toString().toLowerCase())
+      )
+    } else if (mine) {
+      search_results = items.filter(item =>
+        (item.full_name.toLowerCase().includes(q.toString().toLowerCase()) ||
+          item.description.toLowerCase().includes(q.toString().toLowerCase())) &&
+        item.topics?.every(item => q.toString().toLowerCase())
+      );
+    } else {
+      search_results = items.filter(item =>
+        item.full_name.toLowerCase().includes(q.toString().toLowerCase()) ||
+        item.description.toLowerCase().includes(q.toString().toLowerCase())
+      );
+    }
 
     // -------- Return search results ---------
     return res.status(200).json(search_results);
