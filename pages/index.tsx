@@ -17,7 +17,7 @@
 // ===================
 
 // ------- Components ---------
-import { Button, Dropdown, DropdownItem, Select, TextInput } from "flowbite-react";
+import { Button, Dropdown, DropdownItem, Select, TextInput, Tooltip } from "flowbite-react";
 import CustomCard from "@/components/CustomCard";
 import Recommendations from "@/components/show_recommendations";
 
@@ -40,10 +40,10 @@ export default function Home({ most_used, top10LatestRepos, gui_items, gaming_it
 
   // ----------- Fetch search results -------------
   const fetchData = async () => {
-    const val:HTMLSelectElement = document.getElementById("get") as HTMLSelectElement;
+    const val: HTMLSelectElement = document.getElementById("get") as HTMLSelectElement;
     var response;
-    if(val.value === "No Filter"){
-    response = await fetch("/api/search?q=" + inputValue);
+    if (val.value === "No Filter") {
+      response = await fetch("/api/search?q=" + inputValue);
     } else {
       response = await fetch("/api/search?q=" + inputValue + "&mine=" + val.value);
     }
@@ -66,22 +66,24 @@ export default function Home({ most_used, top10LatestRepos, gui_items, gaming_it
       <div className="flex flex-col items-center">
         <h1 className="text-center font-semibold text-2xl my-5">Search Ziglang Packages</h1>
         <div className="flex">
-        <TextInput
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Search libraries"
-          className="w-72 mb-5 mr-2"
-          autoFocus
-        />
-        <Select id="get" required={false}>
-          <option>No Filter</option>
-          <option>api</option>
-          <option>http</option>
-          <option>rest</option>
-          <option>gamedev</option>
-          <option>gui</option>
-          <option>cross-platform</option>
-        </Select>
+          <TextInput
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Search libraries"
+            className="w-72 mb-5 mr-2"
+            autoFocus
+          />
+          <Tooltip content="Search by filtering github topics">
+            <Select id="get" required={false}>
+              <option>No Filter</option>
+              <option>api</option>
+              <option>http</option>
+              <option>rest</option>
+              <option>gamedev</option>
+              <option>gui</option>
+              <option>cross-platform</option>
+            </Select>
+          </Tooltip>
         </div>
       </div>
       {showDefault ? (
