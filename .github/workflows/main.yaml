@@ -34,7 +34,10 @@ jobs:
         run: ./compressor ./gui.json > ./database/gui.json
       - name: skdj
         run: ./compressor ./games.json > ./database/games.json
-           
+      - name: compile AI chat bot compiler
+        run: zig cc -o ai_compiler ./chatbot/src/compiler.zig
+      - name: Run AI chat bot compiler
+        run: ./ai_compiler > ./chatbot/chatbot_compiled.ts
       - name: Remove
         run: |
           rm -rf ./a.json
@@ -47,6 +50,7 @@ jobs:
           rm -rf ./games.json
           rm -rf ./web.json
           rm -rf ./compressor
+          rm -rf ./ai_compiler
       - name: Config email
         run: git config --global user.name "Github Actions" && git config --global user.email "<>"
       - name: Git add
