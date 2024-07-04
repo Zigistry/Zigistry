@@ -16,14 +16,14 @@ tell,me,about:Sure, what specifically would you like to know about Zig?
 do,you,know:Yes, I have information on various Zig libraries and resources.
 can,you,tell:Of course! What do you need to know about Zig?
 what,is,the:You can find detailed information about Zig on their [official website](https://ziglang.org/).
-how,do,I:You can get started with Zig by following their [official tutorials](https://ziglang.org/learn/).
-where,can,I:You can find Zig libraries on [Zigistry](https://zigistry.dev).
+how,do,i :You can get started with Zig by following their [official tutorials](https://ziglang.org/learn/).
+where,can,i :You can find Zig libraries on [Zigistry](https://zigistry.dev).
 which,library,for:Can you tell me more about your project? I can suggest the best Zig library for it.
 what,are,the:Zig has many features including performance optimizations and a powerful compiler.
-why,should,I:Zig is great for systems programming due to its performance and safety features.
+why,should,i :Zig is great for systems programming due to its performance and safety features.
 when,is,the:The latest version of Zig was released recently. Check their [blog](https://ziglang.org/news/) for details.
 is,zig,good:Yes, Zig is excellent for high-performance systems programming.
-can,I,learn:Absolutely! You can start with the [official tutorials](https://ziglang.org/learn/).
+can,i ,learn:Absolutely! You can start with the [official tutorials](https://ziglang.org/learn/).
 do,you,have:Yes, I have information on various Zig libraries and tools.
 is,there,a:You can find a list of Zig libraries on [Zigistry](https://zigistry.dev).
 what,does,zig:Zig focuses on providing robust, high-performance systems programming capabilities.
@@ -32,10 +32,10 @@ who,uses,zig:Many developers use Zig for its performance and modern features.
 where,is,zig:Zig is available for download on their [official website](https://ziglang.org/download/).
 is,zig,easy:Zig's syntax is designed to be easy to read and write.
 how,do,install:You can install Zig by following the instructions on their [download page](https://ziglang.org/download/).
-can,I,use:Yes, Zig supports multiple platforms including Windows, Linux, and macOS.
-how,do,I:You can update Zig by downloading the latest version from their website.
+can,i ,use:Yes, Zig supports multiple platforms including Windows, Linux, and macOS.
+how,do,i :You can update Zig by downloading the latest version from their website.
 what,is,new:The latest updates in Zig can be found on their [official blog](https://ziglang.org/news/).
-do,I,need:You need a basic understanding of programming to start with Zig.
+do,i ,need:You need a basic understanding of programming to start with Zig.
 can,you,explain:Sure, I can explain various aspects of Zig. What do you need help with?
 how,do,start:Start by downloading Zig and following their [tutorials](https://ziglang.org/learn/).
 what,resources,what:You can find Zig resources on their [documentation page](https://ziglang.org/documentation/).
@@ -80,3 +80,7 @@ modules,zig,creation:Creating modules in Zig is straightforward and well-documen
 features,zig,overview:Zig has a wide range of features suitable for systems programming.
 community,zig,events:Zig hosts various community events and meetups.
 contributions,zig,open:Zig welcomes contributions from the community to improve the language and tools.
+hello,hello,hello:Hey!
+hi,hi,hi:Hello!
+yo,yo,yo:Yo!
+howdy,howdy,howdy:I am fine!
