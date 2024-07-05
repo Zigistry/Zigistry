@@ -38,7 +38,7 @@ export default function Home({ most_used, top10LatestRepos, gui_items, gaming_it
   const [showDefault, setShowDefault] = useState(true);
   const [inputValue, setInputValue] = useState("");
   // ------- prevent user ddos --------
-  const [data_in_the_textbox_changed,set_data_in_the_textbox_changed] = useState(false);
+  const [data_in_the_textbox_changed, set_data_in_the_textbox_changed] = useState(false);
 
   // ----------- Fetch search results -------------
   const fetchData = async () => {
