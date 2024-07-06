@@ -31,7 +31,7 @@ import NextTopLoader from 'nextjs-toploader';
 export default function Layout(props: { children: JSX.Element }): JSX.Element {
     return (
         <main className="dark:bg-custom-gradient bg-white dark:text-white text-black">
-            <NextTopLoader color="gold" height="3"/>
+            <NextTopLoader color="gold" height={3}/>
             <Navbar />
             <Head>
                 <title>Zigistry: Library Registry for Zig Programming Language</title>
