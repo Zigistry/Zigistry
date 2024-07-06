@@ -97,75 +97,79 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
 //       Get Server Side Props
 // ==================================
 export async function getServerSideProps({ params: { user, project_name } }: { params: { user: string; project_name: string; } }) {
-  // -------- Get url path parameters ---------
   const repoPath = `${user}/${project_name}`;
 
-  // ------------ Fetch Data from URLs --------------
+  // Generic function to fetch JSON data
   const fetchJsonData = async (url: string) => {
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Failed to fetch data: ${response.statusText}`);
     return response.json();
   };
 
-  const [data, data_game, data_gui, data_web] = await Promise.all([
-    fetchJsonData("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json"),
-    fetchJsonData("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/games.json"),
-    fetchJsonData("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/gui.json"),
-    fetchJsonData("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/web.json")
-  ]);
+  // Fetch data concurrently
+  const urls = [
+    "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json",
+    "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/games.json",
+    "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/gui.json",
+    "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/web.json"
+  ];
 
-  // ------ Check if user/project exists ------
-  const repository = [data, data_game, data_gui, data_web].flat().find(repo => repo.full_name === repoPath);
+  const [data, data_game, data_gui, data_web] = await Promise.all(urls.map(fetchJsonData));
 
-  if (repository) {
-    // -------------- Fetch Readme ------------------
-    const fetchReadmeContent = async (repo: Repo) => {
-      const defaultBranch = repo.default_branch || 'master';
-      let readmeURL = `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/README.md`;
-      let readmeResponse = await fetch(readmeURL);
+  // Flatten the array and find the repository
+  const repositories = [...data, ...data_game, ...data_gui, ...data_web];
+  const repository = repositories.find(repo => repo.full_name === repoPath);
 
-      if (!readmeResponse.ok) {
-        readmeURL = `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/readme.md`;
-        readmeResponse = await fetch(readmeURL);
-      }
-
-      return readmeResponse.ok ? readmeResponse.text() : "404";
-    };
-
-    const [readmeContent, tagsResponse] = await Promise.all([
-      fetchReadmeContent(repository),
-      fetch(repository.tags_url)
-    ]);
-
-    const tagDetails = tagsResponse.ok ? await tagsResponse.json() : [];
-
-    // ------- Generate Installation Commands -------
-    const specials = tagDetails[0]
-      ? `https://github.com/${repository.full_name}/archive/refs/tags/${tagDetails[0].name}.tar.gz`
-      : `git+https://github.com/${repository.full_name}`;
-
-    // --------- Generate Repository Struct ---------
-    const compressed_repo: Repo = {
-      contentIsCorrect: true,
-      name: repository.name,
-      full_name: repository.full_name,
-      readme_content: await marked(readmeContent),
-      created_at: repository.created_at,
-      description: repository.description,
-      tags_url: repository.tags_url,
-      open_issues: repository.open_issues,
-      specials,
-      license: repository.license,
-      stargazers_count: repository.stargazers_count,
-      forks_count: repository.forks_count,
-      watchers_count: repository.watchers_count,
-      topics: repository.topics,
-      avatar_url: repository.avatar_url
-    };
-
-    // ---------- Return Repository Struct ----------
-    return { props: { compressed_repo } };
-  } else {
+  if (!repository) {
     return { props: { compressed_repo: { contentIsCorrect: false } as Repo } };
   }
+
+  // Fetch readme content
+  const fetchReadmeContent = async (repo: Repo) => {
+    const defaultBranch = repo.default_branch || 'master';
+    const readmeUrls = [
+      `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/README.md`,
+      `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/readme.md`
+    ];
+
+    for (const url of readmeUrls) {
+      const response = await fetch(url);
+      if (response.ok) return response.text();
+    }
+
+    return "404";
+  };
+
+  // Fetch readme content and tags concurrently
+  const [readmeContent, tagsResponse] = await Promise.all([
+    fetchReadmeContent(repository),
+    fetch(repository.tags_url)
+  ]);
+
+  const tagDetails = tagsResponse.ok ? await tagsResponse.json() : [];
+  const latestTag = tagDetails[0]?.name;
+  const specials = latestTag
+    ? `https://github.com/${repository.full_name}/archive/refs/tags/${latestTag}.tar.gz`
+    : `git+https://github.com/${repository.full_name}`;
+
+  // Generate repository struct
+  const compressed_repo: Repo = {
+    contentIsCorrect: true,
+    name: repository.name,
+    full_name: repository.full_name,
+    readme_content: await marked(readmeContent),
+    created_at: repository.created_at,
+    description: repository.description,
+    tags_url: repository.tags_url,
+    open_issues: repository.open_issues,
+    specials,
+    license: repository.license,
+    stargazers_count: repository.stargazers_count,
+    forks_count: repository.forks_count,
+    watchers_count: repository.watchers_count,
+    topics: repository.topics,
+    avatar_url: repository.avatar_url
+  };
+
+  return { props: { compressed_repo } };
 }
