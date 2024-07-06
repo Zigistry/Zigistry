@@ -1,5 +1,5 @@
 /*===============================================================================*/
-/*                Show Library "/packages/[user]/[...project_name]"              */
+/*                  Show Library "/packages/[user]/[project_name]"               */
 /*===============================================================================*/
 
 /*
@@ -51,20 +51,20 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
                 <Badge color={""} className="w-fit dark:bg-slate-600 bg-white dark:border-none border-slate-200 border mt-4">{compressed_repo.license}</Badge>
               </p>
               <p className="font-normal text-gray-700 dark:text-gray-400">
-                  {compressed_repo.description}
+                {compressed_repo.description}
               </p>
               <div className="flex items-center">
                 <FaStar size={20} color="#cfbc0e" className="mr-2" />
-                    {number_as_letters(compressed_repo.stargazers_count)}
+                {number_as_letters(compressed_repo.stargazers_count)}
                 <FaEye className="ml-2 mr-1" color="skyblue" />
-                    {number_as_letters(compressed_repo.watchers_count)}
+                {number_as_letters(compressed_repo.watchers_count)}
                 <FaCodeFork className="ml-2 mr-1" color="lightpink" />
-                	{number_as_letters(compressed_repo.forks_count)}
+                {number_as_letters(compressed_repo.forks_count)}
                 <GoIssueOpened className="ml-2 mr-1" color="lightgreen" />
-                	{number_as_letters(compressed_repo.open_issues)}
+                {number_as_letters(compressed_repo.open_issues)}
                 <BsInfoSquareFill className="ml-2 mr-1" color="darkorange" />
                 <Tooltip className="ml-2 mr-1" content={compressed_repo.topics?.join(", ")}>
-                    {compressed_repo.topics?.length}
+                  {compressed_repo.topics?.length}
                 </Tooltip>
               </div>
               <Button as={Link} target='_blank' rel="noreferrer" href={"https://github.com/" + compressed_repo.full_name} color="light" pill>
@@ -99,12 +99,14 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
 export async function getServerSideProps({ params: { user, project_name } }: { params: { user: string; project_name: string; } }) {
   const repoPath = `${user}/${project_name}`;
 
+  // Generic function to fetch JSON data
   const fetchJsonData = async (url: string) => {
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Failed to fetch data: ${response.statusText}`);
     return response.json();
   };
 
+  // Fetch data concurrently
   const urls = [
     "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json",
     "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/games.json",
@@ -114,6 +116,7 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
 
   const [data, data_game, data_gui, data_web] = await Promise.all(urls.map(fetchJsonData));
 
+  // Flatten the array and find the repository
   const repositories = [...data, ...data_game, ...data_gui, ...data_web];
   const repository = repositories.find(repo => repo.full_name === repoPath);
 
@@ -121,6 +124,7 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
     return { props: { compressed_repo: { contentIsCorrect: false } as Repo } };
   }
 
+  // Fetch readme content
   const fetchReadmeContent = async (repo: Repo) => {
     const defaultBranch = repo.default_branch || 'master';
     const readmeUrls = [
@@ -128,7 +132,7 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
       `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/readme.md`
     ];
 
-    for (let url of readmeUrls) {
+    for (const url of readmeUrls) {
       const response = await fetch(url);
       if (response.ok) return response.text();
     }
@@ -136,6 +140,7 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
     return "404";
   };
 
+  // Fetch readme content and tags concurrently
   const [readmeContent, tagsResponse] = await Promise.all([
     fetchReadmeContent(repository),
     fetch(repository.tags_url)
@@ -147,6 +152,7 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
     ? `https://github.com/${repository.full_name}/archive/refs/tags/${latestTag}.tar.gz`
     : `git+https://github.com/${repository.full_name}`;
 
+  // Generate repository struct
   const compressed_repo: Repo = {
     contentIsCorrect: true,
     name: repository.name,
@@ -167,4 +173,3 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
 
   return { props: { compressed_repo } };
 }
-

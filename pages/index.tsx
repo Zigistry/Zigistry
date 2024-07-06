@@ -77,7 +77,7 @@ export default function Home({ most_used, top10LatestRepos, gui_items, gaming_it
         <div className="flex">
           <TextInput
             onChange={(e) => handleOnChage(e.target.value)}
-            onKeyDown={handleKeyDown}
+            onKeyUp={handleKeyDown}
             placeholder="Search libraries"
             className="w-72 mb-5 mr-2"
             autoFocus

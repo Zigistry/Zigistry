@@ -23,7 +23,7 @@ import Head from 'next/head'
 import Script from 'next/script'
 import { ThemeModeScript } from "flowbite-react";
 import { Analytics } from "@vercel/analytics/react";
-
+import NextTopLoader from 'nextjs-toploader';
 
 // =====================================
 //       Exports Layout component
@@ -31,6 +31,7 @@ import { Analytics } from "@vercel/analytics/react";
 export default function Layout(props: { children: JSX.Element }): JSX.Element {
     return (
         <main className="dark:bg-custom-gradient bg-white dark:text-white text-black">
+            <NextTopLoader color="gold" height="3"/>
             <Navbar />
             <Head>
                 <title>Zigistry: Library Registry for Zig Programming Language</title>
