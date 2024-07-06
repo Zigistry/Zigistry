@@ -33,7 +33,8 @@ export default function Help() {
                         </video>
                     </li>
                     <li>
-                        Still facing issues? feel free to open an issue{" "}
+                        Still facing issues or have suggestions? feel free to
+                        open an issue{" "}
                         <Link
                             className="text-blue-400 underline"
                             href="https://github.com/RohanVashisht1234/zigistry/issues"
