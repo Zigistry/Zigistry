@@ -97,54 +97,54 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
 //       Get Server Side Props
 // ==================================
 export async function getServerSideProps({ params: { user, project_name } }: { params: { user: string; project_name: string; } }) {
-
   // -------- Get url path parameters ---------
   const repoPath = `${user}/${project_name}`;
 
-  // ------------ Fetch Database --------------
-  const response = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json");
-  if (!response.ok) throw new Error(`Failed to fetch data: ${response.statusText}`);
-  const data: Repo[] = await response.json();
+  // ------------ Fetch Data from URLs --------------
+  const fetchJsonData = async (url: string) => {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`Failed to fetch data: ${response.statusText}`);
+    return response.json();
+  };
 
-  const response_game = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/games.json");
-  if (!response_game.ok) throw new Error(`Failed to fetch data: ${response_game.statusText}`);
-  const data_game: Repo[] = await response_game.json();
-
-  const response_gui = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/gui.json");
-  if (!response_gui.ok) throw new Error(`Failed to fetch data: ${response_gui.statusText}`);
-  const data_gui: Repo[] = await response_gui.json();
-
-
-  const response_web = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/web.json");
-  if (!response_web.ok) throw new Error(`Failed to fetch data: ${response_web.statusText}`);
-  const data_web: Repo[] = await response_web.json();
+  const [data, data_game, data_gui, data_web] = await Promise.all([
+    fetchJsonData("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json"),
+    fetchJsonData("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/games.json"),
+    fetchJsonData("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/gui.json"),
+    fetchJsonData("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/web.json")
+  ]);
 
   // ------ Check if user/project exists ------
-  const repository = data.find(repo => repo.full_name === repoPath) || data_game.find(repo => repo.full_name === repoPath) || data_gui.find(repo => repo.full_name === repoPath) || data_web.find(repo => repo.full_name === repoPath);
+  const repository = [data, data_game, data_gui, data_web].flat().find(repo => repo.full_name === repoPath);
+
   if (repository) {
-
     // -------------- Fetch Readme ------------------
-    var readmeURL = repository.default_branch ? `https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch}/README.md` : `https://raw.githubusercontent.com/${repository.full_name}/master/README.md`;
-    var readmeResponse = await fetch(readmeURL);
-    var readmeContent = "404";
-    if (readmeResponse.ok) {
-      readmeContent = await readmeResponse.text();
-    } else {
-      readmeURL = repository.default_branch ? `https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch}/readme.md` : `https://raw.githubusercontent.com/${repository.full_name}/master/readme.md`;
-      readmeResponse = await fetch(readmeURL);
-      readmeContent = await readmeResponse.text();
-    }
+    const fetchReadmeContent = async (repo: Repo) => {
+      const defaultBranch = repo.default_branch || 'master';
+      let readmeURL = `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/README.md`;
+      let readmeResponse = await fetch(readmeURL);
 
-    // ----------------- Fetch tags -----------------
-    const tagsResponse = await fetch(repository.tags_url);
+      if (!readmeResponse.ok) {
+        readmeURL = `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/readme.md`;
+        readmeResponse = await fetch(readmeURL);
+      }
+
+      return readmeResponse.ok ? readmeResponse.text() : "404";
+    };
+
+    const [readmeContent, tagsResponse] = await Promise.all([
+      fetchReadmeContent(repository),
+      fetch(repository.tags_url)
+    ]);
+
     const tagDetails = tagsResponse.ok ? await tagsResponse.json() : [];
 
     // ------- Generate Installation Commands -------
     const specials = tagDetails[0]
-      ? "https://github.com/" + repository.full_name + "/archive/refs/tags/" + tagDetails[0].name + ".tar.gz"
-      : "git+https://github.com/" + repository.full_name
+      ? `https://github.com/${repository.full_name}/archive/refs/tags/${tagDetails[0].name}.tar.gz`
+      : `git+https://github.com/${repository.full_name}`;
 
-    // --------- Generate repository struct ---------
+    // --------- Generate Repository Struct ---------
     const compressed_repo: Repo = {
       contentIsCorrect: true,
       name: repository.name,
@@ -163,7 +163,7 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
       avatar_url: repository.avatar_url
     };
 
-    // ---------- Return repository struct ----------
+    // ---------- Return Repository Struct ----------
     return { props: { compressed_repo } };
   } else {
     return { props: { compressed_repo: { contentIsCorrect: false } as Repo } };
