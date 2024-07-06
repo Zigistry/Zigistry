@@ -28,10 +28,9 @@ export default function Foooter() {
       <FooterCopyright href="/" by="Rohan Vashisht" year={2024} />
       <FooterLinkGroup>
         <FooterLink href="/about">About</FooterLink>
-        <FooterLink href="/terms_and_conditions">Terms and Conditions</FooterLink>
         <FooterLink href="/license">Licensing</FooterLink>
-        <FooterLink href="/contact">Contact</FooterLink>    
-        <FooterLink href="/GitHub">GitHub</FooterLink>
+        <FooterLink href="/help">Help</FooterLink>    
+        <FooterLink href="https://github.com/RohanVashisht1234/zigistry">GitHub</FooterLink>
       </FooterLinkGroup>
     </Footer>
   );
