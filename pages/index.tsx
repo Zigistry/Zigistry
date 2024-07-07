@@ -31,7 +31,6 @@ import CustomCard from "@/components/CustomCard";
 import Repo from "@/types/custom_types";
 import { FaStar } from "react-icons/fa";
 import { IoMdFastforward } from "react-icons/io";
-import Repo from "@/types/custom_types";
 import { IoLogoGameControllerB } from "react-icons/io";
 import { SlGlobe } from "react-icons/sl";
 import { IoIosApps } from "react-icons/io";
@@ -42,7 +41,13 @@ import Link from "next/link";
 //       Exports "/search"
 // =============================
 export default function Home(
-    props: { most_used; top10LatestRepos; gui_items; gaming_items; web_items },
+    props: {
+        most_used: any;
+        top10LatestRepos: any;
+        gui_items: any;
+        gaming_items: any;
+        web_items: any;
+    },
 ) {
     // The data is going to be manipulated so setting it to top10LatestRepos
     // just to prevent errors.
