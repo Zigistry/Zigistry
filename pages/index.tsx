@@ -26,10 +26,15 @@ import {
     Tooltip,
 } from "flowbite-react";
 import CustomCard from "@/components/CustomCard";
-import Recommendations from "@/components/show_recommendations";
 
 // ------- Functions ----------
 import Repo from "@/types/custom_types";
+import { FaStar } from "react-icons/fa";
+import { IoMdFastforward } from "react-icons/io";
+import Repo from "@/types/custom_types";
+import { IoLogoGameControllerB } from "react-icons/io";
+import { SlGlobe } from "react-icons/sl";
+import { IoIosApps } from "react-icons/io";
 import { useState } from "react";
 import Link from "next/link";
 
@@ -37,11 +42,11 @@ import Link from "next/link";
 //       Exports "/search"
 // =============================
 export default function Home(
-    { most_used, top10LatestRepos, gui_items, gaming_items, web_items }: any,
+    props: { most_used; top10LatestRepos; gui_items; gaming_items; web_items },
 ) {
     // The data is going to be manipulated so setting it to top10LatestRepos
     // just to prevent errors.
-    const [data, setData] = useState(top10LatestRepos);
+    const [data, setData] = useState(props.top10LatestRepos);
     const [showDefault, setShowDefault] = useState(true);
     const [inputValue, setInputValue] = useState("");
     // ------- prevent user ddos --------
@@ -111,13 +116,78 @@ export default function Home(
             </div>
             {showDefault
                 ? (
-                    <Recommendations
-                        gaming_items={gaming_items}
-                        gui_items={gui_items}
-                        web_items={web_items}
-                        most_used={most_used}
-                        top10LatestRepos={top10LatestRepos}
-                    />
+                    <>
+                        <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+                            <IoMdFastforward size={25} />
+                            &nbsp;Recently released:
+                        </h1>
+                        <section className="w-full flex flex-wrap justify-evenly">
+                            {props.top10LatestRepos
+                                ? (
+                                    props.top10LatestRepos.map((
+                                        item: Repo,
+                                        index: number,
+                                    ) => <CustomCard key={index} item={item} />)
+                                )
+                                : <p>Loading...</p>}
+                        </section>
+                        <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+                            <FaStar size={25} />
+                            &nbsp;Most used:
+                        </h1>
+                        <section className="w-full flex flex-wrap justify-evenly">
+                            {props.most_used
+                                ? (
+                                    props.most_used.map((
+                                        item: Repo,
+                                        index: number,
+                                    ) => <CustomCard key={index} item={item} />)
+                                )
+                                : <p>Loading...</p>}
+                        </section>
+                        <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+                            <IoLogoGameControllerB size={25} />
+                            &nbsp;Famous Game libs:
+                        </h1>
+                        <section className="w-full flex flex-wrap justify-evenly">
+                            {props.gaming_items
+                                ? (
+                                    props.gaming_items.map((
+                                        item: Repo,
+                                        index: number,
+                                    ) => <CustomCard key={index} item={item} />)
+                                )
+                                : <p>Loading...</p>}
+                        </section>
+                        <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+                            <IoIosApps size={25} />
+                            &nbsp;Famous GUI libs:
+                        </h1>
+                        <section className="w-full flex flex-wrap justify-evenly">
+                            {props.gui_items
+                                ? (
+                                    props.gui_items.map((
+                                        item: Repo,
+                                        index: number,
+                                    ) => <CustomCard key={index} item={item} />)
+                                )
+                                : <p>Loading...</p>}
+                        </section>
+                        <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+                            <SlGlobe size={25} />
+                            &nbsp;Famous Web libs:
+                        </h1>
+                        <section className="w-full flex flex-wrap justify-evenly">
+                            {props.web_items
+                                ? (
+                                    props.web_items.map((
+                                        item: Repo,
+                                        index: number,
+                                    ) => <CustomCard key={index} item={item} />)
+                                )
+                                : <p>Loading...</p>}
+                        </section>
+                    </>
                 )
                 : (
                     <section className="w-full flex flex-wrap justify-evenly">

@@ -13,15 +13,15 @@ export default function Help() {
                         Cog wheel icon on the right of the screen
                     </li>
                     <li>
-                        You&apos;ll see a sectoin named topics, click on it.
+                        You&apos;ll see a section named topics, click on it.
                     </li>
                     <li>
-                        Then in the text feild type{" "}
+                        Then in the text field type{" "}
                         <strong>zig-package</strong>, press enter (or return)
                         and click save changes.
                     </li>
                     <li>
-                        And contrags! your library will be added to zigistry!
+                        And congrats! your library will be added to zigistry!
                         (zigistry will register your library in an hour).
                     </li>
                     <li>
