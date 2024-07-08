@@ -34,7 +34,7 @@ export default function Layout(props: { children: JSX.Element }): JSX.Element {
             <NextTopLoader color="gold" height={3} />
             <Navbar />
             <Head>
-                <title>Zigistry: Zig Programming Language Library Registry</title>
+                <title>Zigistry: Zig Programming Language Packages Library Registry</title>
                 <link rel="icon" href="/zigistry.png" sizes="any" />
                 <ThemeModeScript />
                 <meta name="description" content="Zigistry: Explore and contribute to the leading registry of Zig programming language libraries. Join the Zig community today!" />
