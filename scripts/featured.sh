@@ -2,14 +2,12 @@
 # Gaming Section
 ###################
 
-
-
+# Define urls
 URL1="https://api.github.com/repos/Not-Nik/raylib-zig"
 URL2="https://api.github.com/repos/hexops/mach"
 URL3="https://api.github.com/repos/zig-gamedev/zig-gamedev"
 URL4="https://api.github.com/repos/Jack-Ji/jok"
 URL5="https://api.github.com/repos/prime31/zig-gamekit"
-
 
 # Define the final output file
 OUTPUT_FILE="./games.json"
@@ -28,7 +26,6 @@ OUTPUT_FILE="./games.json"
   wget -q -O - $URL5
   echo "]"  # End with a ]
 } > $OUTPUT_FILE
-
 echo "Combined content saved to $OUTPUT_FILE"
 
 
@@ -37,12 +34,12 @@ echo "Combined content saved to $OUTPUT_FILE"
 # Web Section
 #################
 
+# Define urls
 URL1="https://api.github.com/repos/zigzap/zap"
 URL2="https://api.github.com/repos/jetzig-framework/jetzig"
 URL3="https://api.github.com/repos/karlseguin/http.zig"
 URL4="https://api.github.com/repos/karlseguin/websocket.zig"
 URL5="https://api.github.com/repos/ikskuh/zig-network"
-
 
 # Define the final output file
 OUTPUT_FILE="./web.json"
@@ -70,12 +67,12 @@ echo "Combined content saved to $OUTPUT_FILE"
 # GUI Section
 #################
 
+# Define urls
 URL1="https://api.github.com/repos/capy-ui/capy"
 URL2="https://api.github.com/repos/david-vanderson/dvui"
 URL3="https://api.github.com/repos/kassane/qml_zig"
 URL4="https://api.github.com/repos/MoAlyousef/zfltk"
 URL5="https://api.github.com/repos/Aransentin/ZWL"
-
 
 # Define the final output file
 OUTPUT_FILE="./gui.json"
