@@ -1,0 +1,11 @@
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Zigistry",
+    "url": "https://zigistry.dev/",
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://zigistry.dev/api/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+    }
+}

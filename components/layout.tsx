@@ -49,13 +49,16 @@ export default function Layout(props: { children: JSX.Element }): JSX.Element {
                 <meta name="twitter:image" content="https://zigistry.dev/zigistry.png" />
                 <meta name="twitter:title" content="Zigistry: Zig Programming Language Library Registry" />
                 <meta name="twitter:description" content="Discover and contribute to Zigistry, the leading hub for Zig programming language libraries." />
+                <meta name="robots" content="index, follow" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
                 <link rel="canonical" href="https://zigistry.dev/" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta name="twitter:site" content="@Rohan__Vashisht" />
                 <meta name="author" content="Rohan Vashisht" />
             </Head>
             <Analytics />
             <Script async defer src="https://buttons.github.io/buttons.js" />
             <Script src="/checkDarkMode.js" />
+            <Script src='/mainld.json' type="application/ld+json"/>
             <main>{props.children}</main>
             <Foooter />
         </main>
