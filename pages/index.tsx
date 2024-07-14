@@ -113,7 +113,6 @@ export default function Home(
                     <TextInput
                         onChange={(e) => handleOnChage(e.target.value)}
                         onKeyUp={handleKeyDown}
-                        onSubmit={handleKeyDown}
                         placeholder="Search libraries"
                         className="w-72 mb-5 ml-2"
                         autoFocus
