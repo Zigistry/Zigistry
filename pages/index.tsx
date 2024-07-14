@@ -99,14 +99,7 @@ export default function Home(
                     Search Ziglang Packages
                 </h1>
                 <div className="flex">
-                    <TextInput
-                        onChange={(e) => handleOnChage(e.target.value)}
-                        onKeyUp={handleKeyDown}
-                        placeholder="Search libraries"
-                        className="w-72 mb-5 mr-2"
-                        autoFocus
-                    />
-                    <Tooltip content="Search by filtering github topics">
+                <Tooltip content="Search by filtering github topics">
                         <Select id="get" required={false}>
                             <option>No Filter</option>
                             <option>api</option>
@@ -117,6 +110,15 @@ export default function Home(
                             <option>cross-platform</option>
                         </Select>
                     </Tooltip>
+                    <TextInput
+                        onChange={(e) => handleOnChage(e.target.value)}
+                        onKeyUp={handleKeyDown}
+                        onSubmit={handleKeyDown}
+                        placeholder="Search libraries"
+                        className="w-72 mb-5 ml-2"
+                        autoFocus
+                    />
+                    
                 </div>
             </div>
             {showDefault
