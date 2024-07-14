@@ -37,8 +37,8 @@ export default function Layout(props: { children: JSX.Element }): JSX.Element {
                 <title>Zigistry: Zig Programming Language Packages Library Registry</title>
                 <link rel="icon" href="/zigistry.png" sizes="any" />
                 <ThemeModeScript />
-                <meta name="description" content="Zigistry: Explore and contribute to the leading registry of Zig programming language libraries. Join the Zig community today!" />
-                <meta name="keywords" content="Zigistry, Zig libraries, Zig programming, library registry, Zig community, open-source Zig, Zig projects" />
+                <meta name="description" content="Zigistry: Explore and contribute to the leading registry of Zig programming language libraries and Zig packages. Join the Zig community today!" />
+                <meta name="keywords" content="Zig packages, Zigistry, Zig libraries, Zig programming, library registry, Zig community, open-source Zig, Zig projects" />
                 <meta property="og:title" content="Zigistry: Zig Programming Language Library Registry" />
                 <meta property="og:description" content="Discover and contribute to Zigistry, the leading hub for Zig programming language libraries." />
                 <meta property="og:type" content="website" />
