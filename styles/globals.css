@@ -15,6 +15,10 @@ body {
 	background: rgb(31, 41, 55);
 }
 
+.readme{
+	padding: 50px !important;
+}
+
 .readmeDiv{
 	all:unset !important;
 	font-weight: 700;
