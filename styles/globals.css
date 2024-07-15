@@ -47,11 +47,15 @@ body {
 
   
 .readmeDiv > p {
-	display: flex !important;
 	padding: 5px 5px 5px 0 !important;
 }
 
 .readmeDiv a {
 	color: lightblue !important;
 	text-decoration: underline !important;
+	height: fit-content !important;
+}
+.readmeDiv > table, th, td {
+	border: 1px solid white !important;
+	padding: 5px !important;
 }
