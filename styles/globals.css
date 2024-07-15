@@ -15,38 +15,38 @@ body {
 	background: rgb(31, 41, 55);
 }
 
-.readme{
+.readme {
 	padding: 50px !important;
 }
 
-.readmeDiv{
-	all:unset !important;
+.readmeDiv {
+	all: unset !important;
 	font-weight: 700;
 	overflow-x: scroll;
 }
 
 
-.readmeDiv > h1{
+.readmeDiv>h1 {
 	font-size: 40px;
 }
 
-.readmeDiv > h2{
+.readmeDiv>h2 {
 	font-size: 35px;
 }
 
-.readmeDiv > h3{
+.readmeDiv>h3 {
 	font-size: 30px;
 }
 
-.readmeDiv > pre {
+.readmeDiv>pre {
 	padding: 20px !important;
 	overflow-x: scroll;
 	border-radius: 10px !important;
-	border:solid #475569 2px;
+	border: solid #475569 2px;
 }
 
-  
-.readmeDiv > p {
+
+.readmeDiv>p {
 	padding: 5px 5px 5px 0 !important;
 }
 
@@ -55,7 +55,10 @@ body {
 	text-decoration: underline !important;
 	height: fit-content !important;
 }
-.readmeDiv > table, th, td {
+
+.readmeDiv>table,
+th,
+td {
 	border: 1px solid white !important;
 	padding: 5px !important;
 }
