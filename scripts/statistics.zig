@@ -9,9 +9,9 @@ pub fn main() !void {
         x,
         .{},
     );
-    const f = parsed.value.array.items; //[0].object.get("license").?.string
+    const parsed_items = parsed.value.array.items; //[0].object.get("license").?.string
     var hashmap = std.StringHashMap(u32).init(std.heap.page_allocator);
-    for (f) |ok| {
+    for (parsed_items) |ok| {
         const asd = ok.object.get("license").?.string;
         const existing_count = hashmap.get(asd);
         if (existing_count) |count| {
