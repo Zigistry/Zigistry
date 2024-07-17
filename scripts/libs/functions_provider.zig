@@ -50,10 +50,10 @@ pub fn print_json_int(x: []const u8, y: i64, end_with_comma: bool) void {
 }
 
 // ------- Contains --------
-pub fn contains(my_items: []const []const u8, string: []const u8) bool{
+pub fn contains(my_items: []const []const u8, string: []const u8) bool {
     var result = false;
     for (my_items) |item| {
-        if(std.mem.eql(u8, item, string)){
+        if (std.mem.eql(u8, item, string)) {
             result = true;
             break;
         }
@@ -61,18 +61,17 @@ pub fn contains(my_items: []const []const u8, string: []const u8) bool{
     return result;
 }
 
-const excluded_repositories_lists = [_][]const u8{
-    "zigcc/awesome-zig"
-};
+const excluded_repositories_lists = [_][]const u8{"zigcc/awesome-zig"};
 
 // ---- Prints selected fields in json ----
 pub fn compress_and_print_repos(my_items: []std.json.Value, is_last_file: bool) !void {
     for (my_items, 0..) |item, i| {
+        if (contains(&excluded_repositories_lists, item.object.get("full_name").?.string)) {
+            continue;
+        }
         print("{{", .{});
         print_json("name", item.object.get("name").?.string, true);
-        if(!contains(&excluded_repositories_lists, item.object.get("full_name").?.string)){
-            print_json("full_name", item.object.get("full_name").?.string, true);
-        }
+        print_json("full_name", item.object.get("full_name").?.string, true);
         if (item.object.get("description").? == .string) {
             const my_var = try replace(global_allocator, item.object.get("description").?.string, '"', '\'');
             defer global_allocator.free(my_var);
