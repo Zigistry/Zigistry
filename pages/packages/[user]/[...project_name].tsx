@@ -75,8 +75,11 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
           <div className="flex mx-5 items-center justify-center font-mono">
             <div
               className="dark:bg-[#151d28] bg-slate-600 pr-7 py-3 pl-4 rounded w-fit flex items-center justify-center mb-4"
-              style={{userSelect:"all"}}
-            ><span style={{ color: "gold" }}>zig</span>&nbsp;<span style={{ color: "skyblue" }}>fetch</span>&nbsp;<span style={{ color: "lightgray" }}>--save</span>&nbsp;<span style={{ color: "lightgreen" }}>{compressed_repo.specials}</span>
+              
+            >
+              <div style={{userSelect:"all"}}>
+              <span style={{ color: "gold" }}>zig</span>&nbsp;<span style={{ color: "skyblue" }}>fetch</span>&nbsp;<span style={{ color: "lightgray" }}>--save</span>&nbsp;<span style={{ color: "lightgreen" }}>{compressed_repo.specials}</span>
+              </div>
               <Clipboard className='ml-3' valueToCopy={"zig fetch --save " + compressed_repo.specials} label="Copy" />
             </div>
           </div>
