@@ -16,7 +16,19 @@ export default interface Repo {
     specials?: string;
     topics?:Array<string>;
 }
-
+export const place_holder:Repo = {
+    avatar_url: "",
+    name: "",
+    full_name: "",
+    created_at: "",
+    description: "",
+    open_issues: 0,
+    stargazers_count: 0,
+    forks_count: 0,
+    watchers_count: 0,
+    tags_url: "",
+    license: ""
+};
 /*
 export default interface Blog {
     avatar_url: string;

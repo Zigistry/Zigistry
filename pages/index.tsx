@@ -29,7 +29,7 @@ import CustomCard from "@/components/CustomCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 // ------- Functions ----------
-import Repo from "@/types/custom_types";
+import Repo, { place_holder } from "@/types/custom_types";
 import { FaStar } from "react-icons/fa";
 import { IoMdFastforward } from "react-icons/io";
 import { IoLogoGameControllerB } from "react-icons/io";
@@ -52,7 +52,8 @@ export default function Home(
 ) {
     // The data is going to be manipulated so setting it to top10LatestRepos
     // just to prevent errors.
-    const [items, setItems] = useState([]);
+    
+    const [items, setItems] = useState([place_holder]);
     const [hasMore, setHasMore] = useState(true);
     const [index, setIndex] = useState(2);
 
