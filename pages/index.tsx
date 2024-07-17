@@ -26,6 +26,7 @@ import {
     Tooltip,
 } from "flowbite-react";
 import CustomCard from "@/components/CustomCard";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 // ------- Functions ----------
 import Repo from "@/types/custom_types";
@@ -34,7 +35,7 @@ import { IoMdFastforward } from "react-icons/io";
 import { IoLogoGameControllerB } from "react-icons/io";
 import { SlGlobe } from "react-icons/sl";
 import { IoIosApps } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 // =============================
@@ -51,6 +52,29 @@ export default function Home(
 ) {
     // The data is going to be manipulated so setting it to top10LatestRepos
     // just to prevent errors.
+    const [items, setItems] = useState([]);
+    const [hasMore, setHasMore] = useState(true);
+    const [index, setIndex] = useState(2);
+
+    useEffect(() => {
+        fetch("/api/infinite_scroll?page_number=2")
+            .then((res) => res.json())
+            .then((data) => setItems(data))
+            .catch((err) => console.log(err));
+    }, []);
+
+    const fetchMoreData = () => {
+        fetch(`/api/infinite_scroll?page_number=${index}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setItems((prevItems) => [...prevItems, ...data]);
+
+                data.length > 0 ? setHasMore(true) : setHasMore(false);
+            })
+            .catch((err) => console.log(err));
+
+        setIndex((prevIndex) => prevIndex + 1);
+    };
     const [data, setData] = useState(props.top10LatestRepos);
     const [showDefault, setShowDefault] = useState(true);
     const [inputValue, setInputValue] = useState("");
@@ -193,19 +217,43 @@ export default function Home(
                                 )
                                 : <p>Loading...</p>}
                         </section>
-                    </>
-                )
+                        <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+                            <SlGlobe size={25} />
+                            &nbsp;View more:
+                        </h1>
+
+                        <InfiniteScroll
+                            dataLength={items.length}
+                            next={fetchMoreData}
+                            hasMore={hasMore}
+                            loader={undefined}
+                        >
+                            <section className="w-full flex flex-wrap justify-evenly">
+                            {items
+                                ? (
+                                    items.map((
+                                        item: Repo,
+                                        index: number,
+                                    ) => <CustomCard key={index} item={item} />)
+                                )
+                                : <p>Loading...</p>}
+                        </section>
+                    </InfiniteScroll>
+
+        </>
+    )
                 : (
-                    <section className="w-full flex flex-wrap justify-evenly">
-                        {data.length
-                            ? (
-                                data.map((item: any, index: any) => (
-                                    <CustomCard key={index} item={item} />
-                                ))
-                            )
-                            : <h1>Can&apos;t find what you are looking for</h1>}
-                    </section>
-                )}
+        <section className="w-full flex flex-wrap justify-evenly">
+            {data.length
+                ? (
+                    data.map((item: any, index: any) => (
+                        <CustomCard key={index} item={item} />
+                    ))
+                )
+                : <h1>Can&apos;t find what you are looking for</h1>}
+        </section>
+    )
+}
         </>
     );
 }

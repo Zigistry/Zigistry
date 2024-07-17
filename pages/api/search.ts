@@ -31,7 +31,7 @@ export default async function handler(
 ) {
 
   // The query from the url parameters is extracted here.
-  const { q, mine } = req.query;
+  const { q, mine: filters } = req.query;
 
   // ----- Check q's existence -----
   if (q && typeof (q) === typeof ("")) {
@@ -43,13 +43,13 @@ export default async function handler(
 
     // -------------- Filter ------------------
     var search_results: Repo[] = [];
-    if (typeof mine === "string") {
+    if (typeof filters === "string") {
       search_results = items.filter(item =>
         (item.full_name.toLowerCase().includes(q.toString().toLowerCase()) ||
           item.description.toLowerCase().includes(q.toString().toLowerCase())) &&
-        item.topics?.includes(mine.toString().toLowerCase())
+        item.topics?.includes(filters.toString().toLowerCase())
       )
-    } else if (mine) {
+    } else if (filters) {
       search_results = items.filter(item =>
         (item.full_name.toLowerCase().includes(q.toString().toLowerCase()) ||
           item.description.toLowerCase().includes(q.toString().toLowerCase())) &&
