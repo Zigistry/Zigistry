@@ -55,7 +55,7 @@ export default function Home(
     
     const [items, setItems] = useState([place_holder]);
     const [hasMore, setHasMore] = useState(true);
-    const [index, setIndex] = useState(2);
+    const [index, setIndex] = useState(3);
 
     useEffect(() => {
         fetch("/api/infinite_scroll?page_number=2")
