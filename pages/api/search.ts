@@ -20,9 +20,6 @@
 // --------- Types -----------
 import Repo from '@/types/custom_types';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import fs from 'fs';
-
-const items: Repo[] = JSON.parse(fs.readFileSync("./database/main.json").toString());
 
 
 // ============================================
@@ -38,6 +35,12 @@ export default async function handler(
 
   // ----- Check q's existence -----
   if (q && typeof (q) === typeof ("")) {
+
+    // -------------- Fetch -------------------
+    const response = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json");
+    if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+    const items: Repo[] = await response.json();
+
     // -------------- Filter ------------------
     var search_results: Repo[] = [];
     if (typeof filters === "string") {
