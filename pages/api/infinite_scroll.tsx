@@ -20,8 +20,9 @@
 // --------- Types -----------
 import Repo from '@/types/custom_types';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import fs from 'fs';
 
-
+const items: Repo[] = JSON.parse(fs.readFileSync("./database/main.json").toString());
 // ============================================
 //       Exports infiniteScroll as api
 // ============================================
@@ -35,12 +36,7 @@ export default async function infiniteScroll(
 
     // ----- Check q's existence -----
     if (typeof page_number == 'string') {
-
-        // -------------- Fetch -------------------
-        const response = await fetch("https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json");
-        if (!response.ok) throw new Error(`Error: ${response.statusText}`);
-        const items: Repo[] = await response.json();
-
+        
         // -------------- Filter ------------------
         let lower_limit = parseInt(page_number) * 10;
         let upper_limit = parseInt(page_number) * 10 + 10;
