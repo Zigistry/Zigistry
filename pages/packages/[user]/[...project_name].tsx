@@ -51,20 +51,20 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
                 <Badge color={""} className="w-fit dark:bg-slate-600 bg-white dark:border-none border-slate-200 border mt-4">{compressed_repo.license}</Badge>
               </p>
               <p className="font-normal text-gray-700 dark:text-gray-400">
-                  {compressed_repo.description}
+                {compressed_repo.description}
               </p>
               <div className="flex items-center">
                 <FaStar size={20} color="#cfbc0e" className="mr-2" />
-                    {number_as_letters(compressed_repo.stargazers_count)}
+                {number_as_letters(compressed_repo.stargazers_count)}
                 <FaEye className="ml-2 mr-1" color="skyblue" />
-                    {number_as_letters(compressed_repo.watchers_count)}
+                {number_as_letters(compressed_repo.watchers_count)}
                 <FaCodeFork className="ml-2 mr-1" color="lightpink" />
-                	{number_as_letters(compressed_repo.forks_count)}
+                {number_as_letters(compressed_repo.forks_count)}
                 <GoIssueOpened className="ml-2 mr-1" color="lightgreen" />
-                	{number_as_letters(compressed_repo.open_issues)}
+                {number_as_letters(compressed_repo.open_issues)}
                 <BsInfoSquareFill className="ml-2 mr-1" color="darkorange" />
                 <Tooltip className="ml-2 mr-1" content={compressed_repo.topics?.join(", ")}>
-                    {compressed_repo.topics?.length}
+                  {compressed_repo.topics?.length}
                 </Tooltip>
               </div>
               <Button as={Link} target='_blank' rel="noreferrer" href={"https://github.com/" + compressed_repo.full_name} color="light" pill>
@@ -75,10 +75,10 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
           <div className="flex mx-5 items-center justify-center font-mono">
             <div
               className="dark:bg-[#151d28] bg-slate-600 pr-7 py-3 pl-4 rounded w-fit flex items-center justify-center mb-4"
-              
+
             >
-              <div style={{userSelect:"all"}}>
-              <span style={{ color: "gold" }}>zig</span>&nbsp;<span style={{ color: "skyblue" }}>fetch</span>&nbsp;<span style={{ color: "lightgray" }}>--save</span>&nbsp;<span style={{ color: "lightgreen" }}>{compressed_repo.specials}</span>
+              <div style={{ userSelect: "all" }}>
+                <span style={{ color: "gold" }}>zig</span>&nbsp;<span style={{ color: "skyblue" }}>fetch</span>&nbsp;<span style={{ color: "lightgray" }}>--save</span>&nbsp;<span style={{ color: "lightgreen" }}>{compressed_repo.specials}</span>
               </div>
               <Clipboard className='ml-3' valueToCopy={"zig fetch --save " + compressed_repo.specials} label="Copy" />
             </div>
@@ -100,25 +100,22 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
 // ==================================
 //       Get Server Side Props
 // ==================================
+import fs from 'fs';
+import path from 'path';
+
+const main_json = path.join(process.cwd(), 'database', 'main.json');
+const games = path.join(process.cwd(), 'database', 'games.json');
+const gui = path.join(process.cwd(), 'database', 'gui.json');
+const web = path.join(process.cwd(), 'database', 'web.json');
+const data: Repo[] = JSON.parse(fs.readFileSync(main_json, 'utf8'));
+const data_game: Repo[] = JSON.parse(fs.readFileSync(games, 'utf8'));
+const data_gui: Repo[] = JSON.parse(fs.readFileSync(gui, 'utf8'));
+const data_web: Repo[] = JSON.parse(fs.readFileSync(web, 'utf8'));
+
+const repositories = [...data, ...data_game, ...data_gui, ...data_web];
+
 export async function getServerSideProps({ params: { user, project_name } }: { params: { user: string; project_name: string; } }) {
   const repoPath = `${user}/${project_name}`;
-
-  const fetchJsonData = async (url: string) => {
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`Failed to fetch data: ${response.statusText}`);
-    return response.json();
-  };
-
-  const urls = [
-    "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json",
-    "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/games.json",
-    "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/gui.json",
-    "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/web.json"
-  ];
-
-  const [data, data_game, data_gui, data_web] = await Promise.all(urls.map(fetchJsonData));
-
-  const repositories = [...data, ...data_game, ...data_gui, ...data_web];
   const repository = repositories.find(repo => repo.full_name === repoPath);
 
   if (!repository) {
