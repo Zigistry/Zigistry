@@ -43,7 +43,7 @@ export default async function infiniteScroll(
 
         // -------------- Filter ------------------
         let lower_limit = parseInt(page_number) * 10;
-        let upper_limit = parseInt(page_number) * 10 + 11;
+        let upper_limit = parseInt(page_number) * 10 + 10;
         const search_results = items.slice(lower_limit, upper_limit);
 
         // -------- Return search results ---------
