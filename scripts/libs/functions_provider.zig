@@ -70,7 +70,7 @@ pub fn compress_and_print_repos(my_items: []std.json.Value, is_last_file: bool) 
     for (my_items, 0..) |item, i| {
         print("{{", .{});
         print_json("name", item.object.get("name").?.string, true);
-        if(!contains(&excluded_repositories_lists, item.object.get("full_name").?.string)){
+        if(!contains(excluded_repositories_lists, item.object.get("full_name").?.string)){
             print_json("full_name", item.object.get("full_name").?.string, true);
         }
         if (item.object.get("description").? == .string) {
