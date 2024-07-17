@@ -12,6 +12,11 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    outputFileTracingIncludes: {
+      '/api/another': ['./database/**/*'],
+    },
+  },
   // Optionally, add any other Next.js config below
 }
  
