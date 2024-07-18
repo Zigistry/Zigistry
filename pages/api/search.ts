@@ -20,11 +20,7 @@
 // --------- Types -----------
 import Repo from '@/types/custom_types';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import fs from 'fs';
-import path from 'path';
-
-const filePath = path.join(process.cwd(), 'database', 'main.json');
-const items: Repo[] = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+import mainDatabase from '@/database/main.json'
 
 // ============================================
 //       Exports Search handler as api
@@ -40,28 +36,28 @@ export default async function handler(
   // ----- Check q's existence -----
   if (q && typeof (q) === typeof ("")) {
     // -------------- Filter ------------------
-    var search_results: Repo[] = [];
+    var searchResults: Repo[] = [];
     if (typeof filters === "string") {
-      search_results = items.filter(item =>
+      searchResults = mainDatabase.filter(item =>
         (item.full_name.toLowerCase().includes(q.toString().toLowerCase()) ||
           item.description.toLowerCase().includes(q.toString().toLowerCase())) &&
         item.topics?.includes(filters.toString().toLowerCase())
       )
     } else if (filters) {
-      search_results = items.filter(item =>
+      searchResults = mainDatabase.filter(item =>
         (item.full_name.toLowerCase().includes(q.toString().toLowerCase()) ||
           item.description.toLowerCase().includes(q.toString().toLowerCase())) &&
-        item.topics?.every(item => q.toString().toLowerCase())
+        item.topics?.every(_ => q.toString().toLowerCase())
       );
     } else {
-      search_results = items.filter(item =>
+      searchResults = mainDatabase.filter(item =>
         item.full_name.toLowerCase().includes(q.toString().toLowerCase()) ||
         item.description.toLowerCase().includes(q.toString().toLowerCase())
       );
     }
 
     // -------- Return search results ---------
-    return res.status(200).json(search_results);
+    return res.status(200).json(searchResults);
   }
 
   // -------- Return no results ---------

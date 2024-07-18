@@ -18,9 +18,6 @@
 
 // ------- Components ---------
 import {
-    Button,
-    Dropdown,
-    DropdownItem,
     Select,
     TextInput,
     Tooltip,
@@ -36,7 +33,6 @@ import { IoLogoGameControllerB } from "react-icons/io";
 import { SlGlobe } from "react-icons/sl";
 import { IoIosApps } from "react-icons/io";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 
 // =============================
 //       Exports "/search"
@@ -52,7 +48,7 @@ export default function Home(
 ) {
     // The data is going to be manipulated so setting it to top10LatestRepos
     // just to prevent errors.
-    
+
     const [items, setItems] = useState([place_holder]);
     const [hasMore, setHasMore] = useState(true);
     const [index, setIndex] = useState(3);
@@ -230,31 +226,31 @@ export default function Home(
                             loader={undefined}
                         >
                             <section className="w-full flex flex-wrap justify-evenly">
-                            {items
-                                ? (
-                                    items.map((
-                                        item: Repo,
-                                        index: number,
-                                    ) => <CustomCard key={index} item={item} />)
-                                )
-                                : <p>Loading...</p>}
-                        </section>
-                    </InfiniteScroll>
+                                {items
+                                    ? (
+                                        items.map((
+                                            item: Repo,
+                                            index: number,
+                                        ) => <CustomCard key={index} item={item} />)
+                                    )
+                                    : <p>Loading...</p>}
+                            </section>
+                        </InfiniteScroll>
 
-        </>
-    )
-                : (
-        <section className="w-full flex flex-wrap justify-evenly">
-            {data.length
-                ? (
-                    data.map((item: any, index: any) => (
-                        <CustomCard key={index} item={item} />
-                    ))
+                    </>
                 )
-                : <h1>Can&apos;t find what you are looking for</h1>}
-        </section>
-    )
-}
+                : (
+                    <section className="w-full flex flex-wrap justify-evenly">
+                        {data.length
+                            ? (
+                                data.map((item: any, index: any) => (
+                                    <CustomCard key={index} item={item} />
+                                ))
+                            )
+                            : <h1>Can&apos;t find what you are looking for</h1>}
+                    </section>
+                )
+            }
         </>
     );
 }

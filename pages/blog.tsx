@@ -5,8 +5,6 @@ import { useState } from 'react';
 import { TextInput } from 'flowbite-react';
 import { Card } from "flowbite-react";
 
-
-
 interface Post {
   slug: string;
   title: string;

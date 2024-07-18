@@ -20,11 +20,7 @@
 // --------- Types -----------
 import Repo from '@/types/custom_types';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import fs from 'fs';
-import path from 'path';
-
-const filePath = path.join(process.cwd(), 'database', 'main.json');
-const items: Repo[] = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+import database_main from '@/database/main.json';
 
 // ============================================
 //       Exports infiniteScroll as api
@@ -35,17 +31,17 @@ export default async function infiniteScroll(
 ) {
 
     // The query from the url parameters is extracted here.
-    const { page_number } = req.query;
+    const { page_number: pageNumber } = req.query;
 
     // ----- Check q's existence -----
-    if (typeof page_number == 'string') {
+    if (typeof pageNumber == 'string') {
         // -------------- Filter ------------------
-        let lower_limit = parseInt(page_number) * 10;
-        let upper_limit = parseInt(page_number) * 10 + 10;
-        const search_results = items.slice(lower_limit, upper_limit);
+        let lowerLimit = parseInt(pageNumber) * 10;
+        let upperLimit = parseInt(pageNumber) * 10 + 10;
+        const scrollResults = database_main.slice(lowerLimit, upperLimit);
 
         // -------- Return search results ---------
-        return res.status(200).json(search_results);
+        return res.status(200).json(scrollResults);
     }
 
     // -------- Return no results ---------

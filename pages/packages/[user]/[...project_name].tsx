@@ -100,17 +100,10 @@ export default function Manage({ compressed_repo }: { compressed_repo: Repo }) {
 // ==================================
 //       Get Server Side Props
 // ==================================
-import fs from 'fs';
-import path from 'path';
-
-const main_json = path.join(process.cwd(), 'database', 'main.json');
-const games = path.join(process.cwd(), 'database', 'games.json');
-const gui = path.join(process.cwd(), 'database', 'gui.json');
-const web = path.join(process.cwd(), 'database', 'web.json');
-const data: Repo[] = JSON.parse(fs.readFileSync(main_json, 'utf8'));
-const data_game: Repo[] = JSON.parse(fs.readFileSync(games, 'utf8'));
-const data_gui: Repo[] = JSON.parse(fs.readFileSync(gui, 'utf8'));
-const data_web: Repo[] = JSON.parse(fs.readFileSync(web, 'utf8'));
+import data from "@/database/main.json";
+import data_game from "@/database/games.json";
+import data_web from "@/database/web.json";
+import data_gui from "@/database/gui.json";
 
 const repositories = [...data, ...data_game, ...data_gui, ...data_web];
 
