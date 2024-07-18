@@ -47,6 +47,7 @@ export default function Header(): JSX.Element {
             <NavbarToggle />
             <NavbarCollapse>
                 <NavbarLink as={Link} href="/" active>Home</NavbarLink>
+                <NavbarLink as={Link} href="/statistics" active>Statistics</NavbarLink>
                 <NavbarLink as={Link} href="/blog" active>Blog</NavbarLink>
                 <NavbarLink as={Link} href="/about" active>About</NavbarLink>
                 <NavbarLink as={Link} href="/help" active>Help</NavbarLink>
