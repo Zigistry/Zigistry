@@ -7,10 +7,10 @@ export default function statistics() {
                 <div className="flex justify-center">
                     <img className="w-3/5" src="/license_chart.svg" />
                 </div>
-                <h3>Most common topics used by Zig libraries:</h3>
+                {/* <h3>Most common topics used by Zig libraries:</h3>
                 <div className="flex justify-center">
                     <img className="w-3/5" src="/topics_chart.svg" />
-                </div>
+                </div> */}
             </div>
         </div>
     );
