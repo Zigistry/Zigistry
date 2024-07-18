@@ -15,6 +15,9 @@ const std = @import("std");
 pub const writer = std.io.getStdOut().writer();
 pub const file_functions = std.fs.cwd();
 pub const global_allocator = std.heap.page_allocator;
+const excluded_repositories_lists = [_][]const u8{
+    "zigcc/awesome-zig",
+};
 
 // =-=-=-=-= Functions =-=-=-=-=
 
@@ -60,8 +63,6 @@ pub fn contains(my_items: []const []const u8, string: []const u8) bool {
     }
     return result;
 }
-
-const excluded_repositories_lists = [_][]const u8{"zigcc/awesome-zig"};
 
 // ---- Prints selected fields in json ----
 pub fn compress_and_print_repos(my_items: []std.json.Value, is_last_file: bool) !void {
