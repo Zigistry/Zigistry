@@ -1,5 +1,10 @@
 # Zigistry: A place where you can find all the libraries that suit your Zig lang needs.
 
+
+<div align="center">
+<img src=https://github.com/user-attachments/assets/241f6356-130f-426a-903e-a61fdb97d9af width=300/>
+</div>
+
 ## How to add your zig library on this website?
 - Just add a `zig-package` topic to your repository.
 
