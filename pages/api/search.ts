@@ -20,46 +20,35 @@
 // --------- Types -----------
 import Repo from '@/types/custom_types';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import mainDatabase from '@/database/main.json'
+import mainDatabase from '@/database/main.json';
 
-// ============================================
-//       Exports Search handler as api
-// ============================================
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Repo[]>
 ) {
+  const { q, filter } = req.query;
 
-  // The query from the url parameters is extracted here.
-  const { q, mine: filters } = req.query;
-
-  // ----- Check q's existence -----
-  if (q && typeof (q) === typeof ("")) {
-    // -------------- Filter ------------------
-    var searchResults: Repo[] = [];
-    if (typeof filters === "string") {
-      searchResults = mainDatabase.filter(item =>
-        (item.full_name.toLowerCase().includes(q.toString().toLowerCase()) ||
-          item.description.toLowerCase().includes(q.toString().toLowerCase())) &&
-        item.topics?.includes(filters.toString().toLowerCase())
-      )
-    } else if (filters) {
-      searchResults = mainDatabase.filter(item =>
-        (item.full_name.toLowerCase().includes(q.toString().toLowerCase()) ||
-          item.description.toLowerCase().includes(q.toString().toLowerCase())) &&
-        item.topics?.every(_ => q.toString().toLowerCase())
-      );
-    } else {
-      searchResults = mainDatabase.filter(item =>
-        item.full_name.toLowerCase().includes(q.toString().toLowerCase()) ||
-        item.description.toLowerCase().includes(q.toString().toLowerCase())
-      );
-    }
-
-    // -------- Return search results ---------
-    return res.status(200).json(searchResults);
+  // Check if the query parameter `q` exists and is a string
+  if (!q || typeof q !== 'string') {
+    return res.status(200).json([]);
   }
 
-  // -------- Return no results ---------
-  return res.status(200).json([]);
+  const query = q.toLowerCase();
+
+  // Filter the main database based on the query and optional filters
+  const searchResults = mainDatabase.filter(item => {
+    if (typeof filter === 'string' && item.topics?.includes(filter.toLowerCase())) {
+      return true;
+    } else if (
+      !item.full_name.toLowerCase().includes(query)
+      &&
+      !item.description.toLowerCase().includes(query)
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  });
+
+  return res.status(200).json(searchResults);
 }

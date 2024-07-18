@@ -91,7 +91,7 @@ export default function Home(
                 response = await fetch("/api/search?q=" + inputValue);
             } else {
                 response = await fetch(
-                    "/api/search?q=" + inputValue + "&mine=" + val.value,
+                    "/api/search?q=" + inputValue + "&filter=" + val.value,
                 );
             }
             const result: Repo[] = await response.json();
