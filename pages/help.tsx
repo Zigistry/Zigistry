@@ -2,6 +2,7 @@ import Link from "next/link";
 
 export default function Help() {
     return (
+        <div>
         <div className="readme">
             <div className="readmeDiv">
                 <h1 className="text-5xl mb-4">
@@ -46,6 +47,11 @@ export default function Help() {
                     </ol>
                 </div>
             </div>
+            
         </div>
+        <div className="w-full">
+        <img src="zigister-finds-repos.svg"/>
+    </div>
+    </div>
     );
 }
