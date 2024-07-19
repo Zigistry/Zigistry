@@ -255,37 +255,15 @@ export default function Home(
     );
 }
 
+import items from "@/database/main.json"
+import gaming_items from "@/database/games.json"
+import web_items from "@/database/games.json"
+import gui_items from "@/database/games.json"
+
 // =======================================================
 //       Exports getStaticProps for the Index page.
 // =======================================================
 export async function getStaticProps() {
-    // -------------- Fetch ----------------
-    const response = await fetch(
-        "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/main.json",
-    );
-    if (!response.ok) throw new Error(`Error: ${response.statusText}`);
-    const items: Repo[] = await response.json();
-
-    const gaming_response = await fetch(
-        "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/games.json",
-    );
-    if (!gaming_response.ok) {
-        throw new Error(`Error: ${gaming_response.statusText}`);
-    }
-    const gaming_items: Repo[] = await gaming_response.json();
-
-    const web_response = await fetch(
-        "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/web.json",
-    );
-    if (!web_response.ok) throw new Error(`Error: ${web_response.statusText}`);
-    const web_items: Repo[] = await web_response.json();
-
-    const gui_response = await fetch(
-        "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/database/gui.json",
-    );
-    if (!gui_response.ok) throw new Error(`Error: ${gui_response.statusText}`);
-    const gui_items: Repo[] = await gui_response.json();
-
     // -------- Sort latest repos ----------
     const sortedRepos = items.slice().sort((a, b) =>
         new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
