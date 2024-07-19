@@ -2,7 +2,7 @@
 
 
 <div align="center">
-<img src=https://github.com/user-attachments/assets/241f6356-130f-426a-903e-a61fdb97d9af width=300/>
+<img width=500 src=https://github.com/user-attachments/assets/3b59cfad-049a-48dc-b55a-fa5bc433d686 />
 </div>
 
 ## How to add your zig library on this website?
