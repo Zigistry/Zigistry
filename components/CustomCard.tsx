@@ -20,7 +20,7 @@
 import type Repo from "@/types/custom_types";
 
 // -------- Functions ----------
-import { number_as_letters } from "@/backend/helper_functions";
+import { numberAsLetters } from "@/backend/helper_functions";
 // -------- Components ---------
 import { Badge, Button, Card, Tooltip } from "flowbite-react";
 import Image from "next/image";
@@ -47,13 +47,13 @@ export default function CustomCard(props: { item: Repo }) {
       </p>
       <div className="flex items-center">
         <FaStar size={20} color="#cfbc0e" className="mr-2"/>
-            {number_as_letters(props.item.stargazers_count)}
+            {numberAsLetters(props.item.stargazers_count)}
         <FaEye className="ml-2 mr-1" color="skyblue" />
-            {number_as_letters(props.item.watchers_count)}
+            {numberAsLetters(props.item.watchers_count)}
         <FaCodeFork className="ml-2 mr-1" color="lightpink" />
-            {number_as_letters(props.item.forks_count)}
+            {numberAsLetters(props.item.forks_count)}
         <GoIssueOpened className="ml-2 mr-1" color="lightgreen" />
-            {number_as_letters(props.item.open_issues)}
+            {numberAsLetters(props.item.open_issues)}
         <BsInfoSquareFill className="ml-2 mr-1" color="darkorange" />
         <Tooltip className="ml-2 mr-1" content={props.item.topics?.join(", ")}>
           {props.item.topics?.length}

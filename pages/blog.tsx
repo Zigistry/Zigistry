@@ -15,10 +15,10 @@ interface BlogProps {
 }
 
 export default function Blog({ posts }: BlogProps) {
-  const [my_posts, set_my_posts] = useState(posts);
+  const [searchedPostItems, setSearchedPostItems] = useState(posts);
 
-  function my_func(x: string) {
-    set_my_posts(posts.filter(post => post.title.toLowerCase().includes(x.toLowerCase())));
+  function search(x: string) {
+    setSearchedPostItems(posts.filter(post => post.title.toLowerCase().includes(x.toLowerCase())));
   }
 
   return (
@@ -26,14 +26,14 @@ export default function Blog({ posts }: BlogProps) {
       <div className='flex items-center flex-col'>
         <h1 className="text-center font-semibold text-2xl my-5">Search Ziglang Blogs (Work in progress)</h1>
         <TextInput
-          onChange={(e) => my_func(e.target.value)}
+          onChange={(e) => search(e.target.value)}
           placeholder="Search libraries"
           className="w-72 mb-5"
           autoFocus
         /></div>
       <div className='w-full flex flex-wrap justify-evenly'>
-        {my_posts.length > 0 ? (
-          my_posts.map((post, i) => (
+        {searchedPostItems.length > 0 ? (
+          searchedPostItems.map((post, i) => (
             <Card key={i} className="max-w-sm my-4">
               <Link href={"blog/" + post.slug}>
                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">

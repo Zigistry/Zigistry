@@ -57,14 +57,14 @@ export default function Home(
     const [infiniteScrollIndex, setIndex] = useState(3);
 
     useEffect(() => {
-        fetch("/api/infinite_scroll?page_number=2")
+        fetch("/api/infiniteScroll?pageNumber=2")
             .then((res) => res.json())
             .then((data) => setInfiniteScrollItems(data))
             .catch((err) => console.log(err));
     }, []);
 
     const fetchMoreData = () => {
-        fetch(`/api/infinite_scroll?page_number=${infiniteScrollIndex}`)
+        fetch(`/api/infiniteScroll?pageNumber=${infiniteScrollIndex}`)
             .then((res) => res.json())
             .then((data) => {
                 setInfiniteScrollItems((prevItems) => [...prevItems, ...data]);

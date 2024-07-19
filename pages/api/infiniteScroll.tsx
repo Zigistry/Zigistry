@@ -1,5 +1,5 @@
 /*===============================================================================*/
-/*          Infinite scrolling Algorithm API "/api/infinite_scroll"              */
+/*          Infinite scrolling Algorithm API "/api/infiniteScroll"              */
 /*===============================================================================*/
 
 /*
@@ -9,7 +9,7 @@
  | Details:
  | This api implements algorithm for infinite scrolling.
  | The search query is expected to be received like this:
- | /api/search?page_number=1
+ | /api/search?pageNumber=1
  | Please check license file for copyright details.
  */
 
@@ -30,7 +30,7 @@ export default async function infiniteScroll(
     res: NextApiResponse<Repo[]>
 ) {
     // Extract and parse the page number from the query parameters.
-    const pageNumber = parseInt(req.query.page_number as string, 10);
+    const pageNumber = parseInt(req.query.pageNumber as string, 10);
 
     // Check if pageNumber is a valid number.
     if (!isNaN(pageNumber) && pageNumber >= 0) {
