@@ -26,7 +26,7 @@ import CustomCard from "@/components/CustomCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 // ------- Functions ----------
-import Repo, { place_holder } from "@/types/custom_types";
+import Repo, { placeHolderRepoType } from "@/types/custom_types";
 import { FaStar } from "react-icons/fa";
 import { IoMdFastforward } from "react-icons/io";
 import { IoLogoGameControllerB } from "react-icons/io";
@@ -34,37 +34,40 @@ import { SlGlobe } from "react-icons/sl";
 import { IoIosApps } from "react-icons/io";
 import { useEffect, useState } from "react";
 
+// -------- Json ---------
+import items from "@/database/main.json";
+import gamingItems from "@/database/games.json";
+import webItems from "@/database/games.json";
+import guiItems from "@/database/games.json";
+
 // =============================
 //       Exports "/search"
 // =============================
 export default function Home(
     props: {
-        most_used: any;
-        top10LatestRepos: any;
-        gui_items: any;
-        gaming_items: any;
-        web_items: any;
+        mostUsed: Repo[];
+        top10LatestRepos: Repo[];
     },
 ) {
     // The data is going to be manipulated so setting it to top10LatestRepos
     // just to prevent errors.
 
-    const [items, setItems] = useState([place_holder]);
+    const [infiniteScrollItems, setInfiniteScrollItems] = useState([placeHolderRepoType]);
     const [hasMore, setHasMore] = useState(true);
-    const [index, setIndex] = useState(3);
+    const [infiniteScrollIndex, setIndex] = useState(3);
 
     useEffect(() => {
         fetch("/api/infinite_scroll?page_number=2")
             .then((res) => res.json())
-            .then((data) => setItems(data))
+            .then((data) => setInfiniteScrollItems(data))
             .catch((err) => console.log(err));
     }, []);
 
     const fetchMoreData = () => {
-        fetch(`/api/infinite_scroll?page_number=${index}`)
+        fetch(`/api/infinite_scroll?page_number=${infiniteScrollIndex}`)
             .then((res) => res.json())
             .then((data) => {
-                setItems((prevItems) => [...prevItems, ...data]);
+                setInfiniteScrollItems((prevItems) => [...prevItems, ...data]);
 
                 data.length > 0 ? setHasMore(true) : setHasMore(false);
             })
@@ -72,45 +75,44 @@ export default function Home(
 
         setIndex((prevIndex) => prevIndex + 1);
     };
-    const [data, setData] = useState(props.top10LatestRepos);
-    const [showDefault, setShowDefault] = useState(true);
-    const [inputValue, setInputValue] = useState("");
+    const [searchResultsData, setSearchResultsData] = useState([placeHolderRepoType]);
+    const [showDefaultIndexPage, setShowDefaultIndexPage] = useState(true);
+    const [searchTextboxInputValue, setSearchTextboxInputValue] = useState("");
     // ------- prevent user ddos --------
-    const [data_in_the_textbox_changed, set_data_in_the_textbox_changed] =
-        useState(false);
+    const [dataInTextboxChanged, setDataInTextboxChanged] = useState(false);
 
     // ----------- Fetch search results -------------
     const fetchData = async () => {
         const val: HTMLSelectElement = document.getElementById(
-            "get",
+            "dropDownID",
         ) as HTMLSelectElement;
-        if (inputValue !== "" && data_in_the_textbox_changed) {
-            set_data_in_the_textbox_changed(false);
+        if (searchTextboxInputValue !== "" && dataInTextboxChanged) {
+            setDataInTextboxChanged(false);
             var response;
             if (val.value === "No Filter") {
-                response = await fetch("/api/search?q=" + inputValue);
+                response = await fetch("/api/search?q=" + searchTextboxInputValue);
             } else {
                 response = await fetch(
-                    "/api/search?q=" + inputValue + "&filter=" + val.value,
+                    "/api/search?q=" + searchTextboxInputValue + "&filter=" + val.value,
                 );
             }
             const result: Repo[] = await response.json();
-            setData(result);
+            setSearchResultsData(result);
         }
     };
 
     const handleKeyDown = (event: any) => {
         if (event.key == "Enter") {
             fetchData();
-            setShowDefault(false);
+            setShowDefaultIndexPage(false);
         }
     };
     function handleOnChage(z: string) {
-        set_data_in_the_textbox_changed(true);
+        setDataInTextboxChanged(true);
         if (z == "") {
-            setShowDefault(true);
+            setShowDefaultIndexPage(true);
         } else {
-            setInputValue(z);
+            setSearchTextboxInputValue(z);
         }
     }
     return (
@@ -121,7 +123,7 @@ export default function Home(
                 </h1>
                 <div className="flex">
                     <Tooltip content="Search by filtering github topics">
-                        <Select id="get" required={false}>
+                        <Select id="dropDownID" required={false}>
                             <option>No Filter</option>
                             <option>api</option>
                             <option>http</option>
@@ -141,7 +143,7 @@ export default function Home(
 
                 </div>
             </div>
-            {showDefault
+            {showDefaultIndexPage
                 ? (
                     <>
                         <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
@@ -149,70 +151,50 @@ export default function Home(
                             &nbsp;Recently released:
                         </h1>
                         <section className="w-full flex flex-wrap justify-evenly">
-                            {props.top10LatestRepos
-                                ? (
-                                    props.top10LatestRepos.map((
-                                        item: Repo,
-                                        index: number,
-                                    ) => <CustomCard key={index} item={item} />)
-                                )
-                                : <p>Loading...</p>}
+                            {props.top10LatestRepos.map((
+                                item: Repo,
+                                index: number,
+                            ) => <CustomCard key={index} item={item} />)}
                         </section>
                         <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
                             <FaStar size={25} />
                             &nbsp;Most used:
                         </h1>
                         <section className="w-full flex flex-wrap justify-evenly">
-                            {props.most_used
-                                ? (
-                                    props.most_used.map((
-                                        item: Repo,
-                                        index: number,
-                                    ) => <CustomCard key={index} item={item} />)
-                                )
-                                : <p>Loading...</p>}
+                            {props.mostUsed.map((
+                                item: Repo,
+                                index: number,
+                            ) => <CustomCard key={index} item={item} />)}
                         </section>
                         <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
                             <IoLogoGameControllerB size={25} />
                             &nbsp;Famous Game libs:
                         </h1>
                         <section className="w-full flex flex-wrap justify-evenly">
-                            {props.gaming_items
-                                ? (
-                                    props.gaming_items.map((
-                                        item: Repo,
-                                        index: number,
-                                    ) => <CustomCard key={index} item={item} />)
-                                )
-                                : <p>Loading...</p>}
+                            {gamingItems.map((
+                                item: Repo,
+                                index: number,
+                            ) => <CustomCard key={index} item={item} />)}
                         </section>
                         <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
                             <IoIosApps size={25} />
                             &nbsp;Famous GUI libs:
                         </h1>
                         <section className="w-full flex flex-wrap justify-evenly">
-                            {props.gui_items
-                                ? (
-                                    props.gui_items.map((
-                                        item: Repo,
-                                        index: number,
-                                    ) => <CustomCard key={index} item={item} />)
-                                )
-                                : <p>Loading...</p>}
+                            {guiItems.map((
+                                item: Repo,
+                                index: number,
+                            ) => <CustomCard key={index} item={item} />)}
                         </section>
                         <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
                             <SlGlobe size={25} />
                             &nbsp;Famous Web libs:
                         </h1>
                         <section className="w-full flex flex-wrap justify-evenly">
-                            {props.web_items
-                                ? (
-                                    props.web_items.map((
-                                        item: Repo,
-                                        index: number,
-                                    ) => <CustomCard key={index} item={item} />)
-                                )
-                                : <p>Loading...</p>}
+                            {webItems.map((
+                                item: Repo,
+                                index: number,
+                            ) => <CustomCard key={index} item={item} />)}
                         </section>
                         <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
                             <SlGlobe size={25} />
@@ -220,15 +202,15 @@ export default function Home(
                         </h1>
 
                         <InfiniteScroll
-                            dataLength={items.length}
+                            dataLength={infiniteScrollItems.length}
                             next={fetchMoreData}
                             hasMore={hasMore}
                             loader={undefined}
                         >
                             <section className="w-full flex flex-wrap justify-evenly">
-                                {items
+                                {infiniteScrollItems
                                     ? (
-                                        items.map((
+                                        infiniteScrollItems.map((
                                             item: Repo,
                                             index: number,
                                         ) => <CustomCard key={index} item={item} />)
@@ -241,9 +223,9 @@ export default function Home(
                 )
                 : (
                     <section className="w-full flex flex-wrap justify-evenly">
-                        {data.length
+                        {searchResultsData.length
                             ? (
-                                data.map((item: any, index: any) => (
+                                searchResultsData.map((item: any, index: any) => (
                                     <CustomCard key={index} item={item} />
                                 ))
                             )
@@ -255,10 +237,7 @@ export default function Home(
     );
 }
 
-import items from "@/database/main.json"
-import gaming_items from "@/database/games.json"
-import web_items from "@/database/games.json"
-import gui_items from "@/database/games.json"
+
 
 // =======================================================
 //       Exports getStaticProps for the Index page.
@@ -270,7 +249,7 @@ export async function getStaticProps() {
     );
 
     // --------- Most used Repos -----------
-    const most_used = items.slice(0, 10);
+    const mostUsed = items.slice(0, 10);
 
     // ----------- Latest Repos ------------
     const top10LatestRepos = sortedRepos.slice(0, 10);
@@ -278,11 +257,8 @@ export async function getStaticProps() {
     // ------- Return Repos as Props -------
     return {
         props: {
-            most_used,
+            mostUsed,
             top10LatestRepos,
-            gaming_items,
-            web_items,
-            gui_items,
         },
     };
 }
