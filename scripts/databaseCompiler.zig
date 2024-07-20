@@ -16,7 +16,7 @@
 
 // ---------- Imports ------------
 const std = @import("std");
-const helper_functions = @import("./libs/functions_provider.zig");
+const helperFunctions = @import("./libs/functionsProvider.zig");
 
 // --------- Constants -----------
 const buffers = [4][]const u8{
@@ -28,24 +28,24 @@ const buffers = [4][]const u8{
 
 pub fn main() !void {
     // -------- Start the json file -------------
-    helper_functions.print("[", .{});
+    helperFunctions.print("[", .{});
 
-    for (buffers, 0..) |buf, i| {
+    for (buffers, 0..) |buffer, i| {
         // -------- Parse the json file --------
-        const parsed = try std.json.parseFromSlice(std.json.Value, helper_functions.global_allocator, buf, .{});
+        const parsed = try std.json.parseFromSlice(std.json.Value, helperFunctions.globalAllocator, buffer, .{});
         defer parsed.deinit();
 
         // ----- Get all the items (Repos) as array -----
-        const my_items = parsed.value.object.get("items").?.array.items;
+        const repoListUncompressed = parsed.value.object.get("items").?.array.items;
 
         // ----- If last file -----
         if (i == buffers.len - 1) {
-            try helper_functions.compress_and_print_repos(my_items, true);
+            try helperFunctions.compressAndPrintRepos(repoListUncompressed, true);
         } else {
-            try helper_functions.compress_and_print_repos(my_items, false);
+            try helperFunctions.compressAndPrintRepos(repoListUncompressed, false);
         }
     }
 
     // -------- End the json file ---------
-    helper_functions.print("]", .{});
+    helperFunctions.print("]", .{});
 }

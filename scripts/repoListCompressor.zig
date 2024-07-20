@@ -18,31 +18,31 @@
 
 // ---------- Imports ------------
 const std = @import("std");
-const helper_functions = @import("./libs/functions_provider.zig");
+const helperFunctions = @import("./libs/functionsProvider.zig");
 
 pub fn main() !void {
     // ------- Get file name -------
     var args = std.process.args();
     _ = args.skip();
-    const file_name: []const u8 = args.next().?;
+    const fileName: []const u8 = args.next().?;
 
     // ------ Start json file -------
-    helper_functions.print("[", .{});
+    helperFunctions.print("[", .{});
 
     // ------- Read the file --------
-    const file = try helper_functions.file_functions.openFile(file_name, .{});
-    const buf = try file.readToEndAlloc(helper_functions.global_allocator, try file.getEndPos());
-    defer helper_functions.global_allocator.free(buf);
+    const file = try helperFunctions.fileFunctions.openFile(fileName, .{});
+    const buffer = try file.readToEndAlloc(helperFunctions.globalAllocator, try file.getEndPos());
+    defer helperFunctions.globalAllocator.free(buffer);
 
     // --------- Parse Json --------
-    const parsed = try std.json.parseFromSlice(std.json.Value, helper_functions.global_allocator, buf, .{});
+    const parsed = try std.json.parseFromSlice(std.json.Value, helperFunctions.globalAllocator, buffer, .{});
     defer parsed.deinit();
 
     // ----- Store the items (repos) as array
-    const my_items = parsed.value.array.items;
+    const repoArray = parsed.value.array.items;
 
-    try helper_functions.compress_and_print_repos(my_items, true);
+    try helperFunctions.compressAndPrintRepos(repoArray, true);
 
     // ------- End Json file --------
-    helper_functions.print("]", .{});
+    helperFunctions.print("]", .{});
 }
