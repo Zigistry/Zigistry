@@ -15,6 +15,7 @@ https://github.com/RohanVashisht1234/zigistry/assets/81112205/962b147c-16ce-44d8
 
 ## Support:
 - ⭐ This github repo, create PRs, discussions, any sort of support/contribution is welcomed 😃.
+
 ## Contributing:
 - Feel free to create a PR, create discussions,
 
