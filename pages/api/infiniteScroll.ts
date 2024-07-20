@@ -1,5 +1,5 @@
 /*===============================================================================*/
-/*          Infinite scrolling Algorithm API "/api/infiniteScroll"              */
+/*          Infinite scrolling Algorithm API "/api/infiniteScroll"               */
 /*===============================================================================*/
 
 /*
@@ -10,6 +10,8 @@
  | This api implements algorithm for infinite scrolling.
  | The search query is expected to be received like this:
  | /api/search?pageNumber=1
+ |
+ | License:
  | Please check license file for copyright details.
  */
 
@@ -22,9 +24,9 @@ import Repo from '@/types/custom_types';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import databaseMain from '@/database/main.json';
 
-// ============================================
-//       Exports infiniteScroll as api
-// ============================================
+// =========================================
+//       Exports "/api/infiniteScroll"
+// =========================================
 export default async function infiniteScroll(
     req: NextApiRequest,
     res: NextApiResponse<Repo[]>

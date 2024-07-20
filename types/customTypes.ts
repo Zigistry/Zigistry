@@ -4,20 +4,20 @@ export default interface Repo {
     full_name: string;
     created_at: string;
     description: string;
-    default_branch?:string;
+    default_branch?: string;
     open_issues: number;
     stargazers_count: number;
     forks_count: number;
     watchers_count: number;
     contentIsCorrect?: boolean;
     tags_url: string;
-    license:string;
+    license: string;
     readme_content?: string;
     specials?: string;
-    topics?:Array<string>;
+    topics?: Array<string>;
 }
 
-export const placeHolderRepoType:Repo = {
+export const placeHolderRepoType: Repo = {
     avatar_url: "",
     name: "",
     full_name: "",

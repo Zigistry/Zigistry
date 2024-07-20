@@ -8,6 +8,8 @@
  |
  | Details:
  | The about page.
+ |
+ | License:
  | Please check license file for copyright details.
  */
 

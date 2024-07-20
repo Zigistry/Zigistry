@@ -8,6 +8,8 @@
  |
  | Details:
  | This file overrides the default app component.
+ |
+ | License:
  | Please check license file for copyright details.
  */
 

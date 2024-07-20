@@ -1,10 +1,35 @@
+/*===============================================================================*/
+/*                             Blog Page "/blog"                                 */
+/*===============================================================================*/
+
+/*
+ | Author:
+ | Rohan Vashisht
+ |
+ | Details:
+ | This is the default blog search page.
+ |
+ | License:
+ | Please check license file for copyright details.
+ */
+
+// ===================
+//       Imports
+// ===================
+
+// ------ Functions ------
 import fs from 'fs';
 import path from 'path';
+
+// ------- Components ---------
 import Link from 'next/link';
 import { useState } from 'react';
 import { TextInput } from 'flowbite-react';
 import { Card } from "flowbite-react";
 
+// ====================
+//       Constants
+// ====================
 interface Post {
   slug: string;
   title: string;
@@ -14,11 +39,16 @@ interface BlogProps {
   posts: Post[];
 }
 
+
+// =====================
+//    Exports "/blog"
+// =====================
 export default function Blog({ posts }: BlogProps) {
   const [searchedPostItems, setSearchedPostItems] = useState(posts);
 
-  function search(x: string) {
-    setSearchedPostItems(posts.filter(post => post.title.toLowerCase().includes(x.toLowerCase())));
+  //
+  function search(searchText: string) {
+    setSearchedPostItems(posts.filter(post => post.title.toLowerCase().includes(searchText.toLowerCase())));
   }
 
   return (
@@ -50,6 +80,10 @@ export default function Blog({ posts }: BlogProps) {
   );
 }
 
+
+// =======================================================
+//       Exports getStaticProps for the Blog page.
+// =======================================================
 export async function getStaticProps() {
   const blogDirectory = path.join(process.cwd(), 'pages', 'blog');
   const filenames = fs.readdirSync(blogDirectory);
@@ -57,7 +91,7 @@ export async function getStaticProps() {
   const posts = filenames.map((filename) => {
     return {
       slug: filename.replace(/\.mdx$/, ''),
-      title: filename.replace(/\.mdx$/, '').replace(/-/g, ' '), // Assuming the title is derived from the filename
+      title: filename.replace(/\.mdx$/, '').replace(/-/g, ' '),
     };
   });
 

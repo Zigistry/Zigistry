@@ -9,6 +9,7 @@
  | Details:
  | This is the export for custom card component, it is
  | mostly based off of the flowbite-react Card component.
+ |
  | Please check license file for copyright details.
  */
 
@@ -17,10 +18,11 @@
 // ===================
 
 // ---------- Types ------------
-import type Repo from "@/types/custom_types";
+import type Repo from "@/types/customTypes";
 
 // -------- Functions ----------
-import { numberAsLetters } from "@/backend/helper_functions";
+import { numberAsLetters } from "@/backend/helperFunctions";
+
 // -------- Components ---------
 import { Badge, Button, Card, Tooltip } from "flowbite-react";
 import Image from "next/image";

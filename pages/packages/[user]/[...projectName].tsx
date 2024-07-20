@@ -1,5 +1,5 @@
 /*===============================================================================*/
-/*                Show Library "/packages/[user]/[...project_name]"              */
+/*                Show Library "/packages/[user]/[...projectName]"              */
 /*===============================================================================*/
 
 /*
@@ -8,6 +8,8 @@
  |
  | Details:
  | This page is used to display the details of a single library.
+ |
+ | License:
  | Please check license file for copyright details.
  */
 
@@ -16,11 +18,17 @@
 // ===================
 
 // ----------- Types -----------
-import Repo from '@/types/custom_types';
+import Repo from '@/types/customTypes';
 
 // --------- Functions ---------
 import { marked } from 'marked';
 import DOMPurify from 'isomorphic-dompurify';
+
+// --------- Database ---------
+import data from "@/database/main.json";
+import data_game from "@/database/games.json";
+import data_web from "@/database/web.json";
+import data_gui from "@/database/gui.json";
 
 // -------- Components ---------
 import Image from 'next/image';
@@ -31,10 +39,10 @@ import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { BsInfoSquareFill } from 'react-icons/bs';
 import { Clipboard } from "flowbite-react"
-import { numberAsLetters } from '@/backend/helper_functions';
+import { numberAsLetters } from '@/backend/helperFunctions';
 
 // =========================================================================
-//       Exports show library page "/packages/[user]/[project_name]"
+//       Exports show library page "/packages/[user]/[projectName]"
 // =========================================================================
 export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
   return (
@@ -94,24 +102,26 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
   );
 }
 
+
+
+// ---------- Concatenate the database into a single list -------------
+const repositories = [...data, ...data_game, ...data_gui, ...data_web];
+
 // ==================================
 //       Get Server Side Props
 // ==================================
-import data from "@/database/main.json";
-import data_game from "@/database/games.json";
-import data_web from "@/database/web.json";
-import data_gui from "@/database/gui.json";
+export async function getServerSideProps({ params: { user, projectName } }: { params: { user: string; projectName: string; } }) {
+  // ------------ Get user's paths ----------------
+  const repoPath = `${user}/${projectName}`;
 
-const repositories = [...data, ...data_game, ...data_gui, ...data_web];
-
-export async function getServerSideProps({ params: { user, project_name } }: { params: { user: string; project_name: string; } }) {
-  const repoPath = `${user}/${project_name}`;
+  // ------------ Find the repo ---------------
   const repository = repositories.find(repo => repo.full_name === repoPath);
 
   if (!repository) {
-    return { props: { compressed_repo: { contentIsCorrect: false } as Repo } };
+    return { props: { compressedRepo: { contentIsCorrect: false } as Repo } };
   }
 
+  // ------------ Get the correct readme.md ---------------
   const fetchReadmeContent = async (repo: Repo) => {
     const defaultBranch = repo.default_branch || 'master';
     const readmeUrls = [
@@ -127,17 +137,20 @@ export async function getServerSideProps({ params: { user, project_name } }: { p
     return "404";
   };
 
+  // ----------- Fetch the readme and tags --------------
   const [readmeContent, tagsResponse] = await Promise.all([
     fetchReadmeContent(repository),
     fetch(repository.tags_url)
   ]);
 
+  // ----------- Get the tag details -------------
   const tagDetails = tagsResponse.ok ? await tagsResponse.json() : [];
   const latestTag = tagDetails[0]?.name;
   const specials = latestTag
     ? `https://github.com/${repository.full_name}/archive/refs/tags/${latestTag}.tar.gz`
     : `git+https://github.com/${repository.full_name}`;
 
+  // ------------ Generate the compressed repository -----------------
   const compressedRepo: Repo = {
     contentIsCorrect: true,
     name: repository.name,

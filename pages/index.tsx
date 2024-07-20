@@ -9,6 +9,8 @@
  | Details:
  | This is the index page that will be shown on the "/" route.
  | The default view is the top 10 latest and the top 20 most used repositories.
+ |
+ | License:
  | Please check license file for copyright details.
  */
 
@@ -26,7 +28,7 @@ import CustomCard from "@/components/CustomCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 // ------- Functions ----------
-import Repo, { placeHolderRepoType } from "@/types/custom_types";
+import Repo, { placeHolderRepoType } from "@/types/customTypes";
 import { FaStar } from "react-icons/fa";
 import { IoMdFastforward } from "react-icons/io";
 import { IoLogoGameControllerB } from "react-icons/io";

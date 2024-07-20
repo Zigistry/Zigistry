@@ -1,3 +1,22 @@
+/*===============================================================================*/
+/*                        Statistics Page "/statistics"                          */
+/*===============================================================================*/
+
+/*
+ | Author:
+ | Rohan Vashisht
+ |
+ | Details:
+ | This is the statistics page which displayes the
+ | statistics of libraries indexed by Zigistry.
+ |
+ | License:
+ | Please check license file for copyright details.
+ */
+
+// ==============================
+//      Exports "/statistics"
+// ==============================
 export default function statistics() {
     return (
         <div className="readme">

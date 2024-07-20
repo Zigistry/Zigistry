@@ -10,6 +10,8 @@
  | This api implements algorithm for search.
  | The search query is expected to be received like this:
  | /api/search?q=Search%20Query
+ |
+ | License:
  | Please check license file for copyright details.
  */
 
@@ -22,7 +24,10 @@ import Repo from "@/types/custom_types";
 import type { NextApiRequest, NextApiResponse } from "next";
 import mainDatabase from "@/database/main.json";
 
-export default async function handler(
+// =========================================
+//       Exports "/api/search"
+// =========================================
+export default async function search(
     req: NextApiRequest,
     res: NextApiResponse<Repo[]>,
 ) {
