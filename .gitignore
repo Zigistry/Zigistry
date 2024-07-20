@@ -37,6 +37,8 @@ next-env.d.ts
 
 # bun
 bun.lockb
+
+#j s
 package-lock.json
 
 # binaries
