@@ -4,8 +4,8 @@
 //!	Author  : Rohan Vashisht
 //! License : Please check license file
 //! Details : This file provides easy access
-//! of a few functions to database_compiler.zig
-//! and repo_list_compressor.zig.
+//! of a few functions to databaseCompiler.zig
+//! and repoListCompressor.zig.
 //!==============================================
 
 // =-=-=-=-= Imports =-=-=-=-=

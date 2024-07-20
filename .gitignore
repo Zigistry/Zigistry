@@ -40,7 +40,7 @@ bun.lockb
 package-lock.json
 
 # binaries
-database_compiler
+databaseCompiler
 *.o
 *.out
 games

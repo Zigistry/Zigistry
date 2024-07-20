@@ -11,9 +11,9 @@
 //!     feilds from the json and generating a
 //!     new file, the new file generation is
 //!     done by:
-//!     $ ./repo_list ./web.json > ./database/web.json
-//!     $ ./repo_list ./gui.json > ./database/gui.json
-//!     $ ./repo_list ./games.json > ./database/games.json
+//!     $ ./repoList ./web.json > ./database/web.json
+//!     $ ./repoList ./gui.json > ./database/gui.json
+//!     $ ./repoList ./games.json > ./database/games.json
 //!========================================================
 
 // ---------- Imports ------------

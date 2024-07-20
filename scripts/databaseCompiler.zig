@@ -11,7 +11,7 @@
 //!     feilds from the json and generating a
 //!     new file, the new file generation is
 //!     done by:
-//!     $ ./database_compiler > ./main.json
+//!     $ ./databaseCompiler > ./main.json
 //!==============================================
 
 // ---------- Imports ------------

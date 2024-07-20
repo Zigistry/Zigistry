@@ -22,10 +22,10 @@ jobs:
           wget -O ./scripts/d.json "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=4&per_page=100"
       - name: Compile zig files
         run: |
-          zig build-exe ./scripts/database_compiler.zig
-          zig cc -o compressor ./scripts/repo_list_compressor.zig
+          zig build-exe ./scripts/databaseCompiler.zig
+          zig cc -o compressor ./scripts/repoListCompressor.zig
       - name: Update main.json
-        run: ./database_compiler > ./database/main.json
+        run: ./databaseCompiler > ./database/main.json
       - name: Get latest json files for the games, web and gui
         run: sh ./scripts/featured.sh
       - name: Compress web.json
@@ -40,13 +40,12 @@ jobs:
           rm -rf ./scripts/b.json
           rm -rf ./scripts/c.json
           rm -rf ./scripts/d.json
-          rm -rf ./database_compiler
-          rm -rf ./database_compiler.o
+          rm -rf ./databaseCompiler
+          rm -rf ./databaseCompiler.o
           rm -rf ./gui.json
           rm -rf ./games.json
           rm -rf ./web.json
           rm -rf ./compressor
-          rm -rf ./ai_compiler
       - name: Config email
         run: git config --global user.name "Github Actions" && git config --global user.email "<>"
       - name: Git add
