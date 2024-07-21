@@ -20,7 +20,7 @@
 // ===================
 
 // --------- Types -----------
-import Repo from '@/types/custom_types';
+import Repo from '@/types/customTypes';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import databaseMain from '@/database/main.json';
 
