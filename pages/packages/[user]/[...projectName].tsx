@@ -80,6 +80,10 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
               </Button>
             </Card>
           </div>
+          <div className='flex flex-wrap gap-5 justify-center'>
+           <Badge color="warning">Size: {compressedRepo.size}</Badge>
+           <Badge color="info">Updated: {new Date(compressedRepo.updated_at).toDateString()} ago</Badge>
+          </div>
           <div className="flex mx-5 items-center justify-center font-mono">
             <div className="dark:bg-[#151d28] bg-slate-600 pr-7 py-3 pl-4 rounded w-fit flex items-center justify-center mb-4">
               <div style={{ userSelect: "all" }}>
@@ -105,7 +109,7 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
 
 
 // ---------- Concatenate the database into a single list -------------
-const repositories = [...data, ...data_game, ...data_gui, ...data_web];
+const repositories:Repo[] = [...data, ...data_game, ...data_gui, ...data_web];
 
 // ==================================
 //       Get Server Side Props
@@ -115,7 +119,7 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
   const repoPath = `${user}/${projectName}`;
 
   // ------------ Find the repo ---------------
-  const repository = repositories.find(repo => repo.full_name === repoPath);
+  const repository:Repo = repositories.find(repo => repo.full_name === repoPath);
 
   if (!repository) {
     return { props: { compressedRepo: { contentIsCorrect: false } as Repo } };
@@ -166,7 +170,9 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
     forks_count: repository.forks_count,
     watchers_count: repository.watchers_count,
     topics: repository.topics,
-    avatar_url: repository.avatar_url
+    avatar_url: repository.avatar_url,
+    size: repository.size,
+    updated_at: repository.updated_at,
   };
 
   return { props: { compressedRepo } };

@@ -15,10 +15,14 @@ export default interface Repo {
     readme_content?: string;
     specials?: string;
     topics?: Array<string>;
+    size: number;
+    updated_at: string;
 }
 
 export const placeHolderRepoType: Repo = {
     avatar_url: "",
+    size: 0,
+    updated_at: "",
     name: "",
     full_name: "",
     created_at: "",
