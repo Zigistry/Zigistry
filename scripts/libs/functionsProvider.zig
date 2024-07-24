@@ -98,7 +98,7 @@ pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void
         printJson("tags_url", item.object.get("tags_url").?.string, true);
         printJson("updated_at", item.object.get("updated_at").?.string, true);
         printJson("created_at", item.object.get("created_at").?.string, true);
-        printJson("size", item.object.get("size").?.integer, true);
+        printJsonInt("size", item.object.get("size").?.integer, true);
         if (item.object.get("topics").? == .array) {
             print("\"topics\":[", .{});
             for (item.object.get("topics").?.array.items, 0..) |topic, index| {
