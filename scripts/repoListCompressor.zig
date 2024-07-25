@@ -79,5 +79,5 @@ pub fn main() !void {
 
     const result = try raw_json_data.toOwnedSlice();
     const jsonParsed = try std.json.parseFromSlice(std.json.Value, allocator, result, .{});
-    helperFunctions.compressAndPrintRepos(jsonParsed.value.array.items, true);
+    try helperFunctions.compressAndPrintRepos(jsonParsed.value.array.items, true);
 }
