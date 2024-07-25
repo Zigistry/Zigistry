@@ -31,6 +31,25 @@ pub fn build(b: *std.Build) void {
         const databaseCompilerRunStep = b.step("run_databaseCompiler", "Run database compiler");
         databaseCompilerRunStep.dependOn(&databaseCompilerRunCmd.step);
     }
+    // featuredRepoListCreator
+    {
+        const featuredRepoListCreator = b.addExecutable(.{
+            .name = "featuredRepoListCreator",
+            .root_source_file = b.path("scripts/featuredRepoListCreator.zig"),
+            .target = target,
+            .optimize = optimize,
+        });
+        featuredRepoListCreator.root_module.addImport("helperFunctions", helperFunctions);
+        b.installArtifact(featuredRepoListCreator);
+
+        const featuredRepoListCreatorRunCmd = b.addRunArtifact(featuredRepoListCreator);
+        featuredRepoListCreatorRunCmd.step.dependOn(b.getInstallStep());
+        if (b.args) |args| {
+            featuredRepoListCreatorRunCmd.addArgs(args);
+        }
+        const featuredRepoListCreatorRunStep = b.step("run_featuredRepoListCreator", "Run featuredRepoListCreator");
+        featuredRepoListCreatorRunStep.dependOn(&featuredRepoListCreatorRunCmd.step);
+    }
     // Repo List Compressor
     {
         const repoListCompressor = b.addExecutable(.{
