@@ -19,11 +19,12 @@ const std = @import("std");
 const helperFunctions = @import("helperFunctions");
 
 // --------- Constants -----------
-const buffers = [4][]const u8{
+const buffers = [_][]const u8{
     @embedFile("./a.json"),
     @embedFile("./b.json"),
     @embedFile("./c.json"),
     @embedFile("./d.json"),
+    @embedFile("./e.json"),
 };
 
 pub fn main() !void {
