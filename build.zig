@@ -28,7 +28,7 @@ pub fn build(b: *std.Build) void {
     if (b.args) |args| {
         databaseCompilerRunCmd.addArgs(args);
     }
-    const databaseCompilerRunStep = b.step("databaseCompiler", "Run database compiler");
+    const databaseCompilerRunStep = b.step("run_databaseCompiler", "Run database compiler");
     databaseCompilerRunStep.dependOn(&databaseCompilerRunCmd.step);
 
     const databaseCompilerUnitTests = b.addTest(.{
@@ -55,7 +55,7 @@ pub fn build(b: *std.Build) void {
     if (b.args) |args| {
         repoListCompressorRunCmd.addArgs(args);
     }
-    const repoListCompressorRunStep = b.step("repoListCompressor", "Run repoListCompressor");
+    const repoListCompressorRunStep = b.step("run_repoListCompressor", "Run repoListCompressor");
     repoListCompressorRunStep.dependOn(&repoListCompressorRunCmd.step);
 
     const repoListCompressorUnitTests = b.addTest(.{

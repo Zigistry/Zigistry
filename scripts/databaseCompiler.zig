@@ -20,6 +20,7 @@ const helperFunctions = @import("helperFunctions");
 
 // --------- Constants -----------
 const buffers = [_][]const u8{
+    // Increment these whenever repositories having zig-package reach the next 100.
     @embedFile("./a.json"),
     @embedFile("./b.json"),
     @embedFile("./c.json"),
