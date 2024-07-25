@@ -23,17 +23,16 @@ jobs:
       - name: Compile zig files
         run: |
           zig build databaseCompiler
-          zig build repoListCompressor
       - name: Update main.json
         run: ./databaseCompiler > ./database/main.json
       - name: Get latest json files for the games, web and gui
         run: sh ./scripts/featured.sh
       - name: Compress web.json
-        run: ./compressor ./web.json > ./database/web.json
+        run:  zig run repoListCompressor ./web.json > ./database/web.json
       - name: Compress gui.json
-        run: ./compressor ./gui.json > ./database/gui.json
+        run:  zig run repoListCompressor ./gui.json > ./database/gui.json
       - name: Compress games.json
-        run: ./compressor ./games.json > ./database/games.json
+        run:  zig run repoListCompressor ./games.json > ./database/games.json
       - name: Remove unimportant files
         run: |
           rm -rf ./scripts/a.json
