@@ -28,23 +28,7 @@ const topic_urls = [3][5][]const u8{
     },
 };
 
-pub fn fetch(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
-    var charBuffer = std.ArrayList(u8).init(allocator);
-    var client = std.http.Client{ .allocator = allocator };
-    const fetchOptions = std.http.Client.FetchOptions{
-        .location = std.http.Client.FetchOptions.Location{
-            .url = url,
-        },
-        .method = .GET,
-        .response_storage = .{ .dynamic = &charBuffer },
-    };
-    const result = try client.fetch(fetchOptions);
-    if (result.status == .ok) {
-        return try charBuffer.toOwnedSlice();
-    } else {
-        return "";
-    }
-}
+
 
 pub fn main() !void {
     const allocator = std.heap.page_allocator;
@@ -63,7 +47,7 @@ pub fn main() !void {
     }
     try raw_json_data.append('[');
     for (0.., topic_urls[selection]) |i, url| {
-        const res = try fetch(allocator, url);
+        const res = try helperFunctions.fetch(allocator, url);
         if (!std.mem.eql(u8, res, "")) {
             for(res)|char|{
                 try raw_json_data.append(char);

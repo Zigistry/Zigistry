@@ -14,14 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4 
       - uses: mlugg/setup-zig@v1
-      - name: download jsons
-      # Increment these whenever repositories having zig-package reach the next 100.
-        run: |
-          wget -O ./scripts/a.json "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=1&per_page=100"
-          wget -O ./scripts/b.json "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=2&per_page=100"
-          wget -O ./scripts/c.json "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=3&per_page=100"
-          wget -O ./scripts/d.json "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=4&per_page=100"
-          wget -O ./scripts/e.json "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=5&per_page=100"
       - name: Update main.json
         run:  zig build run_databaseCompiler > ./database/main.json
       - name: Compress web.json
@@ -30,15 +22,6 @@ jobs:
         run:  zig build run_repoListCompressor -- gui > ./database/gui.json
       - name: Compress games.json
         run:  zig build run_repoListCompressor -- games > ./database/games.json
-      - name: Remove unimportant files
-        run: |
-          rm -rf ./scripts/*.json
-          rm -rf ./databaseCompiler
-          rm -rf ./databaseCompiler.o
-          rm -rf ./gui.json
-          rm -rf ./games.json
-          rm -rf ./web.json
-          rm -rf ./compressor
       - name: Config email
         run: git config --global user.name "Github Actions" && git config --global user.email "<>"
       - name: Git add

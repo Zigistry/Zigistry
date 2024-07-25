@@ -120,6 +120,24 @@ pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void
     }
 }
 
+pub fn fetch(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
+    var charBuffer = std.ArrayList(u8).init(allocator);
+    var client = std.http.Client{ .allocator = allocator };
+    const fetchOptions = std.http.Client.FetchOptions{
+        .location = std.http.Client.FetchOptions.Location{
+            .url = url,
+        },
+        .method = .GET,
+        .response_storage = .{ .dynamic = &charBuffer },
+    };
+    const result = try client.fetch(fetchOptions);
+    if (result.status == .ok) {
+        return try charBuffer.toOwnedSlice();
+    } else {
+        return "";
+    }
+}
+
 test "print" {
     print("{d}", .{1});
 }
