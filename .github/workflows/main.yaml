@@ -25,11 +25,11 @@ jobs:
       - name: Get latest json files for the games, web and gui
         run: sh ./scripts/featured.sh
       - name: Compress web.json
-        run:  zig build repoListCompressor --./web.json > ./database/web.json
+        run:  zig build repoListCompressor -- ./web.json > ./database/web.json
       - name: Compress gui.json
-        run:  zig build repoListCompressor ./gui.json > ./database/gui.json
+        run:  zig build repoListCompressor -- ./gui.json > ./database/gui.json
       - name: Compress games.json
-        run:  zig build repoListCompressor ./games.json > ./database/games.json
+        run:  zig build repoListCompressor -- ./games.json > ./database/games.json
       - name: Remove unimportant files
         run: |
           rm -rf ./scripts/a.json
