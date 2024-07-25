@@ -29,7 +29,7 @@ pub fn build(b: *std.Build) void {
         databaseCompilerRunCmd.addArgs(args);
     }
 
-    const databaseCompilerRunStep = b.step("run_database_compiler", "Run database compiler");
+    const databaseCompilerRunStep = b.step("databaseCompiler", "Run database compiler");
     databaseCompilerRunStep.dependOn(&databaseCompilerRunCmd.step);
 
     const functionsProviderUnitTests = b.addTest(.{
@@ -69,6 +69,8 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    const repoListCompressorRunStep = b.step("repoListCompressor", "Run repoListCompressor");
+    repoListCompressorRunStep.dependOn(&repoListCompressorRunCmd.step);
     const runRepoListCompressorUnitTests = b.addRunArtifact(repoListCompressorUnitTests);
     const runRepoListCompressorTestStep = b.step("testrunRepoListCompressor", "Run RepoListCompressor tests");
     runRepoListCompressorTestStep.dependOn(&runRepoListCompressorUnitTests.step);
