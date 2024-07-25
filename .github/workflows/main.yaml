@@ -20,11 +20,8 @@ jobs:
           wget -O ./scripts/b.json "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=2&per_page=100"
           wget -O ./scripts/c.json "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=3&per_page=100"
           wget -O ./scripts/d.json "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=4&per_page=100"
-      - name: Compile zig files
-        run: |
-          zig build databaseCompiler
       - name: Update main.json
-        run: ./databaseCompiler > ./database/main.json
+        run:  zig run databaseCompiler > ./database/main.json
       - name: Get latest json files for the games, web and gui
         run: sh ./scripts/featured.sh
       - name: Compress web.json
