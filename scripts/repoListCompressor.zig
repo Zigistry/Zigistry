@@ -78,8 +78,6 @@ pub fn main() !void {
     try raw_json_data.append(']');
 
     const result = try raw_json_data.toOwnedSlice();
-    std.debug.print("{s}", .{result});
-    // const jsonParsed = try std.json.parseFromSlice(std.json.Value, allocator, result, .{});
-    
-    // try helperFunctions.compressAndPrintRepos(jsonParsed.value.array.items, true);
+    const jsonParsed = try std.json.parseFromSlice(std.json.Value, allocator, result, .{});
+    try helperFunctions.compressAndPrintRepos(jsonParsed.value.array.items, true);
 }
