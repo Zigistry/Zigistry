@@ -68,7 +68,7 @@ pub fn main() !void {
             for(res)|char|{
                 try raw_json_data.append(char);
             }
-            if (topic_urls.len - 1 != i) {
+            if (topic_urls[selection].len - 1 != i) {
                 try raw_json_data.append(',');
             }
         } else {
@@ -78,7 +78,8 @@ pub fn main() !void {
     try raw_json_data.append(']');
 
     const result = try raw_json_data.toOwnedSlice();
-    const jsonParsed = try std.json.parseFromSlice(std.json.Value, allocator, result, .{});
     std.debug.print("{s}", .{result});
-    try helperFunctions.compressAndPrintRepos(jsonParsed.value.array.items, true);
+    // const jsonParsed = try std.json.parseFromSlice(std.json.Value, allocator, result, .{});
+    
+    // try helperFunctions.compressAndPrintRepos(jsonParsed.value.array.items, true);
 }
