@@ -48,7 +48,6 @@ pub fn fetch(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
 
 pub fn main() !void {
     const allocator = std.heap.c_allocator;
-    helperFunctions.print("[", .{});
     var args = std.process.args();
     _ = args.skip();
     const fileName: []const u8 = args.next().?;
@@ -61,7 +60,7 @@ pub fn main() !void {
         selection=1;
     } else {
         selection=2;
-    };
+    }
     raw_json_data.append("[");
     for (0.., topic_urls[selection]) |i, url| {
         const res = try fetch(allocator, url);
