@@ -86,8 +86,8 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
             <Badge color="purple">Created: {new Date(compressedRepo.created_at).toLocaleTimeString()+ " " + new Date(compressedRepo.created_at).toDateString()}</Badge>
           </div>
           <div className="flex mx-5 items-center justify-center font-mono">
-            <div className="dark:bg-[#151d28] bg-slate-600 pr-7 py-3 pl-4 rounded w-fit flex items-center justify-center mb-4">
-              <div style={{ userSelect: "all" }}>
+            <div className="dark:bg-[#151d28] bg-slate-600 pr-7 py-3 pl-4 rounded w-fit max-w-full flex items-center justify-center mb-4 mx-2">
+              <div className='sm:overflow-x-hidden text-sm sm:text-base overflow-x-scroll' style={{ userSelect: "all" }}>
                 <span style={{ color: "gold" }}>zig</span>&nbsp;<span style={{ color: "skyblue" }}>fetch</span>&nbsp;<span style={{ color: "lightgray" }}>--save</span>&nbsp;<span style={{ color: "lightgreen" }}>{compressedRepo.specials}</span>
               </div>
               <Clipboard className='ml-3' valueToCopy={"zig fetch --save " + compressedRepo.specials} label="Copy" />
