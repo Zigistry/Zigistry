@@ -138,7 +138,7 @@ export default function Home(
                     <TextInput
                         onChange={(e) => handleOnChage(e.target.value)}
                         onKeyUp={handleKeyDown}
-                        placeholder="Search 350+ Zig libraries"
+                        placeholder="Search 400+ Zig libraries"
                         className="w-72 mb-5 ml-2"
                         autoFocus
                     />

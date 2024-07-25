@@ -33,10 +33,7 @@ jobs:
         run:  zig build repoListCompressor -- ./games.json > ./database/games.json
       - name: Remove unimportant files
         run: |
-          rm -rf ./scripts/a.json
-          rm -rf ./scripts/b.json
-          rm -rf ./scripts/c.json
-          rm -rf ./scripts/d.json
+          rm -rf ./scripts/*.json
           rm -rf ./databaseCompiler
           rm -rf ./databaseCompiler.o
           rm -rf ./gui.json
