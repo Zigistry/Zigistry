@@ -47,7 +47,7 @@ pub fn fetch(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
 }
 
 pub fn main() !void {
-    const allocator = std.heap.c_allocator;
+    const allocator = std.heap.page_allocator;
     var args = std.process.args();
     _ = args.skip();
     const fileName: []const u8 = args.next().?;
