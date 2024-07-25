@@ -20,10 +20,10 @@ const helperFunctions = @import("helperFunctions");
 
 // --------- Constants -----------
 const buffers = [4][]const u8{
-    @embedFile("./a.json"),
-    @embedFile("./b.json"),
-    @embedFile("./c.json"),
-    @embedFile("./d.json"),
+    @embedFile("../a.json"),
+    @embedFile("../b.json"),
+    @embedFile("../c.json"),
+    @embedFile("../d.json"),
 };
 
 pub fn main() !void {
