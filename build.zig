@@ -30,15 +30,6 @@ pub fn build(b: *std.Build) void {
         }
         const databaseCompilerRunStep = b.step("run_databaseCompiler", "Run database compiler");
         databaseCompilerRunStep.dependOn(&databaseCompilerRunCmd.step);
-
-        const databaseCompilerUnitTests = b.addTest(.{
-            .root_source_file = b.path("scripts/databaseCompiler.zig"),
-            .target = target,
-            .optimize = optimize,
-        });
-        const runDatabaseCompilerUnitTests = b.addRunArtifact(databaseCompilerUnitTests);
-        const databaseCompilerTestStep = b.step("testdatabasecompiler", "Run database compiler unit tests");
-        databaseCompilerTestStep.dependOn(&runDatabaseCompilerUnitTests.step);
     }
     // Repo List Compressor
     {
@@ -58,15 +49,6 @@ pub fn build(b: *std.Build) void {
         }
         const repoListCompressorRunStep = b.step("run_repoListCompressor", "Run repoListCompressor");
         repoListCompressorRunStep.dependOn(&repoListCompressorRunCmd.step);
-
-        const repoListCompressorUnitTests = b.addTest(.{
-            .root_source_file = b.path("scripts/repoListCompressor.zig"),
-            .target = target,
-            .optimize = optimize,
-        });
-        const runRepoListCompressorUnitTests = b.addRunArtifact(repoListCompressorUnitTests);
-        const runRepoListCompressorTestStep = b.step("testrunRepoListCompressor", "Run repoListCompressor tests");
-        runRepoListCompressorTestStep.dependOn(&runRepoListCompressorUnitTests.step);
     }
     // Helper Functions Unit Tests
     {
@@ -76,7 +58,7 @@ pub fn build(b: *std.Build) void {
             .optimize = optimize,
         });
         const runFunctionsProviderUnitTests = b.addRunArtifact(functionsProviderUnitTests);
-        const functionsProviderTestStep = b.step("testlib", "Run helperFunctions lib tests");
+        const functionsProviderTestStep = b.step("run_testlib", "Run helperFunctions lib tests");
         functionsProviderTestStep.dependOn(&runFunctionsProviderUnitTests.step);
     }
 }

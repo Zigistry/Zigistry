@@ -119,3 +119,36 @@ pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void
         }
     }
 }
+
+test "print" {
+    print("{d}", .{1});
+}
+
+test "printJson" {
+    printJson("Hello", "World", false);
+    printJson("Hello", "World", true);
+}
+
+test "printJsonInt" {
+    printJsonInt("Age", 18, false);
+    printJsonInt("Age", 18, true);
+}
+
+test "replace" {
+    const result = try replace(std.heap.page_allocator, "Hello", 'l', 'o');
+    std.debug.assert(std.mem.eql(u8, result, "Heooo"));
+}
+
+test "contains" {
+    const stringArrayList = [_][]const u8{ "Hello", "Yo" };
+    const result = contains(&stringArrayList, "Hello");
+    std.debug.assert(result);
+}
+
+test "compressAndPrintRepos" {
+    const rawJson = @embedFile("./test.json");
+    const parsed_value = try std.json.parseFromSlice(std.json.Value, std.heap.page_allocator, rawJson, .{});
+    // The bellow should not print zigcc/awsome-zig, because it has been included in the excluded repositories list.
+    try compressAndPrintRepos(parsed_value.value.object.get("items").?.array.items, true);
+    try compressAndPrintRepos(parsed_value.value.object.get("items").?.array.items, false);
+}
