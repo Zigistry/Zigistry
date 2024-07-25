@@ -9,6 +9,9 @@
 # testing
 /coverage
 
+zig-out/
+.zig-cache/
+
 # next.js
 /.next/
 /out/

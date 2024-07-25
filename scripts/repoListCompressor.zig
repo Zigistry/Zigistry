@@ -18,7 +18,7 @@
 
 // ---------- Imports ------------
 const std = @import("std");
-const helperFunctions = @import("./libs/functionsProvider.zig");
+const helperFunctions = @import("helperFunctions");
 
 pub fn main() !void {
     // ------- Get file name -------

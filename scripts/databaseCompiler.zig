@@ -16,7 +16,7 @@
 
 // ---------- Imports ------------
 const std = @import("std");
-const helperFunctions = @import("./libs/functionsProvider.zig");
+const helperFunctions = @import("helperFunctions");
 
 // --------- Constants -----------
 const buffers = [4][]const u8{
