@@ -63,6 +63,9 @@ pub fn build(b: *std.Build) void {
     repoListCompressor.root_module.addImport("helperFunctions", helperFunctions);
     b.installArtifact(repoListCompressor);
     const repoListCompressorRunCmd = b.addRunArtifact(repoListCompressor);
+    if (b.args) |args| {
+        repoListCompressorRunCmd.addArgs(args);
+    }
     repoListCompressorRunCmd.step.dependOn(b.getInstallStep());
     const repoListCompressorUnitTests = b.addTest(.{
         .root_source_file = b.path("scripts/repoListCompressor.zig"),
