@@ -1,4 +1,23 @@
-//
+//!==============================================
+//!     		 Statistics generator
+//!==============================================
+//!	Author  : Rohan Vashisht
+//! License : Please check license file
+//! Details : This file generates statistics
+//! by reading data from main.json. For this
+//! file to run correctly, please first
+//! copy the database/main.json to
+//! scripts folder, and then run this file.
+//! This can be done by:
+//! $ cp ./database/main.json ./scripts/main.json
+//! and then:
+//! $ zig run ./scripts/statistics.zig
+//! Please don't forget to (even though once
+//! pushed, gh workflows will):
+//! $ rm -rf ./scripts/main.json
+//!==============================================
+
+// ---------- Imports ------------
 const std = @import("std");
 
 pub fn main() !void {
