@@ -61,21 +61,21 @@ pub fn main() !void {
     } else {
         selection=2;
     }
-    raw_json_data.append('[');
+    try raw_json_data.append('[');
     for (0.., topic_urls[selection]) |i, url| {
         const res = try fetch(allocator, url);
         if (!std.mem.eql(u8, res, "")) {
             for(res)|char|{
-                raw_json_data.append(char);
+                try raw_json_data.append(char);
             }
             if (topic_urls.len - 1 != i) {
-                raw_json_data.append(',');
+                try raw_json_data.append(',');
             }
         } else {
             @panic("unable to reach url");
         }
     }
-    raw_json_data.append(']');
+    try raw_json_data.append(']');
 
     const result = try raw_json_data.toOwnedSlice();
     const jsonParsed = try std.json.parseFromSlice(std.json.Value, allocator, result, .{});
