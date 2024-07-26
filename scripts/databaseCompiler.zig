@@ -31,8 +31,10 @@ pub fn main() !void {
     helperFunctions.print("[", .{});
 
     var buffers_collection = std.ArrayList([]const u8).init(helperFunctions.globalAllocator);
+    defer buffers_collection.deinit();
     for (urls) |url| {
         const res = try helperFunctions.fetch(helperFunctions.globalAllocator, url);
+        defer helperFunctions.globalAllocator.free(res);
         if (!std.mem.eql(u8, res, "")) {
             try buffers_collection.append(res);
         } else {
@@ -40,6 +42,7 @@ pub fn main() !void {
         }
     }
     const buffers = try buffers_collection.toOwnedSlice();
+    defer helperFunctions.globalAllocator.free(buffers);
     for (buffers, 0..) |buffer, i| {
         // -------- Parse the json file --------
         const parsed = try std.json.parseFromSlice(std.json.Value, helperFunctions.globalAllocator, buffer, .{});

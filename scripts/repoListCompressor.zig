@@ -47,12 +47,12 @@ const topic_urls = [3][5][]const u8{
 };
 
 pub fn main() !void {
-    const allocator = std.heap.page_allocator;
     var args = std.process.args();
     _ = args.skip();
     const fileName: []const u8 = args.next().?;
 
-    var raw_json_data = std.ArrayList(u8).init(allocator);
+    var raw_json_data = std.ArrayList(u8).init(helperFunctions.globalAllocator);
+    defer raw_json_data.deinit();
     var selection: u8 = 3;
     if (std.mem.eql(u8, "games", fileName)) {
         selection = 0;
@@ -63,7 +63,8 @@ pub fn main() !void {
     }
     try raw_json_data.append('[');
     for (0.., topic_urls[selection]) |i, url| {
-        const res = try helperFunctions.fetch(allocator, url);
+        const res = try helperFunctions.fetch(helperFunctions.globalAllocator, url);
+        defer helperFunctions.globalAllocator.free(res);
         if (!std.mem.eql(u8, res, "")) {
             for (res) |char| {
                 try raw_json_data.append(char);
@@ -78,7 +79,9 @@ pub fn main() !void {
     try raw_json_data.append(']');
 
     const result = try raw_json_data.toOwnedSlice();
-    const jsonParsed = try std.json.parseFromSlice(std.json.Value, allocator, result, .{});
+    defer helperFunctions.globalAllocator.free(result);
+    const jsonParsed = try std.json.parseFromSlice(std.json.Value, helperFunctions.globalAllocator, result, .{});
+    defer jsonParsed.deinit();
     helperFunctions.print("[", .{});
     try helperFunctions.compressAndPrintRepos(jsonParsed.value.array.items, true);
     helperFunctions.print("]", .{});
