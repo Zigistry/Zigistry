@@ -21,19 +21,22 @@
 
 // ---------- Imports ------------
 const std = @import("std");
+const allocator = std.heap.page_allocator;
 
 pub fn main() !void {
     const jsonRawData = @embedFile("./main.json");
     const parsed = try std.json.parseFromSlice(
         std.json.Value,
-        std.heap.page_allocator,
+        allocator,
         jsonRawData,
         .{},
     );
+    defer parsed.deinit();
 
     const parsedItems = parsed.value.array.items;
 
-    var licenseHashmap = std.StringHashMap(u32).init(std.heap.page_allocator);
+    var licenseHashmap = std.StringHashMap(u32).init(allocator);
+    defer licenseHashmap.deinit();
     for (parsedItems) |item| {
         const license = item.object.get("license").?.string;
         if (licenseHashmap.get(license)) |count| {
@@ -46,11 +49,11 @@ pub fn main() !void {
     while (licenseHashmapIterator.next()) |entry| {
         std.debug.print("{s}:{d}\n", .{ entry.key_ptr.*, entry.value_ptr.* });
     }
-    licenseHashmap.deinit();
 
     std.debug.print("\n\n", .{});
 
-    var topicsArray = std.ArrayList([]const u8).init(std.heap.c_allocator);
+    var topicsArray = std.ArrayList([]const u8).init(allocator);
+    defer topicsArray.deinit();
     for (parsedItems) |item| {
         const topics = item.object.get("topics").?.array.items;
         for (topics) |topic| {
@@ -58,8 +61,9 @@ pub fn main() !void {
         }
     }
 
-    var topicsHashMap = std.StringHashMap(u32).init(std.heap.page_allocator);
+    var topicsHashMap = std.StringHashMap(u32).init(allocator);
     const topicsArrayAsString: [][]const u8 = try topicsArray.toOwnedSlice();
+    defer allocator.free(topicsArrayAsString);
     for (topicsArrayAsString) |topic| {
         if (topicsHashMap.get(topic)) |count| {
             topicsHashMap.put(topic, count + 1) catch {};

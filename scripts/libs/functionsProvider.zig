@@ -173,6 +173,7 @@ test "contains" {
 test "compressAndPrintRepos" {
     const rawJson = @embedFile("./test.json");
     const parsed_value = try std.json.parseFromSlice(std.json.Value, std.heap.page_allocator, rawJson, .{});
+    defer parsed_value.deinit();
     // The bellow should not print zigcc/awsome-zig, because it has been included in the excluded repositories list.
     try compressAndPrintRepos(parsed_value.value.object.get("items").?.array.items, true);
     try compressAndPrintRepos(parsed_value.value.object.get("items").?.array.items, false);
