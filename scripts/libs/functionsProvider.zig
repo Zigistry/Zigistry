@@ -29,7 +29,7 @@ pub fn print(comptime format: []const u8, args: anytype) void {
 // ------ Basically string.replaceAll('a', 'b'); ------
 pub fn replace(allocator: std.mem.Allocator, str: []const u8, charToReplace: u8, replaceWith: u8) ![]const u8 {
     var arrayList = std.ArrayList(u8).init(allocator);
-    errdefer arrayList.deinit();
+    defer arrayList.deinit();
     for (str) |char| {
         if (char == charToReplace) {
             try arrayList.append(replaceWith);
@@ -161,6 +161,7 @@ test "printJsonInt" {
 
 test "replace" {
     const result = try replace(std.heap.page_allocator, "Hello", 'l', 'o');
+    defer globalAllocator.free(result);
     std.debug.assert(std.mem.eql(u8, result, "Heooo"));
 }
 
