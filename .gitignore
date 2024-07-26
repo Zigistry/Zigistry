@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 /.pnp
@@ -41,13 +39,5 @@ next-env.d.ts
 # bun
 bun.lockb
 
-#j s
+# js
 package-lock.json
-
-# binaries
-databaseCompiler
-*.o
-*.out
-games
-gui
-web
