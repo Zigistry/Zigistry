@@ -10,9 +10,9 @@
 
 // ------ Numbers to special notations ------
 export function numberAsLetters(i: number) {
-    if (i.toString().length > 3) {
-        return (i / 1000).toString().slice(0, 3) + "K";
-    } else {
-        return i.toString();
-    }
+  if (i.toString().length > 3) {
+    return (i / 1000).toString().slice(0, 3) + "K";
+  } else {
+    return i.toString();
+  }
 }
