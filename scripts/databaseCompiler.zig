@@ -31,10 +31,14 @@ pub fn main() !void {
     helperFunctions.print("[", .{});
 
     var buffers_collection = std.ArrayList([]const u8).init(helperFunctions.globalAllocator);
-    defer buffers_collection.deinit();
+    defer {
+        for (buffers_collection.items) |item| {
+            helperFunctions.globalAllocator.free(item);
+        }
+        buffers_collection.deinit();
+    }
     for (urls) |url| {
         const res = try helperFunctions.fetch(helperFunctions.globalAllocator, url);
-        defer helperFunctions.globalAllocator.free(res);
         if (!std.mem.eql(u8, res, "")) {
             try buffers_collection.append(res);
         } else {
