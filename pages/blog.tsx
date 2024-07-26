@@ -1,17 +1,10 @@
-/*===============================================================================*/
-/*                             Blog Page "/blog"                                 */
-/*===============================================================================*/
-
-/*
- | Author:
- | Rohan Vashisht
- |
- | Details:
- | This is the default blog search page.
- |
- | License:
- | Please check license file for copyright details.
- */
+//!===============================================================
+//!                     Blog Page "/blog"
+//!===============================================================
+//!	Author  : Rohan Vashisht
+//! License : Please check license file
+//! Details : This is the default blog search page.
+//!===============================================================
 
 // ===================
 //       Imports

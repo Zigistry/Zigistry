@@ -1,6 +1,24 @@
+//!======================================================================
+//!              The games.json web.json gui.json creator
+//!======================================================================
+//!	Author  : Rohan Vashisht
+//! License : Please check license file
+//! Details : This file downloads and *compresses json from gh api
+//! and stores it inside games.json, web.json and gui.json.
+//!
+//! * : By compressed I mean removing uneeded feilds from the json and
+//!     storing it inside games.json, gui.json and web.json by doing:
+//!
+//! $ zig build run_repoListCompressor -- web > ./database/web.json
+//! $ zig build run_repoListCompressor -- gui > ./database/gui.json
+//! $ zig build run_repoListCompressor -- games > ./database/games.json
+//!=======================================================================
+
+// ---------- Imports ------------
 const std = @import("std");
 const helperFunctions = @import("helperFunctions");
 
+// ---------- Please Update if needed -----------
 const topic_urls = [3][5][]const u8{
     // Games
     .{
@@ -28,8 +46,6 @@ const topic_urls = [3][5][]const u8{
     },
 };
 
-
-
 pub fn main() !void {
     const allocator = std.heap.page_allocator;
     var args = std.process.args();
@@ -37,19 +53,19 @@ pub fn main() !void {
     const fileName: []const u8 = args.next().?;
 
     var raw_json_data = std.ArrayList(u8).init(allocator);
-    var selection:u8=3;
+    var selection: u8 = 3;
     if (std.mem.eql(u8, "games", fileName)) {
-        selection=0;
+        selection = 0;
     } else if (std.mem.eql(u8, "web", fileName)) {
-        selection=1;
+        selection = 1;
     } else {
-        selection=2;
+        selection = 2;
     }
     try raw_json_data.append('[');
     for (0.., topic_urls[selection]) |i, url| {
         const res = try helperFunctions.fetch(allocator, url);
         if (!std.mem.eql(u8, res, "")) {
-            for(res)|char|{
+            for (res) |char| {
                 try raw_json_data.append(char);
             }
             if (topic_urls[selection].len - 1 != i) {
@@ -66,5 +82,4 @@ pub fn main() !void {
     helperFunctions.print("[", .{});
     try helperFunctions.compressAndPrintRepos(jsonParsed.value.array.items, true);
     helperFunctions.print("]", .{});
-
 }

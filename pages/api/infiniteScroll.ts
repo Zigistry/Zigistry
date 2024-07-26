@@ -1,19 +1,12 @@
-/*===============================================================================*/
-/*          Infinite scrolling Algorithm API "/api/infiniteScroll"               */
-/*===============================================================================*/
-
-/*
- | Author:
- | Rohan Vashisht
- |
- | Details:
- | This api implements algorithm for infinite scrolling.
- | The search query is expected to be received like this:
- | /api/search?pageNumber=1
- |
- | License:
- | Please check license file for copyright details.
- */
+//!===============================================================
+//!    Infinite scrolling Algorithm API "/api/infiniteScroll"
+//!===============================================================
+//!	Author  : Rohan Vashisht
+//! License : Please check license file
+//! Details : This api implements algorithm for infinite scrolling.
+//! The search query is expected to be received like this:
+//! /api/infiniteScroll?pageNumber=1
+//!===============================================================
 
 // ===================
 //       Imports

@@ -1,16 +1,11 @@
-/*===============================================================================*/
-/*                               Layout Component                                */
-/*===============================================================================*/
-
-/*
- | Author:
- | Rohan Vashisht
- |
- | Details:
- | This file contains the boiler plate code to be used
- | throughout this website.
- | Please check license file for copyright details.
- */
+//!============================================================
+//!                      Layout Component      
+//!============================================================
+//!	Author  : Rohan Vashisht
+//! License : Please check license file
+//! Details : This file contains the boiler plate code to be
+//! used throughout this website.
+//!============================================================
 
 // ===================
 //       Imports
@@ -58,7 +53,7 @@ export default function Layout(props: { children: JSX.Element }): JSX.Element {
             <Analytics />
             <Script async defer src="https://buttons.github.io/buttons.js" />
             <Script src="/checkDarkMode.js" />
-            <Script src='/mainld.json' type="application/ld+json"/>
+            <Script src='/mainld.json' type="application/ld+json" />
             <main>{props.children}</main>
             <Foooter />
         </main>

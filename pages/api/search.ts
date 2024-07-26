@@ -1,19 +1,12 @@
-/*===============================================================================*/
-/*                    Search Engine Algorithm API "/api/search"                  */
-/*===============================================================================*/
-
-/*
- | Author:
- | Rohan Vashisht
- |
- | Details:
- | This api implements algorithm for search.
- | The search query is expected to be received like this:
- | /api/search?q=Search%20Query
- |
- | License:
- | Please check license file for copyright details.
- */
+//!===============================================================
+//!         Search Engine Algorithm API "/api/search"
+//!===============================================================
+//!	Author  : Rohan Vashisht
+//! License : Please check license file
+//! Details : This api implements algorithm for search.
+//! The search query is expected to be received like this:
+//! /api/search?q=Search%20Query
+//!===============================================================
 
 // ===================
 //       Imports

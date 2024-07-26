@@ -1,15 +1,10 @@
-/*===============================================================================*/
-/*                               Navbar Component                                */
-/*===============================================================================*/
-
-/*
- | Author:
- | Rohan Vashisht
- |
- | Details:
- | This is the default Navbar component.
- | Please check license file for copyright details.
- */
+//!============================================================
+//!                      Navbar Component     
+//!============================================================
+//!	Author  : Rohan Vashisht
+//! License : Please check license file
+//! Details : This is the default Navbar component.
+//!============================================================
 
 // ===================
 //       Imports

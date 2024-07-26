@@ -1,17 +1,11 @@
-/*===============================================================================*/
-/*                Show Library "/packages/[user]/[...projectName]"              */
-/*===============================================================================*/
-
-/*
- | Author:
- | Rohan Vashisht
- |
- | Details:
- | This page is used to display the details of a single library.
- |
- | License:
- | Please check license file for copyright details.
- */
+//!===============================================================
+//!       Show Library "/packages/[user]/[...projectName]"
+//!===============================================================
+//!	Author  : Rohan Vashisht
+//! License : Please check license file
+//! Details : This page is used to display the details of a
+//! single library.
+//!===============================================================
 
 // ===================
 //       Imports

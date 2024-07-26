@@ -1,15 +1,10 @@
-/*===============================================================================*/
-/*                               Foooter Component                               */
-/*===============================================================================*/
-
-/*
- | Author:
- | Rohan Vashisht
- |
- | Details:
- | This is the default Footer (Foooter) component.
- | Please check license file for copyright details.
- */
+//!============================================================
+//!                     Foooter Component   
+//!============================================================
+//!	Author  : Rohan Vashisht
+//! License : Please check license file
+//! Details : This is the default Footer (Foooter) component.
+//!============================================================
 
 // ===================
 //       Imports

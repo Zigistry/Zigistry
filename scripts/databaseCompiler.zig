@@ -1,18 +1,16 @@
-//!==============================================
-//!     		 Main.json creator
-//!==============================================
+//!==================================================================
+//!     		         Main.json creator
+//!==================================================================
 //!	Author  : Rohan Vashisht
 //! License : Please check license file
-//! Details : This file compresses the json file
-//! downloaded by gh workflows (wget) and then
-//! generates the *compressed main.json.
+//! Details : This file downloads and *compresses json from gh api
+//! and stores it inside main.json.
 //!
-//! * : By compressed I mean removing uneeded
-//!     feilds from the json and generating a
-//!     new file, the new file generation is
-//!     done by:
-//!     $ ./databaseCompiler > ./main.json
-//!==============================================
+//! * : By compressed I mean removing uneeded feilds from the json
+//!     and storing it inside ./database/main.json by doing:
+//!
+//! $ zig build run_databaseCompiler > ./database/main.json
+//!==================================================================
 
 // ---------- Imports ------------
 const std = @import("std");
@@ -33,12 +31,11 @@ pub fn main() !void {
     helperFunctions.print("[", .{});
 
     var buffers_collection = std.ArrayList([]const u8).init(helperFunctions.globalAllocator);
-    for(urls)|url|{
+    for (urls) |url| {
         const res = try helperFunctions.fetch(helperFunctions.globalAllocator, url);
-        if(!std.mem.eql(u8,res,"")){
+        if (!std.mem.eql(u8, res, "")) {
             try buffers_collection.append(res);
-        }
-        else{
+        } else {
             @panic("unable to reach url");
         }
     }

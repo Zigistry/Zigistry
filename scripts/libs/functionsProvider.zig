@@ -120,6 +120,7 @@ pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void
     }
 }
 
+// ---- Fetch data: returns result as string (returns "" if error) ----
 pub fn fetch(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
     var charBuffer = std.ArrayList(u8).init(allocator);
     var client = std.http.Client{ .allocator = allocator };
@@ -138,8 +139,17 @@ pub fn fetch(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
     }
 }
 
+// =======================
+//          Tests
+// =======================
 test "print" {
     print("{d}", .{1});
+}
+
+test "fetch" {
+    const file_contents = @embedFile("./test.json");
+    const res = try fetch(std.heap.page_allocator, "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/scripts/libs/test.json");
+    std.debug.assert(std.mem.eql(u8, file_contents, res));
 }
 
 test "printJson" {

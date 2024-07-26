@@ -1,17 +1,10 @@
-/*===============================================================================*/
-/*                            Custom App Component                               */
-/*===============================================================================*/
-
-/*
- | Author:
- | Rohan Vashisht
- |
- | Details:
- | This file overrides the default app component.
- |
- | License:
- | Please check license file for copyright details.
- */
+//!===============================================================
+//!                     Custom App Component
+//!===============================================================
+//!	Author  : Rohan Vashisht
+//! License : Please check license file
+//! Details : This file overrides the default app component.
+//!===============================================================
 
 // ===================
 //       Imports

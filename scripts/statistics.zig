@@ -8,10 +8,12 @@
 //! file to run correctly, please first
 //! copy the database/main.json to
 //! scripts folder, and then run this file.
+//!
 //! This can be done by:
 //! $ cp ./database/main.json ./scripts/main.json
 //! and then:
 //! $ zig run ./scripts/statistics.zig
+//!
 //! Please don't forget to (even though once
 //! pushed, gh workflows will):
 //! $ rm -rf ./scripts/main.json

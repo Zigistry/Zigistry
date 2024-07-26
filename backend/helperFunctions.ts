@@ -1,17 +1,14 @@
-// =============================================
-//          Helper functoins provider
-// =============================================
+//!===============================================================
+//!                 Helper functoins provider
+//!===============================================================
+//!	Author  : Rohan Vashisht
+//! License : Please check license file
+//! Details : I don't like repeating functions, hence, I have added
+//! this file, from which other files can import common functions.
+//!===============================================================
 
-//| Author: Rohan Vashisht
-//|
-//| Description: I don't like repeating functions, hence, I have added
-//| this file, from which other files can import common functions.
 
-/* This converts numbers to special notations.
- * For example:
- * - 1000 -> 1.0K
- * 1982 -> 1.9K
- */
+// ------ Numbers to special notations ------
 export function numberAsLetters(i: number) {
     if (i.toString().length > 3) {
         return (i / 1000).toString().slice(0, 3) + "K";

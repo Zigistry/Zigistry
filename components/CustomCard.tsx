@@ -1,17 +1,11 @@
-/*===============================================================================*/
-/*                           Custom Card component                               */
-/*===============================================================================*/
-
-/*
- | Author:
- | Rohan Vashisht
- |
- | Details:
- | This is the export for custom card component, it is
- | mostly based off of the flowbite-react Card component.
- |
- | Please check license file for copyright details.
- */
+//!===============================================================
+//!                     Custom Card component
+//!===============================================================
+//!	Author  : Rohan Vashisht
+//! License : Please check license file
+//! Details : This is the export for custom card component, it is
+//! mostly based off of the flowbite-react Card component.
+//!===============================================================
 
 // ===================
 //       Imports
@@ -43,19 +37,19 @@ export default function CustomCard(props: { item: Repo }) {
       <h5 className="text-2xl font-bold text-gray-900 dark:text-white">
         {props.item.name}
       </h5>
-      <p className="text-gray-400">{props.item.full_name} <Badge color={"darkblue"}  className="w-fit dark:bg-slate-600 bg-white dark:border-none border-slate-200 border mt-4">{props.item.license}</Badge></p>
+      <p className="text-gray-400">{props.item.full_name} <Badge color={"darkblue"} className="w-fit dark:bg-slate-600 bg-white dark:border-none border-slate-200 border mt-4">{props.item.license}</Badge></p>
       <p className="font-normal text-gray-700 dark:text-gray-400">
         {props.item.description}
       </p>
       <div className="flex items-center">
-        <FaStar size={20} color="#cfbc0e" className="mr-2"/>
-            {numberAsLetters(props.item.stargazers_count)}
+        <FaStar size={20} color="#cfbc0e" className="mr-2" />
+        {numberAsLetters(props.item.stargazers_count)}
         <FaEye className="ml-2 mr-1" color="skyblue" />
-            {numberAsLetters(props.item.watchers_count)}
+        {numberAsLetters(props.item.watchers_count)}
         <FaCodeFork className="ml-2 mr-1" color="lightpink" />
-            {numberAsLetters(props.item.forks_count)}
+        {numberAsLetters(props.item.forks_count)}
         <GoIssueOpened className="ml-2 mr-1" color="lightgreen" />
-            {numberAsLetters(props.item.open_issues)}
+        {numberAsLetters(props.item.open_issues)}
         <BsInfoSquareFill className="ml-2 mr-1" color="darkorange" />
         <Tooltip className="ml-2 mr-1" content={props.item.topics?.join(", ")}>
           {props.item.topics?.length}
