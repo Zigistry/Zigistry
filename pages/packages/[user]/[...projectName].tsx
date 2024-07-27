@@ -15,7 +15,6 @@
 import Repo from '@/types/customTypes';
 
 // --------- Functions ---------
-import { marked } from 'marked';
 import DOMPurify from 'isomorphic-dompurify';
 
 // --------- Database ---------
@@ -34,6 +33,9 @@ import { FaGithub } from 'react-icons/fa';
 import { BsInfoSquareFill } from 'react-icons/bs';
 import { Clipboard } from "flowbite-react"
 import { numberAsLetters } from '@/backend/helperFunctions';
+import { Marked } from "marked";
+import { markedHighlight } from "marked-highlight";
+import hljs from 'highlight.js';
 
 // =========================================================================
 //       Exports show library page "/packages/[user]/[projectName]"
@@ -75,9 +77,9 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
             </Card>
           </div>
           <div className='flex flex-wrap gap-2 mb-4 justify-center'>
-            <Badge color="info">Updated: {new Date(compressedRepo.updated_at).toLocaleTimeString()+ " " + new Date(compressedRepo.updated_at).toDateString()}</Badge>
+            <Badge color="info">Updated: {new Date(compressedRepo.updated_at).toLocaleTimeString() + " " + new Date(compressedRepo.updated_at).toDateString()}</Badge>
             <Badge color="warning">Size: {compressedRepo.size}KB</Badge>
-            <Badge color="purple">Created: {new Date(compressedRepo.created_at).toLocaleTimeString()+ " " + new Date(compressedRepo.created_at).toDateString()}</Badge>
+            <Badge color="purple">Created: {new Date(compressedRepo.created_at).toLocaleTimeString() + " " + new Date(compressedRepo.created_at).toDateString()}</Badge>
           </div>
           <div className="flex mx-5 items-center justify-center font-mono">
             <div className="dark:bg-[#151d28] bg-slate-600 pr-7 py-3 pl-4 rounded w-fit max-w-full flex items-center justify-center mb-4 mx-2">
@@ -148,13 +150,21 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
   const specials = latestTag
     ? `https://github.com/${repository.full_name}/archive/refs/tags/${latestTag}.tar.gz`
     : `git+https://github.com/${repository.full_name}`;
-
+  const marked = new Marked(
+    markedHighlight({
+      langPrefix: 'hljs language-',
+      highlight(code, lang) {
+        const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+        return hljs.highlight(code, { language }).value;
+      }
+    })
+  );
   // ------------ Generate the compressed repository -----------------
   const compressedRepo: Repo = {
     contentIsCorrect: true,
     name: repository.name,
     full_name: repository.full_name,
-    readme_content: await marked(readmeContent),
+    readme_content: await marked.parse(readmeContent.replaceAll("```zig", "```rust")),
     created_at: repository.created_at,
     description: repository.description,
     tags_url: repository.tags_url,
