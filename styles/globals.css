@@ -15,21 +15,98 @@ body {
 	background: rgb(31, 41, 55);
 }
 
-.hljs-comment { color: gray; font-style: italic; }
+.language-zig {
+	color: rgb(255, 207, 84);
+}
 
-.hljs-string { color: rgb(22, 217, 22); }
-.char { color: red; }
-.keyword2 { color: rgb(255, 187, 60); font-weight: bold; }
-.prompt_ {color: rgb(255, 187, 60);}
-.language-bash {color:skyblue; }
-.language-sh {color: skyblue;}
-.hljs-keyword { color: rgb(255, 96, 60); font-weight: bold; }
-.hljs-literal { color: darkorange; }
-.type { color: rgb(57, 192, 255); }
-.comment { color: gray; font-style: italic; }
-.hljs-number { color: rgb(85, 147, 255); }
-.function_ { color: rgb(195, 117, 255); }
-.operators { color:rgb(84, 226, 226); }
+.comment {
+	color: gray;
+	font-style: italic;
+}
+
+.comment>* {
+	color: gray !important;
+	font-style: italic;
+}
+
+.comment>*>* {
+	color: gray !important;
+	font-style: italic;
+}
+
+.comment>*>*>* {
+	color: gray !important;
+	font-style: italic;
+}
+
+.comment>*>*>*>* {
+	color: gray !important;
+	font-style: italic;
+}
+
+.string {
+	color: rgb(22, 217, 22);
+	font-style: none !important;
+}
+
+.string>* {
+	color: rgb(22, 217, 22) !important;
+	font-style: none !important;
+}
+
+.string>*>* {
+	color: rgb(22, 217, 22) !important;
+	font-style: none !important;
+}
+
+.string>*>*>* {
+	color: rgb(22, 217, 22) !important;
+	font-style: none !important;
+}
+
+.string>*>*>*>* {
+	color: rgb(22, 217, 22) !important;
+	font-style: none !important;
+}
+
+.char {
+	color: red;
+}
+
+.keyword2 {
+	color: rgb(255, 187, 60);
+	font-weight: bold;
+}
+
+.keyword {
+	color: rgb(255, 96, 60);
+	font-weight: bold;
+}
+
+.boolean {
+	color: darkorange;
+}
+
+.type {
+	color: rgb(57, 192, 255);
+}
+
+.comment {
+	color: gray;
+	font-style: italic;
+}
+
+.number {
+	color: rgb(85, 147, 255);
+}
+
+.function {
+	color: rgb(195, 117, 255);
+}
+
+.operators {
+	color: rgb(84, 226, 226);
+}
 
 .readme {
 	padding: 50px !important;

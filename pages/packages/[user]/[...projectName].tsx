@@ -13,6 +13,7 @@
 
 // ----------- Types -----------
 import Repo from '@/types/customTypes';
+import { marked } from 'marked';
 
 // --------- Functions ---------
 import DOMPurify from 'isomorphic-dompurify';
@@ -33,19 +34,27 @@ import { FaGithub } from 'react-icons/fa';
 import { BsInfoSquareFill } from 'react-icons/bs';
 import { Clipboard } from "flowbite-react"
 import { numberAsLetters } from '@/backend/helperFunctions';
-import { Marked } from "marked";
-import { markedHighlight } from "marked-highlight";
-import hljs from 'highlight.js';
+import Script from 'next/script';
+import { highlight_my_code } from '@/backend/helperFunctions';
 
 // =========================================================================
 //       Exports show library page "/packages/[user]/[projectName]"
 // =========================================================================
 export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
+  function highlight() {
+    const preElements:any = document.getElementsByClassName('language-zig');
+    for (let pre of preElements) {
+      const codeContent = pre.innerHTML;
+      const highlightedContent = highlight_my_code(codeContent);
+      pre.innerHTML = highlightedContent;
+    }
+  };
   return (
     <>
+      <Script strategy='lazyOnload' src='/highlighter.js' />
       {compressedRepo.contentIsCorrect ? (
         <>
-          <div className='flex justify-center items-center'>
+          <div className='flex justify-center items-center' onLoad={highlight}>
             <Card className="w-72 my-5 transition-transform transform-cpu">
               <Image width="50" height="50" className="w-10 rounded-full" src={compressedRepo.avatar_url} alt={compressedRepo.name} />
               <h5 className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -150,21 +159,12 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
   const specials = latestTag
     ? `https://github.com/${repository.full_name}/archive/refs/tags/${latestTag}.tar.gz`
     : `git+https://github.com/${repository.full_name}`;
-  const marked = new Marked(
-    markedHighlight({
-      langPrefix: 'hljs language-',
-      highlight(code, lang) {
-        const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-        return hljs.highlight(code, { language }).value;
-      }
-    })
-  );
   // ------------ Generate the compressed repository -----------------
   const compressedRepo: Repo = {
     contentIsCorrect: true,
     name: repository.name,
     full_name: repository.full_name,
-    readme_content: await marked.parse(readmeContent.replaceAll("```zig", "```rust")),
+    readme_content: await marked(readmeContent),
     created_at: repository.created_at,
     description: repository.description,
     tags_url: repository.tags_url,
