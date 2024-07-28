@@ -26,7 +26,7 @@ export function highlight_my_code(code: string): string {
     { regex: /'([^'\\]|\\.)'/g, className: 'char' },
     { regex: /\/\/.*$/gm, className: 'comment' },
     { regex: /\/\*[\s\S]*?\*\//gm, className: 'comment' },
-    { regex: /\b(const|try|var|return|if|else|while|for|switch|break|continue|struct|enum|pub|use|extern|export|inline|noalias|align|defer|fn)\b/g, className: 'keyword' },
+    { regex: /\b(const|try|var|return|if|else|while|for|switch|break|catch|continue|struct|enum|pub|use|extern|export|inline|noalias|align|defer|fn)\b/g, className: 'keyword' },
     { regex: /\b(true|false|null)\b/g, className: 'boolean' },
     { regex: /\b(?:u\d+|i\d+|f\d+|bool|void|noreturn|type|isize|usize|c_void|c_int|c_long|c_ulong|c_float|c_double)\b/g, className: 'type' },
     { regex: /\b\d+(\.\d+)?\b/g, className: 'number' },
