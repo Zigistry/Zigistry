@@ -53,14 +53,13 @@ pub fn main() !void {
 
     var raw_json_data = std.ArrayList(u8).init(helperFunctions.globalAllocator);
     defer raw_json_data.deinit();
-    var selection: u8 = 3;
-    if (std.mem.eql(u8, "games", fileName)) {
-        selection = 0;
-    } else if (std.mem.eql(u8, "web", fileName)) {
-        selection = 1;
-    } else {
-        selection = 2;
-    }
+    const selection: u8 =
+    if (std.mem.eql(u8, "games", fileName))
+        0
+    else if (std.mem.eql(u8, "web", fileName))
+        1
+    else
+        2;
     try raw_json_data.append('[');
     for (0.., topic_urls[selection]) |i, url| {
         const res = try helperFunctions.fetch(helperFunctions.globalAllocator, url);
