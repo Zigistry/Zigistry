@@ -33,8 +33,8 @@ import { useEffect, useState } from "react";
 // -------- Json ---------
 import items from "@/database/main.json";
 import gamingItems from "@/database/games.json";
-import webItems from "@/database/games.json";
-import guiItems from "@/database/games.json";
+import webItems from "@/database/web.json";
+import guiItems from "@/database/gui.json";
 
 // =============================
 //       Exports "/search"
