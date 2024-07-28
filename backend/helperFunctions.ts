@@ -24,6 +24,7 @@ export function highlight_my_code(code: string): string {
   const patterns = [
     { regex: /"(?:[^"\\]|\\.)*"/g, className: 'string' },
     { regex: /'([^'\\]|\\.)'/g, className: 'char' },
+    { regex: /\\\\.*$/gm, className: 'string' },
     { regex: /\/\/.*$/gm, className: 'comment' },
     { regex: /\/\*[\s\S]*?\*\//gm, className: 'comment' },
     { regex: /\b(const|try|var|return|if|else|while|for|switch|break|catch|continue|struct|enum|pub|use|extern|export|inline|noalias|align|defer|fn)\b/g, className: 'keyword' },
