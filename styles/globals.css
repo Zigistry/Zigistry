@@ -15,7 +15,7 @@ body {
 	background: rgb(31, 41, 55);
 }
 
-.language-zig {
+.language-zig, .language-shell, .language-zon, .language-sh  {
 	color: rgb(255, 207, 84);
 }
 

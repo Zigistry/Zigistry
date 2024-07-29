@@ -33,25 +33,42 @@ import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { BsInfoSquareFill } from 'react-icons/bs';
 import { Clipboard } from "flowbite-react"
-import { numberAsLetters } from '@/backend/helperFunctions';
+import { highlight_bash_code, numberAsLetters } from '@/backend/helperFunctions';
 import Script from 'next/script';
-import { highlight_my_code } from '@/backend/helperFunctions';
+import { highlight_zig_code } from '@/backend/helperFunctions';
 
 // =========================================================================
 //       Exports show library page "/packages/[user]/[projectName]"
 // =========================================================================
 export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
   function highlight() {
-    const preElements:any = document.getElementsByClassName('language-zig');
-    for (let pre of preElements) {
+    const ZigCodeContainers:any = document.getElementsByClassName('language-zig');
+    for (let pre of ZigCodeContainers) {
       const codeContent = pre.innerHTML;
-      const highlightedContent = highlight_my_code(codeContent);
+      const highlightedContent = highlight_zig_code(codeContent);
+      pre.innerHTML = highlightedContent;
+    }
+    const ZonCodeContainers:any = document.getElementsByClassName('language-zon');
+    for (let pre of ZonCodeContainers) {
+      const codeContent = pre.innerHTML;
+      const highlightedContent = highlight_zig_code(codeContent);
+      pre.innerHTML = highlightedContent;
+    }
+    const BashCodeContainers:any = document.getElementsByClassName('language-shell');
+    for (let pre of BashCodeContainers) {
+      const codeContent = pre.innerHTML;
+      const highlightedContent = highlight_bash_code(codeContent);
+      pre.innerHTML = highlightedContent;
+    }
+    const ShCodeContainers:any = document.getElementsByClassName('language-sh');
+    for (let pre of ShCodeContainers) {
+      const codeContent = pre.innerHTML;
+      const highlightedContent = highlight_bash_code(codeContent);
       pre.innerHTML = highlightedContent;
     }
   };
   return (
     <>
-      <Script strategy='lazyOnload' src='/highlighter.js' />
       {compressedRepo.contentIsCorrect ? (
         <>
           <div className='flex justify-center items-center' onLoad={highlight}>
