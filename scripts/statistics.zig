@@ -75,4 +75,10 @@ pub fn main() !void {
     while (topicsHashMapIterator.next()) |entry| {
         std.debug.print("{s}:{d}\n", .{ entry.key_ptr.*, entry.value_ptr.* });
     }
+    var sum: i64 = 0;
+    for (parsedItems) |item| {
+        sum += item.object.get("size").?.integer;
+    }
+    const average = @divTrunc(sum, @as(i64, @intCast(parsedItems.len)));
+    std.debug.print("{d}KB", .{average});
 }
