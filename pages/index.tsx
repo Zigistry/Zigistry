@@ -45,9 +45,6 @@ export default function Home(
     top10LatestRepos: Repo[];
   },
 ) {
-  // The data is going to be manipulated so setting it to top10LatestRepos
-  // just to prevent errors.
-
   const [infiniteScrollItems, setInfiniteScrollItems] = useState([placeHolderRepoType]);
   const [hasMore, setHasMore] = useState(true);
   const [infiniteScrollIndex, setIndex] = useState(3);
@@ -239,13 +236,13 @@ export default function Home(
 //       Exports getStaticProps for the Index page.
 // =======================================================
 export async function getStaticProps() {
+  // --------- Most used Repos -----------
+  const mostUsed = items.slice(0, 10);
+
   // -------- Sort latest repos ----------
   const sortedRepos = items.slice().sort((a, b) =>
     new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
   );
-
-  // --------- Most used Repos -----------
-  const mostUsed = items.slice(0, 10);
 
   // ----------- Latest Repos ------------
   const top10LatestRepos = sortedRepos.slice(0, 10);

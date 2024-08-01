@@ -60,14 +60,12 @@ pub fn printJsonInt(key: []const u8, value: i64, endWithComma: bool) void {
 
 // ------- Contains --------
 pub fn contains(listOfStrings: []const []const u8, string: []const u8) bool {
-    var result = false;
     for (listOfStrings) |item| {
         if (std.mem.eql(u8, item, string)) {
-            result = true;
-            break;
+            return true;
         }
     }
-    return result;
+    return false;
 }
 
 // ---- Prints selected fields in json ----

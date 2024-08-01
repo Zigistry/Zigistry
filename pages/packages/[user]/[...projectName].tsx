@@ -34,7 +34,6 @@ import { FaGithub } from 'react-icons/fa';
 import { BsInfoSquareFill } from 'react-icons/bs';
 import { Clipboard } from "flowbite-react"
 import { highlight_bash_code, numberAsLetters } from '@/backend/helperFunctions';
-import Script from 'next/script';
 import { highlight_zig_code } from '@/backend/helperFunctions';
 
 // =========================================================================

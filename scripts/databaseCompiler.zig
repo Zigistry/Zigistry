@@ -55,7 +55,7 @@ pub fn main() !void {
         // ----- Get all the items (Repos) as array -----
         const repoListUncompressed = parsed.value.object.get("items").?.array.items;
 
-        // ----- If last file -----
+        // ----- If last result -----
         if (i == buffers.len - 1) {
             try helperFunctions.compressAndPrintRepos(repoListUncompressed, true);
         } else {
