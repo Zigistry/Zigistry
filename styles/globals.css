@@ -155,3 +155,10 @@ td {
 	border: 1px solid white !important;
 	padding: 5px !important;
 }
+
+.diff_add{
+	background-color: rgba(46, 162, 46, 0.467);
+}
+.diff_subtract{
+	background-color: rgba(162, 46, 46, 0.467);
+}

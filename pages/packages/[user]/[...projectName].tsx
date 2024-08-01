@@ -33,7 +33,7 @@ import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { BsInfoSquareFill } from 'react-icons/bs';
 import { Clipboard } from "flowbite-react"
-import { highlight_bash_code, numberAsLetters } from '@/backend/helperFunctions';
+import { highlight_bash_code, highlight_zig_diff_code, numberAsLetters } from '@/backend/helperFunctions';
 import { highlight_zig_code } from '@/backend/helperFunctions';
 
 // =========================================================================
@@ -45,6 +45,12 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
     for (let pre of ZigCodeContainers) {
       const codeContent = pre.innerHTML;
       const highlightedContent = highlight_zig_code(codeContent);
+      pre.innerHTML = highlightedContent;
+    }
+    const ZigDiffCodeContainers:any = document.getElementsByClassName('language-diff');
+    for (let pre of ZigDiffCodeContainers) {
+      const codeContent = pre.innerHTML;
+      const highlightedContent = highlight_zig_diff_code(codeContent);
       pre.innerHTML = highlightedContent;
     }
     const ZonCodeContainers:any = document.getElementsByClassName('language-zon');
