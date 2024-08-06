@@ -61,6 +61,7 @@ export function highlight_bash_code(code: string): string {
     { regex: /"(?:[^"\\]|\\.)*"/g, className: 'string' },
     { regex: /'([^'\\]|\\.)'/g, className: 'char' },
     { regex: /\\\\.*$/gm, className: 'string' },
+    { regex: /\-\-(\w+)/gm, className: 'comment' },
     { regex: /#.*$/gm, className: 'comment' },
     { regex: /\-\w+/g, className: 'types' },
     { regex: /\b(zig|bash|sh|curl|wget|cd|rm|mkdir|git)\b/g, className: 'keyword' },

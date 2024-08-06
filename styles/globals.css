@@ -20,53 +20,43 @@ body {
 }
 
 .comment {
-	color: gray;
-	font-style: italic;
+	color: rgb(158, 158, 158);
 }
 
 .comment>* {
-	color: gray !important;
-	font-style: italic;
+	color: rgb(158, 158, 158) !important;
 }
 
 .comment>*>* {
-	color: gray !important;
-	font-style: italic;
+	color: rgb(158, 158, 158) !important;
 }
 
 .comment>*>*>* {
-	color: gray !important;
-	font-style: italic;
+	color: rgb(158, 158, 158) !important;
 }
 
 .comment>*>*>*>* {
-	color: gray !important;
-	font-style: italic;
+	color: rgb(158, 158, 158) !important;
 }
 
 .string {
 	color: rgb(22, 217, 22);
-	font-style: none !important;
 }
 
 .string>* {
 	color: rgb(22, 217, 22) !important;
-	font-style: none !important;
 }
 
 .string>*>* {
 	color: rgb(22, 217, 22) !important;
-	font-style: none !important;
 }
 
 .string>*>*>* {
 	color: rgb(22, 217, 22) !important;
-	font-style: none !important;
 }
 
 .string>*>*>*>* {
 	color: rgb(22, 217, 22) !important;
-	font-style: none !important;
 }
 
 .char {
@@ -89,11 +79,6 @@ body {
 
 .type {
 	color: rgb(57, 192, 255);
-}
-
-.comment {
-	color: gray;
-	font-style: italic;
 }
 
 .number {
