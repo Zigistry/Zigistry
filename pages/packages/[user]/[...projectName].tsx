@@ -156,14 +156,19 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
   // ------------ Get the correct readme.md ---------------
   const fetchReadmeContent = async (repo: Repo) => {
     const defaultBranch = repo.default_branch || 'master';
-    const readmeUrls = [
-      `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/README.md`,
-      `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/readme.md`
-    ];
+    const extensions = ["", ".txt", ".md"];
+    const readmeCasing = ["readme", "README"];
 
-    for (let url of readmeUrls) {
-      const response = await fetch(url);
-      if (response.ok) return response.text();
+    for (let ext of extensions) {
+      for (let readmeCase of readmeCasing) {
+        const url = `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/${readmeCase}${ext}`
+        let response = await fetch(url, { method: "HEAD" });
+
+        if (response.ok) {
+           response = await fetch(url);
+           return response.text();
+        }
+      }
     }
 
     return "404";
