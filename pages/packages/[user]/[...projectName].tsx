@@ -155,18 +155,23 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
 
   // ------------ Get the correct readme.md ---------------
   const fetchReadmeContent = async (repo: Repo) => {
+    const extensions = ["", "txt", "md"] as const;
     const defaultBranch = repo.default_branch || 'master';
-    const readmeUrls = [
-      `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/README.md`,
-      `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/readme.md`
-    ];
+    const readmeCasing = ["readme", "README"];
 
-    for (let url of readmeUrls) {
-      const response = await fetch(url);
-      if (response.ok) return response.text();
+    for (let ext of extensions) {
+      for (let readmeCase of readmeCasing) {
+        const url = `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/${readmeCase}${ext && `.${ext}`}`
+        let response = await fetch(url, { method: "HEAD" });
+
+        if (response.ok) {
+           response = await fetch(url);
+           return { content: await response.text(), ext: ext };
+        }
+      }
     }
 
-    return "404";
+    return { content: "404", ext: "" };
   };
 
   // ----------- Fetch the readme and tags --------------
@@ -186,7 +191,7 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
     contentIsCorrect: true,
     name: repository.name,
     full_name: repository.full_name,
-    readme_content: await marked(readmeContent),
+    readme_content: readmeContent.ext === "md" ? await marked(readmeContent.content) : `<pre style="padding: 0 !important; border: 0 !important;">${readmeContent.content}</pre>`,
     created_at: repository.created_at,
     description: repository.description,
     tags_url: repository.tags_url,
