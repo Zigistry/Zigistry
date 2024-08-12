@@ -17,7 +17,7 @@
     "flowbite": "^2.4.1",
     "flowbite-react": "^0.10.1",
     "isomorphic-dompurify": "^2.12.0",
-    "marked": "^13.0.1",
+    "marked": "^14.0.0",
     "next": "14.2.5",
     "nextjs-toploader": "^1.6.12",
     "react": "^18.3.1",
