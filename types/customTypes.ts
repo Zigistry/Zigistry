@@ -16,6 +16,9 @@ export default interface Repo {
   specials?: string;
   topics?: Array<string>;
   size: number;
+  has_build_zig_zon?: number;
+  has_build_zig?: number;
+  fork?: boolean;
   updated_at: string;
 }
 

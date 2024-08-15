@@ -26,6 +26,7 @@ import data_gui from "@/database/gui.json";
 
 // -------- Components ---------
 import Image from 'next/image';
+import { FaCheck } from "react-icons/fa";
 import { GoIssueOpened } from 'react-icons/go';
 import { FaCodeFork, FaEye, FaStar } from 'react-icons/fa6';
 import { Button, Card, Tooltip, Badge } from 'flowbite-react';
@@ -41,31 +42,31 @@ import { highlight_zig_code } from '@/backend/helperFunctions';
 // =========================================================================
 export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
   function highlight() {
-    const ZigCodeContainers:any = document.getElementsByClassName('language-zig');
+    const ZigCodeContainers: any = document.getElementsByClassName('language-zig');
     for (let pre of ZigCodeContainers) {
       const codeContent = pre.innerHTML;
       const highlightedContent = highlight_zig_code(codeContent);
       pre.innerHTML = highlightedContent;
     }
-    const ZigDiffCodeContainers:any = document.getElementsByClassName('language-diff');
+    const ZigDiffCodeContainers: any = document.getElementsByClassName('language-diff');
     for (let pre of ZigDiffCodeContainers) {
       const codeContent = pre.innerHTML;
       const highlightedContent = highlight_zig_diff_code(codeContent);
       pre.innerHTML = highlightedContent;
     }
-    const ZonCodeContainers:any = document.getElementsByClassName('language-zon');
+    const ZonCodeContainers: any = document.getElementsByClassName('language-zon');
     for (let pre of ZonCodeContainers) {
       const codeContent = pre.innerHTML;
       const highlightedContent = highlight_zig_code(codeContent);
       pre.innerHTML = highlightedContent;
     }
-    const BashCodeContainers:any = document.getElementsByClassName('language-shell');
+    const BashCodeContainers: any = document.getElementsByClassName('language-shell');
     for (let pre of BashCodeContainers) {
       const codeContent = pre.innerHTML;
       const highlightedContent = highlight_bash_code(codeContent);
       pre.innerHTML = highlightedContent;
     }
-    const ShCodeContainers:any = document.getElementsByClassName('language-sh');
+    const ShCodeContainers: any = document.getElementsByClassName('language-sh');
     for (let pre of ShCodeContainers) {
       const codeContent = pre.innerHTML;
       const highlightedContent = highlight_bash_code(codeContent);
@@ -101,6 +102,11 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
                 <Tooltip className="ml-2 mr-1" content={compressedRepo.topics?.join(", ")}>
                   {compressedRepo.topics?.length}
                 </Tooltip>
+              </div>
+              <div className="flex">
+                {compressedRepo.has_build_zig_zon ? <span className="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300 flex justify-center items-center space-x-3 w-min">build.zig.zon&nbsp;<FaCheck size={12} /></span> : ""}
+                {compressedRepo.has_build_zig ? <span className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300 flex justify-center items-center space-x-3 w-min">build.zig&nbsp;<FaCheck size={12} /></span> : ""}
+                {compressedRepo.fork ? <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-900 dark:text-gray-300 flex justify-center items-center space-x-3 w-min">fork&nbsp;<FaCheck size={12} /></span> : ""}
               </div>
               <Button as={Link} target='_blank' rel="noreferrer" href={"https://github.com/" + compressedRepo.full_name} color="light" pill>
                 View on Github &nbsp;<FaGithub size={20} />
@@ -165,8 +171,8 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
         let response = await fetch(url, { method: "HEAD" });
 
         if (response.ok) {
-           response = await fetch(url);
-           return { content: await response.text(), ext: ext };
+          response = await fetch(url);
+          return { content: await response.text(), ext: ext };
         }
       }
     }
@@ -204,6 +210,9 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
     topics: repository.topics,
     avatar_url: repository.avatar_url,
     size: repository.size,
+    fork: repository.fork,
+    has_build_zig: repository.has_build_zig,
+    has_build_zig_zon: repository.has_build_zig_zon,
     updated_at: repository.updated_at,
   };
 

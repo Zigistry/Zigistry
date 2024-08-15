@@ -58,6 +58,15 @@ pub fn printJsonInt(key: []const u8, value: i64, endWithComma: bool) void {
     }
 }
 
+// ---- Prints json in format: "string":int, and "string":int ----
+pub fn printJsonBool(key: []const u8, value: bool, endWithComma: bool) void {
+    if (endWithComma) {
+        print("\"{s}\":{},", .{ key, value });
+    } else {
+        print("\"{s}\":{}", .{ key, value });
+    }
+}
+
 // ------- Contains --------
 pub fn contains(listOfStrings: []const []const u8, string: []const u8) bool {
     for (listOfStrings) |item| {
@@ -66,6 +75,20 @@ pub fn contains(listOfStrings: []const []const u8, string: []const u8) bool {
         }
     }
     return false;
+}
+
+pub fn concatenate(x: []const u8, y: []const u8, z: []const u8) ![]const u8 {
+    var buffer = std.ArrayList(u8).init(std.heap.page_allocator);
+    for (x) |char| {
+        try buffer.append(char);
+    }
+    for (y) |char| {
+        try buffer.append(char);
+    }
+    for (z) |char| {
+        try buffer.append(char);
+    }
+    return try buffer.toOwnedSlice();
 }
 
 // ---- Prints selected fields in json ----
@@ -91,6 +114,22 @@ pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void
         } else {
             printJson("license", item.object.get("license").?.object.get("spdx_id").?.string, true);
         }
+        const url = try concatenate("https://raw.githubusercontent.com/", item.object.get("full_name").?.string, "/master/" ++ "build.zig.zon");
+        const result = try fetch(globalAllocator, url);
+        if (std.mem.eql(u8, "", result) or std.mem.eql(u8, "404: Not Found", result)) {
+            printJsonInt("has_build_zig_zon", 0, true);
+        } else {
+            printJsonInt("has_build_zig_zon", 1, true);
+        }
+        printJson("default_branch", item.object.get("default_branch").?.string, true);
+        const url2 = try concatenate("https://raw.githubusercontent.com/", item.object.get("full_name").?.string, "/master/" ++ "build.zig");
+        const result2 = try fetch(globalAllocator, url2);
+        if (std.mem.eql(u8, "", result2) or std.mem.eql(u8, "404: Not Found", result2)) {
+            printJsonInt("has_build_zig", 0, true);
+        } else {
+            printJsonInt("has_build_zig", 1, true);
+        }
+        printJsonBool("fork", item.object.get("fork").?.bool, true);
         printJsonInt("open_issues", item.object.get("open_issues").?.integer, true);
         printJsonInt("stargazers_count", item.object.get("stargazers_count").?.integer, true);
         printJson("tags_url", item.object.get("tags_url").?.string, true);

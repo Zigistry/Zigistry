@@ -13,6 +13,7 @@
 
 // ---------- Types ------------
 import type Repo from "@/types/customTypes";
+import { FaCheck } from "react-icons/fa";
 
 // -------- Functions ----------
 import { numberAsLetters } from "@/backend/helperFunctions";
@@ -54,6 +55,11 @@ export default function CustomCard(props: { item: Repo }) {
         <Tooltip className="ml-2 mr-1" content={props.item.topics?.join(", ")}>
           {props.item.topics?.length}
         </Tooltip>
+      </div>
+      <div className="flex">
+      {props.item.has_build_zig_zon ? <span className="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300 flex justify-center items-center space-x-3 w-min">build.zig.zon&nbsp;<FaCheck size={12} /></span> : ""}
+      {props.item.has_build_zig ? <span className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300 flex justify-center items-center space-x-3 w-min">build.zig&nbsp;<FaCheck size={12} /></span> : ""}
+      {props.item.fork ? <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-900 dark:text-gray-300 flex justify-center items-center space-x-3 w-min">fork&nbsp;<FaCheck size={12} /></span> : ""}
       </div>
       <Button as={Link} href={"packages/" + props.item.full_name} color="light" pill>
         View package
