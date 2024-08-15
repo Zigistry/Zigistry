@@ -28,7 +28,15 @@ export default async function search(
 
     // Check if the query parameter `q` exists and is a string
     if (!q || typeof q !== "string") {
-        return res.status(200).json([]);
+        const searchResults = mainDatabase.filter((item) => {
+    
+            if (typeof filter === "string") {
+                return item.topics?.includes(filter.toString().toLowerCase());
+            }
+    
+            return true;
+        });
+        return res.status(200).json(searchResults);
     }
 
     const query = q.toLowerCase();

@@ -100,6 +100,22 @@ export default function Home(
       setShowDefaultIndexPage(false);
     }
   };
+  const okf = async (event: any) => {
+    const val: HTMLSelectElement = document.getElementById(
+      "dropDownID",
+    ) as HTMLSelectElement;
+    if (val.value == "No Filter") {
+      setShowDefaultIndexPage(true);
+    } else {
+      const response = await fetch(
+        "/api/search?filter=" + val.value,
+      );
+      const result: Repo[] = await response.json();
+      setShowDefaultIndexPage(false);
+      setSearchResultsData(result);
+    }
+  }
+
   function handleOnChage(z: string) {
     setDataInTextboxChanged(true);
     if (z == "") {
@@ -116,7 +132,7 @@ export default function Home(
         </h1>
         <div className="flex">
           <Tooltip content="Search by filtering github topics">
-            <Select id="dropDownID" required={false}>
+            <Select onChange={okf} id="dropDownID" required={false}>
               <option>No Filter</option>
               <option>api</option>
               <option>http</option>
