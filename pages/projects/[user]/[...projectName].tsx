@@ -107,7 +107,7 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
                 {compressedRepo.has_build_zig ? <span className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300 flex justify-center items-center space-x-3 w-min">build.zig&nbsp;<FaCheck size={12} /></span> : ""}
                 {compressedRepo.fork ? <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-900 dark:text-gray-300 flex justify-center items-center space-x-3 w-min">fork&nbsp;<FaCheck size={12} /></span> : ""}
               </div>
-              <Button as={Link} target='_blank' rel="noreferrer" href={"https://codeberg.org/" + compressedRepo.full_name} color="light" pill>
+              <Button as={Link} target='_blank' rel="noreferrer" href={compressedRepo.berg ? "https://codeberg.org/" + compressedRepo.full_name : "https://github.com/" + compressedRepo.full_name} color="light" pill>
                 {compressedRepo.berg ? <>View on CodeBerg &nbsp;<SiCodeberg size={20} /></> : <>View on GitHub &nbsp;<FaGithub size={20} /></>}
               </Button>
             </Card>
@@ -195,7 +195,7 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
     size: repository.size,
     fork: repository.fork,
     has_build_zig: repository.has_build_zig,
-    berg:repository.berg,
+    berg: repository.berg,
     has_build_zig_zon: repository.has_build_zig_zon,
     updated_at: repository.updated_at,
   };
