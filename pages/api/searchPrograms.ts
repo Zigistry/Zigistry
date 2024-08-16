@@ -15,8 +15,11 @@
 // --------- Types -----------
 import Repo from "@/types/customTypes";
 import type { NextApiRequest, NextApiResponse } from "next";
-import mainDatabase from "@/database/programs.json";
+import db from "@/database/programs.json";
+import berg from "@/database/codebergPrograms.json";
 
+
+const mainDatabase = [...db, ...berg];
 // =========================================
 //       Exports "/api/searchProjects"
 // =========================================
