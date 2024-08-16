@@ -18,7 +18,7 @@ import {
   TextInput,
   Tooltip,
 } from "flowbite-react";
-import CustomCard from "@/components/CustomCard";
+import CustomCardProjects from "@/components/CustomCardProjects";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 // ------- Functions ----------
@@ -163,7 +163,7 @@ export default function Projects(
               {props.top10LatestRepos.map((
                 item: Repo,
                 index: number,
-              ) => <CustomCard key={index} item={item} />)}
+              ) => <CustomCardProjects key={index} item={item} />)}
             </section>
             <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
               <FaStar size={25} />
@@ -173,7 +173,7 @@ export default function Projects(
               {props.mostUsed.map((
                 item: Repo,
                 index: number,
-              ) => <CustomCard key={index} item={item} />)}
+              ) => <CustomCardProjects key={index} item={item} />)}
             </section>
             <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
               <SlGlobe size={25} />
@@ -192,7 +192,7 @@ export default function Projects(
                     infiniteScrollItems.map((
                       item: Repo,
                       index: number,
-                    ) => <CustomCard key={index} item={item} />)
+                    ) => <CustomCardProjects key={index} item={item} />)
                   )
                   : <p>Loading...</p>}
               </section>
@@ -205,7 +205,7 @@ export default function Projects(
             {searchResultsData.length
               ? (
                 searchResultsData.map((item: any, index: any) => (
-                  <CustomCard key={index} item={item} />
+                  <CustomCardProjects key={index} item={item} />
                 ))
               )
               : <h1>Can&apos;t find what you are looking for</h1>}

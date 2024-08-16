@@ -31,7 +31,7 @@ import Link from "next/link";
 // =====================================================
 //       Exports function (Component) Custom Card
 // =====================================================
-export default function CustomCard(props: { item: Repo }) {
+export default function CustomCardProjects(props: { item: Repo }) {
   return (
     <Card className="w-72 my-2 hover:scale-110 hover:z-10 z-0 transition-transform transform-cpu">
       <Image width="50" height="50" className="w-10 rounded-full" src={props.item.avatar_url} alt={props.item.name} />
@@ -61,8 +61,8 @@ export default function CustomCard(props: { item: Repo }) {
       {props.item.has_build_zig ? <span className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300 flex justify-center items-center space-x-3 w-min">build.zig&nbsp;<FaCheck size={12} /></span> : ""}
       {props.item.fork ? <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-900 dark:text-gray-300 flex justify-center items-center space-x-3 w-min">fork&nbsp;<FaCheck size={12} /></span> : ""}
       </div>
-      <Button as={Link} href={"packages/" + props.item.full_name} color="light" pill>
-        View package
+      <Button as={Link} href={"projects/" + props.item.full_name} color="light" pill>
+        View programs
       </Button>
     </Card>
   )
