@@ -31,6 +31,24 @@ pub fn build(b: *std.Build) void {
         const databaseCompilerRunStep = b.step("run_databaseCompiler", "Run database compiler");
         databaseCompilerRunStep.dependOn(&databaseCompilerRunCmd.step);
     }
+    {
+        const databaseCompiler2 = b.addExecutable(.{
+            .name = "databaseCompiler2",
+            .root_source_file = b.path("scripts/databaseCompiler2.zig"),
+            .target = target,
+            .optimize = optimize,
+        });
+        databaseCompiler2.root_module.addImport("helperFunctions", helperFunctions);
+        b.installArtifact(databaseCompiler2);
+
+        const databaseCompilerRunCmd2 = b.addRunArtifact(databaseCompiler2);
+        databaseCompilerRunCmd2.step.dependOn(b.getInstallStep());
+        if (b.args) |args| {
+            databaseCompilerRunCmd2.addArgs(args);
+        }
+        const databaseCompilerRunStep2 = b.step("run_databaseCompiler2", "Run database compiler");
+        databaseCompilerRunStep2.dependOn(&databaseCompilerRunCmd2.step);
+    }
     // Repo List Compressor
     {
         const repoListCompressor = b.addExecutable(.{

@@ -154,6 +154,7 @@ pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void
         } else {
             print("}},", .{});
         }
+        std.debug.print("{d}\n", .{i});
     }
 }
 

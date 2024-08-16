@@ -1,9 +1,9 @@
 name: Update database
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
   schedule:
     - cron: "0 * * * *"
 
@@ -16,6 +16,8 @@ jobs:
       - uses: mlugg/setup-zig@v1
       - name: Update main.json
         run: zig build run_databaseCompiler > ./database/main.json
+      - name: Update projects.json
+        run: zig build run_databaseCompiler2 > ./database/projects.json
       - name: Compress web.json
         run: zig build run_repoListCompressor -- web > ./database/web.json
       - name: Compress gui.json
