@@ -29,19 +29,6 @@ const urls = [_][]const u8{
     "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=8&per_page=100",
     "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=9&per_page=100",
     "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=10&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=11&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=12&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=13&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=14&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=15&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=16&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=17&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=18&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=19&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=20&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=21&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=22&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=23&per_page=100",
 };
 
 pub fn main() !void {
