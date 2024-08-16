@@ -174,6 +174,70 @@ pub fn fetch(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
     return try charBuffer.toOwnedSlice();
 }
 
+// ---- Prints selected fields in json ----
+pub fn compressAndPrintReposBerg(repoList: []std.json.Value, isLastFile: bool) !void {
+    for (repoList, 0..) |item, i| {
+        if (contains(&excludedRepositoriesLists, item.object.get("full_name").?.string)) {
+            continue;
+        }
+        print("{{", .{});
+        printJson("name", item.object.get("name").?.string, true);
+        printJsonInt("berg", 1, true);
+        printJson("full_name", item.object.get("full_name").?.string, true);
+        if (item.object.get("description").? == .string) {
+            const purifiedString = try replace(globalAllocator, item.object.get("description").?.string, '"', '\'');
+            defer globalAllocator.free(purifiedString);
+            printJson("description", purifiedString, true);
+        } else {
+            printJson("description", "This repository has no description.", true);
+        }
+        printJsonInt("watchers_count", item.object.get("watchers_count").?.integer, true);
+        printJsonInt("forks_count", item.object.get("forks_count").?.integer, true);
+        printJson("license", "-", true);
+        const url = try concatenate("https://codeberg.org/", item.object.get("full_name").?.string, "/raw/branch/main/" ++ "build.zig.zon");
+        const result = try fetch(globalAllocator, url);
+        if (std.mem.eql(u8, "", result) or std.mem.eql(u8, "404: Not Found", result)) {
+            printJsonInt("has_build_zig_zon", 0, true);
+        } else {
+            printJsonInt("has_build_zig_zon", 1, true);
+        }
+        printJson("default_branch", item.object.get("default_branch").?.string, true);
+        const url2 = try concatenate("https://codeberg.org/", item.object.get("full_name").?.string, "/raw/branch/main/" ++ "build.zig");
+        const result2 = try fetch(globalAllocator, url2);
+        if (std.mem.eql(u8, "", result2) or std.mem.eql(u8, "404: Not Found", result2)) {
+            printJsonInt("has_build_zig", 0, true);
+        } else {
+            printJsonInt("has_build_zig", 1, true);
+        }
+        printJsonBool("fork", item.object.get("fork").?.bool, true);
+        printJsonInt("open_issues", item.object.get("open_issues_count").?.integer, true);
+        printJsonInt("stargazers_count", item.object.get("stars_count").?.integer, true);
+        printJson("tags_url", try concatenate("git@codeberg.org:", item.object.get("full_name").?.string, ".git"), true); //item.object.get("tags_url").?.string
+        printJson("updated_at", item.object.get("updated_at").?.string, true);
+        printJson("created_at", item.object.get("created_at").?.string, true);
+        printJsonInt("size", item.object.get("size").?.integer, true);
+        if (item.object.get("topics").? == .array) {
+            print("\"topics\":[", .{});
+            for (item.object.get("topics").?.array.items, 0..) |topic, index| {
+                if (index == item.object.get("topics").?.array.items.len - 1) {
+                    print("\"{s}\"", .{topic.string});
+                } else {
+                    print("\"{s}\",", .{topic.string});
+                }
+            }
+            print("],", .{});
+        }
+        printJson("avatar_url", item.object.get("owner").?.object.get("avatar_url").?.string, false);
+        // If it is the last file and the last line
+        if (isLastFile and i == repoList.len - 1) {
+            print("}}", .{});
+        } else {
+            print("}},", .{});
+        }
+        std.debug.print("{d}\n", .{i});
+    }
+}
+
 // =======================
 //          Tests
 // =======================

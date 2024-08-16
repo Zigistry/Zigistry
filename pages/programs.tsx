@@ -31,7 +31,8 @@ import { IoIosApps } from "react-icons/io";
 import { useEffect, useState } from "react";
 
 // -------- Json ---------
-import items from "@/database/programs.json";
+import maindb from "@/database/programs.json";
+import bergdb from "@/database/codebergPrograms.json";
 import gamingItems from "@/database/games.json";
 import webItems from "@/database/web.json";
 import guiItems from "@/database/gui.json";
@@ -217,13 +218,16 @@ export default function Projects(
 }
 
 
+const items = [...bergdb, ...maindb];
 
 // =======================================================
 //       Exports getStaticProps for the Index page.
 // =======================================================
 export async function getStaticProps() {
   // --------- Most used Repos -----------
-  const mostUsed = items.slice(0, 10);
+  const mostUsed = items.slice().sort((a, b) =>
+    b.stargazers_count - a.stargazers_count
+  ).slice(0, 10);
 
   // -------- Sort latest repos ----------
   const sortedRepos = items.slice().sort((a, b) =>

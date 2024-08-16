@@ -32,6 +32,24 @@ pub fn build(b: *std.Build) void {
         databaseCompilerRunStep.dependOn(&databaseCompilerRunCmd.step);
     }
     {
+        const codeberg = b.addExecutable(.{
+            .name = "codeberg",
+            .root_source_file = b.path("scripts/codeberg.zig"),
+            .target = target,
+            .optimize = optimize,
+        });
+        codeberg.root_module.addImport("helperFunctions", helperFunctions);
+        b.installArtifact(codeberg);
+
+        const codebergRunCmd = b.addRunArtifact(codeberg);
+        codebergRunCmd.step.dependOn(b.getInstallStep());
+        if (b.args) |args| {
+            codebergRunCmd.addArgs(args);
+        }
+        const codebergRunStep = b.step("run_codeberg", "Run codeberg");
+        codebergRunStep.dependOn(&codebergRunCmd.step);
+    }
+    {
         const databaseCompiler2 = b.addExecutable(.{
             .name = "databaseCompiler2",
             .root_source_file = b.path("scripts/databaseCompiler2.zig"),

@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'avatars.githubusercontent.com',
       },
+      {
+        protocol:'https',
+        hostname:'codeberg.org'
+      }
     ],
   },
   // Optionally, add any other Next.js config below

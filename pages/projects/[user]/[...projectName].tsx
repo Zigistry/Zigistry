@@ -16,10 +16,12 @@ import Repo from '@/types/customTypes';
 import { marked } from 'marked';
 
 // --------- Functions ---------
+import { SiCodeberg } from "react-icons/si";
 import DOMPurify from 'isomorphic-dompurify';
 
 // --------- Database ---------
 import data from "@/database/programs.json";
+import bergdb from "@/database/codebergPrograms.json";
 
 // -------- Components ---------
 import Image from 'next/image';
@@ -106,7 +108,7 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
                 {compressedRepo.fork ? <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-900 dark:text-gray-300 flex justify-center items-center space-x-3 w-min">fork&nbsp;<FaCheck size={12} /></span> : ""}
               </div>
               <Button as={Link} target='_blank' rel="noreferrer" href={"https://github.com/" + compressedRepo.full_name} color="light" pill>
-                View on Github &nbsp;<FaGithub size={20} />
+                {compressedRepo.berg ? <>View on CodeBerg &nbsp;<SiCodeberg size={20} /></> : <>View on GitHub &nbsp;<FaGithub size={20} /></>}
               </Button>
             </Card>
           </div>
@@ -132,7 +134,7 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
 
 
 // ---------- Concatenate the database into a single list -------------
-const repositories: Repo[] = [...data];
+const repositories: Repo[] = [...bergdb, ...data];
 
 // ==================================
 //       Get Server Side Props
@@ -151,12 +153,12 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
   // ------------ Get the correct readme.md ---------------
   const fetchReadmeContent = async (repo: Repo) => {
     const extensions = ["", "txt", "md"] as const;
-    const defaultBranch = repo.default_branch || 'master';
+    const defaultBranch = repo.default_branch || 'main';
     const readmeCasing = ["readme", "README"];
 
     for (let ext of extensions) {
       for (let readmeCase of readmeCasing) {
-        const url = `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/${readmeCase}${ext && `.${ext}`}`
+        const url = `https://codeberg.org/${repo.full_name}/raw/branch/${defaultBranch}/${readmeCase}${ext && `.${ext}`}`
         let response = await fetch(url, { method: "HEAD" });
 
         if (response.ok) {
@@ -170,17 +172,11 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
   };
 
   // ----------- Fetch the readme and tags --------------
-  const [readmeContent, tagsResponse] = await Promise.all([
+  const [readmeContent] = await Promise.all([
     fetchReadmeContent(repository),
-    fetch(repository.tags_url)
   ]);
 
   // ----------- Get the tag details -------------
-  const tagDetails = tagsResponse.ok ? await tagsResponse.json() : [];
-  const latestTag = tagDetails[0]?.name;
-  const specials = latestTag
-    ? `https://github.com/${repository.full_name}/archive/refs/tags/${latestTag}.tar.gz`
-    : `git+https://github.com/${repository.full_name}`;
   // ------------ Generate the compressed repository -----------------
   const compressedRepo: Repo = {
     contentIsCorrect: true,
@@ -191,16 +187,15 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
     description: repository.description,
     tags_url: repository.tags_url,
     open_issues: repository.open_issues,
-    specials,
     license: repository.license,
     stargazers_count: repository.stargazers_count,
     forks_count: repository.forks_count,
     watchers_count: repository.watchers_count,
-    topics: repository.topics,
     avatar_url: repository.avatar_url,
     size: repository.size,
     fork: repository.fork,
     has_build_zig: repository.has_build_zig,
+    berg:repository.berg,
     has_build_zig_zon: repository.has_build_zig_zon,
     updated_at: repository.updated_at,
   };
