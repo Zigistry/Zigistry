@@ -158,7 +158,12 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
 
     for (let ext of extensions) {
       for (let readmeCase of readmeCasing) {
-        const url = `https://codeberg.org/${repo.full_name}/raw/branch/${defaultBranch}/${readmeCase}${ext && `.${ext}`}`
+        var url = "";
+        if (repository.berg && repository.berg == 1) {
+          url = `https://codeberg.org/${repo.full_name}/raw/branch/${defaultBranch}/${readmeCase}${ext && `.${ext}`}`
+        } else {
+          url = `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/${readmeCase}${ext && `.${ext}`}`
+        }
         let response = await fetch(url, { method: "HEAD" });
 
         if (response.ok) {
@@ -195,7 +200,7 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
     size: repository.size,
     fork: repository.fork,
     has_build_zig: repository.has_build_zig,
-    berg: repository.berg,
+    berg: repository.berg ? 1 : 0,
     has_build_zig_zon: repository.has_build_zig_zon,
     updated_at: repository.updated_at,
   };
@@ -203,3 +208,15 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
   return { props: { compressedRepo } };
 }
 
+
+
+// // 
+// // 
+// // 
+// // 
+// var url = "";
+// if (repository.berg && repository.berg == 1) {
+//   url = `https://codeberg.org/${repo.full_name}/raw/branch/${defaultBranch}/${readmeCase}${ext && `.${ext}`}`
+// } else {
+//   url = `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/${readmeCase}${ext && `.${ext}`}`
+// }
