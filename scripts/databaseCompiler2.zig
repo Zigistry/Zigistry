@@ -32,7 +32,7 @@ const urls = [_][]const u8{
 };
 
 pub fn main() !void {
-    // -------- Start the json file -------------
+    // -------- Start the json file ------------- 
     helperFunctions.print("[", .{});
 
     var buffers_collection = std.ArrayList([]const u8).init(helperFunctions.globalAllocator);
