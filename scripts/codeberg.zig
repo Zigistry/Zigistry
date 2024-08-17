@@ -8,6 +8,7 @@ pub fn main() !void {
         @panic("can't connect to codeberg.");
     }
     const parsed = try std.json.parseFromSlice(std.json.Value, hp.globalAllocator, res, .{});
-    try hp.compressAndPrintReposBerg(parsed.value.object.get("data").?.array.items, true);
+    const resu = parsed.value.object.get("data").?.array.items;
+    try hp.compressAndPrintReposBerg(resu, true);
     hp.print("]", .{});
 }
