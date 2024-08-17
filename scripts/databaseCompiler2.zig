@@ -19,20 +19,51 @@ const helperFunctions = @import("helperFunctions");
 // --------- Constants -----------
 const urls = [_][]const u8{
     // Increment these whenever repositories having zig-package reach the next 100.
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=1&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=2&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=3&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=4&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=5&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=6&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=7&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=8&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=9&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true&page=10&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:0&page=1&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:0&page=2&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:0&page=3&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:0&page=4&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:0&page=5&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:0&page=6&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:0&page=7&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:0&page=8&per_page=100",
+
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:1&page=1&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:1&page=2&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:1&page=3&per_page=100",
+
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:2&page=1&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:2&page=2&per_page=100",
+
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:3&page=1&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:3&page=2&per_page=100",
+
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:4&page=1&per_page=100",
+
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:5&page=1&per_page=100",
+
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:6..10&page=1&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:6..10&page=2&per_page=100",
+
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:11..20&page=1&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:11..20&page=2&per_page=100",
+
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:21..100&page=1&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:21..100&page=2&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:21..100&page=3&per_page=100",
+
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:101..1000&page=1&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:101..1000&page=2&per_page=100",
+
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:1001..5000&page=1&per_page=100",
+
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:5001..50000&page=1&per_page=100",
+
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:>=50000&page=1&per_page=100",
 };
 
 pub fn main() !void {
-    // -------- Start the json file ------------- 
+    // -------- Start the json file -------------
     helperFunctions.print("[", .{});
 
     var buffers_collection = std.ArrayList([]const u8).init(helperFunctions.globalAllocator);
