@@ -9,10 +9,8 @@ on:
 
 jobs:
   Update_json:
-    - env:
-        GH_TOKEN: ${{ secrets.API_TOKEN }}
     env:
-        API_AUTH_TOKEN: ${{ secrets.API_AUTH_TOKEN }}
+        API_AUTH_TOKEN: ${{ secrets.API_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
