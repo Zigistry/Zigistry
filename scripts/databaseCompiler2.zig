@@ -59,7 +59,7 @@ const urls = [_][]const u8{
 
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:5001..50000&page=1&per_page=100",
 
-    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:>=50000&page=1&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:%3E=50000&page=1&per_page=100",
 };
 
 pub fn main() !void {
