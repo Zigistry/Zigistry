@@ -9,6 +9,8 @@ on:
 
 jobs:
   Update_json:
+    - env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     runs-on: ubuntu-latest
 
     steps:

@@ -95,7 +95,6 @@ pub fn zon2json(input: []const u8) ![]const u8 {
     std.mem.replaceScalar(u8, input, '"', '`');
     std.mem.replaceScalar(u8, input, '.', '"');
     std.mem.replaceScalar(u8, input, '`', '"');
-
 }
 
 // ---- Prints selected fields in json ----
@@ -170,11 +169,16 @@ pub fn fetch(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
     var charBuffer = std.ArrayList(u8).init(allocator);
     defer charBuffer.deinit();
     var client = std.http.Client{ .allocator = allocator };
+    const GH_TOKEN = try std.process.getEnvVarOwned(globalAllocator, "API_AUTH_TOKEN");
     const fetchOptions = std.http.Client.FetchOptions{
         .location = std.http.Client.FetchOptions.Location{
             .url = url,
         },
         .method = .GET,
+        .extra_headers = &[1]std.http.Header{std.http.Header{
+            .name = "Authorization",
+            .value = GH_TOKEN,
+        }},
         .response_storage = .{ .dynamic = &charBuffer },
     };
     _ = try client.fetch(fetchOptions);
