@@ -10,7 +10,7 @@ on:
 jobs:
   Update_json:
     env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        API_AUTH_TOKEN: ${{ secrets.API_AUTH_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
