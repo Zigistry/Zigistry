@@ -91,6 +91,13 @@ pub fn concatenate(x: []const u8, y: []const u8, z: []const u8) ![]const u8 {
     return try buffer.toOwnedSlice();
 }
 
+pub fn zon2json(input: []const u8) ![]const u8 {
+    std.mem.replaceScalar(u8, input, '"', '`');
+    std.mem.replaceScalar(u8, input, '.', '"');
+    std.mem.replaceScalar(u8, input, '`', '"');
+
+}
+
 // ---- Prints selected fields in json ----
 pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void {
     for (repoList, 0..) |item, i| {
