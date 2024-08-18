@@ -169,6 +169,23 @@ pub fn fetch(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
     var charBuffer = std.ArrayList(u8).init(allocator);
     defer charBuffer.deinit();
     var client = std.http.Client{ .allocator = allocator };
+    const res = try std.process.getEnvVarOwned(globalAllocator, "API_AUTH_TOKEN");
+    const fetchOptions = std.http.Client.FetchOptions{
+        .location = std.http.Client.FetchOptions.Location{
+            .url = url,
+        },
+        .extra_headers = &[1]std.http.Header{std.http.Header{ .name = "Authorization", .value = res }},
+        .method = .GET,
+        .response_storage = .{ .dynamic = &charBuffer },
+    };
+    _ = try client.fetch(fetchOptions);
+    return try charBuffer.toOwnedSlice();
+}
+
+pub fn fetchNormal(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
+    var charBuffer = std.ArrayList(u8).init(allocator);
+    defer charBuffer.deinit();
+    var client = std.http.Client{ .allocator = allocator };
     const fetchOptions = std.http.Client.FetchOptions{
         .location = std.http.Client.FetchOptions.Location{
             .url = url,
