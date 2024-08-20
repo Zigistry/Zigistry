@@ -84,8 +84,11 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
                 {compressedRepo.name}
               </h5>
               <p className="text-gray-400">{compressedRepo.full_name}
-                <Badge color={""} className="w-fit dark:bg-slate-600 bg-white dark:border-none border-slate-200 border mt-4">{compressedRepo.license}</Badge>
               </p>
+              <div className="flex space-x-3">
+                {compressedRepo.archived ? <Badge color={"light"} className="w-fit dark:bg-yellow-400 bg-white dark:border-none border-slate-200 border mt-1">Archived</Badge> : <></>}
+                <Badge color={"darkblue"} className="w-fit dark:bg-slate-600 bg-white dark:border-none border-slate-200 border mt-1">{compressedRepo.license}</Badge>
+              </div>
               <p className="font-normal text-gray-700 dark:text-gray-400">
                 {compressedRepo.description}
               </p>
@@ -203,6 +206,7 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
     tags_url: repository.tags_url,
     open_issues: repository.open_issues,
     specials,
+    archived:repository.archived? true : false,
     license: repository.license,
     stargazers_count: repository.stargazers_count,
     forks_count: repository.forks_count,

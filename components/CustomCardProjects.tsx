@@ -39,7 +39,11 @@ export default function CustomCardProjects(props: { item: Repo }) {
       <h5 className="text-2xl font-bold text-gray-900 dark:text-white">
         {props.item.name}
       </h5>
-      <p className="text-gray-400">{props.item.full_name} <Badge color={"darkblue"} className="w-fit dark:bg-slate-600 bg-white dark:border-none border-slate-200 border mt-4">{props.item.license}</Badge></p>
+      <p className="text-gray-400">{props.item.full_name}</p>
+        <div className="flex space-x-3">
+          {props.item.archived ? <Badge color={"light"} className="w-fit dark:bg-yellow-400 bg-white dark:border-none border-slate-200 border mt-1">Archived</Badge> : <></>}
+          <Badge color={"darkblue"} className="w-fit dark:bg-slate-600 bg-white dark:border-none border-slate-200 border mt-1">{props.item.license}</Badge>
+        </div>
       <p className="font-normal text-gray-700 dark:text-gray-400">
         {props.item.description}
       </p>
@@ -58,14 +62,14 @@ export default function CustomCardProjects(props: { item: Repo }) {
         </Tooltip>
       </div>
       <div className="flex">
-      {props.item.has_build_zig_zon ? <span className="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300 flex justify-center items-center space-x-3 w-min">build.zig.zon&nbsp;<FaCheck size={12} /></span> : ""}
-      {props.item.has_build_zig ? <span className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300 flex justify-center items-center space-x-3 w-min">build.zig&nbsp;<FaCheck size={12} /></span> : ""}
-      {props.item.berg ? <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-900 dark:text-gray-300 flex justify-center items-center space-x-3 w-min"><SiCodeberg size={12}/></span> : ""}
-      {props.item.fork ? <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-900 dark:text-gray-300 flex justify-center items-center space-x-3 w-min">fork&nbsp;<FaCheck size={12} /></span> : ""}
+        {props.item.has_build_zig_zon ? <span className="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300 flex justify-center items-center space-x-3 w-min">build.zig.zon&nbsp;<FaCheck size={12} /></span> : ""}
+        {props.item.has_build_zig ? <span className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300 flex justify-center items-center space-x-3 w-min">build.zig&nbsp;<FaCheck size={12} /></span> : ""}
+        {props.item.berg ? <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-900 dark:text-gray-300 flex justify-center items-center space-x-3 w-min"><SiCodeberg size={12} /></span> : ""}
+        {props.item.fork ? <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-900 dark:text-gray-300 flex justify-center items-center space-x-3 w-min">fork&nbsp;<FaCheck size={12} /></span> : ""}
       </div>
       <Button as={Link} href={"projects/" + props.item.full_name} color="light" pill>
         View programs
       </Button>
-    </Card>
+    </Card >
   )
 }
