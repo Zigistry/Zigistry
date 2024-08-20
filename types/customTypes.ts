@@ -21,6 +21,7 @@ export default interface Repo {
   fork?: boolean;
   updated_at: string;
   berg?: number;
+  archived?: boolean;
 }
 
 export const placeHolderRepoType: Repo = {

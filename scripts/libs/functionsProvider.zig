@@ -135,6 +135,9 @@ pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void
         } else {
             printJsonInt("has_build_zig", 1, true);
         }
+        if(item.object.get("archived").?.bool){
+            printJsonBool("archived", true, true);
+        }
         printJsonBool("fork", item.object.get("fork").?.bool, true);
         printJsonInt("open_issues", item.object.get("open_issues").?.integer, true);
         printJsonInt("stargazers_count", item.object.get("stargazers_count").?.integer, true);
