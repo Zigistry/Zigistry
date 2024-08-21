@@ -36,16 +36,16 @@ export default function CustomCardProjects(props: { item: Repo }) {
   return (
     <Card className="w-72 my-2 hover:scale-110 hover:z-10 z-0 transition-transform transform-cpu">
       <Image width="50" height="50" className="w-10 rounded-full" src={props.item.avatar_url} alt={props.item.name} />
-      <h5 className="text-2xl font-bold text-gray-900 dark:text-white">
+      <h5 className="text-2xl font-bold text-gray-900 dark:text-white overflow-x-scroll">
         {props.item.name}
       </h5>
-      <p className="text-gray-400">{props.item.full_name}</p>
-        <div className="flex space-x-3">
-          {props.item.archived ? <Badge color={"light"} className="w-fit dark:bg-yellow-400 bg-white dark:border-none border-slate-200 border mt-1">Archived</Badge> : <></>}
-          <Badge color={"darkblue"} className="w-fit dark:bg-slate-600 bg-white dark:border-none border-slate-200 border mt-1">{props.item.license}</Badge>
-        </div>
+      <p className="text-gray-400 overflow-x-scroll">{props.item.full_name}</p>
+      <div className="flex space-x-3">
+        {props.item.archived ? <Badge color={"light"} className="w-fit dark:bg-yellow-400 bg-white dark:border-none border-slate-200 border mt-1">Archived</Badge> : <></>}
+        <Badge color={"darkblue"} className="w-fit dark:bg-slate-600 bg-white dark:border-none border-slate-200 border mt-1">{props.item.license}</Badge>
+      </div>
       <p className="font-normal text-gray-700 dark:text-gray-400">
-        {props.item.description}
+        {props.item.description.length > 200 ? props.item.description.slice(0, 200) + "..." : props.item.description}
       </p>
       <div className="flex items-center">
         <FaStar size={20} color="#cfbc0e" className="mr-2" />

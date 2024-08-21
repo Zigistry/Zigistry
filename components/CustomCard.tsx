@@ -35,7 +35,7 @@ export default function CustomCard(props: { item: Repo }) {
   return (
     <Card className="w-72 my-2 hover:scale-110 hover:z-10 z-0 transition-transform transform-cpu">
       <Image width="50" height="50" className="w-10 rounded-full" src={props.item.avatar_url} alt={props.item.name} />
-      <h5 className="text-2xl font-bold text-gray-900 dark:text-white">
+      <h5 className="text-2xl font-bold text-gray-900 dark:text-white overflow-x-scroll">
         {props.item.name}
       </h5>
       <p className="text-gray-400">
@@ -47,7 +47,7 @@ export default function CustomCard(props: { item: Repo }) {
       </div>
 
       <p className="font-normal text-gray-700 dark:text-gray-400">
-        {props.item.description}
+        {props.item.description.length > 200 ? props.item.description.slice(0, 200) + "..." : props.item.description}
       </p>
       <div className="flex items-center">
         <FaStar size={20} color="#cfbc0e" className="mr-2" />
