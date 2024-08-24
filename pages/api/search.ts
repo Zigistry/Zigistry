@@ -15,10 +15,8 @@
 // --------- Types -----------
 import Repo from "@/types/customTypes";
 import type { NextApiRequest, NextApiResponse } from "next";
-import db from "@/database/main.json";
+import mainDatabase from "@/database/main.json";
 
-
-const mainDatabase = [...db];
 // =========================================
 //       Exports "/api/searchProjects"
 // =========================================

@@ -1,11 +1,11 @@
 //!===============================================================
-//!         Search Engine Algorithm API "/api/search"
+//!  Package repo details API "/api/programs/:username/:reponame"
 //!===============================================================
 //!	Author  : Rohan Vashisht
 //! License : Please check license file
-//! Details : This api implements algorithm for search.
-//! The search query is expected to be received like this:
-//! /api/search?q=Search%20Query
+//! Details : This API shows details for a specific repository
+//! which is a program registered on zigistry.
+//! Format : /api/programs/:username/:reponame
 //!===============================================================
 
 // ===================
@@ -13,13 +13,13 @@
 // ===================
 
 // --------- Types -----------
-import Repo, { placeHolderRepoType } from "@/types/customTypes";
+import Repo from "@/types/customTypes";
 import type { NextApiRequest, NextApiResponse } from "next";
 import mainDatabase from "@/database/programs.json";
 
-// =========================================
-//       Exports "/api/search"
-// =========================================
+// ===============================================
+//   Exports "/api/programs/:username/:reponame"
+// ===============================================
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Repo | null>,
