@@ -22,6 +22,11 @@
 // ---------- Imports ------------
 const std = @import("std");
 const allocator = std.heap.page_allocator;
+const writer = std.io.getStdOut().writer();
+
+fn print(comptime format: []const u8, args: anytype) void {
+    writer.print(format, args) catch return;
+}
 
 pub fn main() !void {
     const jsonRawData = @embedFile("./main.json");
@@ -47,10 +52,10 @@ pub fn main() !void {
     }
     var licenseHashmapIterator = licenseHashmap.iterator();
     while (licenseHashmapIterator.next()) |entry| {
-        std.debug.print("{s}:{d}\n", .{ entry.key_ptr.*, entry.value_ptr.* });
+        print("{s},{d}\n", .{ entry.key_ptr.*, entry.value_ptr.* });
     }
 
-    std.debug.print("\n\n", .{});
+    print("\n\n", .{});
 
     var topicsArray = std.ArrayList([]const u8).init(allocator);
     defer topicsArray.deinit();
@@ -73,12 +78,12 @@ pub fn main() !void {
     }
     var topicsHashMapIterator = topicsHashMap.iterator();
     while (topicsHashMapIterator.next()) |entry| {
-        std.debug.print("{s}:{d}\n", .{ entry.key_ptr.*, entry.value_ptr.* });
+        print("{s},{d}\n", .{ entry.key_ptr.*, entry.value_ptr.* });
     }
     var sum: i64 = 0;
     for (parsedItems) |item| {
         sum += item.object.get("size").?.integer;
     }
     const average = @divTrunc(sum, @as(i64, @intCast(parsedItems.len)));
-    std.debug.print("{d}KB", .{average});
+    print("{d}KB", .{average});
 }
