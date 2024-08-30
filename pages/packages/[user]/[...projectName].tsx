@@ -125,7 +125,7 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
             <Badge className='w-fit' color="blue">Dependencies:</Badge>
             </div>
             <div className='w-full flex justify-center items-center'>
-            <div className='w-3/5 grid grid-cols-subgrid gap-2 mb-4 justify-center'>
+            <div className='w-3/5 flex flex-wrap gap-2 mb-4 justify-center'>
             {compressedRepo.dependencies ? (
               compressedRepo.dependencies.map((element, index) => (
                 <Badge key={index} color="dark">{element}</Badge>
