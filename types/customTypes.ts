@@ -20,6 +20,7 @@ export default interface Repo {
   has_build_zig?: number;
   fork?: boolean;
   updated_at: string;
+  dependencies?: string[];
   berg?: number;
   archived?: boolean;
 }

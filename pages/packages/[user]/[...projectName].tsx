@@ -121,6 +121,20 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
             <Badge color="warning">Size: {compressedRepo.size}KB</Badge>
             <Badge color="purple">Created: {new Date(compressedRepo.created_at).toLocaleTimeString() + " " + new Date(compressedRepo.created_at).toDateString()}</Badge>
           </div>
+            <div className='w-full mb-4 flex justify-center items-center'>
+            <Badge className='w-fit' color="blue">Dependencies:</Badge>
+            </div>
+            <div className='w-full flex justify-center items-center'>
+            <div className='w-3/5 grid grid-cols-subgrid gap-2 mb-4 justify-center'>
+            {compressedRepo.dependencies ? (
+              compressedRepo.dependencies.map((element, index) => (
+                <Badge key={index} color="dark">{element}</Badge>
+              ))
+            ) : (
+              <Badge color="dark">No known dependencies</Badge>
+            )}
+            </div>
+          </div>
           <div className="flex mx-5 items-center justify-center font-mono">
             <div className="dark:bg-[#151d28] bg-slate-600 pr-7 py-3 pl-4 rounded w-fit max-w-full flex items-center justify-center mb-4 mx-2">
               <div className='sm:overflow-x-hidden text-sm sm:text-base overflow-x-scroll' style={{ userSelect: "all" }}>
@@ -142,9 +156,17 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
     </>
   );
 }
-
-
-
+function removeComments(input:string) {
+  // Match strings and comments separately
+  return input.replace(/("(?:\\.|[^"\\])*")|\/\/.*|\/\*[\s\S]*?\*\//g, (match, stringMatch) => {
+      // If it's a string, return it unchanged
+      if (stringMatch !== undefined) {
+          return stringMatch;
+      }
+      // Otherwise, it's a comment, so remove it
+      return '';
+  });
+}
 // ---------- Concatenate the database into a single list -------------
 const repositories: Repo[] = [...data, ...data_game, ...data_gui, ...data_web];
 
@@ -196,6 +218,49 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
     ? `https://github.com/${repository.full_name}/archive/refs/tags/${latestTag}.tar.gz`
     : `git+https://github.com/${repository.full_name}`;
   // ------------ Generate the compressed repository -----------------
+  var dependencies: string[] = [];
+  if (repository.has_build_zig_zon == 1) {
+    const url = `https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch || "master"}/build.zig.zon`;
+    // console.log(url)
+    const res = await fetch(url);
+    var input = await res.text();
+    // Replace .{ with {
+    input = removeComments(input)
+
+    // input = input.replace(/\/\/.*$/gm, ''); // Remove single-line comments
+    input = input.replace(/\.{/, '{');
+
+    // Replace .field = "value" with "field": "value"
+    input = input.replace(/\.([a-zA-Z0-9_-]+)\s*=\s*/g, '"$1": ');
+
+    // Handle the @"raylib-zig" case
+    input = input.replace(/\.\@"([\w\-\.]+)"\s*=\s*\./g, '"$1": ') 
+
+    // Replace arrays in the format .{ "value1", "value2", ... } with [ "value1", "value2", ... ]
+    input = input.replace(/\.{\s*("[^"]*"\s*,?\s*)+\s*}/g, match => {
+      return match
+        .replace(/\.{/, '[')
+        .replace(/}\s*$/, ']')
+        .replace(/,\s*]/, ']'); // Remove the trailing comma before closing ]
+    });
+
+    // Remove extra dots before opening braces
+    input = input.replace(/\.\s*\{/g, '{');
+
+    // Remove commas after the last element in objects or arrays (JSON doesn't allow trailing commas)
+    input = input.replace(/,(\s*[}\]])/g, '$1');
+    // console.log(input);
+    try{
+    const json_parsed = await JSON.parse(input);
+    const results = Object.keys(json_parsed.dependencies);
+    for (let key of results) {
+      dependencies.push(key);
+    }
+    } catch {}
+  }
+  if(dependencies.length === 0){
+    dependencies = ["No dependencies were found"]
+  }
   const compressedRepo: Repo = {
     contentIsCorrect: true,
     name: repository.name,
@@ -206,13 +271,14 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
     tags_url: repository.tags_url,
     open_issues: repository.open_issues,
     specials,
-    archived:repository.archived? true : false,
+    archived: repository.archived ? true : false,
     license: repository.license,
     stargazers_count: repository.stargazers_count,
     forks_count: repository.forks_count,
     watchers_count: repository.watchers_count,
     topics: repository.topics,
     avatar_url: repository.avatar_url,
+    dependencies: dependencies,
     size: repository.size,
     fork: repository.fork,
     has_build_zig: repository.has_build_zig,
