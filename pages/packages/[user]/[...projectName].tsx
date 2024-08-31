@@ -121,18 +121,18 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
             <Badge color="warning">Size: {compressedRepo.size}KB</Badge>
             <Badge color="purple">Created: {new Date(compressedRepo.created_at).toLocaleTimeString() + " " + new Date(compressedRepo.created_at).toDateString()}</Badge>
           </div>
-            <div className='w-full mb-4 flex justify-center items-center'>
+          <div className='w-full mb-4 flex justify-center items-center'>
             <Badge className='w-fit' color="blue">Dependencies:</Badge>
-            </div>
-            <div className='w-full flex justify-center items-center'>
+          </div>
+          <div className='w-full flex justify-center items-center'>
             <div className='w-3/5 flex flex-wrap gap-2 mb-4 justify-center'>
-            {compressedRepo.dependencies ? (
-              compressedRepo.dependencies.map((element, index) => (
-                <Badge key={index} color="dark">{element}</Badge>
-              ))
-            ) : (
-              <Badge color="dark">No known dependencies</Badge>
-            )}
+              {compressedRepo.dependencies ? (
+                compressedRepo.dependencies.map((element, index) => (
+                  <Badge key={index} color="dark">{element}</Badge>
+                ))
+              ) : (
+                <Badge color="dark">No known dependencies</Badge>
+              )}
             </div>
           </div>
           <div className="flex mx-5 items-center justify-center font-mono">
@@ -156,15 +156,15 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
     </>
   );
 }
-function removeComments(input:string) {
+function removeComments(input: string) {
   // Match strings and comments separately
   return input.replace(/("(?:\\.|[^"\\])*")|\/\/.*|\/\*[\s\S]*?\*\//g, (match, stringMatch) => {
-      // If it's a string, return it unchanged
-      if (stringMatch !== undefined) {
-          return stringMatch;
-      }
-      // Otherwise, it's a comment, so remove it
-      return '';
+    // If it's a string, return it unchanged
+    if (stringMatch !== undefined) {
+      return stringMatch;
+    }
+    // Otherwise, it's a comment, so remove it
+    return '';
   });
 }
 // ---------- Concatenate the database into a single list -------------
@@ -234,7 +234,7 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
     input = input.replace(/\.([a-zA-Z0-9_-]+)\s*=\s*/g, '"$1": ');
 
     // Handle the @"raylib-zig" case
-    input = input.replace(/\.\@"([\w\-\.]+)"\s*=\s*\./g, '"$1": ') 
+    input = input.replace(/\.\@"([\w\-\.]+)"\s*=\s*\./g, '"$1": ')
 
     // Replace arrays in the format .{ "value1", "value2", ... } with [ "value1", "value2", ... ]
     input = input.replace(/\.{\s*("[^"]*"\s*,?\s*)+\s*}/g, match => {
@@ -250,15 +250,15 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
     // Remove commas after the last element in objects or arrays (JSON doesn't allow trailing commas)
     input = input.replace(/,(\s*[}\]])/g, '$1');
     // console.log(input);
-    try{
-    const json_parsed = await JSON.parse(input);
-    const results = Object.keys(json_parsed.dependencies);
-    for (let key of results) {
-      dependencies.push(key);
-    }
-    } catch {}
+    try {
+      const json_parsed = await JSON.parse(input);
+      const results = Object.keys(json_parsed.dependencies);
+      for (let key of results) {
+        dependencies.push(key);
+      }
+    } catch { }
   }
-  if(dependencies.length === 0){
+  if (dependencies.length === 0) {
     dependencies = ["No dependencies were found"]
   }
   const compressedRepo: Repo = {

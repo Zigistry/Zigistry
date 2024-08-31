@@ -67,7 +67,7 @@ export default function CustomCardProjects(props: { item: Repo }) {
         {props.item.berg ? <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-900 dark:text-gray-300 flex justify-center items-center space-x-3 w-min"><SiCodeberg size={12} /></span> : ""}
         {props.item.fork ? <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-900 dark:text-gray-300 flex justify-center items-center space-x-3 w-min">fork&nbsp;<FaCheck size={12} /></span> : ""}
       </div>
-      <Button as={Link} href={"projects/" + props.item.full_name} color="light" pill>
+      <Button as={Link} href={"programs/" + props.item.full_name} color="light" pill>
         View programs
       </Button>
     </Card >
