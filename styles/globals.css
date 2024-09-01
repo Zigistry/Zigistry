@@ -59,6 +59,26 @@ body {
 	color: rgb(22, 217, 22) !important;
 }
 
+.dark_string {
+	color: rgb(9, 79, 9);
+}
+
+.dark_string>* {
+	color: rgb(9, 79, 9) !important;
+}
+
+.dark_string>*>* {
+	color: rgb(9, 79, 9) !important;
+}
+
+.dark_string>*>*>* {
+	color: rgb(9, 79, 9) !important;
+}
+
+.dark_string>*>*>*>* {
+	color: rgb(9, 79, 9) !important;
+}
+
 .char {
 	color: red;
 }

@@ -34,45 +34,12 @@ import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { BsInfoSquareFill } from 'react-icons/bs';
 import { Clipboard } from "flowbite-react"
-import { highlight_bash_code, highlight_zig_diff_code, numberAsLetters } from '@/backend/helperFunctions';
-import { highlight_zig_code } from '@/backend/helperFunctions';
+import { highlight, numberAsLetters, zon2json } from '@/backend/helperFunctions';
 
 // =========================================================================
 //       Exports show library page "/packages/[user]/[projectName]"
 // =========================================================================
 export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
-  function highlight() {
-    const ZigCodeContainers: any = document.getElementsByClassName('language-zig');
-    for (let pre of ZigCodeContainers) {
-      const codeContent = pre.innerHTML;
-      const highlightedContent = highlight_zig_code(codeContent);
-      pre.innerHTML = highlightedContent;
-    }
-    const ZigDiffCodeContainers: any = document.getElementsByClassName('language-diff');
-    for (let pre of ZigDiffCodeContainers) {
-      const codeContent = pre.innerHTML;
-      const highlightedContent = highlight_zig_diff_code(codeContent);
-      pre.innerHTML = highlightedContent;
-    }
-    const ZonCodeContainers: any = document.getElementsByClassName('language-zon');
-    for (let pre of ZonCodeContainers) {
-      const codeContent = pre.innerHTML;
-      const highlightedContent = highlight_zig_code(codeContent);
-      pre.innerHTML = highlightedContent;
-    }
-    const BashCodeContainers: any = document.getElementsByClassName('language-shell');
-    for (let pre of BashCodeContainers) {
-      const codeContent = pre.innerHTML;
-      const highlightedContent = highlight_bash_code(codeContent);
-      pre.innerHTML = highlightedContent;
-    }
-    const ShCodeContainers: any = document.getElementsByClassName('language-sh');
-    for (let pre of ShCodeContainers) {
-      const codeContent = pre.innerHTML;
-      const highlightedContent = highlight_bash_code(codeContent);
-      pre.innerHTML = highlightedContent;
-    }
-  };
   return (
     <>
       {compressedRepo.contentIsCorrect ? (
@@ -156,17 +123,7 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
     </>
   );
 }
-function removeComments(input: string) {
-  // Match strings and comments separately
-  return input.replace(/("(?:\\.|[^"\\])*")|\/\/.*|\/\*[\s\S]*?\*\//g, (match, stringMatch) => {
-    // If it's a string, return it unchanged
-    if (stringMatch !== undefined) {
-      return stringMatch;
-    }
-    // Otherwise, it's a comment, so remove it
-    return '';
-  });
-}
+
 // ---------- Concatenate the database into a single list -------------
 const repositories: Repo[] = [...data, ...data_game, ...data_gui, ...data_web];
 
@@ -221,37 +178,12 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
   var dependencies: string[] = [];
   if (repository.has_build_zig_zon == 1) {
     const url = `https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch || "master"}/build.zig.zon`;
-    // console.log(url)
     const res = await fetch(url);
-    var input = await res.text();
-    // Replace .{ with {
-    input = removeComments(input)
+    var zonData = await res.text();
+    var zonAsJsonData = zon2json(zonData);
 
-    // input = input.replace(/\/\/.*$/gm, ''); // Remove single-line comments
-    input = input.replace(/\.{/, '{');
-
-    // Replace .field = "value" with "field": "value"
-    input = input.replace(/\.([a-zA-Z0-9_-]+)\s*=\s*/g, '"$1": ');
-
-    // Handle the @"raylib-zig" case
-    input = input.replace(/\.\@"([\w\-\.]+)"\s*=\s*\./g, '"$1": ')
-
-    // Replace arrays in the format .{ "value1", "value2", ... } with [ "value1", "value2", ... ]
-    input = input.replace(/\.{\s*("[^"]*"\s*,?\s*)+\s*}/g, match => {
-      return match
-        .replace(/\.{/, '[')
-        .replace(/}\s*$/, ']')
-        .replace(/,\s*]/, ']'); // Remove the trailing comma before closing ]
-    });
-
-    // Remove extra dots before opening braces
-    input = input.replace(/\.\s*\{/g, '{');
-
-    // Remove commas after the last element in objects or arrays (JSON doesn't allow trailing commas)
-    input = input.replace(/,(\s*[}\]])/g, '$1');
-    // console.log(input);
     try {
-      const json_parsed = await JSON.parse(input);
+      const json_parsed = await JSON.parse(zonAsJsonData);
       const results = Object.keys(json_parsed.dependencies);
       for (let key of results) {
         dependencies.push(key);
