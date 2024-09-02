@@ -1,29 +1,9 @@
-//!===============================================================
-//!       Show Library "/packages/[user]/[...projectName]"
-//!===============================================================
-//!	Author  : Rohan Vashisht
-//! License : Please check license file
-//! Details : This page is used to display the details of a
-//! single library.
-//!===============================================================
-
-// ===================
-//       Imports
-// ===================
-
-// ----------- Types -----------
 import Repo from '@/types/customTypes';
 import { marked } from 'marked';
-
-// --------- Functions ---------
 import { SiCodeberg } from "react-icons/si";
 import DOMPurify from 'isomorphic-dompurify';
-
-// --------- Database ---------
 import data from "@/database/programs.json";
 import bergdb from "@/database/codebergPrograms.json";
-
-// -------- Components ---------
 import Image from 'next/image';
 import { FaCheck } from "react-icons/fa";
 import { GoIssueOpened } from 'react-icons/go';
@@ -34,9 +14,8 @@ import { FaGithub } from 'react-icons/fa';
 import { BsInfoSquareFill } from 'react-icons/bs';
 import { highlight, numberAsLetters, zon2json } from '@/backend/helperFunctions';
 
-// =========================================================================
-//       Exports show library page "/packages/[user]/[projectName]"
-// =========================================================================
+const repositories: Repo[] = [...bergdb, ...data];
+
 export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
   return (
     <>
@@ -114,24 +93,31 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
   );
 }
 
-// ---------- Concatenate the database into a single list -------------
-const repositories: Repo[] = [...bergdb, ...data];
+export async function getStaticPaths() {
+  // Generate paths based on the available repositories
+  const paths = repositories.map((repo) => {
+    const [user, ...projectNameParts] = repo.full_name.split('/');
+    return {
+      params: { user, projectName: projectNameParts },
+    };
+  });
 
-// ==================================
-//       Get Server Side Props
-// ==================================
-export async function getServerSideProps({ params: { user, projectName } }: { params: { user: string; projectName: string; } }) {
-  // ------------ Get user's paths ----------------
-  const repoPath = `${user}/${projectName}`;
+  return {
+    paths,
+    fallback: 'blocking', // Generate pages on-demand if not generated at build time
+  };
+}
 
-  // ------------ Find the repo ---------------
+
+export async function getStaticProps({ params: { user, projectName } }: { params: { user: string; projectName: string[]; } }) {
+  const repoPath = `${user}/${projectName.join('/')}`;
   const repository: Repo | undefined = repositories.find(repo => repo.full_name === repoPath);
 
   if (!repository) {
     return { props: { compressedRepo: { contentIsCorrect: false } as Repo } };
   }
 
-  // ------------ Get the correct readme.md ---------------
+  // The rest of your getStaticProps logic remains the same
   const fetchReadmeContent = async (repo: Repo) => {
     const extensions = ["", "txt", "md"] as const;
     const defaultBranch = repo.default_branch || 'main';
@@ -157,18 +143,16 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
     return { content: "404", ext: "" };
   };
 
-  // ----------- Fetch the readme and tags --------------
   const [readmeContent] = await Promise.all([
     fetchReadmeContent(repository),
   ]);
+
   var dependencies: string[] = [];
   if (repository.has_build_zig_zon == 1) {
     const url = `https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch || "master"}/build.zig.zon`;
-    // console.log(url)
     const res = await fetch(url);
     var zonData = await res.text();
     var zonAsJsonData = zon2json(zonData);
-    // console.log(input);
     try {
       const json_parsed = await JSON.parse(zonAsJsonData);
       const results = Object.keys(json_parsed.dependencies);
@@ -180,8 +164,7 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
   if (dependencies.length === 0) {
     dependencies = ["No dependencies were found"]
   }
-  // ----------- Get the tag details -------------
-  // ------------ Generate the compressed repository -----------------
+
   const compressedRepo: Repo = {
     contentIsCorrect: true,
     name: repository.name,

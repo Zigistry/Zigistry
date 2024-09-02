@@ -127,21 +127,32 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
 // ---------- Concatenate the database into a single list -------------
 const repositories: Repo[] = [...data, ...data_game, ...data_gui, ...data_web];
 
+export async function getStaticPaths() {
+  const paths = repositories.map((repo) => {
+    const [user, ...projectNameParts] = repo.full_name.split('/');
+    return {
+      params: { user, projectName: projectNameParts },
+    };
+  });
+
+  return {
+    paths,
+    fallback: 'blocking',
+  };
+}
+
+
 // ==================================
 //       Get Server Side Props
 // ==================================
-export async function getServerSideProps({ params: { user, projectName } }: { params: { user: string; projectName: string; } }) {
-  // ------------ Get user's paths ----------------
-  const repoPath = `${user}/${projectName}`;
-
-  // ------------ Find the repo ---------------
+export async function getStaticProps({ params: { user, projectName } }: { params: { user: string; projectName: string[]; } }) {
+  const repoPath = `${user}/${projectName.join('/')}`;
   const repository: Repo | undefined = repositories.find(repo => repo.full_name === repoPath);
 
   if (!repository) {
     return { props: { compressedRepo: { contentIsCorrect: false } as Repo } };
   }
 
-  // ------------ Get the correct readme.md ---------------
   const fetchReadmeContent = async (repo: Repo) => {
     const extensions = ["", "txt", "md"] as const;
     const defaultBranch = repo.default_branch || 'master';
@@ -149,7 +160,7 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
 
     for (let ext of extensions) {
       for (let readmeCase of readmeCasing) {
-        const url = `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/${readmeCase}${ext && `.${ext}`}`
+        const url = `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/${readmeCase}${ext && `.${ext}`}`;
         let response = await fetch(url, { method: "HEAD" });
 
         if (response.ok) {
@@ -162,19 +173,17 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
     return { content: "404", ext: "" };
   };
 
-  // ----------- Fetch the readme and tags --------------
   const [readmeContent, tagsResponse] = await Promise.all([
     fetchReadmeContent(repository),
     fetch(repository.tags_url)
   ]);
 
-  // ----------- Get the tag details -------------
   const tagDetails = tagsResponse.ok ? await tagsResponse.json() : [];
   const latestTag = tagDetails[0]?.name;
   const specials = latestTag
     ? `https://github.com/${repository.full_name}/archive/refs/tags/${latestTag}.tar.gz`
     : `git+https://github.com/${repository.full_name}`;
-  // ------------ Generate the compressed repository -----------------
+
   var dependencies: string[] = [];
   if (repository.has_build_zig_zon == 1) {
     const url = `https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch || "master"}/build.zig.zon`;
@@ -191,8 +200,9 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
     } catch { }
   }
   if (dependencies.length === 0) {
-    dependencies = ["No dependencies were found"]
+    dependencies = ["No dependencies were found"];
   }
+
   const compressedRepo: Repo = {
     contentIsCorrect: true,
     name: repository.name,
@@ -220,4 +230,3 @@ export async function getServerSideProps({ params: { user, projectName } }: { pa
 
   return { props: { compressedRepo } };
 }
-
