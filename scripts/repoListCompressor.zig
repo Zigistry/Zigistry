@@ -39,10 +39,10 @@ const topic_urls = [3][5][]const u8{
     // Gui
     .{
         "https://api.github.com/repos/capy-ui/capy",
+        "https://api.github.com/repos/webui-dev/zig-webui",
         "https://api.github.com/repos/david-vanderson/dvui",
         "https://api.github.com/repos/kassane/qml_zig",
         "https://api.github.com/repos/MoAlyousef/zfltk",
-        "https://api.github.com/repos/Aransentin/ZWL",
     },
 };
 
