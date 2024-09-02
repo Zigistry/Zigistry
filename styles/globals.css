@@ -139,8 +139,10 @@ body {
 .readmeDiv>pre {
 	padding: 20px !important;
 	overflow-x: scroll;
+	color:yellow;
 	border-radius: 10px !important;
-	border: solid #475569 2px;
+	border: solid #373f49 2px;
+	background-color: #2a3038;
 }
 
 
