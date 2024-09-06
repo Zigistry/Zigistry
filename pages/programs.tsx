@@ -146,6 +146,7 @@ export default function Projects(
           <TextInput
             onChange={(e) => handleOnChage(e.target.value)}
             onKeyUp={handleKeyDown}
+            id="SearchBox"
             placeholder="Search 1000+ Zig programs"
             className="w-72 mb-5 ml-2"
             autoFocus

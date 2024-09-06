@@ -26,13 +26,17 @@ import { DarkThemeToggle, Flowbite } from "flowbite-react";
 // =====================================
 export default function Header(): JSX.Element {
   // Using as={Link} to avoid page reloading.
+  function reset_text_box(){
+    var mine = document.getElementById("SearchBox") as HTMLInputElement;
+    mine.value  = "";
+  }
   return (
     <Navbar
       className="border-b-orange-300"
       style={{ borderBottom: "2px solid #faca15" }}
       rounded
     >
-      <NavbarBrand as={Link} href="/">
+      <NavbarBrand onClick={reset_text_box} as={Link} href="/">
         <span className="self-center whitespace-nowrap dark:text-white font-extrabold text-2xl">
           <span className="dark:text-yellow-300 text-amber-400">
             Zig

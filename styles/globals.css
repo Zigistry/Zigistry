@@ -116,9 +116,17 @@ body {
 .readme {
 	padding: 50px !important;
 }
-@media screen and (min-width: 900px) {
+
+.readmeDiv>table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap; /* Prevents the table from wrapping */
+}
+
+
+@media screen and (min-width: 400px) {
 	.readme {
-		padding: 5px !important;
+		padding: 0px !important;
 	}
 }
 
@@ -142,6 +150,14 @@ body {
 }
 
 .readmeDiv>pre {
+	padding: 20px !important;
+	overflow-x: scroll;
+	color:yellow;
+	border-radius: 10px !important;
+	border: solid #373f49 2px;
+	background-color: #2a3038;
+}
+.readmeDiv>*>pre {
 	padding: 20px !important;
 	overflow-x: scroll;
 	color:yellow;

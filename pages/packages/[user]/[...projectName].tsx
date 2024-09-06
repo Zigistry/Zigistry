@@ -110,8 +110,8 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
               <Clipboard className='ml-3' valueToCopy={"zig fetch --save " + compressedRepo.specials} label="Copy" />
             </div>
           </div>
-          <div className='flex items-center justify-center mb-4'>
-            <div className="dark:bg-slate-800 bg-white border-2 border-slate-600 sm:w-3/5 w-4/5 rounded-2xl py-10 sm:px-20 px-10">
+          <div className='flex items-center justify-center m-4'>
+            <div className="dark:bg-slate-800 bg-white border-2 border-slate-600 sm:w-3/5 w-full rounded-2xl py-10 sm:px-20 px-4">
               <div className="readmeDiv" dangerouslySetInnerHTML={{ __html: compressedRepo.readme_content ? DOMPurify.sanitize(compressedRepo.readme_content) : "" }}>
               </div>
             </div>
