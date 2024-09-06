@@ -116,6 +116,11 @@ body {
 .readme {
 	padding: 50px !important;
 }
+@media screen and (min-width: 900px) {
+	.readme {
+		padding: 5px !important;
+	}
+}
 
 .readmeDiv {
 	all: unset !important;
