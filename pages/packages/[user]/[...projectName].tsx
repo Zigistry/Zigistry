@@ -202,12 +202,20 @@ export async function getStaticProps({ params: { user, projectName } }: { params
   if (dependencies.length === 0) {
     dependencies = ["No dependencies were found"];
   }
+  async function convert2markdown(x:string) : Promise<string> {
+    var content = await marked(x);
+    content = content.replaceAll("[!IMPORTANT]", `<span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">IMPORTANT</span>`);
+    content = content.replaceAll("[!NOTE]", `<span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">NOTE</span>`);
+    content = content.replaceAll("[!WARNING]", `<span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">WARNING</span>`);
+    content = content.replaceAll("[!CAUTION]", `<span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">CAUTION</span>`);
+    return content;
+  }
 
   const compressedRepo: Repo = {
     contentIsCorrect: true,
     name: repository.name,
     full_name: repository.full_name,
-    readme_content: readmeContent.ext === "md" ? await marked(readmeContent.content) : `<pre style="padding: 0 !important; border: 0 !important;">${readmeContent.content}</pre>`,
+    readme_content: readmeContent.ext === "md" ? await convert2markdown(readmeContent.content) : `<pre style="padding: 0 !important; border: 0 !important;">${readmeContent.content}</pre>`,
     created_at: repository.created_at,
     description: repository.description,
     tags_url: repository.tags_url,
