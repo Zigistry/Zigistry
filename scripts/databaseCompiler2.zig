@@ -31,6 +31,7 @@ const urls = [_][]const u8{
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:1&page=1&per_page=100",
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:1&page=2&per_page=100",
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:1&page=3&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:1&page=4&per_page=100",
 
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:2&page=1&per_page=100",
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:2&page=2&per_page=100",
