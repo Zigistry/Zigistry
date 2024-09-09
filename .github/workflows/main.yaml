@@ -16,26 +16,26 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
       - uses: mlugg/setup-zig@v1
-      # - name: Update main.json
-      #   run: zig build run_databaseCompiler > ./database/main.json
-      # - name: Update projects.json
-      #   run: zig build run_databaseCompiler2 > ./database/programs.json
-      # # - name: Update codebergPrograms.json
-      # #   run: zig build run_codeberg > ./database/codebergPrograms.json
-      # - name: Compress web.json
-      #   run: zig build run_repoListCompressor -- web > ./database/web.json
-      # - name: Compress gui.json
-      #   run: zig build run_repoListCompressor -- gui > ./database/gui.json
-      # - name: Compress games.json
-      #   run: zig build run_repoListCompressor -- games > ./database/games.json
-      # - name: Config email
-      #   run: git config --global user.name "Github Actions" && git config --global user.email "<>"
-      # - name: Git add
-      #   run: git add .
-      # - name: Commit images
-      #   run: git commit -m 'Updated database'
-      # - name: Push changes
-      #   run: git push
+      - name: Update main.json
+        run: zig build run_databaseCompiler > ./database/main.json
+      - name: Update projects.json
+        run: zig build run_databaseCompiler2 > ./database/programs.json
+      # - name: Update codebergPrograms.json
+      #   run: zig build run_codeberg > ./database/codebergPrograms.json
+      - name: Compress web.json
+        run: zig build run_repoListCompressor -- web > ./database/web.json
+      - name: Compress gui.json
+        run: zig build run_repoListCompressor -- gui > ./database/gui.json
+      - name: Compress games.json
+        run: zig build run_repoListCompressor -- games > ./database/games.json
+      - name: Config email
+        run: git config --global user.name "Github Actions" && git config --global user.email "<>"
+      - name: Git add
+        run: git add .
+      - name: Commit images
+        run: git commit -m 'Updated database'
+      - name: Push changes
+        run: git push
       - name: Build website
         run: npm i && npm run build
       - name: Deploy to Netlify
