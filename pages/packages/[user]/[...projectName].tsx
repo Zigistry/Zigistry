@@ -34,7 +34,8 @@ import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { BsInfoSquareFill } from 'react-icons/bs';
 import { Clipboard } from "flowbite-react"
-import { highlight, numberAsLetters, zon2json } from '@/backend/helperFunctions';
+import { highlightCode, numberAsLetters } from '@/backend/helperFunctions';
+import {zon2json} from "z2j";
 
 // =========================================================================
 //       Exports show library page "/packages/[user]/[projectName]"
@@ -44,7 +45,7 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
     <>
       {compressedRepo.contentIsCorrect ? (
         <>
-          <div className='flex justify-center items-center' onLoad={highlight}>
+          <div className='flex justify-center items-center' onLoad={highlightCode}>
             <Card className="w-72 my-5 transition-transform transform-cpu">
               <Image width="50" height="50" className="w-10 rounded-full" src={compressedRepo.avatar_url} alt={compressedRepo.name} />
               <h5 className="text-2xl font-bold text-gray-900 dark:text-white">
