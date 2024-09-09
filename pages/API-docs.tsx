@@ -2,9 +2,9 @@ export default function apiDocs() {
     return (
         <div className="readme">
             <div className="readmeDiv">
-                <h1>Zigistry's API</h1>
+                <h1>Zigistry&apos;s API</h1>
 
-                You can now start using Zigistry's api as follows:
+                You can now start using Zigistry&apos;s api as follows:
 
                 <h3>For Packages:</h3>
 
