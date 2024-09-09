@@ -25,17 +25,12 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Repo, { placeHolderRepoType } from "@/types/customTypes";
 import { FaStar } from "react-icons/fa";
 import { IoMdFastforward } from "react-icons/io";
-import { IoLogoGameControllerB } from "react-icons/io";
 import { SlGlobe } from "react-icons/sl";
-import { IoIosApps } from "react-icons/io";
 import { useEffect, useState } from "react";
 
 // -------- Json ---------
 import maindb from "@/database/programs.json";
 import bergdb from "@/database/codebergPrograms.json";
-import gamingItems from "@/database/games.json";
-import webItems from "@/database/web.json";
-import guiItems from "@/database/gui.json";
 
 // =============================
 //       Exports "/search"

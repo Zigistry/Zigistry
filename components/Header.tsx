@@ -48,7 +48,7 @@ export default function Header(): JSX.Element {
         <NavbarLink as={Link} href="/" active>Packages</NavbarLink>
         <NavbarLink as={Link} href="/programs" active>Programs</NavbarLink>
         <NavbarLink as={Link} href="/statistics" active>Statistics</NavbarLink>
-        <NavbarLink as={Link} href="/blog" active>Blog</NavbarLink>
+        <NavbarLink as={Link} href="/apps" active>Apps</NavbarLink>
         <NavbarLink as={Link} href="/API-docs" active>API</NavbarLink>
         <NavbarLink as={Link} href="/about" active>About</NavbarLink>
         <NavbarLink as={Link} href="/help" active>Help</NavbarLink>

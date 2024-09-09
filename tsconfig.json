@@ -32,7 +32,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "pages/apps/zilite-highlighter.mdx"  ],
   "exclude": [
     "node_modules"
   ]
