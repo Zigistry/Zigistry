@@ -19,7 +19,7 @@ export default function apps() {
     <div className="min-h-screen">
       <div className="flex justify-center py-5 px-5 w-full">
         <div className="block">
-          <h1 className="text-4xl mb-2">Zigistry's Apps and Programs</h1>
+          <h1 className="text-4xl mb-2">Zigistry&apos;s Apps and Programs</h1>
           <p className="text-center">Use various apps and programs built by Zigistry.</p>
         </div>
       </div>
