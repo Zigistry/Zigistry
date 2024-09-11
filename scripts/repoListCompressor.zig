@@ -14,9 +14,15 @@
 //! $ zig build run_repoListCompressor -- games > ./database/games.json
 //!=======================================================================
 
-// ---------- Imports ------------
+// =======================
+//         Imports
+// =======================
 const std = @import("std");
 const helperFunctions = @import("helperFunctions");
+
+// =======================
+//        Constants
+// =======================
 
 // ---------- Please Update if needed -----------
 const topic_urls = [3][5][]const u8{
@@ -46,6 +52,9 @@ const topic_urls = [3][5][]const u8{
     },
 };
 
+// =======================
+//          Main
+// =======================
 pub fn main() !void {
     var args = std.process.args();
     _ = args.skip();
@@ -54,7 +63,7 @@ pub fn main() !void {
     var raw_json_data = std.ArrayList(u8).init(helperFunctions.globalAllocator);
     defer raw_json_data.deinit();
     const selection: u8 =
-    if (std.mem.eql(u8, "games", fileName))
+        if (std.mem.eql(u8, "games", fileName))
         0
     else if (std.mem.eql(u8, "web", fileName))
         1

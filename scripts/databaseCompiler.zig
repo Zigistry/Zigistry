@@ -12,11 +12,15 @@
 //! $ zig build run_databaseCompiler > ./database/main.json
 //!==================================================================
 
-// ---------- Imports ------------
+// =======================
+//         Imports
+// =======================
 const std = @import("std");
 const helperFunctions = @import("helperFunctions");
 
-// --------- Constants -----------
+// =======================
+//        Constants
+// =======================
 const urls = [_][]const u8{
     // Increment these whenever repositories having zig-package reach the next 100.
     "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=1&per_page=100",
@@ -26,6 +30,9 @@ const urls = [_][]const u8{
     "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=5&per_page=100",
 };
 
+// =======================
+//          Main
+// =======================
 pub fn main() !void {
     // -------- Start the json file -------------
     helperFunctions.print("[", .{});

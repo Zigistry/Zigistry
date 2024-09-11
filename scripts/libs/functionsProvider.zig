@@ -8,10 +8,14 @@
 //! and repoListCompressor.zig.
 //!==============================================
 
-// =-=-=-=-= Imports =-=-=-=-=
+// ==========================
+//          Imports
+// ==========================
 const std = @import("std");
 
-// =-=-=-=-= Constants =-=-=-=-=
+// ==========================
+//         Constants
+// ==========================
 pub const writer = std.io.getStdOut().writer();
 pub const fileFunctions = std.fs.cwd();
 pub const globalAllocator = std.heap.page_allocator;
@@ -19,7 +23,9 @@ const excludedRepositoriesLists = [_][]const u8{
     "zigcc/awesome-zig",
 };
 
-// =-=-=-=-= Functions =-=-=-=-=
+// ==========================
+//         Functions
+// ==========================
 
 // -------- Prints to stdout --------
 pub fn print(comptime format: []const u8, args: anytype) void {
@@ -77,6 +83,7 @@ pub fn contains(listOfStrings: []const []const u8, string: []const u8) bool {
     return false;
 }
 
+// ------- Concatenate --------
 pub fn concatenate(x: []const u8, y: []const u8, z: []const u8) ![]const u8 {
     var buffer = std.ArrayList(u8).init(std.heap.page_allocator);
     for (x) |char| {
@@ -89,12 +96,6 @@ pub fn concatenate(x: []const u8, y: []const u8, z: []const u8) ![]const u8 {
         try buffer.append(char);
     }
     return try buffer.toOwnedSlice();
-}
-
-pub fn zon2json(input: []const u8) ![]const u8 {
-    std.mem.replaceScalar(u8, input, '"', '`');
-    std.mem.replaceScalar(u8, input, '.', '"');
-    std.mem.replaceScalar(u8, input, '`', '"');
 }
 
 // ---- Prints selected fields in json ----
@@ -135,7 +136,7 @@ pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void
         } else {
             printJsonInt("has_build_zig", 1, true);
         }
-        if(item.object.get("archived").?.bool){
+        if (item.object.get("archived").?.bool) {
             printJsonBool("archived", true, true);
         }
         printJsonBool("fork", item.object.get("fork").?.bool, true);
@@ -167,7 +168,7 @@ pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void
     }
 }
 
-// ---- Fetch data: returns result as string (returns "" if error) ----
+// ---- Fetch data: returns result as string (returns "" if error), uses headers ----
 pub fn fetch(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
     var charBuffer = std.ArrayList(u8).init(allocator);
     defer charBuffer.deinit();
@@ -185,6 +186,7 @@ pub fn fetch(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
     return try charBuffer.toOwnedSlice();
 }
 
+// ---- Fetch Without headers ----
 pub fn fetchNormal(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
     var charBuffer = std.ArrayList(u8).init(allocator);
     defer charBuffer.deinit();

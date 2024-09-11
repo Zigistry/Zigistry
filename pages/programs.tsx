@@ -1,11 +1,11 @@
 //!===============================================================
-//!                       Index Page "/" 
+//!                  Programs Page "/programs"
 //!===============================================================
 //!	Author  : Rohan Vashisht
-//! License : Please check license file
-//! Details : This is the index page that will be shown on the "/"
-//! route. The default view is the top 10 latest and the top 20 
-//! most used repositories.
+//! License : Please check license file.
+//! Details : This is the programs page that will be shown on the
+//! "/programs" route. The default view is the top 10 latest and
+//! top 20 most used with infinite scroll.
 //!===============================================================
 
 // ===================
@@ -13,11 +13,7 @@
 // ===================
 
 // ------- Components ---------
-import {
-  Select,
-  TextInput,
-  Tooltip,
-} from "flowbite-react";
+import { Select, TextInput, Tooltip } from "flowbite-react";
 import CustomCardProjects from "@/components/CustomCardProjects";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -33,27 +29,27 @@ import maindb from "@/database/programs.json";
 import bergdb from "@/database/codebergPrograms.json";
 
 // =============================
-//       Exports "/search"
+//       Exports "/programs"
 // =============================
-export default function Projects(
-  props: {
-    mostUsed: Repo[];
-    top10LatestRepos: Repo[];
-  },
-) {
-  const [infiniteScrollItems, setInfiniteScrollItems] = useState([placeHolderRepoType]);
+export default function Programs(props: {
+  mostUsed: Repo[];
+  top10LatestRepos: Repo[];
+}) {
+  const [infiniteScrollItems, setInfiniteScrollItems] = useState([
+    placeHolderRepoType,
+  ]);
   const [hasMore, setHasMore] = useState(true);
   const [infiniteScrollIndex, setIndex] = useState(3);
 
   useEffect(() => {
-    fetch("/api/infiniteScrollProjects?pageNumber=2")
+    fetch("/api/infiniteScrollPrograms?pageNumber=2")
       .then((res) => res.json())
       .then((data) => setInfiniteScrollItems(data))
       .catch((err) => console.log(err));
   }, []);
 
   const fetchMoreData = () => {
-    fetch(`/api/infiniteScrollProjects?pageNumber=${infiniteScrollIndex}`)
+    fetch(`/api/infiniteScrollPrograms?pageNumber=${infiniteScrollIndex}`)
       .then((res) => res.json())
       .then((data) => {
         setInfiniteScrollItems((prevItems) => [...prevItems, ...data]);
@@ -64,7 +60,9 @@ export default function Projects(
 
     setIndex((prevIndex) => prevIndex + 1);
   };
-  const [searchResultsData, setSearchResultsData] = useState([placeHolderRepoType]);
+  const [searchResultsData, setSearchResultsData] = useState([
+    placeHolderRepoType,
+  ]);
   const [showDefaultIndexPage, setShowDefaultIndexPage] = useState(true);
   const [searchTextboxInputValue, setSearchTextboxInputValue] = useState("");
   // ------- prevent user ddos --------
@@ -79,10 +77,15 @@ export default function Projects(
       setDataInTextboxChanged(false);
       var response;
       if (val.value === "No Filter") {
-        response = await fetch("/api/searchPrograms?q=" + searchTextboxInputValue);
+        response = await fetch(
+          "/api/searchPrograms?q=" + searchTextboxInputValue,
+        );
       } else {
         response = await fetch(
-          "/api/searchPrograms?q=" + searchTextboxInputValue + "&filter=" + val.value,
+          "/api/searchPrograms?q=" +
+            searchTextboxInputValue +
+            "&filter=" +
+            val.value,
         );
       }
       const result: Repo[] = await response.json();
@@ -103,14 +106,12 @@ export default function Projects(
     if (val.value == "No Filter") {
       setShowDefaultIndexPage(true);
     } else {
-      const response = await fetch(
-        "/api/searchPrograms?filter=" + val.value,
-      );
+      const response = await fetch("/api/searchPrograms?filter=" + val.value);
       const result: Repo[] = await response.json();
       setShowDefaultIndexPage(false);
       setSearchResultsData(result);
     }
-  }
+  };
 
   function handleOnChage(z: string) {
     setDataInTextboxChanged(true);
@@ -146,89 +147,84 @@ export default function Projects(
             className="w-72 mb-5 ml-2"
             autoFocus
           />
-
         </div>
       </div>
-      {showDefaultIndexPage
-        ? (
-          <>
-            <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
-              <IoMdFastforward size={25} />
-              &nbsp;Recently released:
-            </h1>
-            <section className="w-full flex flex-wrap justify-evenly">
-              {props.top10LatestRepos.map((
-                item: Repo,
-                index: number,
-              ) => <CustomCardProjects key={index} item={item} />)}
-            </section>
-            <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
-              <FaStar size={25} />
-              &nbsp;Most used:
-            </h1>
-            <section className="w-full flex flex-wrap justify-evenly">
-              {props.mostUsed.map((
-                item: Repo,
-                index: number,
-              ) => <CustomCardProjects key={index} item={item} />)}
-            </section>
-            <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
-              <SlGlobe size={25} />
-              &nbsp;View more:
-            </h1>
-
-            <InfiniteScroll
-              dataLength={infiniteScrollItems.length}
-              next={fetchMoreData}
-              hasMore={hasMore}
-              loader={undefined}
-            >
-              <section className="w-full flex flex-wrap justify-evenly">
-                {infiniteScrollItems
-                  ? (
-                    infiniteScrollItems.map((
-                      item: Repo,
-                      index: number,
-                    ) => <CustomCardProjects key={index} item={item} />)
-                  )
-                  : <p>Loading...</p>}
-              </section>
-            </InfiniteScroll>
-
-          </>
-        )
-        : (
+      {showDefaultIndexPage ? (
+        <>
+          <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+            <IoMdFastforward size={25} />
+            &nbsp;Recently released:
+          </h1>
           <section className="w-full flex flex-wrap justify-evenly">
-            {searchResultsData.length
-              ? (
-                searchResultsData.map((item: any, index: any) => (
+            {props.top10LatestRepos.map((item: Repo, index: number) => (
+              <CustomCardProjects key={index} item={item} />
+            ))}
+          </section>
+          <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+            <FaStar size={25} />
+            &nbsp;Most used:
+          </h1>
+          <section className="w-full flex flex-wrap justify-evenly">
+            {props.mostUsed.map((item: Repo, index: number) => (
+              <CustomCardProjects key={index} item={item} />
+            ))}
+          </section>
+          <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+            <SlGlobe size={25} />
+            &nbsp;View more:
+          </h1>
+
+          <InfiniteScroll
+            dataLength={infiniteScrollItems.length}
+            next={fetchMoreData}
+            hasMore={hasMore}
+            loader={undefined}
+          >
+            <section className="w-full flex flex-wrap justify-evenly">
+              {infiniteScrollItems ? (
+                infiniteScrollItems.map((item: Repo, index: number) => (
                   <CustomCardProjects key={index} item={item} />
                 ))
-              )
-              : <h1>Can&apos;t find what you are looking for</h1>}
-          </section>
-        )
-      }
+              ) : (
+                <p>Loading...</p>
+              )}
+            </section>
+          </InfiniteScroll>
+        </>
+      ) : (
+        <section className="w-full flex flex-wrap justify-evenly">
+          {searchResultsData.length ? (
+            searchResultsData.map((item: any, index: any) => (
+              <CustomCardProjects key={index} item={item} />
+            ))
+          ) : (
+            <h1>Can&apos;t find what you are looking for</h1>
+          )}
+        </section>
+      )}
     </>
   );
 }
 
-
 const items = [...bergdb, ...maindb];
 
 // =======================================================
-//       Exports getStaticProps for the Index page.
+//      Exports getStaticProps for the Programs page.
 // =======================================================
 export async function getStaticProps() {
   // --------- Most used Repos -----------
-  const mostUsed = items.slice().sort((a, b) =>
-    b.stargazers_count - a.stargazers_count
-  ).slice(0, 10);
+  const mostUsed = items
+    .slice()
+    .sort((a, b) => b.stargazers_count - a.stargazers_count)
+    .slice(0, 10);
 
   // -------- Sort latest repos ----------
-  const sortedRepos = items.slice().sort((a, b) =>
-    new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-  );
+  const sortedRepos = items
+    .slice()
+    .sort(
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+    );
 
   // ----------- Latest Repos ------------
   const top10LatestRepos = sortedRepos.slice(0, 10);

@@ -1,11 +1,12 @@
 //!===============================================================
-//!                       Index Page "/" 
+//!                       Index Page "/"
 //!===============================================================
 //!	Author  : Rohan Vashisht
 //! License : Please check license file
 //! Details : This is the index page that will be shown on the "/"
-//! route. The default view is the top 10 latest and the top 20 
-//! most used repositories.
+//! route. The default view is the top 10 latest the top 20
+//! most used repositories, infinite scroll and featured game libs,
+//! web development libs and GUI libs.
 //!===============================================================
 
 // ===================
@@ -13,11 +14,7 @@
 // ===================
 
 // ------- Components ---------
-import {
-  Select,
-  TextInput,
-  Tooltip,
-} from "flowbite-react";
+import { Select, TextInput, Tooltip } from "flowbite-react";
 import CustomCard from "@/components/CustomCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -37,27 +34,27 @@ import webItems from "@/database/web.json";
 import guiItems from "@/database/gui.json";
 
 // =============================
-//       Exports "/search"
+//          Exports "/"
 // =============================
-export default function Home(
-  props: {
-    mostUsed: Repo[];
-    top10LatestRepos: Repo[];
-  },
-) {
-  const [infiniteScrollItems, setInfiniteScrollItems] = useState([placeHolderRepoType]);
+export default function Home(props: {
+  mostUsed: Repo[];
+  top10LatestRepos: Repo[];
+}) {
+  const [infiniteScrollItems, setInfiniteScrollItems] = useState([
+    placeHolderRepoType,
+  ]);
   const [hasMore, setHasMore] = useState(true);
   const [infiniteScrollIndex, setIndex] = useState(3);
 
   useEffect(() => {
-    fetch("/api/infiniteScroll?pageNumber=2")
+    fetch("/api/infiniteScrollPackages?pageNumber=2")
       .then((res) => res.json())
       .then((data) => setInfiniteScrollItems(data))
       .catch((err) => console.log(err));
   }, []);
 
   const fetchMoreData = () => {
-    fetch(`/api/infiniteScroll?pageNumber=${infiniteScrollIndex}`)
+    fetch(`/api/infiniteScrollPackages?pageNumber=${infiniteScrollIndex}`)
       .then((res) => res.json())
       .then((data) => {
         setInfiniteScrollItems((prevItems) => [...prevItems, ...data]);
@@ -68,7 +65,9 @@ export default function Home(
 
     setIndex((prevIndex) => prevIndex + 1);
   };
-  const [searchResultsData, setSearchResultsData] = useState([placeHolderRepoType]);
+  const [searchResultsData, setSearchResultsData] = useState([
+    placeHolderRepoType,
+  ]);
   const [showDefaultIndexPage, setShowDefaultIndexPage] = useState(true);
   const [searchTextboxInputValue, setSearchTextboxInputValue] = useState("");
   // ------- prevent user ddos --------
@@ -83,10 +82,15 @@ export default function Home(
       setDataInTextboxChanged(false);
       var response;
       if (val.value === "No Filter") {
-        response = await fetch("/api/search?q=" + searchTextboxInputValue);
+        response = await fetch(
+          "/api/searchPackages?q=" + searchTextboxInputValue,
+        );
       } else {
         response = await fetch(
-          "/api/search?q=" + searchTextboxInputValue + "&filter=" + val.value,
+          "/api/searchPackages?q=" +
+            searchTextboxInputValue +
+            "&filter=" +
+            val.value,
         );
       }
       const result: Repo[] = await response.json();
@@ -107,14 +111,12 @@ export default function Home(
     if (val.value == "No Filter") {
       setShowDefaultIndexPage(true);
     } else {
-      const response = await fetch(
-        "/api/search?filter=" + val.value,
-      );
+      const response = await fetch("/api/searchPackages?filter=" + val.value);
       const result: Repo[] = await response.json();
       setShowDefaultIndexPage(false);
       setSearchResultsData(result);
     }
-  }
+  };
 
   function handleOnChage(z: string) {
     setDataInTextboxChanged(true);
@@ -150,104 +152,91 @@ export default function Home(
             className="w-72 mb-5 ml-2"
             autoFocus
           />
-
         </div>
       </div>
-      {showDefaultIndexPage
-        ? (
-          <>
-            <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
-              <IoMdFastforward size={25} />
-              &nbsp;Recently released:
-            </h1>
-            <section className="w-full flex flex-wrap justify-evenly">
-              {props.top10LatestRepos.map((
-                item: Repo,
-                index: number,
-              ) => <CustomCard key={index} item={item} />)}
-            </section>
-            <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
-              <FaStar size={25} />
-              &nbsp;Most used:
-            </h1>
-            <section className="w-full flex flex-wrap justify-evenly">
-              {props.mostUsed.map((
-                item: Repo,
-                index: number,
-              ) => <CustomCard key={index} item={item} />)}
-            </section>
-            <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
-              <IoLogoGameControllerB size={25} />
-              &nbsp;Famous Game libs:
-            </h1>
-            <section className="w-full flex flex-wrap justify-evenly">
-              {gamingItems.map((
-                item: Repo,
-                index: number,
-              ) => <CustomCard key={index} item={item} />)}
-            </section>
-            <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
-              <IoIosApps size={25} />
-              &nbsp;Famous GUI libs:
-            </h1>
-            <section className="w-full flex flex-wrap justify-evenly">
-              {guiItems.map((
-                item: Repo,
-                index: number,
-              ) => <CustomCard key={index} item={item} />)}
-            </section>
-            <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
-              <SlGlobe size={25} />
-              &nbsp;Famous Web libs:
-            </h1>
-            <section className="w-full flex flex-wrap justify-evenly">
-              {webItems.map((
-                item: Repo,
-                index: number,
-              ) => <CustomCard key={index} item={item} />)}
-            </section>
-            <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
-              <SlGlobe size={25} />
-              &nbsp;View more:
-            </h1>
-
-            <InfiniteScroll
-              dataLength={infiniteScrollItems.length}
-              next={fetchMoreData}
-              hasMore={hasMore}
-              loader={undefined}
-            >
-              <section className="w-full flex flex-wrap justify-evenly">
-                {infiniteScrollItems
-                  ? (
-                    infiniteScrollItems.map((
-                      item: Repo,
-                      index: number,
-                    ) => <CustomCard key={index} item={item} />)
-                  )
-                  : <p>Loading...</p>}
-              </section>
-            </InfiniteScroll>
-
-          </>
-        )
-        : (
+      {showDefaultIndexPage ? (
+        <>
+          <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+            <IoMdFastforward size={25} />
+            &nbsp;Recently released:
+          </h1>
           <section className="w-full flex flex-wrap justify-evenly">
-            {searchResultsData.length
-              ? (
-                searchResultsData.map((item: any, index: any) => (
+            {props.top10LatestRepos.map((item: Repo, index: number) => (
+              <CustomCard key={index} item={item} />
+            ))}
+          </section>
+          <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+            <FaStar size={25} />
+            &nbsp;Most used:
+          </h1>
+          <section className="w-full flex flex-wrap justify-evenly">
+            {props.mostUsed.map((item: Repo, index: number) => (
+              <CustomCard key={index} item={item} />
+            ))}
+          </section>
+          <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+            <IoLogoGameControllerB size={25} />
+            &nbsp;Famous Game libs:
+          </h1>
+          <section className="w-full flex flex-wrap justify-evenly">
+            {gamingItems.map((item: Repo, index: number) => (
+              <CustomCard key={index} item={item} />
+            ))}
+          </section>
+          <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+            <IoIosApps size={25} />
+            &nbsp;Famous GUI libs:
+          </h1>
+          <section className="w-full flex flex-wrap justify-evenly">
+            {guiItems.map((item: Repo, index: number) => (
+              <CustomCard key={index} item={item} />
+            ))}
+          </section>
+          <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+            <SlGlobe size={25} />
+            &nbsp;Famous Web libs:
+          </h1>
+          <section className="w-full flex flex-wrap justify-evenly">
+            {webItems.map((item: Repo, index: number) => (
+              <CustomCard key={index} item={item} />
+            ))}
+          </section>
+          <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
+            <SlGlobe size={25} />
+            &nbsp;View more:
+          </h1>
+
+          <InfiniteScroll
+            dataLength={infiniteScrollItems.length}
+            next={fetchMoreData}
+            hasMore={hasMore}
+            loader={undefined}
+          >
+            <section className="w-full flex flex-wrap justify-evenly">
+              {infiniteScrollItems ? (
+                infiniteScrollItems.map((item: Repo, index: number) => (
                   <CustomCard key={index} item={item} />
                 ))
-              )
-              : <h1>Can&apos;t find what you are looking for</h1>}
-          </section>
-        )
-      }
+              ) : (
+                <p>Loading...</p>
+              )}
+            </section>
+          </InfiniteScroll>
+        </>
+      ) : (
+        <section className="w-full flex flex-wrap justify-evenly">
+          {searchResultsData.length ? (
+            searchResultsData.map((item: any, index: any) => (
+              <CustomCard key={index} item={item} />
+            ))
+          ) : (
+            <h1>Can&apos;t find what you are looking for</h1>
+          )}
+        </section>
+      )}
     </>
   );
 }
-
-
 
 // =======================================================
 //       Exports getStaticProps for the Index page.
@@ -257,9 +246,12 @@ export async function getStaticProps() {
   const mostUsed = items.slice(0, 10);
 
   // -------- Sort latest repos ----------
-  const sortedRepos = items.slice().sort((a, b) =>
-    new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-  );
+  const sortedRepos = items
+    .slice()
+    .sort(
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+    );
 
   // ----------- Latest Repos ------------
   const top10LatestRepos = sortedRepos.slice(0, 10);

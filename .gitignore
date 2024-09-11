@@ -41,3 +41,4 @@ bun.lockb
 
 # js
 package-lock.json
+dist/

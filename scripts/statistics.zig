@@ -19,8 +19,14 @@
 //! $ rm -rf ./scripts/main.json
 //!==============================================
 
-// ---------- Imports ------------
+// =======================
+//         Imports
+// =======================
 const std = @import("std");
+
+// =======================
+//        Constants
+// =======================
 const allocator = std.heap.page_allocator;
 const writer = std.io.getStdOut().writer();
 
