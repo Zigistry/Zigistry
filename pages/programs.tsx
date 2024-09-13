@@ -14,7 +14,7 @@
 
 // ------- Components ---------
 import { Select, TextInput, Tooltip } from "flowbite-react";
-import CustomCardProjects from "@/components/CustomCardProjects";
+import CustomCard from "@/components/CustomCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 // ------- Functions ----------
@@ -157,7 +157,7 @@ export default function Programs(props: {
           </h1>
           <section className="w-full flex flex-wrap justify-evenly">
             {props.top10LatestRepos.map((item: Repo, index: number) => (
-              <CustomCardProjects key={index} item={item} />
+              <CustomCard program={true} key={index} item={item} />
             ))}
           </section>
           <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
@@ -166,7 +166,7 @@ export default function Programs(props: {
           </h1>
           <section className="w-full flex flex-wrap justify-evenly">
             {props.mostUsed.map((item: Repo, index: number) => (
-              <CustomCardProjects key={index} item={item} />
+              <CustomCard program={true} key={index} item={item} />
             ))}
           </section>
           <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
@@ -183,7 +183,7 @@ export default function Programs(props: {
             <section className="w-full flex flex-wrap justify-evenly">
               {infiniteScrollItems ? (
                 infiniteScrollItems.map((item: Repo, index: number) => (
-                  <CustomCardProjects key={index} item={item} />
+                  <CustomCard program={true} key={index} item={item} />
                 ))
               ) : (
                 <p>Loading...</p>
@@ -195,7 +195,7 @@ export default function Programs(props: {
         <section className="w-full flex flex-wrap justify-evenly">
           {searchResultsData.length ? (
             searchResultsData.map((item: any, index: any) => (
-              <CustomCardProjects key={index} item={item} />
+              <CustomCard program={true} key={index} item={item} />
             ))
           ) : (
             <h1>Can&apos;t find what you are looking for</h1>

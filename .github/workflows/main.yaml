@@ -1,3 +1,12 @@
+#!===============================================================
+#!           Zigistry's main GitHub workflows file
+#!===============================================================
+#! Author  : Rohan Vashisht
+#! License : Please check license file
+#! Details : This workflows file is responsible to update the
+#! database i.e the json files automatically. This also builds
+#! the website and deploys it on Netlify.
+#!===============================================================
 name: Update database
 
 on:
@@ -10,7 +19,9 @@ on:
 jobs:
   Update_json:
     env:
-        API_AUTH_TOKEN: ${{ secrets.API_TOKEN }}
+      # API token used by scripts/libs/functionsProvider.zig for better
+      # performance while fetching data from GitHub's API.
+      API_AUTH_TOKEN: ${{ secrets.API_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,8 +31,6 @@ jobs:
         run: zig build run_databaseCompiler > ./database/main.json
       - name: Update projects.json
         run: zig build run_databaseCompiler2 > ./database/programs.json
-      # - name: Update codebergPrograms.json
-      #   run: zig build run_codeberg > ./database/codebergPrograms.json
       - name: Compress web.json
         run: zig build run_repoListCompressor -- web > ./database/web.json
       - name: Compress gui.json
@@ -32,7 +41,7 @@ jobs:
         run: git config --global user.name "Github Actions" && git config --global user.email "<>"
       - name: Git add
         run: git add .
-      - name: Commit images
+      - name: Commit database
         run: git commit -m 'Updated database'
       - name: Push changes
         run: git push
@@ -41,7 +50,7 @@ jobs:
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
         with:
-          publish-dir: './dist'
+          publish-dir: "./dist"
           production-branch: master
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"

@@ -1,6 +1,27 @@
+//!===============================================================
+//!  Provide details of "/" as api: "/api/indexDetailsPackages"
+//!===============================================================
+//!	Author  : Rohan Vashisht
+//! License : Please check license file
+//! Details : This api is used to get the details available on
+//! the "/" route. (This API is not used by Zigistry, but only
+//! for other users/applications).
+//!===============================================================
+
+// ===================
+//       Imports
+// ===================
+
+// ----------- Types -----------
 import Repo from "@/types/customTypes";
 import type { NextApiRequest, NextApiResponse } from "next";
+
+// ----------- Database -----------
 import databaseMain from "@/database/main.json";
+
+// =========================================
+//    Exports "/api/indexDetailsPackages"
+// =========================================
 export default async function indexDetails(
   req: NextApiRequest,
   res: NextApiResponse<Repo[]>,

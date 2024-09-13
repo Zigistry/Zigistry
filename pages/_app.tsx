@@ -18,6 +18,7 @@ import Layout from "@/components/layout";
 
 // --------- Styles -----------
 import "@/styles/globals.css";
+import "zilite/dist/darkMode.css";
 
 // ========================================
 //       Exports custom app component

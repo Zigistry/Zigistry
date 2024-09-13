@@ -104,7 +104,7 @@ export default function Home(props: {
       setShowDefaultIndexPage(false);
     }
   };
-  const okf = async (event: any) => {
+  const searchfetchWhenDropDownChanged = async (event: any) => {
     const val: HTMLSelectElement = document.getElementById(
       "dropDownID",
     ) as HTMLSelectElement;
@@ -134,7 +134,11 @@ export default function Home(props: {
         </h1>
         <div className="flex">
           <Tooltip content="Search by filtering github topics">
-            <Select onChange={okf} id="dropDownID" required={false}>
+            <Select
+              onChange={searchfetchWhenDropDownChanged}
+              id="dropDownID"
+              required={false}
+            >
               <option>No Filter</option>
               <option>api</option>
               <option>http</option>
@@ -162,7 +166,7 @@ export default function Home(props: {
           </h1>
           <section className="w-full flex flex-wrap justify-evenly">
             {props.top10LatestRepos.map((item: Repo, index: number) => (
-              <CustomCard key={index} item={item} />
+              <CustomCard program={false} key={index} item={item} />
             ))}
           </section>
           <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
@@ -171,7 +175,7 @@ export default function Home(props: {
           </h1>
           <section className="w-full flex flex-wrap justify-evenly">
             {props.mostUsed.map((item: Repo, index: number) => (
-              <CustomCard key={index} item={item} />
+              <CustomCard program={false} key={index} item={item} />
             ))}
           </section>
           <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
@@ -180,7 +184,7 @@ export default function Home(props: {
           </h1>
           <section className="w-full flex flex-wrap justify-evenly">
             {gamingItems.map((item: Repo, index: number) => (
-              <CustomCard key={index} item={item} />
+              <CustomCard program={false} key={index} item={item} />
             ))}
           </section>
           <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
@@ -189,7 +193,7 @@ export default function Home(props: {
           </h1>
           <section className="w-full flex flex-wrap justify-evenly">
             {guiItems.map((item: Repo, index: number) => (
-              <CustomCard key={index} item={item} />
+              <CustomCard program={false} key={index} item={item} />
             ))}
           </section>
           <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
@@ -198,7 +202,7 @@ export default function Home(props: {
           </h1>
           <section className="w-full flex flex-wrap justify-evenly">
             {webItems.map((item: Repo, index: number) => (
-              <CustomCard key={index} item={item} />
+              <CustomCard program={false} key={index} item={item} />
             ))}
           </section>
           <h1 className="text-left font-semibold text-2xl my-5 ml-10 w-fit border-2 border-slate-400 flex items-center p-4 rounded">
@@ -215,7 +219,7 @@ export default function Home(props: {
             <section className="w-full flex flex-wrap justify-evenly">
               {infiniteScrollItems ? (
                 infiniteScrollItems.map((item: Repo, index: number) => (
-                  <CustomCard key={index} item={item} />
+                  <CustomCard program={false} key={index} item={item} />
                 ))
               ) : (
                 <p>Loading...</p>
@@ -227,7 +231,7 @@ export default function Home(props: {
         <section className="w-full flex flex-wrap justify-evenly">
           {searchResultsData.length ? (
             searchResultsData.map((item: any, index: any) => (
-              <CustomCard key={index} item={item} />
+              <CustomCard program={false} key={index} item={item} />
             ))
           ) : (
             <h1>Can&apos;t find what you are looking for</h1>

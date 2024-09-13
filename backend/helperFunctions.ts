@@ -30,6 +30,6 @@ export function numberAsLetters(i: number): string {
 // ----- Highlight code present inside README's of each package/program ------
 export function highlightCode(): void {
   highlightElements(zig, "language-zig");
-  highlightElements(bash, "language-diff");
-  highlightElements(diff, "language-bash");
+  highlightElements(diff, "language-diff");
+  highlightElements(bash, "language-bash");
 }

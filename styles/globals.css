@@ -2,191 +2,82 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html,
 body {
-	min-height: 100vh !important;
-	/* background: rgb(31, 41, 55); */
-	/* background: linear-gradient(180deg, rgba(31, 41, 55, 1) 0%, rgba(17, 24, 39, 1) 100%); */
+    min-height: 100vh !important;
+    /* background: rgb(31, 41, 55); */
+    /* background: linear-gradient(180deg, rgba(31, 41, 55, 1) 0%, rgba(17, 24, 39, 1) 100%); */
 }
 
 :root {
-	min-height: 100vh !important;
-	background: rgb(31, 41, 55);
-}
-
-.language-zig, .language-shell, .language-zon, .language-sh  {
-	color: rgb(255, 207, 84);
-}
-
-.comment {
-	color: rgb(158, 158, 158);
-}
-
-.comment>* {
-	color: rgb(158, 158, 158) !important;
-}
-
-.comment>*>* {
-	color: rgb(158, 158, 158) !important;
-}
-
-.comment>*>*>* {
-	color: rgb(158, 158, 158) !important;
-}
-
-.comment>*>*>*>* {
-	color: rgb(158, 158, 158) !important;
-}
-
-.string {
-	color: rgb(22, 217, 22);
-}
-
-.string>* {
-	color: rgb(22, 217, 22) !important;
-}
-
-.string>*>* {
-	color: rgb(22, 217, 22) !important;
-}
-
-.string>*>*>* {
-	color: rgb(22, 217, 22) !important;
-}
-
-.string>*>*>*>* {
-	color: rgb(22, 217, 22) !important;
-}
-
-.dark_string {
-	color: rgb(9, 79, 9);
-}
-
-.dark_string>* {
-	color: rgb(9, 79, 9) !important;
-}
-
-.dark_string>*>* {
-	color: rgb(9, 79, 9) !important;
-}
-
-.dark_string>*>*>* {
-	color: rgb(9, 79, 9) !important;
-}
-
-.dark_string>*>*>*>* {
-	color: rgb(9, 79, 9) !important;
-}
-
-.char {
-	color: red;
-}
-
-.keyword2 {
-	color: rgb(255, 187, 60);
-	font-weight: bold;
-}
-
-.keyword {
-	color: rgb(255, 96, 60);
-	font-weight: bold;
-}
-
-.boolean {
-	color: darkorange;
-}
-
-.type {
-	color: rgb(57, 192, 255);
-}
-
-.number {
-	color: rgb(85, 147, 255);
-}
-
-.function {
-	color: rgb(195, 117, 255);
-}
-
-.operators {
-	color: rgb(84, 226, 226);
+    min-height: 100vh !important;
+    background: rgb(31, 41, 55);
 }
 
 .readme {
-	padding: 50px !important;
+    padding: 50px !important;
 }
 
-.readmeDiv>table {
+.readmeDiv > table {
     display: block;
     overflow-x: auto;
     white-space: nowrap; /* Prevents the table from wrapping */
 }
 
-
 @media screen and (min-width: 400px) {
-	.readme {
-		padding: 0px !important;
-	}
+    .readme {
+        padding: 0px !important;
+    }
 }
 
 .readmeDiv {
-	all: unset !important;
-	font-weight: 700;
-	overflow-x: scroll;
+    all: unset !important;
+    font-weight: 700;
+    overflow-x: scroll;
 }
 
-
-.readmeDiv>h1 {
-	font-size: 40px;
+.readmeDiv > h1 {
+    font-size: 40px;
 }
 
-.readmeDiv>h2 {
-	font-size: 35px;
+.readmeDiv > h2 {
+    font-size: 35px;
 }
 
-.readmeDiv>h3 {
-	font-size: 30px;
+.readmeDiv > h3 {
+    font-size: 30px;
 }
 
-.readmeDiv>pre {
-	padding: 20px !important;
-	overflow-x: scroll;
-	color:yellow;
-	border-radius: 10px !important;
-	border: solid #373f49 2px;
-	background-color: #2a3038;
+.readmeDiv > pre {
+    padding: 20px !important;
+    overflow-x: scroll;
+    color: yellow;
+    border-radius: 10px !important;
+    border: solid #373f49 2px;
+    background-color: #2a3038;
 }
-.readmeDiv>*>pre {
-	padding: 20px !important;
-	overflow-x: scroll;
-	color:yellow;
-	border-radius: 10px !important;
-	border: solid #373f49 2px;
-	background-color: #2a3038;
+.readmeDiv > * > pre {
+    padding: 20px !important;
+    overflow-x: scroll;
+    color: yellow;
+    border-radius: 10px !important;
+    border: solid #373f49 2px;
+    background-color: #2a3038;
 }
 
-
-.readmeDiv>p {
-	padding: 5px 5px 5px 0 !important;
+.readmeDiv > p {
+    padding: 5px 5px 5px 0 !important;
 }
 
 .readmeDiv a {
-	color: lightblue !important;
-	text-decoration: underline !important;
-	height: fit-content !important;
+    color: lightblue !important;
+    text-decoration: underline !important;
+    height: fit-content !important;
 }
 
-.readmeDiv>table,
+.readmeDiv > table,
 th,
 td {
-	border: 1px solid white !important;
-	padding: 5px !important;
-}
-
-.diff_add{
-	background-color: rgba(46, 162, 46, 0.467);
-}
-.diff_subtract{
-	background-color: rgba(162, 46, 46, 0.467);
+    border: 1px solid white !important;
+    padding: 5px !important;
 }

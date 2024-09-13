@@ -1,5 +1,5 @@
 //!============================================================
-//!                     Foooter Component   
+//!                     Foooter Component
 //!============================================================
 //!	Author  : Rohan Vashisht
 //! License : Please check license file
@@ -11,8 +11,12 @@
 // ===================
 
 // ------- Components ---------
-import { Footer, FooterCopyright, FooterLink, FooterLinkGroup } from "flowbite-react";
-
+import {
+  Footer,
+  FooterCopyright,
+  FooterLink,
+  FooterLinkGroup,
+} from "flowbite-react";
 
 // ============================================
 //       Exports default Foooter component
@@ -23,8 +27,10 @@ export default function Foooter() {
       <FooterCopyright href="/" by="Rohan Vashisht" year={2024} />
       <FooterLinkGroup>
         <FooterLink href="/about">About</FooterLink>
-        <FooterLink href="/help">Help</FooterLink>    
-        <FooterLink href="https://github.com/RohanVashisht1234/zigistry">GitHub</FooterLink>
+        <FooterLink href="/help">Help</FooterLink>
+        <FooterLink href="https://github.com/zigistry/zigistry">
+          GitHub
+        </FooterLink>
       </FooterLinkGroup>
     </Footer>
   );
