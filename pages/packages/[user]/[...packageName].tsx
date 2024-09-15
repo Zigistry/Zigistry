@@ -35,7 +35,7 @@ import { FaGithub } from "react-icons/fa";
 import { BsInfoSquareFill } from "react-icons/bs";
 import { Clipboard } from "flowbite-react";
 import { highlightCode, numberAsLetters } from "@/backend/helperFunctions";
-import { zon2json } from "z2j";
+import zon2json from "z2j";
 
 // =========================================================================
 //       Exports show library page "/packages/:user/:packageName"

@@ -19,7 +19,7 @@ import { SiCodeberg } from "react-icons/si";
 // --------- Functions ---------
 import DOMPurify from "isomorphic-dompurify";
 import { highlightCode, numberAsLetters } from "@/backend/helperFunctions";
-import { zon2json } from "z2j";
+import zon2json from "z2j";
 
 // --------- Database ---------
 import data from "@/database/programs.json";
