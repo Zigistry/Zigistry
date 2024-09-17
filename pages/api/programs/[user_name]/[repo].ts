@@ -1,11 +1,11 @@
 //!===============================================================
-//!  Package repo details API "/api/programs/:username/:reponame"
+//!  Package repo details API "/api/programs/:username/:repoName"
 //!===============================================================
 //!	Author  : Rohan Vashisht
 //! License : Please check license file
 //! Details : This API shows details for a specific repository
 //! which is a program registered on zigistry.
-//! Format : /api/programs/:username/:reponame
+//! Format : /api/programs/:username/:repoName
 //!===============================================================
 
 // ===================
