@@ -23,7 +23,7 @@
     "react-dom": "^18.3.1",
     "react-infinite-scroll-component": "^6.1.0",
     "sharp": "^0.33.5",
-    "z2j": "0.0.46",
+    "z2j": "^0.0.48",
     "zilite": "^0.0.4"
   },
   "devDependencies": {

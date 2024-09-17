@@ -3,7 +3,7 @@
 //!===============================================================
 //!	Author  : Rohan Vashisht
 //! License : Please check license file
-//! Details : This is the statistics page which displayes the
+//! Details : This is the statistics page which displays the
 //! statistics of libraries indexed by Zigistry.
 //!===============================================================
 

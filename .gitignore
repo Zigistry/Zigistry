@@ -42,3 +42,5 @@ bun.lockb
 # js
 package-lock.json
 dist/
+# Local Netlify folder
+.netlify

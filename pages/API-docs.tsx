@@ -16,7 +16,7 @@ export default function apiDocs() {
         <h1>Zigistry&apos;s API</h1>
         You can now start using Zigistry&apos;s api as follows:
         <h3>For Packages:</h3>
-        <strong>Get details for indivisual packages</strong>
+        <strong>Get details for individual packages</strong>
         <br></br>
         <a href="https://zigistry.dev/api/packages/travisstaloch/simdjzon">
           https://zigistry.dev/api/packages/travisstaloch/simdjzon
@@ -41,7 +41,7 @@ export default function apiDocs() {
         </a>
         <br></br>
         <h3>For Programs:</h3>
-        <strong>Get details for indivisual programs</strong>
+        <strong>Get details for individual programs</strong>
         <br></br>
         <a href="https://zigistry.dev/api/programs/travisstaloch/roc-cli-platform-zig">
           https://zigistry.dev/api/programs/travisstaloch/roc-cli-platform-zig
