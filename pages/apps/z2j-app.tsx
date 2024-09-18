@@ -15,13 +15,13 @@
 // ----------- Types -----------
 import zon2json from "z2j";
 import { highlight, zig } from "zilite";
-import { Clipboard, Dropdown, DropdownItem } from "flowbite-react";
+import { Clipboard } from "flowbite-react";
 import { useState } from "react";
 
 // ================================
 //      Exports "/apps/z2j-app"
 // ================================
-export default function z2j_app() {
+export default function Z2j_app() {
   function scrollActualPseudoEditorTogether() {
     var s1 = document.getElementById('pseudo_editor') as HTMLElement;
     var s2 = document.getElementById('actual_editor') as HTMLElement;
@@ -30,7 +30,8 @@ export default function z2j_app() {
     output.scrollTop = s2.scrollTop;
   }
 
-  var [outputValue, set_outputValue] = useState("");
+  const [outputValue, set_outputValue] = useState("");
+
   function hotReload() {
     var actualEditor = document.getElementById(
       "actual_editor",
