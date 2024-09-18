@@ -8,7 +8,28 @@ body {
     /* background: rgb(31, 41, 55); */
     /* background: linear-gradient(180deg, rgba(31, 41, 55, 1) 0%, rgba(17, 24, 39, 1) 100%); */
 }
+textarea {
+    border: none;
+    overflow: auto;
+    outline: none;
 
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+    resize: none;
+}
+textarea:focus {
+    border: none;
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+    resize: none;
+}
 :root {
     min-height: 100vh !important;
     background: rgb(31, 41, 55);
