@@ -27,8 +27,12 @@ import { DarkThemeToggle, Flowbite } from "flowbite-react";
 export default function Header(): JSX.Element {
   // Using as={Link} to avoid page reloading.
   function reset_text_box() {
-    var mine = document.getElementById("SearchBox") as HTMLInputElement;
-    mine.value = "";
+    try {
+      var mine = document.getElementById("SearchBox") as HTMLInputElement;
+      mine.value = "";
+    } catch {
+
+    };
   }
   return (
     <Navbar
