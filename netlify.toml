@@ -5,14 +5,14 @@
 base = "/"
 
 # The command Netlify should run to build the project
-command = "npm run build && npm run export"
+command = "npm i && npm run build"
 
 # The directory to deploy after building
 publish = "dist"
 
 # Environment variables for the build process
 [build.environment]
-NODE_VERSION = "18"
+NODE_VERSION = "20"
 NEXT_PUBLIC_ENV_VAR = "production"
 
 # Netlify plugin for Next.js to handle SSR, SSG, and static file handling
