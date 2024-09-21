@@ -17,7 +17,7 @@
 import { highlightElements, zig, bash, diff } from "zilite";
 
 // ===================
-//      Functoins
+//      Functions
 // ===================
 
 // ------ Numbers to special notations converstion. ------
