@@ -205,27 +205,27 @@ export default function Manage({ compressedRepo }: { compressedRepo: Repo }) {
 // ==================================
 //         Get Static Paths
 // ==================================
-export async function getStaticPaths() {
-  // Generate paths based on the available repositories
-  const paths = repositories.map((repo) => {
-    const [user, ...programName] = repo.full_name.split("/");
-    return {
-      params: { user, programName },
-    };
-  });
+// export async function getStaticPaths() {
+//   // Generate paths based on the available repositories
+//   const paths = repositories.map((repo) => {
+//     const [user, ...programName] = repo.full_name.split("/");
+//     return {
+//       params: { user, programName },
+//     };
+//   });
 
-  return {
-    paths,
-    fallback: "blocking", // Generate pages on-demand if not generated at build time
-  };
-}
+//   return {
+//     paths,
+//     fallback: "blocking", // Generate pages on-demand if not generated at build time
+//   };
+// }
 
 const repositories: Repo[] = [...bergdb, ...data];
 
 // ==================================
 //          Get Static Props
 // ==================================
-export async function getStaticProps({
+export async function getServerSideProps({
   params: { user, programName },
 }: {
   params: { user: string; programName: string[] };

@@ -217,24 +217,24 @@ const repositories: Repo[] = [...data, ...data_game, ...data_gui, ...data_web];
 // ==================================
 //         Get Static Paths
 // ==================================
-export async function getStaticPaths() {
-  const paths = repositories.map((repo) => {
-    const [user, ...packageName] = repo.full_name.split("/");
-    return {
-      params: { user, packageName },
-    };
-  });
+// export async function getStaticPaths() {
+//   const paths = repositories.map((repo) => {
+//     const [user, ...packageName] = repo.full_name.split("/");
+//     return {
+//       params: { user, packageName },
+//     };
+//   });
 
-  return {
-    paths,
-    fallback: "blocking",
-  };
-}
+//   return {
+//     paths,
+//     fallback: "blocking",
+//   };
+// }
 
 // ==================================
 //          Get Static Props
 // ==================================
-export async function getStaticProps({
+export async function getServerSideProps({
   params: { user, packageName },
 }: {
   params: { user: string; packageName: string[] };

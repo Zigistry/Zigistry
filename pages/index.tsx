@@ -32,7 +32,7 @@ import items from "@/database/main.json";
 import gamingItems from "@/database/games.json";
 import webItems from "@/database/web.json";
 import guiItems from "@/database/gui.json";
-
+  
 // =============================
 //          Exports "/"
 // =============================
