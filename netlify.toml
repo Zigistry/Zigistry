@@ -1,0 +1,42 @@
+# Netlify configuration file for Next.js project
+
+[build]
+# The directory where Netlify will run the build commands
+base = "/"
+
+# The command Netlify should run to build the project
+command = "npm run build && npm run export"
+
+# The directory to deploy after building
+publish = "dist"
+
+# Set environment variables needed for the build
+
+
+# Netlify plugin for Next.js to handle SSR, SSG, and static file handling
+[[plugins]]
+package = "@netlify/plugin-nextjs"
+
+
+# # Custom header configurations (optional, to ensure proper caching and security)
+# [[headers]]
+#   for = "/*"
+#   [headers.values]
+#     Cache-Control = "public, max-age=0, must-revalidate"
+#     X-Frame-Options = "DENY"
+#     X-Content-Type-Options = "nosniff"
+#     Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Cache clearing settings to avoid stale files causing deployment issues
+[build.environment]
+NETLIFY_CACHE = true
+# Clear cache on every build to ensure fresh build (optional)
+NPM_FLAGS = "--force"
+NODE_VERSION = "18"                # Adjust this to the version your project needs
+NEXT_PUBLIC_ENV_VAR = "production"
+
+# # Set up custom 404 error handling page
+# [[redirects]]
+#   from = "/help"
+#   to = "/404"
+#   status = 404
