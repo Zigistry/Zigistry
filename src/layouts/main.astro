@@ -1,0 +1,25 @@
+---
+import { ThemeModeScript } from "flowbite-react";
+import Navigation from "../components/Navigation";
+import Foot from "../components/Foot";
+import "../styles/globals.css";
+import "zilite/dist/darkMode.css"
+import { ViewTransitions } from "astro:transitions";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+    <ViewTransitions />
+    <ThemeModeScript />
+  </head>
+  <body class="bg-white dark:bg-[rgb(31,41,55)] dark:text-white">
+    <Navigation client:load />
+    <slot />
+    <Foot />
+  </body>
+</html>

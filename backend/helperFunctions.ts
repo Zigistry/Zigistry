@@ -28,7 +28,7 @@ export function numberAsLetters(i: number): string {
 }
 
 // ----- Highlight code present inside README's of each package/program ------
-export function highlightCode(): void {
+export function highlightCode() {
   
   highlightElements(zig, "language-zig");
   highlightElements(diff, "language-diff");
