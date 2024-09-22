@@ -8,6 +8,7 @@ body {
     /* background: rgb(31, 41, 55); */
     /* background: linear-gradient(180deg, rgba(31, 41, 55, 1) 0%, rgba(17, 24, 39, 1) 100%); */
 }
+
 textarea {
     border: none;
     overflow: auto;
@@ -19,6 +20,7 @@ textarea {
 
     resize: none;
 }
+
 textarea:focus {
     border: none;
     overflow: auto;
@@ -30,19 +32,25 @@ textarea:focus {
 
     resize: none;
 }
+
 :root {
     min-height: 100vh !important;
 
+}
+
+.swup-progress-bar {
+    background-color: rgb(125, 178, 230);
 }
 
 .readme {
     padding: 50px !important;
 }
 
-.readmeDiv > table {
+.readmeDiv>table {
     display: block;
     overflow-x: auto;
-    white-space: nowrap; /* Prevents the table from wrapping */
+    white-space: nowrap;
+    /* Prevents the table from wrapping */
 }
 
 @media screen and (min-width: 400px) {
@@ -57,27 +65,19 @@ textarea:focus {
     overflow-x: scroll;
 }
 
-.readmeDiv > h1 {
+.readmeDiv>h1 {
     font-size: 40px;
 }
 
-.readmeDiv > h2 {
+.readmeDiv>h2 {
     font-size: 35px;
 }
 
-.readmeDiv > h3 {
+.readmeDiv>h3 {
     font-size: 30px;
 }
 
-.readmeDiv > pre {
-    padding: 20px !important;
-    overflow-x: scroll;
-    color: yellow;
-    border-radius: 10px !important;
-    border: solid #373f49 2px;
-    background-color: #2a3038;
-}
-.readmeDiv > * > pre {
+.readmeDiv>pre {
     padding: 20px !important;
     overflow-x: scroll;
     color: yellow;
@@ -86,7 +86,16 @@ textarea:focus {
     background-color: #2a3038;
 }
 
-.readmeDiv > p {
+.readmeDiv>*>pre {
+    padding: 20px !important;
+    overflow-x: scroll;
+    color: yellow;
+    border-radius: 10px !important;
+    border: solid #373f49 2px;
+    background-color: #2a3038;
+}
+
+.readmeDiv>p {
     padding: 5px 5px 5px 0 !important;
 }
 
@@ -96,7 +105,7 @@ textarea:focus {
     height: fit-content !important;
 }
 
-.readmeDiv > table,
+.readmeDiv>table,
 th,
 td {
     border: 1px solid white !important;

@@ -5,6 +5,7 @@ import Foot from "../components/Foot";
 import "../styles/globals.css";
 import "zilite/dist/darkMode.css"
 import { ViewTransitions } from "astro:transitions";
+import ProgressBar from 'astro-vtbot/components/ProgressBar.astro';
 ---
 
 <html lang="en">
@@ -19,7 +20,9 @@ import { ViewTransitions } from "astro:transitions";
   </head>
   <body class="bg-white dark:bg-[rgb(31,41,55)] dark:text-white">
     <Navigation client:load />
+    <ProgressBar />
     <slot />
     <Foot />
+    <script is:inline async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>
