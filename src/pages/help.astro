@@ -3,15 +3,15 @@ import RootLayout from "../layouts/main.astro";
 ---
 
 <RootLayout>
-  <div class="readme p-10 sm:p-5">
+  <div class="readme">
     <div class="readmeDiv">
-      <div class="flex">
+      <div class="flex w-full">
         <div>
-          <h1 class="mb-4 text-5xl">
+          <h1 class="mb-4 text-3xl sm:text-5xl pl-5 pt-5">
             How to add your Zig library to Zigistry?
           </h1>
           <div class="text-xl">
-            <ol>
+            <ol class="sm:ml-16 ml-10">
               <li>
                 On the main page of your GitHub repository, click on the Cog
                 wheel icon on the right of the screen
@@ -28,7 +28,7 @@ import RootLayout from "../layouts/main.astro";
               <li>
                 <video
                   controls
-                  class="my-5 w-4/5 rounded-2xl sm:w-2/5"
+                  class="my-5 sm:w-80 w-48 rounded-2xl"
                   src="https://github.com/RohanVashisht1234/zigistry/assets/81112205/962b147c-16ce-44d8-a958-57c0f0e1447b"
                 ></video>
               </li>
@@ -39,9 +39,7 @@ import RootLayout from "../layouts/main.astro";
                   class="text-blue-400 underline"
                   href="https://github.com/RohanVashisht1234/zigistry/issues"
                 >
-                  here
-                </a>
-                .
+                  here</a>.
               </li>
             </ol>
           </div>
@@ -53,9 +51,9 @@ import RootLayout from "../layouts/main.astro";
         </div>
       </div>
       <br />
-      <h1 class="mb-4 text-5xl">How to add your Zig program to Zigistry?</h1>
+      <h1 class="mb-4 ml-5 text-3xl sm:text-5xl">How to add your Zig program to Zigistry?</h1>
       <div>
-        <ol>
+        <ol class="sm:ml-16 ml-10">
           <li>
             The same steps as above but this time the topic would be{" "}
             <strong>Zig</strong> and not Zig-package.

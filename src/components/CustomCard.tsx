@@ -40,10 +40,10 @@ export default function CustomCard(props: { item: Repo; program: boolean }) {
         src={props.item.avatar_url}
         alt={props.item.name}
       />
-      <h5 className="overflow-x-scroll text-2xl font-bold text-gray-900 dark:text-white">
+      <h5 className="text-2xl font-bold text-gray-900 dark:text-white">
         {props.item.name}
       </h5>
-      <p className="overflow-x-scroll text-gray-400">{props.item.full_name}</p>
+      <p className="text-gray-400">{props.item.full_name}</p>
       <div className="flex space-x-3">
         {props.item.archived ? (
           <Badge

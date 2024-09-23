@@ -42,9 +42,7 @@ textarea:focus {
     background-color: rgb(125, 178, 230);
 }
 
-.readme {
-    padding: 50px !important;
-}
+
 
 .readmeDiv>table {
     display: block;
@@ -53,16 +51,10 @@ textarea:focus {
     /* Prevents the table from wrapping */
 }
 
-@media screen and (min-width: 400px) {
-    .readme {
-        padding: 0px !important;
-    }
-}
 
 .readmeDiv {
     all: unset !important;
     font-weight: 700;
-    overflow-x: scroll;
 }
 
 .readmeDiv>h1 {
@@ -110,4 +102,19 @@ th,
 td {
     border: 1px solid white !important;
     padding: 5px !important;
+}
+
+.api_section {
+    background-color: #2a3038;
+    border: 2px solid #373f49;
+    padding: 10px;
+    margin: 0 0 40px 0 !important;
+    border-radius: 10px;
+    overflow-x: scroll;
+    word-break: break-all;
+}
+
+.readmeDiv>.my_special{
+    font-weight: 600;
+    padding-bottom: 20px !important;
 }
