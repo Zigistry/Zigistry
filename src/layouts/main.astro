@@ -3,16 +3,25 @@ import { ThemeModeScript } from "flowbite-react";
 import Navigation from "../components/Navigation";
 import Foot from "../components/Foot";
 import "../styles/globals.css";
-import "zilite/dist/darkMode.css"
+import "zilite/dist/darkMode.css";
 import { ViewTransitions } from "astro:transitions";
-import ProgressBar from 'astro-vtbot/components/ProgressBar.astro';
+import ProgressBar from "astro-vtbot/components/ProgressBar.astro";
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/x-icon" href="/zigistry.ico" />
+    <meta
+      name="description"
+      content="Explore and contribute to the leading registry of Zig programming language libraries and Zig packages. Join the Zig community today! A place where you can find all the libraries that suit your Zig lang needs."
+    />
+    <meta name="author" content="Rohan Vashisht" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="keywords"
+      content="Zigistry, Zig, Programming, Language, Registry, Packages, Package, Manager"
+    />
     <meta name="generator" content={Astro.generator} />
     <title>Zigistry</title>
     <ViewTransitions />
@@ -23,6 +32,7 @@ import ProgressBar from 'astro-vtbot/components/ProgressBar.astro';
     <ProgressBar />
     <slot />
     <Foot />
-    <script is:inline async defer src="https://buttons.github.io/buttons.js"></script>
+    <script is:inline async defer src="https://buttons.github.io/buttons.js"
+    ></script>
   </body>
 </html>
