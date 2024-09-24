@@ -39,12 +39,10 @@ export default function Header(): JSX.Element {
       style={{ borderBottom: "2px solid #faca15" }}
       rounded
     >
-      <NavbarBrand>
-        <a href="/">
+      <NavbarBrand href="/">
           <span className="self-center whitespace-nowrap text-2xl font-extrabold dark:text-white">
             <span className="text-amber-400 dark:text-yellow-300">Zig</span>istry
           </span>
-        </a>
       </NavbarBrand>
       <NavbarToggle />
       <NavbarCollapse>

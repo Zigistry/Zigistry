@@ -130,7 +130,7 @@ export default function IndexComponent(props: { top10LatestRepos: Repo[], mostUs
                 <>
                     <h1 className="my-5 ml-10 flex w-fit items-center rounded border-2 border-slate-400 p-4 text-left text-2xl font-semibold">
                         <IoMdFastforward size={25} />
-                        &nbsp;Recently released
+                        &nbsp;Recently released:
                     </h1>
                     <section className="flex w-full flex-wrap justify-evenly">
                         {props.top10LatestRepos.map((item: Repo) => (
@@ -140,7 +140,7 @@ export default function IndexComponent(props: { top10LatestRepos: Repo[], mostUs
 
                     <h1 className="my-5 ml-10 flex w-fit items-center rounded border-2 border-slate-400 p-4 text-left text-2xl font-semibold">
                         <FaStar size={25} />
-                        Most used
+                        Most used:
                     </h1>
 
                     <section className="flex w-full flex-wrap justify-evenly">
