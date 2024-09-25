@@ -30,6 +30,7 @@
     "nanostores": "^0.11.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-github-btn": "^1.4.0",
     "react-infinite-scroll-component": "^6.1.0",
     "tailwindcss": "^3.4.12",
     "typescript": "^5.6.2",
