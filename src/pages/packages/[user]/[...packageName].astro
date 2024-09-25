@@ -34,7 +34,7 @@ const repository: Repo | undefined = repositories.find(
 );
 
 if (!repository) {
-  return { props: { compressedRepo: { contentIsCorrect: false } as Repo } };
+  return Astro.redirect("/404");
 }
 
 const fetchReadmeContent = async (repo: Repo) => {
