@@ -13,9 +13,9 @@ import data_web from "../../../../database/web.json";
 import data_gui from "../../../../database/gui.json";
 import DOMPurify from "isomorphic-dompurify";
 import zon2json from "z2j";
-import Image from "astro/components/Image.astro";
 import { numberAsLetters } from "../../../../backend/helperFunctions";
 import { Card, Badge, Tooltip, Button } from "flowbite-react";
+import CopyButton from "../../../components/CopyButton";
 // export const prerender = true;
 export function getStaticPaths() {
 const repositories: Repo[] = [...data, ...data_game, ...data_gui, ...data_web];
@@ -147,13 +147,12 @@ const compressedRepo: Repo = {
             onload={"highlightCode"}
           >
             <Card className="my-5 w-72 transform-cpu transition-transform">
-              <Image
+              <img
                 width="50"
                 height="50"
                 class="w-10 rounded-full"
                 src={compressedRepo.avatar_url}
                 alt={compressedRepo.name}
-                loading={"eager"}
               />
               <h5 class="text-2xl font-bold text-gray-900 dark:text-white">
                 {compressedRepo.name}
@@ -281,11 +280,7 @@ const compressedRepo: Repo = {
                   {compressedRepo.specials}
                 </span>
               </div>
-              {/* <Clipboard
-                class="ml-3"
-                valueToCopy={"zig fetch --save " + compressedRepo.specials}
-                label="Copy"
-              /> */}
+              <CopyButton client:load text_to_copy={"zig fetch --save " + compressedRepo.specials} />
             </div>
           </div>
           <div class="m-4 flex items-center justify-center">
