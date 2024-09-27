@@ -6,18 +6,26 @@ import maindb from "../../database/programs.json";
 
 const items = [...bergdb, ...maindb];
 
-const mostUsed = items.slice(0, 10);
-const sortedRepos = items
+const mostUsed = items
+  .slice()
+  .sort((a, b) => b.stargazers_count - a.stargazers_count)
+  .slice(0, 10);
+
+const top10LatestRepos = items
   .slice()
   .sort(
     (a, b) =>
       new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-  );
-const top10LatestRepos = sortedRepos.slice(0, 10);
+  )
+  .slice(0, 10);
 ---
 
 <RootLayout>
   <div>
-    <ProgramsComponent mostUsed={mostUsed} top10LatestRepos={top10LatestRepos} client:only />
+    <ProgramsComponent
+      mostUsed={mostUsed}
+      top10LatestRepos={top10LatestRepos}
+      client:only
+    />
   </div>
 </RootLayout>
