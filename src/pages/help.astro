@@ -1,4 +1,7 @@
 ---
+import zigister_finds_repos from "../../public/zigister-finds-repos.svg";
+import zigister_finds_programs from "../../public/zigister-finds-programs.svg";
+import { Image } from "astro:assets";
 import RootLayout from "../layouts/main.astro";
 ---
 
@@ -7,11 +10,11 @@ import RootLayout from "../layouts/main.astro";
     <div class="readmeDiv">
       <div class="flex w-full">
         <div>
-          <h1 class="mb-4 text-3xl sm:text-5xl pl-5 pt-5">
+          <h1 class="mb-4 pl-5 pt-5 text-3xl sm:text-5xl">
             How to add your Zig library to Zigistry?
           </h1>
           <div class="text-xl">
-            <ol class="sm:ml-16 ml-10">
+            <ol class="ml-10 sm:ml-16">
               <li>
                 On the main page of your GitHub repository, click on the Cog
                 wheel icon on the right of the screen
@@ -28,9 +31,9 @@ import RootLayout from "../layouts/main.astro";
               <li>
                 <video
                   controls
-                  class="my-5 sm:w-80 w-48 rounded-2xl"
+                  class="my-5 w-48 rounded-2xl sm:w-80"
                   src="https://github.com/RohanVashisht1234/zigistry/assets/81112205/962b147c-16ce-44d8-a958-57c0f0e1447b"
-                ></video>
+                  muted></video>
               </li>
               <li>
                 Still facing issues or have suggestions? feel free to open an
@@ -39,7 +42,8 @@ import RootLayout from "../layouts/main.astro";
                   class="text-blue-400 underline"
                   href="https://github.com/RohanVashisht1234/zigistry/issues"
                 >
-                  here</a>.
+                  here</a
+                >.
               </li>
             </ol>
           </div>
@@ -47,13 +51,20 @@ import RootLayout from "../layouts/main.astro";
         <div
           class="invisible w-full sm:invisible md:invisible lg:visible xl:visible"
         >
-          <img class="w-full" src="zigister-finds-repos.svg" />
+          <Image
+            alt={"zigister finds repos"}
+            class="w-full"
+            loading={"eager"}
+            src={zigister_finds_repos}
+          />
         </div>
       </div>
       <br />
-      <h1 class="mb-4 ml-5 text-3xl sm:text-5xl">How to add your Zig program to Zigistry?</h1>
+      <h1 class="mb-4 ml-5 text-3xl sm:text-5xl">
+        How to add your Zig program to Zigistry?
+      </h1>
       <div>
-        <ol class="sm:ml-16 ml-10">
+        <ol class="ml-10 sm:ml-16">
           <li>
             The same steps as above but this time the topic would be{" "}
             <strong>Zig</strong> and not Zig-package.
@@ -63,6 +74,11 @@ import RootLayout from "../layouts/main.astro";
     </div>
   </div>
   <div class="w-full">
-    <img class="w-full" src="zigister-finds-programs.svg" />
+    <Image
+      alt={"zigister finds programs"}
+      class="w-full"
+      loading={"eager"}
+      src={zigister_finds_programs}
+    />
   </div>
 </RootLayout>

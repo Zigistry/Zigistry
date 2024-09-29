@@ -1,10 +1,12 @@
 ---
 import { Image } from "astro:assets";
 import RootLayout from "../layouts/main.astro";
+import license_chart from "../../public/license_chart.svg";
+import programs from "../../public/programs.svg";
 ---
 
 <RootLayout>
-  <div class="readme pl-15 sm:pl-10 pt-10">
+  <div class="readme pl-15 pt-10 sm:pl-10">
     <div class="readmeDiv">
       <h1>Here are some of the statistics that Zigistry found:</h1>
       <h3>Most common licenses used by Zig libraries:</h3>
@@ -14,7 +16,7 @@ import RootLayout from "../layouts/main.astro";
           height={200}
           class="w-3/5"
           alt="Pie chart graph of most common licenses used by Zig libraries."
-          src="/license_chart.svg"
+          src={license_chart}
           loading={"eager"}
         />
       </div>
@@ -26,7 +28,7 @@ import RootLayout from "../layouts/main.astro";
           height={200}
           class="w-3/5"
           alt="Pie chart graph of most common licenses used by Zig programs."
-          src="/programs.svg"
+          src={programs}
           loading="lazy"
         />
       </div>

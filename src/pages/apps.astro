@@ -1,6 +1,9 @@
 ---
 import { Button, Card } from "flowbite-react";
 import RootLayout from "../layouts/main.astro";
+import zilite from "../../public/zilite.png";
+import Zon_to_json from "../../public/Zon-to-json.png";
+import { Image } from "astro:assets";
 ---
 
 <RootLayout>
@@ -14,11 +17,8 @@ import RootLayout from "../layouts/main.astro";
       </div>
     </div>
     <div class="flex flex-wrap space-x-5 px-5 py-5">
-      <Card
-        className="max-w-sm"
-        imgAlt="Meaningful alt text for an image that is not purely decorative"
-        imgSrc="/zilite.png"
-      >
+      <Card className="max-w-sm">
+        <Image class="rounded" loading={"eager"} alt="asfd" src={zilite} />
         <h5
           class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
         >
@@ -42,11 +42,8 @@ import RootLayout from "../layouts/main.astro";
           </svg>
         </Button>
       </Card>
-      <Card
-        className="max-w-sm"
-        imgAlt="Meaningful alt text for an image that is not purely decorative"
-        imgSrc="Zon-to-json.png"
-      >
+      <Card className="max-w-sm">
+        <Image class="rounded" loading={"eager"} alt="asfd" src={Zon_to_json} />
         <h5
           class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
         >
