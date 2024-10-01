@@ -301,4 +301,14 @@ const compressedRepo: Repo = {
       ) : (
         <>404</>
       )}
+      <script>
+        import { zig } from "zilite";
+        import { bash } from "zilite";
+        import { diff } from "zilite";
+        import { highlightElements } from "zilite";
+        highlightElements(zig, "language-zig");
+        highlightElements(bash, "language-sh");
+        highlightElements(bash, "language-bash");
+        highlightElements(diff, "language-diff");
+      </script>
 </RootLayout>

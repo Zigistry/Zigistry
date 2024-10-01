@@ -143,8 +143,8 @@ const compressedRepo: Repo = {
       {compressedRepo.contentIsCorrect ? (
         <>
           <div
+          id="main_page"
             class="flex items-center justify-center"
-            onload={"highlightCode"}
           >
             <Card className="my-5 w-72 transform-cpu transition-transform">
               <img
@@ -300,4 +300,14 @@ const compressedRepo: Repo = {
       ) : (
         <>404</>
       )}
+      <script>
+        import { zig } from "zilite";
+        import { bash } from "zilite";
+        import { diff } from "zilite";
+        import { highlightElements } from "zilite";
+        highlightElements(zig, "language-zig");
+        highlightElements(bash, "language-sh");
+        highlightElements(bash, "language-bash");
+        highlightElements(diff, "language-diff");
+      </script>
 </RootLayout>
