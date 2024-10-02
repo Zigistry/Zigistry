@@ -1,4 +1,7 @@
 ---
+
+// export const prerender = true;
+
 import type { Repo } from "../../../types/customTypes";
 import { marked } from "marked";
 import { FaCheck } from "react-icons/fa";
@@ -16,7 +19,6 @@ import zon2json from "z2j";
 import { numberAsLetters } from "../../../../backend/helperFunctions";
 import { Card, Badge, Tooltip, Button } from "flowbite-react";
 import CopyButton from "../../../components/CopyButton";
-// export const prerender = true;
 export function getStaticPaths() {
 const repositories: Repo[] = [...data, ...data_game, ...data_gui, ...data_web];
   const result =  repositories.map((repo) => {
