@@ -24,3 +24,5 @@ pnpm-debug.log*
 .netlify
 
 .zig-cache
+
+.wrangler/
