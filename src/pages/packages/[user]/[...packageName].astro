@@ -14,9 +14,7 @@ import data from "../../../../database/main.json";
 import data_game from "../../../../database/games.json";
 import data_web from "../../../../database/web.json";
 import data_gui from "../../../../database/gui.json";
-import DOMPurify from "isomorphic-dompurify";
 import zon2json from "z2j";
-import { numberAsLetters } from "../../../../backend/helperFunctions";
 import { Card, Badge, Tooltip, Button } from "flowbite-react";
 import CopyButton from "../../../components/CopyButton";
 export function getStaticPaths() {
@@ -24,7 +22,7 @@ const repositories: Repo[] = [...data, ...data_game, ...data_gui, ...data_web];
   const result =  repositories.map((repo) => {
     const [user, packageName] = repo.full_name.split("/");
     return { params: { user, packageName }}
-  
+
   });
   return result;
 }
@@ -38,7 +36,11 @@ const repository: Repo | undefined = repositories.find(
 if (!repository) {
   return Astro.redirect("/404");
 }
-
+function numberAsLetters(i: number): string {
+  const numberAsString = i.toString();
+  if (numberAsString.length > 3) return (i / 1000).toString().slice(0, 3) + "K";
+  else return numberAsString;
+}
 const fetchReadmeContent = async (repo: Repo) => {
   const extensions = ["", "txt", "md"];
   const defaultBranch = repo.default_branch || "master";
@@ -291,8 +293,8 @@ const compressedRepo: Repo = {
               <div
                 class="readmeDiv"
                 set:html={
-                   compressedRepo.readme_content 
-                    ? DOMPurify.sanitize(compressedRepo.readme_content)
+                   compressedRepo.readme_content
+                    ? compressedRepo.readme_content
                     : ""
                 }
               ></div>
@@ -302,14 +304,4 @@ const compressedRepo: Repo = {
       ) : (
         <>404</>
       )}
-      <script>
-        import { zig } from "zilite";
-        import { bash } from "zilite";
-        import { diff } from "zilite";
-        import { highlightElements } from "zilite";
-        highlightElements(zig, "language-zig");
-        highlightElements(bash, "language-sh");
-        highlightElements(bash, "language-bash");
-        highlightElements(diff, "language-diff");
-      </script>
 </RootLayout>

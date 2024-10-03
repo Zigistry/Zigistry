@@ -18,7 +18,6 @@ import { SiCodeberg } from "react-icons/si";
 import { FaCheck } from "react-icons/fa";
 
 // -------- Functions ----------
-import { numberAsLetters } from "../../backend/helperFunctions";
 
 // -------- Components ---------
 import { Badge, Button, Card, Tooltip } from "flowbite-react";
@@ -31,6 +30,12 @@ import { GoIssueOpened } from "react-icons/go";
 //       Exports function (Component) Custom Card
 // =====================================================
 export default function CustomCard(props: { item: Repo; program: boolean }) {
+  function numberAsLetters(i: number): string {
+    const numberAsString = i.toString();
+    if (numberAsString.length > 3)
+      return (i / 1000).toString().slice(0, 3) + "K";
+    else return numberAsString;
+  }
   return (
     <Card className="z-0 my-2 w-72 transform-cpu transition-transform hover:z-10 hover:scale-110">
       <img
