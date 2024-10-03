@@ -9,7 +9,6 @@ import { GoIssueOpened } from "react-icons/go";
 import { FaCodeFork, FaEye, FaStar } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
 import { BsInfoSquareFill } from "react-icons/bs";
-import DOMPurify from "isomorphic-dompurify";
 import RootLayout from "../../../layouts/main.astro";
 import data from "../../../../database/programs.json";
 import dataBerg from "../../../../database/codebergPrograms.json";
@@ -99,7 +98,6 @@ if (dependencies.length === 0) {
 
 async function convert2markdown(x: string): Promise<string> {
   var content = await marked(x);
-  content = DOMPurify.sanitize(content);
   content = content.replaceAll(
     "[!IMPORTANT]",
     `<span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">IMPORTANT</span>`
