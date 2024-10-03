@@ -14,6 +14,7 @@ import data from "../../../../database/programs.json";
 import dataBerg from "../../../../database/codebergPrograms.json";
 import zon2json from "z2j";
 import { Card, Badge, Tooltip, Button } from "flowbite-react";
+import CopyButton from "../../../components/CopyButton";
 
 
 
@@ -287,11 +288,7 @@ const compressedRepo: Repo = {
                   {compressedRepo.specials}
                 </span>
               </div>
-              {/* <Clipboard
-                class="ml-3"
-                valueToCopy={"zig fetch --save " + compressedRepo.specials}
-                label="Copy"
-              /> */}
+              <CopyButton client:load text_to_copy={"zig fetch --save " + compressedRepo.specials} />
             </div>
           </div>
           <div class="m-4 flex items-center justify-center">

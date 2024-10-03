@@ -121,7 +121,7 @@ export default function CustomCard(props: { item: Repo; program: boolean }) {
       </div>
       <Button
         href={
-          (props.program ? "programs/" : "packages/") + props.item.full_name
+          (props.program ? "" : "packages/") + props.item.full_name
         }
         color="light"
         pill
