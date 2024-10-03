@@ -300,6 +300,16 @@ const compressedRepo: Repo = {
               ></div>
             </div>
           </div>
+          <script>
+            import { zig } from "zilite";
+            import { bash } from "zilite";
+            import { diff } from "zilite";
+            import { highlightElements } from "zilite";
+            highlightElements(zig, "language-zig");
+            highlightElements(bash, "language-sh");
+            highlightElements(bash, "language-bash");
+            highlightElements(diff, "language-diff");
+          </script>
         </>
       ) : (
         <>404</>
