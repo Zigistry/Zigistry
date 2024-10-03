@@ -16,11 +16,7 @@ import dataBerg from "../../../../database/codebergPrograms.json";
 import zon2json from "z2j";
 import { Card, Badge, Tooltip, Button } from "flowbite-react";
 
-function numberAsLetters(i: number): string {
-  const numberAsString = i.toString();
-  if (numberAsString.length > 3) return (i / 1000).toString().slice(0, 3) + "K";
-  else return numberAsString;
-}
+
 
 export function getStaticPaths() {
 const repositories: Repo[] = [...data, ...dataBerg];
@@ -41,6 +37,12 @@ const repository: Repo | undefined = repositories.find(
 
 if (!repository) {
   return Astro.redirect("/404");
+}
+
+function numberAsLetters(i: number): string {
+  const numberAsString = i.toString();
+  if (numberAsString.length > 3) return (i / 1000).toString().slice(0, 3) + "K";
+  else return numberAsString;
 }
 
 const fetchReadmeContent = async (repo: Repo) => {
@@ -307,18 +309,18 @@ const compressedRepo: Repo = {
               ></div>
             </div>
           </div>
+          <script>
+              import { zig } from "zilite";
+              import { bash } from "zilite";
+              import { diff } from "zilite";
+              import { highlightElements } from "zilite";
+              highlightElements(zig, "language-zig");
+              highlightElements(bash, "language-sh");
+              highlightElements(bash, "language-bash");
+              highlightElements(diff, "language-diff");
+          </script>
         </>
       ) : (
         <>404</>
       )}
-      <script>
-        import { zig } from "zilite";
-        import { bash } from "zilite";
-        import { diff } from "zilite";
-        import { highlightElements } from "zilite";
-        highlightElements(zig, "language-zig");
-        highlightElements(bash, "language-sh");
-        highlightElements(bash, "language-bash");
-        highlightElements(diff, "language-diff");
-      </script>
 </RootLayout>
