@@ -5,6 +5,7 @@ import Foot from "../components/Foot";
 import "../styles/globals.css";
 import "zilite/dist/darkMode.css";
 import ProgressBar from "astro-vtbot/components/ProgressBar.astro";
+import { ViewTransitions } from "astro:transitions";
 ---
 
 <html lang="en">
@@ -26,6 +27,7 @@ import ProgressBar from "astro-vtbot/components/ProgressBar.astro";
     <ThemeModeScript />
   </head>
   <body class="bg-white dark:bg-[rgb(31,41,55)] dark:text-white">
+    <ViewTransitions />
     <Navigation client:load />
     <ProgressBar />
     <slot />
