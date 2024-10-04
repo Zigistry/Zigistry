@@ -45,9 +45,12 @@ export default function CustomCard(props: { item: Repo; program: boolean }) {
         src={props.item.avatar_url}
         alt={props.item.name}
       />
-      <h5 className="text-2xl font-bold text-gray-900 dark:text-white">
+      <a
+        href={(props.program ? "" : "packages/") + props.item.full_name}
+        className="text-2xl font-bold text-gray-900 dark:text-white"
+      >
         {props.item.name}
-      </h5>
+      </a>
       <p className="text-gray-400">{props.item.full_name}</p>
       <div className="flex space-x-3">
         {props.item.archived ? (
@@ -120,9 +123,7 @@ export default function CustomCard(props: { item: Repo; program: boolean }) {
         )}
       </div>
       <Button
-        href={
-          (props.program ? "" : "packages/") + props.item.full_name
-        }
+        href={(props.program ? "" : "packages/") + props.item.full_name}
         color="light"
         pill
       >
