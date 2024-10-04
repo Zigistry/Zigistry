@@ -11,6 +11,7 @@ import { FaGithub } from "react-icons/fa";
 import { BsInfoSquareFill } from "react-icons/bs";
 import RootLayout from "../../../layouts/main.astro";
 import data from "../../../../database/programs.json";
+import sanitizeHtml from 'sanitize-html';
 import dataBerg from "../../../../database/codebergPrograms.json";
 import zon2json from "z2j";
 import { Card, Badge, Tooltip, Button } from "flowbite-react";
@@ -99,6 +100,7 @@ if (dependencies.length === 0) {
 
 async function convert2markdown(x: string): Promise<string> {
   var content = await marked(x);
+  content = sanitizeHtml(content);
   content = content.replaceAll(
     "[!IMPORTANT]",
     `<span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">IMPORTANT</span>`
