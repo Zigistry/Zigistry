@@ -100,7 +100,7 @@ export default function Programs(props: {
       setShowDefaultIndexPage(false);
     }
   };
-  const okf = async () => {
+  const searchUsingFilter = async () => {
     const val: HTMLSelectElement = document.getElementById(
       "dropDownID",
     ) as HTMLSelectElement;
@@ -130,7 +130,7 @@ export default function Programs(props: {
         </h1>
         <div className="flex">
           <Tooltip content="Search by filtering github topics">
-            <Select onChange={okf} id="dropDownID" required={false}>
+            <Select onChange={searchUsingFilter} id="dropDownID" required={false}>
               <option>No Filter</option>
               <option>api</option>
               <option>http</option>

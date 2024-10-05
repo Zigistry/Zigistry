@@ -46,7 +46,7 @@ export default function CustomCard(props: { item: Repo; program: boolean }) {
         alt={props.item.name}
       />
       <a
-        href={(props.program ? "" : "packages/") + props.item.full_name}
+        href={(props.program ? "/programs/" : "/packages/") + props.item.full_name}
         className="text-2xl font-bold text-gray-900 dark:text-white"
       >
         {props.item.name}
@@ -123,7 +123,7 @@ export default function CustomCard(props: { item: Repo; program: boolean }) {
         )}
       </div>
       <Button
-        href={(props.program ? "" : "packages/") + props.item.full_name}
+        href={(props.program ? "/programs/" : "/packages/") + props.item.full_name}
         color="light"
         pill
       >

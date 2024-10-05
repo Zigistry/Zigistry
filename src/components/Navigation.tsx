@@ -68,16 +68,6 @@ export default function Header(): JSX.Element {
         <NavbarLink href="/help" active>
           Help
         </NavbarLink>
-        {/* <NavbarLink
-          class="github-button"
-          href="https://github.com/zigistry/zigistry"
-          data-color-scheme="no-preference: light; light: light; dark:dark_dimmed;"
-          data-size="small"
-          data-show-count="true"
-          aria-label="Star zigistry/zigistry on GitHub"
-        >
-          Star
-        </NavbarLink> */}
         <GitHubButton href="https://github.com/zigistry/zigistry" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-show-count="true" aria-label="Star zigistry/zigistry on GitHub">Star</GitHubButton>
         <Flowbite>
           <DarkThemeToggle className="w-4 py-0 pr-7" />
