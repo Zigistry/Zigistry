@@ -7,7 +7,11 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  output:'server',
+  output: "server",
   integrations: [react(), tailwind()],
   adapter: cloudflare(),
+  Headers: {
+    "Content-Security-Policy": "frame-ancestors 'none'",
+    "X-Frame-Options": "DENY",
+  },
 });
