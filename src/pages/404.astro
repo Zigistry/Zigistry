@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import RootLayout from "../layouts/main.astro";
 ---
 
@@ -6,11 +8,14 @@ import RootLayout from "../layouts/main.astro";
   <div
     class="flex items-center justify-center"
     style={{ height: "calc(100vh - 122px)" }}
-  ><div class="block">
-    <h1 class="text-5xl text-center">404</h1>
-    <br/>
-    <h4>Can't find what you are looking for</h4>
-    <h5 class="text-center"><a href="/" class="text-center text-blue-400">Go back home</a></h5>
-</div>
+  >
+    <div class="block">
+      <h1 class="text-center text-5xl">404</h1>
+      <br />
+      <h4>Can't find what you are looking for</h4>
+      <h5 class="text-center">
+        <a href="/" class="text-center text-blue-400">Go back home</a>
+      </h5>
+    </div>
   </div>
 </RootLayout>
