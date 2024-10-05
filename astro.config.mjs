@@ -10,8 +10,10 @@ export default defineConfig({
   output: "server",
   integrations: [react(), tailwind()],
   adapter: cloudflare(),
-  Headers: {
-    "Content-Security-Policy": "frame-ancestors 'none'",
-    "X-Frame-Options": "DENY",
+  server: {
+    headers: {
+      "Content-Security-Policy": "frame-ancestors 'none'",
+      "X-Frame-Options": "DENY",
+    },
   },
 });
