@@ -74,11 +74,10 @@ import { ViewTransitions } from "astro:transitions";
         }
       }
     </script>
-
+    <ViewTransitions />
     <ThemeModeScript />
   </head>
   <body class="bg-white dark:bg-[rgb(31,41,55)] dark:text-white">
-    <ViewTransitions />
     <Navigation client:load />
     <ProgressBar />
     <slot />
