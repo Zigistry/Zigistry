@@ -7,7 +7,7 @@ import {
     IoIosApps,
 } from "react-icons/io";
 import { SlGlobe } from "react-icons/sl";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import gamingItems from "../../database/games.json";
 import webItems from "../../database/web.json";
 import guiItems from "../../database/gui.json";
@@ -20,7 +20,7 @@ export default function IndexComponent(props: { top10LatestRepos: Repo[], mostUs
         placeHolderRepoType,
     ]);
     const [hasMore, setHasMore] = useState(true);
-    const [infiniteScrollIndex, setIndex] = useState(3);
+    const [infiniteScrollIndex, setIndex] = useState(1);
     const [searchResultsData, setSearchResultsData] = useState([
         placeHolderRepoType,
     ]);
@@ -28,13 +28,6 @@ export default function IndexComponent(props: { top10LatestRepos: Repo[], mostUs
     const [searchTextboxInputValue, setSearchTextboxInputValue] =
         useState("");
     const [dataInTextboxChanged, setDataInTextboxChanged] = useState(false);
-
-    useEffect(() => {
-        fetch("/api/infiniteScrollPackages?pageNumber=2")
-            .then((res) => res.json())
-            .then((data) => setInfiniteScrollItems(data))
-            .catch((err) => console.log(err));
-    }, []);
 
     const fetchMoreData = () => {
         fetch(`/api/infiniteScrollPackages?pageNumber=${infiniteScrollIndex}`)
