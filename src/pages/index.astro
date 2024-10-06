@@ -18,6 +18,6 @@ const top10LatestRepos = sortedRepos.slice(0, 10);
 
 <RootLayout>
   <div>
-    <IndexComponent mostUsed={mostUsed} top10LatestRepos={top10LatestRepos} client:only />
+    <IndexComponent mostUsed={mostUsed} top10LatestRepos={top10LatestRepos} client:load />
   </div>
 </RootLayout>
