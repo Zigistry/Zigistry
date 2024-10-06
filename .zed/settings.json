@@ -1,9 +1,13 @@
 {
   "languages": {
     "zig": {
-      "format_on_save": true,
-      "lint_on_save": true,
-      "build_on _save": true
+      "format_on_save": "on"
+    },
+    "TypeScript": {
+      "format_on_save": "on"
+    },
+    "Astro": {
+      "format_on_save": "on"
     }
   },
   "editor": {

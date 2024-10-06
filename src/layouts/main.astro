@@ -12,18 +12,68 @@ import { ViewTransitions } from "astro:transitions";
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/x-icon" href="/zigistry.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
+    <title>Zigistry: A package registry and manager for Zig</title>
     <meta
       name="description"
-      content="Explore and contribute to the leading registry of Zig programming language libraries and Zig packages. Join the Zig community today! A place where you can find all the libraries that suit your Zig lang needs."
+      content="Zigistry is your go-to registry for Zig programming language libraries and packages. Find, share, and contribute to Zig packages easily. Join the Zig community now!"
     />
-    <meta name="author" content="Rohan Vashisht" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="keywords"
-      content="Zigistry, Zig, Programming, Language, Registry, Packages, Package, Manager"
+      content="Zigistry, Zig programming language, Zig libraries, Zig packages, package registry, open-source Zig, Zig community, package manager, contribute to Zig"
     />
+    <meta name="author" content="Rohan Vashisht" />
     <meta name="generator" content={Astro.generator} />
-    <title>Zigistry</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://zigistry.dev/" />
+    <meta
+      property="og:title"
+      content="Zigistry: A package registry and manager for Zig"
+    />
+    <meta
+      property="og:description"
+      content="Explore Zig programming language programs and packages on Zigistry. Find, share, and contribute to the Zig community."
+    />
+    <meta
+      property="og:image"
+      content="https://zigistry.dev/zigistry-social.jpg"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://zigistry.dev/" />
+    <meta
+      property="twitter:title"
+      content="Zigistry: Discover & Contribute to Zig Libraries & Packages"
+    />
+    <meta
+      property="twitter:description"
+      content="Explore Zig programming language programs and packages on Zigistry. Find, share, and contribute to the Zig community."
+    />
+    <meta
+      property="twitter:image"
+      content="https://zigistry.dev/zigistry-social.jpg"
+    />
+
+    <!-- JSON-LD Structured Data -->
+    <script is:inline type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Zigistry",
+        "url": "https://zigistry.dev/",
+        "description": "Zigistry is your go-to registry for Zig programming language libraries and packages.",
+        "author": {
+          "@type": "Person",
+          "name": "Rohan Vashisht"
+        }
+      }
+    </script>
+
     <ThemeModeScript />
   </head>
   <body class="bg-white dark:bg-[rgb(31,41,55)] dark:text-white">
