@@ -13,17 +13,12 @@ import webItems from "../../database/web.json";
 import guiItems from "../../database/gui.json";
 import InfiniteScroll from "react-infinite-scroll-component";
 import type { Repo } from "../types/customTypes";
-import { placeHolderRepoType } from "../types/customTypes";
 
 export default function IndexComponent(props: { top10LatestRepos: Repo[], mostUsed: Repo[] }) {
-    const [infiniteScrollItems, setInfiniteScrollItems] = useState([
-        placeHolderRepoType,
-    ]);
+    const [infiniteScrollItems, setInfiniteScrollItems] = useState<Repo[]>([]);
     const [hasMore, setHasMore] = useState(true);
     const [infiniteScrollIndex, setIndex] = useState(1);
-    const [searchResultsData, setSearchResultsData] = useState([
-        placeHolderRepoType,
-    ]);
+    const [searchResultsData, setSearchResultsData] = useState<Repo[]>([]);
     const [showDefaultIndexPage, setShowDefaultIndexPage] = useState(true);
     const [searchTextboxInputValue, setSearchTextboxInputValue] =
         useState("");
@@ -97,6 +92,7 @@ export default function IndexComponent(props: { top10LatestRepos: Repo[], mostUs
                         <Select
                             onChange={searchfetchWhenDropDownChanged}
                             id="dropDownID"
+                            className="ml-4"
                             required={false}
                         >
                             <option>No Filter</option>
@@ -113,7 +109,7 @@ export default function IndexComponent(props: { top10LatestRepos: Repo[], mostUs
                         onKeyUp={handleKeyDown}
                         id="SearchBox"
                         placeholder="Search 400+ Zig libraries"
-                        className="mb-5 ml-2 w-72"
+                        className="mx-4 mb-5 w-60 max-w-72"
                         autoFocus
                     />
                 </div>

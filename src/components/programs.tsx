@@ -19,7 +19,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 // ------- Functions ----------
 import type { Repo } from "../types/customTypes";
-import { placeHolderRepoType } from "../types/customTypes";
 import { FaStar } from "react-icons/fa";
 import { IoMdFastforward } from "react-icons/io";
 import { SlGlobe } from "react-icons/sl";
@@ -36,9 +35,7 @@ export default function Programs(props: {
   mostUsed: Repo[];
   top10LatestRepos: Repo[];
 }) {
-  const [infiniteScrollItems, setInfiniteScrollItems] = useState([
-    placeHolderRepoType,
-  ]);
+  const [infiniteScrollItems, setInfiniteScrollItems] = useState<Repo[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [infiniteScrollIndex, setIndex] = useState(3);
 
@@ -61,9 +58,7 @@ export default function Programs(props: {
 
     setIndex((prevIndex) => prevIndex + 1);
   };
-  const [searchResultsData, setSearchResultsData] = useState([
-    placeHolderRepoType,
-  ]);
+  const [searchResultsData, setSearchResultsData] = useState<Repo[]>([]);
   const [showDefaultIndexPage, setShowDefaultIndexPage] = useState(true);
   const [searchTextboxInputValue, setSearchTextboxInputValue] = useState("");
   // ------- prevent user ddos --------
@@ -130,7 +125,7 @@ export default function Programs(props: {
         </h1>
         <div className="flex">
           <Tooltip content="Search by filtering github topics">
-            <Select onChange={searchUsingFilter} id="dropDownID" required={false}>
+            <Select onChange={searchUsingFilter} className="ml-4" id="dropDownID" required={false}>
               <option>No Filter</option>
               <option>api</option>
               <option>http</option>
@@ -145,7 +140,7 @@ export default function Programs(props: {
             onKeyUp={handleKeyDown}
             id="SearchBox"
             placeholder="Search 1000+ Zig programs"
-            className="mb-5 ml-2 w-72"
+            className="mx-4 mb-5 w-60 max-w-72"
             autoFocus
           />
         </div>
