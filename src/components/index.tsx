@@ -122,8 +122,8 @@ export default function IndexComponent(props: { top10LatestRepos: Repo[], mostUs
                         &nbsp;Recently released:
                     </h1>
                     <section className="flex w-full flex-wrap justify-evenly">
-                        {props.top10LatestRepos.map((item: Repo) => (
-                            <CustomCard program={false} item={item} />
+                        {props.top10LatestRepos.map((item: Repo, key) => (
+                            <CustomCard key={key} program={false} item={item} />
                         ))}
                     </section>
 
