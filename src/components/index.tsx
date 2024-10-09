@@ -122,8 +122,8 @@ export default function IndexComponent(props: { top10LatestRepos: Repo[], mostUs
                         &nbsp;Recently released:
                     </h1>
                     <section className="flex w-full flex-wrap justify-evenly">
-                        {props.top10LatestRepos.map((item: Repo) => (
-                            <CustomCard program={false} item={item} />
+                        {props.top10LatestRepos.map((item: Repo, key) => (
+                            <CustomCard key={key} program={false} item={item} />
                         ))}
                     </section>
 
@@ -133,8 +133,8 @@ export default function IndexComponent(props: { top10LatestRepos: Repo[], mostUs
                     </h1>
 
                     <section className="flex w-full flex-wrap justify-evenly">
-                        {props.mostUsed.map((item: Repo) => (
-                            <CustomCard program={false} item={item} />
+                        {props.mostUsed.map((item: Repo, key) => (
+                            <CustomCard key={key} program={false} item={item} />
                         ))}
                     </section>
 
@@ -143,8 +143,8 @@ export default function IndexComponent(props: { top10LatestRepos: Repo[], mostUs
                         &nbsp;Famous Game libs:
                     </h1>
                     <section className="flex w-full flex-wrap justify-evenly">
-                        {gamingItems.map((item: Repo) => (
-                            <CustomCard program={false} item={item} />
+                        {gamingItems.map((item: Repo, key) => (
+                            <CustomCard key={key} program={false} item={item} />
                         ))}
                     </section>
 
@@ -153,8 +153,8 @@ export default function IndexComponent(props: { top10LatestRepos: Repo[], mostUs
                         &nbsp;Famous GUI libs:
                     </h1>
                     <section className="flex w-full flex-wrap justify-evenly">
-                        {guiItems.map((item: Repo) => (
-                            <CustomCard program={false} item={item} />
+                        {guiItems.map((item: Repo, key) => (
+                            <CustomCard key={key} program={false} item={item} />
                         ))}
                     </section>
 
@@ -163,8 +163,8 @@ export default function IndexComponent(props: { top10LatestRepos: Repo[], mostUs
                         &nbsp;Famous Web libs:
                     </h1>
                     <section className="flex w-full flex-wrap justify-evenly">
-                        {webItems.map((item: Repo) => (
-                            <CustomCard program={false} item={item} />
+                        {webItems.map((item: Repo, key) => (
+                            <CustomCard key={key} program={false} item={item} />
                         ))}
                     </section>
 
@@ -180,8 +180,8 @@ export default function IndexComponent(props: { top10LatestRepos: Repo[], mostUs
                         loader={<p>Loading</p>}
                     >
                         <section className="flex w-full flex-wrap justify-evenly">
-                            {infiniteScrollItems.map((item) => (
-                                <CustomCard program={false} item={item} />
+                            {infiniteScrollItems.map((item, key) => (
+                                <CustomCard key={key} program={false} item={item} />
                             ))}
                         </section>
                     </InfiniteScroll>
@@ -189,8 +189,8 @@ export default function IndexComponent(props: { top10LatestRepos: Repo[], mostUs
             ) : (
                 <section className="flex w-full flex-wrap justify-evenly">
                     {searchResultsData.length ? (
-                        searchResultsData.map((item, index) => (
-                            <CustomCard program={false} key={index} item={item} />
+                        searchResultsData.map((item, key) => (
+                            <CustomCard key={key} program={false} item={item} />
                         ))
                     ) : (
                         <h1>Can&apos;t find what you are looking for</h1>
