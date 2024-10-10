@@ -2,8 +2,8 @@ import databaseMain from "../../../database/main.json";
 
 export async function GET({ url }: { url: string }) {
   const parsedUrl = new URL(url);
-  const section = parsedUrl.searchParams.get('section');
-  const range = parsedUrl.searchParams.get('range');
+  const section = parsedUrl.searchParams.get("section");
+  const range = parsedUrl.searchParams.get("range");
 
   // Validate that both section and range are provided and are strings
   if (!section || !range) {
@@ -47,7 +47,10 @@ export async function GET({ url }: { url: string }) {
   if (section === "latestRepos") {
     const sortedByDate = databaseMain
       .slice()
-      .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+      .sort(
+        (a, b) =>
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+      )
       .slice(ll, ul);
 
     return new Response(JSON.stringify(sortedByDate), {

@@ -26,3 +26,5 @@ pnpm-debug.log*
 .zig-cache
 
 .wrangler/
+
+bun.lockb

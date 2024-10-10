@@ -12,7 +12,7 @@ export default defineConfig({
   adapter: cloudflare(),
   server: {
     headers: {
-      "Content-Security-Policy": "frame-ancestors 'none'",
+      "Content-Security-Policy": "frame-ancestors 'none'; object-src 'none'; img-src 'self' https://avatars.githubusercontent.com",
       "X-Frame-Options": "DENY",
     },
   },

@@ -24,10 +24,6 @@ import { IoMdFastforward } from "react-icons/io";
 import { SlGlobe } from "react-icons/sl";
 import { useEffect, useState } from "react";
 
-// -------- Json ---------
-import maindb from "../../database/programs.json";
-import bergdb from "../../database/codebergPrograms.json";
-
 // =============================
 //       Exports "/programs"
 // =============================
@@ -125,7 +121,12 @@ export default function Programs(props: {
         </h1>
         <div className="flex">
           <Tooltip content="Search by filtering github topics">
-            <Select onChange={searchUsingFilter} className="ml-4" id="dropDownID" required={false}>
+            <Select
+              onChange={searchUsingFilter}
+              className="ml-4"
+              id="dropDownID"
+              required={false}
+            >
               <option>No Filter</option>
               <option>api</option>
               <option>http</option>
@@ -200,36 +201,4 @@ export default function Programs(props: {
       )}
     </>
   );
-}
-
-const items = [...bergdb, ...maindb];
-
-// =======================================================
-//      Exports getStaticProps for the Programs page.
-// =======================================================
-export async function getStaticProps() {
-  // --------- Most used Repos -----------
-  const mostUsed = items
-    .slice()
-    .sort((a, b) => b.stargazers_count - a.stargazers_count)
-    .slice(0, 10);
-
-  // -------- Sort latest repos ----------
-  const sortedRepos = items
-    .slice()
-    .sort(
-      (a, b) =>
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-    );
-
-  // ----------- Latest Repos ------------
-  const top10LatestRepos = sortedRepos.slice(0, 10);
-
-  // ------- Return Repos as Props -------
-  return {
-    props: {
-      mostUsed,
-      top10LatestRepos,
-    },
-  };
 }
