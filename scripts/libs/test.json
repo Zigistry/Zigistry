@@ -335,13 +335,7 @@
       "allow_forking": true,
       "is_template": false,
       "web_commit_signoff_required": false,
-      "topics": [
-        "embedded",
-        "hal",
-        "zig",
-        "zig-package",
-        "ziglang"
-      ],
+      "topics": ["embedded", "hal", "zig", "zig-package", "ziglang"],
       "visibility": "public",
       "forks": 81,
       "open_issues": 37,

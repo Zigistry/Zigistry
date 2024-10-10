@@ -2,10 +2,10 @@ import databaseMain from "../../../database/programs.json";
 
 export async function GET({ url }: { url: string }) {
   const parsedUrl = new URL(url);
-  const pageNumberParam = parsedUrl.searchParams.get('pageNumber');
+  const pageNumberParam = parsedUrl.searchParams.get("pageNumber");
 
   // Ensure pageNumber is provided and is a valid number
-  const pageNumber = parseInt(pageNumberParam || '0', 10);
+  const pageNumber = parseInt(pageNumberParam || "0", 10);
 
   if (isNaN(pageNumber) || pageNumber < 0) {
     return new Response(JSON.stringify({ error: "Invalid page number" }), {

@@ -4,117 +4,113 @@
 
 html,
 body {
-    min-height: 100vh !important;
-    /* background: rgb(31, 41, 55); */
-    /* background: linear-gradient(180deg, rgba(31, 41, 55, 1) 0%, rgba(17, 24, 39, 1) 100%); */
+  min-height: 100vh !important;
+  /* background: rgb(31, 41, 55); */
+  /* background: linear-gradient(180deg, rgba(31, 41, 55, 1) 0%, rgba(17, 24, 39, 1) 100%); */
 }
 
 textarea {
-    border: none;
-    overflow: auto;
-    outline: none;
+  border: none;
+  overflow: auto;
+  outline: none;
 
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 
-    resize: none;
+  resize: none;
 }
 
 textarea:focus {
-    border: none;
-    overflow: auto;
-    outline: none;
+  border: none;
+  overflow: auto;
+  outline: none;
 
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 
-    resize: none;
+  resize: none;
 }
 
 :root {
-    min-height: 100vh !important;
-
+  min-height: 100vh !important;
 }
 
 .swup-progress-bar {
-    background-color: rgb(125, 178, 230);
+  background-color: rgb(125, 178, 230);
 }
 
-
-
-.readmeDiv>table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    /* Prevents the table from wrapping */
+.readmeDiv > table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  /* Prevents the table from wrapping */
 }
-
 
 .readmeDiv {
-    all: unset !important;
-    font-weight: 700;
+  all: unset !important;
+  font-weight: 700;
 }
 
-.readmeDiv>h1 {
-    font-size: 40px;
+.readmeDiv > h1 {
+  font-size: 40px;
 }
 
-.readmeDiv>h2 {
-    font-size: 35px;
+.readmeDiv > h2 {
+  font-size: 35px;
 }
 
-.readmeDiv>h3 {
-    font-size: 30px;
+.readmeDiv > h3 {
+  font-size: 30px;
 }
 
-.readmeDiv>pre {
-    padding: 20px !important;
-    overflow-x: scroll;
-    color: yellow;
-    border-radius: 10px !important;
-    border: solid #373f49 2px;
-    background-color: #2a3038;
+.readmeDiv > pre {
+  padding: 20px !important;
+  overflow-x: scroll;
+  color: yellow;
+  border-radius: 10px !important;
+  border: solid #373f49 2px;
+  background-color: #2a3038;
 }
 
-.readmeDiv>*>pre {
-    padding: 20px !important;
-    overflow-x: scroll;
-    color: yellow;
-    border-radius: 10px !important;
-    border: solid #373f49 2px;
-    background-color: #2a3038;
+.readmeDiv > * > pre {
+  padding: 20px !important;
+  overflow-x: scroll;
+  color: yellow;
+  border-radius: 10px !important;
+  border: solid #373f49 2px;
+  background-color: #2a3038;
 }
 
-.readmeDiv>p {
-    padding: 5px 5px 5px 0 !important;
+.readmeDiv > p {
+  padding: 5px 5px 5px 0 !important;
 }
 
 .readmeDiv a {
-    color: lightblue !important;
-    text-decoration: underline !important;
-    height: fit-content !important;
+  color: lightblue !important;
+  text-decoration: underline !important;
+  height: fit-content !important;
 }
 
-.readmeDiv>table,
+.readmeDiv > table,
 th,
 td {
-    border: 1px solid white !important;
-    padding: 5px !important;
+  border: 1px solid white !important;
+  padding: 5px !important;
 }
 
 .api_section {
-    background-color: #2a3038;
-    border: 2px solid #373f49;
-    padding: 10px;
-    margin: 0 0 40px 0 !important;
-    border-radius: 10px;
-    overflow-x: scroll;
-    word-break: break-all;
+  background-color: #2a3038;
+  border: 2px solid #373f49;
+  padding: 10px;
+  margin: 0 0 40px 0 !important;
+  border-radius: 10px;
+  overflow-x: scroll;
+  word-break: break-all;
 }
 
-.readmeDiv>.my_special{
-    font-weight: 600;
-    padding-bottom: 20px !important;
+.readmeDiv > .my_special {
+  font-weight: 600;
+  padding-bottom: 20px !important;
 }

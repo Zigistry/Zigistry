@@ -1,6 +1,10 @@
 import mainDatabase from "../../../../../database/main.json";
 
-export async function GET({ params }: { params: { username: string; reponame: string } }) {
+export async function GET({
+  params,
+}: {
+  params: { username: string; reponame: string };
+}) {
   const { username, reponame } = params;
 
   // Validate that username and reponame are provided and are strings
@@ -16,7 +20,9 @@ export async function GET({ params }: { params: { username: string; reponame: st
   const fullName = `${username.toLowerCase()}/${reponame.toLowerCase()}`;
 
   // Search for the repository in the main database
-  const searchResults = mainDatabase.filter((item) => item.full_name.toLowerCase() === fullName);
+  const searchResults = mainDatabase.filter(
+    (item) => item.full_name.toLowerCase() === fullName,
+  );
 
   return new Response(JSON.stringify(searchResults[0] || null), {
     status: 200,

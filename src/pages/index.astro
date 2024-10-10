@@ -1,5 +1,4 @@
 ---
-
 export const prerender = true;
 
 import RootLayout from "../layouts/main.astro";
@@ -11,13 +10,17 @@ const sortedRepos = items
   .slice()
   .sort(
     (a, b) =>
-      new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
   );
 const top10LatestRepos = sortedRepos.slice(0, 10);
 ---
 
 <RootLayout>
   <div>
-    <IndexComponent mostUsed={mostUsed} top10LatestRepos={top10LatestRepos} client:load />
+    <IndexComponent
+      mostUsed={mostUsed}
+      top10LatestRepos={top10LatestRepos}
+      client:load
+    />
   </div>
 </RootLayout>

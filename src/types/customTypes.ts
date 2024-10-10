@@ -38,5 +38,5 @@ export const placeHolderRepoType: Repo = {
   forks_count: 0,
   watchers_count: 0,
   tags_url: "",
-  license: ""
+  license: "",
 };

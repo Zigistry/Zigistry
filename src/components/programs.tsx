@@ -125,7 +125,12 @@ export default function Programs(props: {
         </h1>
         <div className="flex">
           <Tooltip content="Search by filtering github topics">
-            <Select onChange={searchUsingFilter} className="ml-4" id="dropDownID" required={false}>
+            <Select
+              onChange={searchUsingFilter}
+              className="ml-4"
+              id="dropDownID"
+              required={false}
+            >
               <option>No Filter</option>
               <option>api</option>
               <option>http</option>

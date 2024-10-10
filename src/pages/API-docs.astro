@@ -1,12 +1,11 @@
 ---
-
 export const prerender = true;
 
 import RootLayout from "../layouts/main.astro";
 ---
 
 <RootLayout>
-  <div class="pl-10 sm:pl-5 mt-5">
+  <div class="mt-5 pl-10 sm:pl-5">
     <div class="readme readmeDiv block">
       <h1>Zigistry&apos;s API</h1>
       <p class="my_special">
@@ -29,7 +28,10 @@ import RootLayout from "../layouts/main.astro";
       <br />
       <br />
       <p class="my_special">Get Filtered results:</p>
-      <a class="api_section" href="https://zigistry.dev/api/search?q=Zap&filter=http">
+      <a
+        class="api_section"
+        href="https://zigistry.dev/api/search?q=Zap&filter=http"
+      >
         https://zigistry.dev/api/search?q=Zap&filter=http
       </a>
       <br />
@@ -43,26 +45,36 @@ import RootLayout from "../layouts/main.astro";
       <h3>For Programs:</h3>
       <p class="my_special">Get details for individual programs</p>
       <a
-      class="api_section" href="https://zigistry.dev/api/programs/travisstaloch/roc-cli-platform-zig"
+        class="api_section"
+        href="https://zigistry.dev/api/programs/travisstaloch/roc-cli-platform-zig"
       >
         https://zigistry.dev/api/programs/travisstaloch/roc-cli-platform-zig
       </a>
       <br />
       <br />
       <p class="my_special">Get Search results:</p>
-      <a  class="api_section" href="https://zigistry.dev/api/searchPrograms?q=Zap">
+      <a
+        class="api_section"
+        href="https://zigistry.dev/api/searchPrograms?q=Zap"
+      >
         https://zigistry.dev/api/searchPrograms?q=Zap
       </a>
       <br />
       <br />
       <p class="my_special">Get Filtered results:</p>
-      <a class="api_section" href="https://zigistry.dev/api/searchPrograms?q=Zap&filter=http">
+      <a
+        class="api_section"
+        href="https://zigistry.dev/api/searchPrograms?q=Zap&filter=http"
+      >
         https://zigistry.dev/api/searchPrograms?q=Zap&filter=http
       </a>
       <br />
       <br />
       <p class="my_special">Get all results from a single topic:</p>
-      <a class="api_section" href="https://zigistry.dev/api/searchPrograms?filter=http">
+      <a
+        class="api_section"
+        href="https://zigistry.dev/api/searchPrograms?filter=http"
+      >
         https://zigistry.dev/api/searchPrograms?filter=http
       </a>
       <br />
@@ -70,7 +82,8 @@ import RootLayout from "../layouts/main.astro";
       <h3>For Special Index details (Packages):</h3>
       <p class="my_special">Get most used packages (Ascending order):</p>
       <a
-      class="api_section" href="http://zigistry.dev/api/indexDetails?section=mostUsed&range=0..100"
+        class="api_section"
+        href="http://zigistry.dev/api/indexDetails?section=mostUsed&range=0..100"
       >
         http://zigistry.dev/api/indexDetails?section=mostUsed&range=0..100
       </a>
@@ -78,7 +91,8 @@ import RootLayout from "../layouts/main.astro";
       <br />
       <p class="my_special">Get latest used packages (Ascending order):</p>
       <a
-      class="api_section" href="http://zigistry.dev/api/indexDetails?section=latestRepos&range=0..100"
+        class="api_section"
+        href="http://zigistry.dev/api/indexDetails?section=latestRepos&range=0..100"
       >
         http://zigistry.dev/api/indexDetails?section=latestRepos&range=0..100
       </a>
@@ -87,7 +101,8 @@ import RootLayout from "../layouts/main.astro";
       <h3>For Special Index details (Programs):</h3>
       <p class="my_special">Get most used programs (Ascending order):</p>
       <a
-      class="api_section" href="http://zigistry.dev/api/indexDetailsPrograms?section=mostUsed&range=0..100"
+        class="api_section"
+        href="http://zigistry.dev/api/indexDetailsPrograms?section=mostUsed&range=0..100"
       >
         http://zigistry.dev/api/indexDetailsPrograms?section=mostUsed&range=0..100
       </a>
@@ -95,7 +110,8 @@ import RootLayout from "../layouts/main.astro";
       <br />
       <p class="my_special">Get latest used programs (Ascending order):</p>
       <a
-      class="api_section" href="http://zigistry.dev/api/indexDetailsPrograms?section=latestRepos&range=0..100"
+        class="api_section"
+        href="http://zigistry.dev/api/indexDetailsPrograms?section=latestRepos&range=0..100"
       >
         http://zigistry.dev/api/indexDetailsPrograms?section=latestRepos&range=0..100
       </a>
