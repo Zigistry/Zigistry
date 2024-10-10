@@ -2,7 +2,6 @@
 export const prerender = true;
 import "../styles/globals.css";
 import "zilite/dist/darkMode.css";
-import GitHubButton from "react-github-btn";
 import {
   Footer,
   FooterCopyright,
@@ -16,6 +15,7 @@ import {
     <meta charset="utf-8" />
     <link rel="icon" type="image/x-icon" href="/zigistry.ico" />
     <link rel="canonical" href="https://zigistry.dev/" />
+    <script is:inline async defer src="https://buttons.github.io/buttons.js"></script>
     <script is:inline defer async src="/main.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -175,15 +175,14 @@ import {
               </a>
             </li>
             <li class="mt-0.5">
-              <GitHubButton
-                href="https://github.com/zigistry/zigistry"
+              <a
+                class="github-button"
+                href="https://github.com/buttons/github-buttons"
                 data-color-scheme="no-preference: light; light: light; dark: dark;"
-                data-icon="octicon-star"
+                data-size="large"
                 data-show-count="true"
-                aria-label="Star zigistry/zigistry on GitHub"
+                aria-label="Star buttons/github-buttons on GitHub">Star</a
               >
-                Star
-              </GitHubButton>
             </li>
             <li>
               <button
@@ -236,12 +235,12 @@ import {
 
       // set the target element that will be collapsed or expanded (eg. navbar menu)
       const $targetEl: HTMLElement = document.getElementById(
-        "targetEl",
+        "targetEl"
       ) as HTMLElement;
 
       // optionally set a trigger element (eg. a button, hamburger icon)
       const $triggerEl: HTMLElement = document.getElementById(
-        "triggerEl",
+        "triggerEl"
       ) as HTMLElement;
 
       // optional options with default values and callback functions
@@ -273,7 +272,7 @@ import {
         $targetEl,
         $triggerEl,
         options,
-        instanceOptions,
+        instanceOptions
       );
 
       // show the target element
