@@ -9,7 +9,7 @@ import { Image } from "astro:assets";
 ---
 
 <RootLayout>
-  <div class="mt-5 pl-10 sm:pl-5">
+  <div class="mt-5 pl-10 pr-10 sm:pl-5 sm:pr-10">
     <div class="readme readmeDiv block">
       <div class="block">
         <h1 class="mb-2 text-4xl">Zigistry&apos;s Apps and Programs</h1>
@@ -18,8 +18,8 @@ import { Image } from "astro:assets";
         </p>
       </div>
     </div>
-    <div class="flex flex-wrap space-x-5 px-5 py-5">
-      <Card className="max-w-sm">
+    <div class="flex flex-wrap py-5">
+      <Card className="max-w-sm mt-4 ml-4">
         <Image class="rounded" loading={"eager"} alt="asfd" src={zilite} />
         <h5
           class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
@@ -44,7 +44,7 @@ import { Image } from "astro:assets";
           </svg>
         </Button>
       </Card>
-      <Card className="max-w-sm">
+      <Card className="max-w-sm mt-4 ml-4">
         <Image class="rounded" loading={"eager"} alt="asfd" src={Zon_to_json} />
         <h5
           class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
