@@ -1,14 +1,14 @@
-import mainDatabase from "../../../../../database/programs.json";
+import mainDatabase from "../../../../../database/main.json";
 
 export async function GET({
   params,
 }: {
-  params: { username: string; repoName: string };
+  params: { user_name: string; reponame: string };
 }) {
-  const { username, repoName } = params;
+  const { user_name, reponame } = params;
 
-  // Validate that username and repoName are provided and are strings
-  if (!username || !repoName) {
+  // Validate that username and reponame are provided and are strings
+  if (!user_name || !reponame) {
     return new Response(JSON.stringify(null), {
       status: 200,
       headers: {
@@ -17,7 +17,7 @@ export async function GET({
     });
   }
 
-  const fullName = `${username.toLowerCase()}/${repoName.toLowerCase()}`;
+  const fullName = `${user_name.toLowerCase()}/${reponame.toLowerCase()}`;
 
   // Search for the repository in the main database
   const searchResults = mainDatabase.filter(
