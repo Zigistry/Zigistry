@@ -8,10 +8,11 @@ import programs from "../../public/programs.svg";
 ---
 
 <RootLayout>
-  <div class="readme pl-15 pt-10 sm:pl-10">
-    <div class="readmeDiv">
-      <h1>Here are some of the statistics that Zigistry found:</h1>
-      <h3>Most common licenses used by Zig libraries:</h3>
+  <div class="mt-5 pl-10 sm:pl-5">
+    <div class="readme readmeDiv block">
+      <h1>Zigistry Statistics</h1>
+      <p class="my_special">Here are some of the statistics that Zigistry found:</p>
+      <p class="text-xl sm:text-4xl">Most common licenses used by Zig libraries:</p>
       <div class="flex justify-center">
         <Image
           width={200}
@@ -22,8 +23,8 @@ import programs from "../../public/programs.svg";
           loading={"eager"}
         />
       </div>
-      <h3>Average *storage size of Zig libraries: 6898KB or 6.898MB.</h3>
-      <h3>Most common licenses used by Zig programs:</h3>
+      <p class="text-xl sm:text-2xl">Average *storage size of Zig libraries: 6898KB or 6.898MB.</p>
+      <p class="text-xl sm:text-4xl">Most common licenses used by Zig programs:</p>
       <div class="flex justify-center">
         <Image
           width={200}
@@ -34,7 +35,7 @@ import programs from "../../public/programs.svg";
           loading="lazy"
         />
       </div>
-      <h3>Average *storage size of Zig programs: 6232KB or 6.232MB.</h3>
+      <p class="text-xl sm:text-2xl">Average *storage size of Zig programs: 6232KB or 6.232MB.</p>
       <h6>
         * : this includes everything in the repository, from images till src
         code.
