@@ -74,7 +74,7 @@ export default function Z2j_app() {
         <div className="block w-1/2">
           <div
             id="pseudo_editor"
-            className="absolute left-0 top-[122px] z-10 m-2 h-[calc(100vh-200px)] w-1/2 overflow-y-scroll text-wrap break-words rounded-lg bg-[#2a3038] p-4 text-left font-mono text-white"
+            className="absolute left-0 top-[127px] z-10 m-2 h-[calc(100vh-200px)] w-1/2 overflow-y-scroll text-wrap break-words rounded-lg bg-[#2a3038] p-4 text-left font-mono text-white"
           ></div>
           <textarea
             onScroll={scrollActualPseudoEditorTogether}
@@ -86,7 +86,7 @@ export default function Z2j_app() {
             autoFocus
             autoCorrect="false"
             autoComplete="false"
-            className="absolute  left-0 top-[122px]  z-20 m-2 h-[calc(100vh-200px)] w-1/2 border-r-2 border-white bg-transparent p-4 font-mono text-transparent caret-white"
+            className="absolute  left-0 top-[127px]  z-20 m-2 h-[calc(100vh-200px)] w-1/2 border-r-2 border-white bg-transparent p-4 font-mono text-transparent caret-white"
           ></textarea>
         </div>
         <div className="ml-10 mr-2 mt-[9px] block h-[calc(100vh-200px)] w-1/2 overflow-y-scroll text-wrap break-words rounded-lg bg-[#263554] p-4 font-mono">
