@@ -5,28 +5,29 @@ import RootLayout from "../../layouts/main.astro";
 ---
 
 <RootLayout>
-  <div class="readmeDiv p-10 sm:p-5">
-    <center>
-      <img
-        src="https://raw.githubusercontent.com/Zigistry/Zilite/main/assets/logo.png"
-        alt="Zilite Logo"
-      />
-    </center>
+  <div class="mt-5 sm:pl-10 pl-5">
+    <div class="readme readmeDiv block">
+      <center>
+        <img
+          src="https://raw.githubusercontent.com/Zigistry/Zilite/main/assets/logo.png"
+          alt="Zilite Logo"
+        />
+      </center>
 
-    <h2>Yet another code highlighter.</h2>
+      <h2>Yet another code highlighter.</h2>
 
-    <ul>
-      <li>Uses no dependencies.</li>
-      <li>You can contribute more programming languages.</li>
-      <li>Is extremely small size.</li>
-    </ul>
+      <ul>
+        <li>Uses no dependencies.</li>
+        <li>You can contribute more programming languages.</li>
+        <li>Is extremely small size.</li>
+      </ul>
 
-    <h2>How to use?</h2>
-    <p>Just see the following example:</p>
+      <h2>How to use?</h2>
+      <p>Just see the following example:</p>
 
-    <h3>For basic HTML:</h3>
+      <h3>For basic HTML:</h3>
 
-    <pre><code class="language-html">
+      <pre><code class="language-html">
 &lt;!DOCTYPE html&gt;
 
 &lt;html&gt;
@@ -49,13 +50,13 @@ import RootLayout from "../../layouts/main.astro";
 &lt;/html&gt;
     </code></pre>
 
-    <h3>For use as a node module:</h3>
+      <h3>For use as a node module:</h3>
 
-    <pre><code class="language-bash">
+      <pre><code class="language-bash">
 npm i zilite
     </code></pre>
-
-    <pre><code class="language-javascript">
+    <p>&nbsp;&nbsp;And then use it in a file like index.html:</p>
+      <pre><code class="language-javascript">
 import * as hl from "higherlight";
 import &lcub; zig &rcub; from "higherlight/src/language/zig";
 
@@ -63,12 +64,13 @@ const highlightedCode = hl.highlight(zig, "const x = 'asdf';");
 console.log(highlightedCode);
     </code></pre>
 
-    <p>
-      Understood? Or still confused? Create a new issue and clear your doubts.
-    </p>
+      <p>
+        Understood? Or still confused? Create a new issue here and clear your doubts.
+      </p>
 
-    <h2>Contributing:</h2>
+      <h2>Contributing:</h2>
 
-    <p>Please ⭐️ this repo, create pull requests, issues, etc.</p>
+      <p>Please ⭐️ this repo, create pull requests, issues, etc.</p>
+    </div>
   </div>
 </RootLayout>
