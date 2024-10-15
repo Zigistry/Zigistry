@@ -27,10 +27,10 @@ pnpm-debug.log*
 
 .wrangler/
 
-bun.lockb
-
 zig-out/
 
 .zed/
 
 .vscode/
+
+package-lock.json
