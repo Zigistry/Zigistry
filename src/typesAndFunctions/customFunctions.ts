@@ -25,18 +25,10 @@ export interface Repo {
   archived?: boolean;
 }
 
-export const placeHolderRepoType: Repo = {
-  avatar_url: "",
-  size: 0,
-  updated_at: "",
-  name: "",
-  full_name: "",
-  created_at: "",
-  description: "",
-  open_issues: 0,
-  stargazers_count: 0,
-  forks_count: 0,
-  watchers_count: 0,
-  tags_url: "",
-  license: "",
-};
+
+export function numberAsLetters(i: number): string {
+  const numberAsString = i.toString();
+  if (numberAsString.length > 3)
+    return (i / 1000).toString().slice(0, 3) + "K";
+  else return numberAsString;
+}

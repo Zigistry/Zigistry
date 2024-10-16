@@ -1,4 +1,3 @@
-// netlify/functions/indexDetailsPackages.js
 import databaseMain from "../../../database/main.json";
 
 export async function GET(event: {

@@ -18,7 +18,7 @@ import CustomCard from "./CustomCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 // ------- Functions ----------
-import type { Repo } from "../types/customTypes";
+import type { Repo } from "../typesAndFunctions/customFunctions";
 import { FaStar } from "react-icons/fa";
 import { IoMdFastforward } from "react-icons/io";
 import { SlGlobe } from "react-icons/sl";

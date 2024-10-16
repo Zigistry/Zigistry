@@ -2,7 +2,7 @@
 
 // export const prerender = true;
 
-import type { Repo } from "../../../types/customTypes";
+import { numberAsLetters, type Repo } from "../../../typesAndFunctions/customFunctions";
 import { marked } from "marked";
 import { FaCheck } from "react-icons/fa";
 import { GoIssueOpened } from "react-icons/go";
@@ -36,11 +36,6 @@ const repository: Repo | undefined = repositories.find(
 
 if (!repository) {
   return Astro.redirect("/404");
-}
-function numberAsLetters(i: number): string {
-  const numberAsString = i.toString();
-  if (numberAsString.length > 3) return (i / 1000).toString().slice(0, 3) + "K";
-  else return numberAsString;
 }
 const fetchReadmeContent = async (repo: Repo) => {
   const extensions = ["", "txt", "md"];

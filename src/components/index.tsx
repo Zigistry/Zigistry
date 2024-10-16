@@ -12,7 +12,7 @@ import gamingItems from "../../database/games.json";
 import webItems from "../../database/web.json";
 import guiItems from "../../database/gui.json";
 import InfiniteScroll from "react-infinite-scroll-component";
-import type { Repo } from "../types/customTypes";
+import type { Repo } from "../typesAndFunctions/customFunctions";
 
 export default function IndexComponent(props: {
   top10LatestRepos: Repo[];
