@@ -15,7 +15,8 @@ import {
     <meta charset="utf-8" />
     <link rel="icon" type="image/x-icon" href="/zigistry.ico" />
     <link rel="canonical" href="https://zigistry.dev/" />
-    <script is:inline async defer src="https://buttons.github.io/buttons.js"></script>
+    <script is:inline async defer src="https://buttons.github.io/buttons.js"
+    ></script>
     <script is:inline defer async src="/main.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -232,18 +233,12 @@ import {
       import { Collapse } from "flowbite";
       import type { CollapseOptions, CollapseInterface } from "flowbite";
       import type { InstanceOptions } from "flowbite";
-
-      // set the target element that will be collapsed or expanded (eg. navbar menu)
       const $targetEl: HTMLElement = document.getElementById(
         "targetEl"
       ) as HTMLElement;
-
-      // optionally set a trigger element (eg. a button, hamburger icon)
       const $triggerEl: HTMLElement = document.getElementById(
         "triggerEl"
       ) as HTMLElement;
-
-      // optional options with default values and callback functions
       const options: CollapseOptions = {
         onCollapse: () => {
           console.log("element has been collapsed");
@@ -255,27 +250,16 @@ import {
           console.log("element has been toggled");
         },
       };
-
-      // instance options object
       const instanceOptions: InstanceOptions = {
         id: "targetEl",
         override: true,
       };
-
-      /*
-       * $targetEl: required
-       * $triggerEl: optional
-       * options: optional
-       * instanceOptions: optional
-       */
       const collapse: CollapseInterface = new Collapse(
         $targetEl,
         $triggerEl,
         options,
         instanceOptions
       );
-
-      // show the target element
       collapse.expand();
     </script>
   </body>

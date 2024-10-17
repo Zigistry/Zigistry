@@ -5,8 +5,6 @@
 html,
 body {
   min-height: 100vh !important;
-  /* background: rgb(31, 41, 55); */
-  /* background: linear-gradient(180deg, rgba(31, 41, 55, 1) 0%, rgba(17, 24, 39, 1) 100%); */
 }
 
 textarea {
