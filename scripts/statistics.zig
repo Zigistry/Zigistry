@@ -17,6 +17,14 @@
 //! Please don't forget to (even though once
 //! pushed, gh workflows will):
 //! $ rm -rf ./scripts/main.json
+//! 
+//! If you want to do the same for programs:
+//! $ cp ./database/programs.json ./scripts/main.json
+//! $ zig run ./scripts/statistics.zig
+//! 
+//! Please don't forget to (even though once
+//! pushed, gh workflows will):
+//! $ rm -rf ./scripts/main.json
 //!==============================================
 
 // =======================
