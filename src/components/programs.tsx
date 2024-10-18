@@ -22,7 +22,7 @@ import type { Repo } from "../typesAndFunctions/customFunctions";
 import { FaStar } from "react-icons/fa";
 import { IoMdFastforward } from "react-icons/io";
 import { SlGlobe } from "react-icons/sl";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // =============================
 //       Exports "/programs"
@@ -33,14 +33,12 @@ export default function Programs(props: {
 }) {
   const [infiniteScrollItems, setInfiniteScrollItems] = useState<Repo[]>([]);
   const [hasMore, setHasMore] = useState(true);
-  const [infiniteScrollIndex, setIndex] = useState(3);
-
-  useEffect(() => {
-    fetch("/api/infiniteScrollPrograms?pageNumber=2")
-      .then((res) => res.json())
-      .then((data) => setInfiniteScrollItems(data))
-      .catch((err) => console.log(err));
-  }, []);
+  const [infiniteScrollIndex, setIndex] = useState(1);
+  const [searchResultsData, setSearchResultsData] = useState<Repo[]>([]);
+  const [showDefaultIndexPage, setShowDefaultIndexPage] = useState(true);
+  const [searchTextboxInputValue, setSearchTextboxInputValue] = useState("");
+  // ------- prevent user ddos --------
+  const [dataInTextboxChanged, setDataInTextboxChanged] = useState(false);
 
   const fetchMoreData = () => {
     fetch(`/api/infiniteScrollPrograms?pageNumber=${infiniteScrollIndex}`)
@@ -54,11 +52,6 @@ export default function Programs(props: {
 
     setIndex((prevIndex) => prevIndex + 1);
   };
-  const [searchResultsData, setSearchResultsData] = useState<Repo[]>([]);
-  const [showDefaultIndexPage, setShowDefaultIndexPage] = useState(true);
-  const [searchTextboxInputValue, setSearchTextboxInputValue] = useState("");
-  // ------- prevent user ddos --------
-  const [dataInTextboxChanged, setDataInTextboxChanged] = useState(false);
 
   // ----------- Fetch search results -------------
   const fetchData = async () => {
@@ -75,9 +68,9 @@ export default function Programs(props: {
       } else {
         response = await fetch(
           "/api/searchPrograms?q=" +
-            searchTextboxInputValue +
-            "&filter=" +
-            val.value,
+          searchTextboxInputValue +
+          "&filter=" +
+          val.value,
         );
       }
       const result: Repo[] = await response.json();
