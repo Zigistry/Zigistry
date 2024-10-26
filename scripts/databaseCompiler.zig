@@ -28,6 +28,7 @@ const urls = [_][]const u8{
     "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=3&per_page=100",
     "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=4&per_page=100",
     "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=5&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=6&per_page=100",
 };
 
 // =======================
