@@ -83,7 +83,6 @@ pub fn main() !void {
             @panic("unable to reach url");
         }
     }
-    defer helperFunctions.globalAllocator.free(buffers_collection);
     for (buffers_collection, 0..) |buffer, i| {
         // -------- Parse the json file --------
         const parsed = try std.json.parseFromSlice(std.json.Value, helperFunctions.globalAllocator, buffer, .{});
