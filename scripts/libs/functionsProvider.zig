@@ -33,17 +33,16 @@ pub fn print(comptime format: []const u8, args: anytype) void {
 }
 
 // ------ Basically string.replaceAll('a', 'b'); ------
-pub fn replace(allocator: std.mem.Allocator, str: []const u8, charToReplace: u8, replaceWith: u8) ![]const u8 {
-    var arrayList = std.ArrayList(u8).init(allocator);
-    defer arrayList.deinit();
-    for (str) |char| {
+pub fn replace(str: []const u8, charToReplace: u8, replaceWith: u8) []const u8 {
+    var finalString: [5000]u8 = undefined;
+    for (str, 0..) |char, i| {
         if (char == charToReplace) {
-            try arrayList.append(replaceWith);
+            finalString[i] = replaceWith;
         } else {
-            try arrayList.append(char);
+            finalString[i] = char;
         }
     }
-    return arrayList.toOwnedSlice();
+    return finalString[0..str.len];
 }
 
 // ---- Prints json in format: "string":"string", and "string":"string" ----
@@ -108,8 +107,7 @@ pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void
         printJson("name", item.object.get("name").?.string, true);
         printJson("full_name", item.object.get("full_name").?.string, true);
         if (item.object.get("description").? == .string) {
-            const purifiedString = try replace(globalAllocator, item.object.get("description").?.string, '"', '\'');
-            defer globalAllocator.free(purifiedString);
+            const purifiedString = replace(item.object.get("description").?.string, '"', '\'');
             printJson("description", purifiedString, true);
         } else {
             printJson("description", "This repository has no description.", true);
@@ -213,8 +211,7 @@ pub fn compressAndPrintReposBerg(repoList: []std.json.Value, isLastFile: bool) !
         printJsonInt("berg", 1, true);
         printJson("full_name", item.object.get("full_name").?.string, true);
         if (item.object.get("description").? == .string) {
-            const purifiedString = try replace(globalAllocator, item.object.get("description").?.string, '"', '\'');
-            defer globalAllocator.free(purifiedString);
+            const purifiedString = replace(item.object.get("description").?.string, '"', '\'');
             printJson("description", purifiedString, true);
         } else {
             printJson("description", "This repository has no description.", true);
@@ -290,8 +287,8 @@ test "printJsonInt" {
 }
 
 test "replace" {
-    const result = try replace(std.heap.page_allocator, "Hello", 'l', 'o');
-    defer globalAllocator.free(result);
+    const result = replace("Hello", 'l', 'o');
+    print("{s}", .{result});
     std.debug.assert(std.mem.eql(u8, result, "Heooo"));
 }
 
