@@ -83,18 +83,22 @@ pub fn contains(listOfStrings: []const []const u8, string: []const u8) bool {
 }
 
 // ------- Concatenate --------
-pub fn concatenate(x: []const u8, y: []const u8, z: []const u8) ![]const u8 {
-    var buffer = std.ArrayList(u8).init(std.heap.page_allocator);
-    for (x) |char| {
-        try buffer.append(char);
+pub fn concatenate(str1: []const u8, str2: []const u8, str3: []const u8) []const u8 {
+    var concatenated_string: [1000]u8 = undefined;
+    var count: u32 = 0;
+    for (str1) |char| {
+        concatenated_string[count] = char;
+        count += 1;
     }
-    for (y) |char| {
-        try buffer.append(char);
+    for (str2) |char| {
+        concatenated_string[count] = char;
+        count += 1;
     }
-    for (z) |char| {
-        try buffer.append(char);
+    for (str3) |char| {
+        concatenated_string[count] = char;
+        count += 1;
     }
-    return try buffer.toOwnedSlice();
+    return concatenated_string[0..count];
 }
 
 // ---- Prints selected fields in json ----
@@ -119,7 +123,7 @@ pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void
         } else {
             printJson("license", item.object.get("license").?.object.get("spdx_id").?.string, true);
         }
-        const url = try concatenate("https://raw.githubusercontent.com/", item.object.get("full_name").?.string, "/master/" ++ "build.zig.zon");
+        const url = concatenate("https://raw.githubusercontent.com/", item.object.get("full_name").?.string, "/master/" ++ "build.zig.zon");
         const result = try fetch(globalAllocator, url);
         if (std.mem.eql(u8, "", result) or std.mem.eql(u8, "404: Not Found", result)) {
             printJsonInt("has_build_zig_zon", 0, true);
@@ -127,7 +131,7 @@ pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void
             printJsonInt("has_build_zig_zon", 1, true);
         }
         printJson("default_branch", item.object.get("default_branch").?.string, true);
-        const url2 = try concatenate("https://raw.githubusercontent.com/", item.object.get("full_name").?.string, "/master/" ++ "build.zig");
+        const url2 = concatenate("https://raw.githubusercontent.com/", item.object.get("full_name").?.string, "/master/" ++ "build.zig");
         const result2 = try fetch(globalAllocator, url2);
         if (std.mem.eql(u8, "", result2) or std.mem.eql(u8, "404: Not Found", result2)) {
             printJsonInt("has_build_zig", 0, true);
@@ -219,7 +223,7 @@ pub fn compressAndPrintReposBerg(repoList: []std.json.Value, isLastFile: bool) !
         printJsonInt("watchers_count", item.object.get("watchers_count").?.integer, true);
         printJsonInt("forks_count", item.object.get("forks_count").?.integer, true);
         printJson("license", "-", true);
-        const url = try concatenate("https://codeberg.org/", item.object.get("full_name").?.string, "/raw/branch/main/" ++ "build.zig.zon");
+        const url = concatenate("https://codeberg.org/", item.object.get("full_name").?.string, "/raw/branch/main/" ++ "build.zig.zon");
         const result = try fetch(globalAllocator, url);
         if (std.mem.eql(u8, "", result) or std.mem.eql(u8, "404: Not Found", result)) {
             printJsonInt("has_build_zig_zon", 0, true);
@@ -227,7 +231,7 @@ pub fn compressAndPrintReposBerg(repoList: []std.json.Value, isLastFile: bool) !
             printJsonInt("has_build_zig_zon", 1, true);
         }
         printJson("default_branch", item.object.get("default_branch").?.string, true);
-        const url2 = try concatenate("https://codeberg.org/", item.object.get("full_name").?.string, "/raw/branch/main/" ++ "build.zig");
+        const url2 = concatenate("https://codeberg.org/", item.object.get("full_name").?.string, "/raw/branch/main/" ++ "build.zig");
         const result2 = try fetch(globalAllocator, url2);
         if (std.mem.eql(u8, "", result2) or std.mem.eql(u8, "404: Not Found", result2)) {
             printJsonInt("has_build_zig", 0, true);
@@ -237,7 +241,7 @@ pub fn compressAndPrintReposBerg(repoList: []std.json.Value, isLastFile: bool) !
         printJsonBool("fork", item.object.get("fork").?.bool, true);
         printJsonInt("open_issues", item.object.get("open_issues_count").?.integer, true);
         printJsonInt("stargazers_count", item.object.get("stars_count").?.integer, true);
-        printJson("tags_url", try concatenate("git@codeberg.org:", item.object.get("full_name").?.string, ".git"), true); //item.object.get("tags_url").?.string
+        printJson("tags_url", concatenate("git@codeberg.org:", item.object.get("full_name").?.string, ".git"), true); //item.object.get("tags_url").?.string
         printJson("updated_at", item.object.get("updated_at").?.string, true);
         printJson("created_at", item.object.get("created_at").?.string, true);
         printJsonInt("size", item.object.get("size").?.integer, true);
