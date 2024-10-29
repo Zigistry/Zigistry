@@ -55,6 +55,7 @@ pub fn main() !void {
             }
         } else @panic("unable to reach url");
     }
+
     // -------- End the json file ---------
     helperFunctions.print("]", .{});
 }

@@ -60,8 +60,8 @@ pub fn main() !void {
     _ = args.skip();
     const fileName: []const u8 = args.next().?;
 
-    var raw_json_data = std.ArrayList(u8).init(helperFunctions.globalAllocator);
-    defer raw_json_data.deinit();
+    var raw_json_data: [50000]u8 = undefined;
+    var raw_json_data_length: u16 = 0;
     const selection: u8 =
         if (std.mem.eql(u8, "games", fileName))
         0
@@ -69,25 +69,27 @@ pub fn main() !void {
         1
     else
         2;
-    try raw_json_data.append('[');
+    raw_json_data[raw_json_data_length] = '[';
+    raw_json_data_length += 1;
     for (0.., topic_urls[selection]) |i, url| {
         const res = try helperFunctions.fetch(helperFunctions.globalAllocator, url);
         defer helperFunctions.globalAllocator.free(res);
         if (!std.mem.eql(u8, res, "")) {
             for (res) |char| {
-                try raw_json_data.append(char);
+                raw_json_data[raw_json_data_length] = char;
+                std.debug.print("{}\n", .{raw_json_data_length});
+                raw_json_data_length += 1;
             }
             if (topic_urls[selection].len - 1 != i) {
-                try raw_json_data.append(',');
+                raw_json_data[raw_json_data_length] = ',';
+                raw_json_data_length += 1;
             }
-        } else {
-            @panic("unable to reach url");
-        }
+        } else @panic("unable to reach url");
     }
-    try raw_json_data.append(']');
+    raw_json_data[raw_json_data_length] = ']';
+    raw_json_data_length += 1;
 
-    const result = try raw_json_data.toOwnedSlice();
-    defer helperFunctions.globalAllocator.free(result);
+    const result = raw_json_data[0..raw_json_data_length];
     const jsonParsed = try std.json.parseFromSlice(std.json.Value, helperFunctions.globalAllocator, result, .{});
     defer jsonParsed.deinit();
     helperFunctions.print("[", .{});
