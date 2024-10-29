@@ -38,31 +38,23 @@ pub fn main() !void {
     // -------- Start the json file -------------
     helperFunctions.print("[", .{});
 
-    var buffers_collection: [urls.len][]const u8 = undefined;
     for (urls, 0..) |url, i| {
         const res = try helperFunctions.fetch(helperFunctions.globalAllocator, url);
         if (!std.mem.eql(u8, res, "")) {
-            buffers_collection[i] = res;
-        } else {
-            @panic("unable to reach url");
-        }
+            const parsed = try std.json.parseFromSlice(std.json.Value, helperFunctions.globalAllocator, res, .{});
+            defer parsed.deinit();
+
+            // ----- Get all the items (Repos) as array -----
+            const repoListUncompressed = parsed.value.object.get("items").?.array.items;
+
+            // ----- If last result -----
+            if (i == urls.len - 1) {
+                try helperFunctions.compressAndPrintRepos(repoListUncompressed, true);
+            } else {
+                try helperFunctions.compressAndPrintRepos(repoListUncompressed, false);
+            }
+        } else @panic("unable to reach url");
     }
-    for (buffers_collection, 0..) |buffer, i| {
-        // -------- Parse the json file --------
-        const parsed = try std.json.parseFromSlice(std.json.Value, helperFunctions.globalAllocator, buffer, .{});
-        defer parsed.deinit();
-
-        // ----- Get all the items (Repos) as array -----
-        const repoListUncompressed = parsed.value.object.get("items").?.array.items;
-
-        // ----- If last result -----
-        if (i == buffers_collection.len - 1) {
-            try helperFunctions.compressAndPrintRepos(repoListUncompressed, true);
-        } else {
-            try helperFunctions.compressAndPrintRepos(repoListUncompressed, false);
-        }
-    }
-
     // -------- End the json file ---------
     helperFunctions.print("]", .{});
 }

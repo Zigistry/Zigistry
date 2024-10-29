@@ -84,7 +84,7 @@ pub fn contains(listOfStrings: []const []const u8, string: []const u8) bool {
 
 // ------- Concatenate --------
 pub fn concatenate(str1: []const u8, str2: []const u8, str3: []const u8) []const u8 {
-    var concatenated_string: [1000]u8 = undefined;
+    var concatenated_string: [5000]u8 = undefined;
     var count: u32 = 0;
     for (str1) |char| {
         concatenated_string[count] = char;
@@ -173,7 +173,6 @@ pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void
 // ---- Fetch data: returns result as string (returns "" if error), uses headers ----
 pub fn fetch(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
     var charBuffer = std.ArrayList(u8).init(allocator);
-    defer charBuffer.deinit();
     var client = std.http.Client{ .allocator = allocator };
     const res = try std.process.getEnvVarOwned(globalAllocator, "API_AUTH_TOKEN");
     const fetchOptions = std.http.Client.FetchOptions{
