@@ -91,7 +91,11 @@ if (dependencies.length === 0) {
 
 async function convert2markdown(x: string): Promise<string> {
   var content = await marked(x);
-  content = sanitizeHtml(content);
+  content = sanitizeHtml(content, {allowedAttributes: {
+    a: [ 'href', 'name', 'target' ],
+    code:['class'],
+    img: [ 'src', 'srcset', 'alt', 'title', 'width', 'height', 'loading' ]
+  },});
   content = content.replaceAll(
     "[!IMPORTANT]",
     `<span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">IMPORTANT</span>`
@@ -297,14 +301,15 @@ const compressedRepo: Repo = {
               ></div>
             </div>
           </div>
-          <script>
-            import { zig } from "zilite";
-            import { bash } from "zilite";
-            import { diff } from "zilite";
-            import { highlightElements } from "zilite";
+          <script defer is:inline type="module">
+            import { highlightElements } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25";
+            import { zig } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/zig.js";
+            import { bash } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/bash.js";
+            import { diff } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/diff.js";
             highlightElements(zig, "language-zig");
-            highlightElements(bash, "language-sh");
             highlightElements(bash, "language-bash");
+            highlightElements(bash, "language-console");
+            highlightElements(bash, "language-sh");
             highlightElements(diff, "language-diff");
           </script>
         </>

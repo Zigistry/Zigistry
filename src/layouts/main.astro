@@ -234,10 +234,10 @@ import {
       import type { CollapseOptions, CollapseInterface } from "flowbite";
       import type { InstanceOptions } from "flowbite";
       const $targetEl: HTMLElement = document.getElementById(
-        "targetEl"
+        "targetEl",
       ) as HTMLElement;
       const $triggerEl: HTMLElement = document.getElementById(
-        "triggerEl"
+        "triggerEl",
       ) as HTMLElement;
       const options: CollapseOptions = {
         onCollapse: () => {
@@ -258,7 +258,7 @@ import {
         $targetEl,
         $triggerEl,
         options,
-        instanceOptions
+        instanceOptions,
       );
       collapse.expand();
     </script>
