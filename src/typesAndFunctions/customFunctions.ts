@@ -1,3 +1,9 @@
+export interface Dependency {
+  name: string;
+  source: "relative" | "remote";
+  location: string;
+}
+
 export interface Repo {
   avatar_url: string;
   name: string;
@@ -20,7 +26,7 @@ export interface Repo {
   has_build_zig?: number;
   fork?: boolean;
   updated_at: string;
-  dependencies?: string[];
+  dependencies?: Dependency[];
   berg?: number;
   archived?: boolean;
 }
