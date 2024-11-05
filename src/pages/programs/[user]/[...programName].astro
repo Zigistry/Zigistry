@@ -1,8 +1,10 @@
 ---
-
 // export const prerender = true;
 
-import { numberAsLetters, type Repo } from "../../../typesAndFunctions/customFunctions";
+import {
+  numberAsLetters,
+  type Repo,
+} from "../../../typesAndFunctions/customFunctions";
 import { marked } from "marked";
 import { FaCheck } from "react-icons/fa";
 import { GoIssueOpened } from "react-icons/go";
@@ -11,20 +13,17 @@ import { FaGithub } from "react-icons/fa";
 import { BsInfoSquareFill } from "react-icons/bs";
 import RootLayout from "../../../layouts/main.astro";
 import data from "../../../../database/programs.json";
-import sanitizeHtml from 'sanitize-html';
+import sanitizeHtml from "sanitize-html";
 import dataBerg from "../../../../database/codebergPrograms.json";
 import zon2json from "z2j";
 import { Card, Badge, Tooltip, Button } from "flowbite-react";
 import CopyButton from "../../../components/CopyButton";
 
-
-
 export function getStaticPaths() {
-const repositories: Repo[] = [...data, ...dataBerg];
-  const result =  repositories.map((repo) => {
+  const repositories: Repo[] = [...data, ...dataBerg];
+  const result = repositories.map((repo) => {
     const [user, programName] = repo.full_name.split("/");
-    return { params: { user, programName }}
-
+    return { params: { user, programName } };
   });
   return result;
 }
@@ -33,7 +32,7 @@ const repositories: Repo[] = [...data, ...dataBerg];
 const { user, programName } = Astro.params;
 const repoPath = `${user}/${programName}`;
 const repository: Repo | undefined = repositories.find(
-  (repo) => repo.full_name === repoPath
+  (repo) => repo.full_name === repoPath,
 );
 
 if (!repository) {
@@ -97,19 +96,19 @@ async function convert2markdown(x: string): Promise<string> {
   content = sanitizeHtml(content);
   content = content.replaceAll(
     "[!IMPORTANT]",
-    `<span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">IMPORTANT</span>`
+    `<span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">IMPORTANT</span>`,
   );
   content = content.replaceAll(
     "[!NOTE]",
-    `<span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">NOTE</span>`
+    `<span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">NOTE</span>`,
   );
   content = content.replaceAll(
     "[!WARNING]",
-    `<span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">WARNING</span>`
+    `<span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">WARNING</span>`,
   );
   content = content.replaceAll(
     "[!CAUTION]",
-    `<span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">CAUTION</span>`
+    `<span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">CAUTION</span>`,
   );
   return content;
 }
@@ -144,175 +143,177 @@ const compressedRepo: Repo = {
 ---
 
 <RootLayout>
-      {compressedRepo.contentIsCorrect ? (
-        <>
-          <div
-            class="flex items-center justify-center"
-            onload={"highlightCode"}
-          >
-            <Card className="my-5 w-72 transform-cpu transition-transform">
-              <img
-                width="50"
-                height="50"
-                class="w-10 rounded-full"
-                src={compressedRepo.avatar_url}
-                alt={compressedRepo.name}
-              />
-              <h5 class="text-2xl font-bold text-gray-900 dark:text-white">
-                {compressedRepo.name}
-              </h5>
-              <p class="text-gray-400">{compressedRepo.full_name}</p>
-              <div class="flex space-x-3">
-                {compressedRepo.archived ? (
-                  <Badge
-                    color={"light"}
-                    className="mt-1 w-fit border border-slate-200 bg-white dark:border-none dark:bg-yellow-400"
-                  >
-                    Archived
-                  </Badge>
-                ) : (
-                  <></>
-                )}
+  {
+    compressedRepo.contentIsCorrect ? (
+      <>
+        <div class="flex items-center justify-center" onload={"highlightCode"}>
+          <Card className="my-5 w-72 transform-cpu transition-transform">
+            <img
+              width="50"
+              height="50"
+              class="w-10 rounded-full"
+              src={compressedRepo.avatar_url}
+              alt={compressedRepo.name}
+            />
+            <h5 class="text-2xl font-bold text-gray-900 dark:text-white">
+              {compressedRepo.name}
+            </h5>
+            <p class="text-gray-400">{compressedRepo.full_name}</p>
+            <div class="flex space-x-3">
+              {compressedRepo.archived && (
                 <Badge
-                  color={"darkblue"}
-                  className="mt-1 w-fit border border-slate-200 bg-white dark:border-none dark:bg-slate-600"
+                  color={"light"}
+                  className="mt-1 w-fit border border-slate-200 bg-white dark:border-none dark:bg-yellow-400"
                 >
-                  {compressedRepo.license}
+                  Archived
                 </Badge>
-              </div>
-              <p class="font-normal text-gray-700 dark:text-gray-400">
-                {compressedRepo.description}
-              </p>
-              <div class="flex items-center">
-                <FaStar size={20} color="#cfbc0e" className="mr-2" />
-                {numberAsLetters(compressedRepo.stargazers_count)}
-                <FaEye className="ml-2 mr-1" color="skyblue" />
-                {numberAsLetters(compressedRepo.watchers_count)}
-                <FaCodeFork className="ml-2 mr-1" color="lightpink" />
-                {numberAsLetters(compressedRepo.forks_count)}
-                <GoIssueOpened className="ml-2 mr-1" color="lightgreen" />
-                {numberAsLetters(compressedRepo.open_issues)}
-                <BsInfoSquareFill className="ml-2 mr-1" color="darkorange" />
-                <Tooltip
-                  className="ml-2 mr-1"
-                  content={compressedRepo.topics?.join(", ")}
-                >
-                  {compressedRepo.topics?.length}
-                </Tooltip>
-              </div>
-              <div class="flex">
-                {compressedRepo.has_build_zig_zon ? (
-                  <span class="me-2 flex w-min items-center justify-center space-x-3 rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300">
-                    build.zig.zon&nbsp;
-                    <FaCheck size={12} />
-                  </span>
-                ) : (
-                  ""
-                )}
-                {compressedRepo.has_build_zig ? (
-                  <span class="me-2 flex w-min items-center justify-center space-x-3 rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
-                    build.zig&nbsp;
-                    <FaCheck size={12} />
-                  </span>
-                ) : (
-                  ""
-                )}
-                {compressedRepo.fork ? (
-                  <span class="me-2 flex w-min items-center justify-center space-x-3 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-900 dark:text-gray-300">
-                    fork&nbsp;
-                    <FaCheck size={12} />
-                  </span>
-                ) : (
-                  ""
-                )}
-              </div>
-              <Button
-                target="_blank"
-                rel="noopener noreferrer"
-                href={"https://github.com/" + compressedRepo.full_name}
-                color="light"
-                pill
+              )}
+              <Badge
+                color={"darkblue"}
+                className="mt-1 w-fit border border-slate-200 bg-white dark:border-none dark:bg-slate-600"
               >
-                View on Github &nbsp;
-                <FaGithub size={20} />
-              </Button>
-            </Card>
-          </div>
-          <div class="mb-4 flex flex-wrap justify-center gap-2">
-            <Badge color="info">
-              Updated:{" "}
-              {new Date(compressedRepo.updated_at).toLocaleTimeString() +
-                " " +
-                new Date(compressedRepo.updated_at).toDateString()}
-            </Badge>
-            <Badge color="warning">Size: {compressedRepo.size}KB</Badge>
-            <Badge color="purple">
-              Created:{" "}
-              {new Date(compressedRepo.created_at).toLocaleTimeString() +
-                " " +
-                new Date(compressedRepo.created_at).toDateString()}
-            </Badge>
-          </div>
-          <div class="mb-4 flex w-full items-center justify-center">
-            <Badge className="w-fit" color="blue">
-              Dependencies:
-            </Badge>
-          </div>
-          <div class="flex w-full items-center justify-center">
-            <div class="mb-4 flex w-3/5 flex-wrap justify-center gap-2">
-              {compressedRepo.dependencies ? (
-                compressedRepo.dependencies.map((element, index) => (
-                  <Badge key={index} color="dark">
-                    {element}
-                  </Badge>
-                ))
+                {compressedRepo.license}
+              </Badge>
+            </div>
+            <p class="font-normal text-gray-700 dark:text-gray-400">
+              {compressedRepo.description}
+            </p>
+            <div class="flex items-center">
+              <FaStar size={20} color="#cfbc0e" className="mr-2" />
+              {numberAsLetters(compressedRepo.stargazers_count)}
+              <FaEye className="ml-2 mr-1" color="skyblue" />
+              {numberAsLetters(compressedRepo.watchers_count)}
+              <FaCodeFork className="ml-2 mr-1" color="lightpink" />
+              {numberAsLetters(compressedRepo.forks_count)}
+              <GoIssueOpened className="ml-2 mr-1" color="lightgreen" />
+              {numberAsLetters(compressedRepo.open_issues)}
+              <BsInfoSquareFill className="ml-2 mr-1" color="darkorange" />
+              <Tooltip
+                className="ml-2 mr-1"
+                content={compressedRepo.topics?.join(", ")}
+              >
+                {compressedRepo.topics?.length}
+              </Tooltip>
+            </div>
+            <div class="flex">
+              {compressedRepo.has_build_zig_zon ? (
+                <span class="me-2 flex w-min items-center justify-center space-x-3 rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300">
+                  build.zig.zon&nbsp;
+                  <FaCheck size={12} />
+                </span>
               ) : (
-                <Badge color="dark">No known dependencies</Badge>
+                ""
+              )}
+              {compressedRepo.has_build_zig ? (
+                <span class="me-2 flex w-min items-center justify-center space-x-3 rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
+                  build.zig&nbsp;
+                  <FaCheck size={12} />
+                </span>
+              ) : (
+                ""
+              )}
+              {compressedRepo.fork ? (
+                <span class="me-2 flex w-min items-center justify-center space-x-3 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-900 dark:text-gray-300">
+                  fork&nbsp;
+                  <FaCheck size={12} />
+                </span>
+              ) : (
+                ""
               )}
             </div>
+            <Button
+              target="_blank"
+              rel="noopener noreferrer"
+              href={"https://github.com/" + compressedRepo.full_name}
+              color="light"
+              pill
+            >
+              View on Github &nbsp;
+              <FaGithub size={20} />
+            </Button>
+          </Card>
+        </div>
+        <div class="mb-4 flex flex-wrap justify-center gap-2">
+          <Badge color="info">
+            Updated:{" "}
+            {new Date(compressedRepo.updated_at).toLocaleTimeString() +
+              " " +
+              new Date(compressedRepo.updated_at).toDateString()}
+          </Badge>
+          <Badge color="warning">Size: {compressedRepo.size}KB</Badge>
+          <Badge color="purple">
+            Created:{" "}
+            {new Date(compressedRepo.created_at).toLocaleTimeString() +
+              " " +
+              new Date(compressedRepo.created_at).toDateString()}
+          </Badge>
+        </div>
+        <div class="mb-4 flex w-full items-center justify-center">
+          <Badge className="w-fit" color="blue">
+            Dependencies:
+          </Badge>
+        </div>
+        <div class="flex w-full items-center justify-center">
+          <div class="mb-4 flex w-3/5 flex-wrap justify-center gap-2">
+            {compressedRepo.dependencies ? (
+              compressedRepo.dependencies.map((element, index) => (
+                <Badge key={index} color="dark">
+                  {element}
+                </Badge>
+              ))
+            ) : (
+              <Badge color="dark">No known dependencies</Badge>
+            )}
           </div>
-          <div class="mx-5 flex items-center justify-center font-mono">
-            <div class="mx-2 mb-4 flex w-fit max-w-full items-center justify-center rounded bg-slate-600 py-3 pl-4 pr-7 dark:bg-[#151d28]">
-              <div
-                class="overflow-x-scroll text-sm sm:overflow-x-hidden sm:text-base"
-                style={{ userSelect: "all" }}
-              >
-                <span style={{ color: "gold" }}>zig</span>&nbsp;
-                <span style={{ color: "skyblue" }}>fetch</span>&nbsp;
-                <span style={{ color: "lightgray" }}>--save</span>&nbsp;
-                <span style={{ color: "lightgreen" }}>
-                  {compressedRepo.specials}
-                </span>
-              </div>
-              <CopyButton client:load text_to_copy={"zig fetch --save " + compressedRepo.specials} />
+        </div>
+        <div class="mx-5 flex items-center justify-center font-mono">
+          <div class="mx-2 mb-4 flex w-fit max-w-full items-center justify-center rounded bg-slate-600 py-3 pl-4 pr-7 dark:bg-[#151d28]">
+            <div
+              class="overflow-x-scroll text-sm sm:overflow-x-hidden sm:text-base"
+              style={{ userSelect: "all" }}
+            >
+              <span style={{ color: "gold" }}>zig</span>&nbsp;
+              <span style={{ color: "skyblue" }}>fetch</span>&nbsp;
+              <span style={{ color: "lightgray" }}>--save</span>&nbsp;
+              <span style={{ color: "lightgreen" }}>
+                {compressedRepo.specials}
+              </span>
             </div>
+            <CopyButton
+              client:load
+              text_to_copy={"zig fetch --save " + compressedRepo.specials}
+            />
           </div>
-          <div class="m-4 flex items-center justify-center">
-            <div class="w-full rounded-2xl border-2 border-slate-600 bg-white px-4 py-10 dark:bg-slate-800 sm:w-3/5 sm:px-20">
-                {/* please dom purify */}
-              <div
-                class="readmeDiv"
-                set:html={
-                   compressedRepo.readme_content
-                    ? compressedRepo.readme_content
-                    : ""
-                }
-              ></div>
-            </div>
+        </div>
+        <div class="m-4 flex items-center justify-center">
+          <div class="w-full rounded-2xl border-2 border-slate-600 bg-white px-4 py-10 dark:bg-slate-800 sm:w-3/5 sm:px-20">
+            {/* please dom purify */}
+            <div
+              class="readmeDiv"
+              set:html={
+                compressedRepo.readme_content
+                  ? compressedRepo.readme_content
+                  : ""
+              }
+            />
           </div>
-          <script defer is:inline type="module">
-            import { highlightElements } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25";
-            import { zig } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/zig.js";
-            import { bash } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/bash.js";
-            import { diff } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/diff.js";
-            highlightElements(zig, "language-zig");
-            highlightElements(bash, "language-bash");
-            highlightElements(bash, "language-console");
-            highlightElements(bash, "language-sh");
-            highlightElements(diff, "language-diff");
-          </script>
-        </>
-      ) : (
-        <>404</>
-      )}
+        </div>
+        <script defer is:inline type="module">
+          import {highlightElements} from
+          "https://cdn.jsdelivr.net/npm/zilite@0.0.25"; import {zig} from
+          "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/zig.js";
+          import {bash} from
+          "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/bash.js";
+          import {diff} from
+          "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/diff.js";
+          highlightElements(zig, "language-zig"); highlightElements(bash,
+          "language-bash"); highlightElements(bash, "language-console");
+          highlightElements(bash, "language-sh"); highlightElements(diff,
+          "language-diff");
+        </script>
+      </>
+    ) : (
+      <>404</>
+    )
+  }
 </RootLayout>

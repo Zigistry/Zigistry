@@ -25,10 +25,8 @@ export interface Repo {
   archived?: boolean;
 }
 
-
 export function numberAsLetters(i: number): string {
   const numberAsString = i.toString();
-  if (numberAsString.length > 3)
-    return (i / 1000).toString().slice(0, 3) + "K";
+  if (numberAsString.length > 3) return (i / 1000).toString().slice(0, 3) + "K";
   else return numberAsString;
 }
