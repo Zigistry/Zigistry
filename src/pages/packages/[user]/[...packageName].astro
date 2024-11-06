@@ -21,6 +21,7 @@ import data_gui from "../../../../database/gui.json";
 import zon2json from "z2j";
 import { Card, Badge, Tooltip, Button } from "flowbite-react";
 import CopyButton from "../../../components/CopyButton";
+import { string } from "astro:schema";
 export function getStaticPaths() {
   const repositories: Repo[] = [
     ...data,
@@ -83,10 +84,21 @@ if (repository.has_build_zig_zon == 1) {
   var zonAsJsonData = zon2json(zonData);
 
   try {
-    const json_parsed = await JSON.parse(zonAsJsonData);
+    const json_parsed = JSON.parse(zonAsJsonData); // No need for await here
+
+    // Check if 'dependencies' exists in the parsed JSON first
     if ("dependencies" in json_parsed) {
-      for (const [name, dep] of Object.entries(json_parsed.dependencies)) {
-        if ("url" in dep && "hash" in dep) {
+      const deps: {
+        [name: string]: {
+          url: string | undefined;
+          path: string | undefined;
+          hash: string | undefined;
+        };
+      } = json_parsed.dependencies;
+
+      // Iterate over the dependencies and handle them
+      for (const [name, dep] of Object.entries(deps)) {
+        if (dep.url && dep.hash) {
           dependencies.push({
             name,
             source: "remote",
@@ -96,13 +108,15 @@ if (repository.has_build_zig_zon == 1) {
           dependencies.push({
             name,
             source: "relative",
-            location: dep.path,
+            location: dep.path ? dep.path : "./",
           });
         }
       }
+    } else {
+      console.warn("No dependencies found in the parsed JSON.");
     }
   } catch (error) {
-    console.error(error);
+    console.error("Error parsing JSON:", error);
   }
 }
 
