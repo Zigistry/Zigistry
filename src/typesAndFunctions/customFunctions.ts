@@ -1,3 +1,9 @@
+export interface Dependency {
+  name: string;
+  source: "relative" | "remote";
+  location: string;
+}
+
 export interface Repo {
   avatar_url: string;
   name: string;
@@ -20,15 +26,13 @@ export interface Repo {
   has_build_zig?: number;
   fork?: boolean;
   updated_at: string;
-  dependencies?: string[];
+  dependencies?: Dependency[];
   berg?: number;
   archived?: boolean;
 }
 
-
 export function numberAsLetters(i: number): string {
   const numberAsString = i.toString();
-  if (numberAsString.length > 3)
-    return (i / 1000).toString().slice(0, 3) + "K";
+  if (numberAsString.length > 3) return (i / 1000).toString().slice(0, 3) + "K";
   else return numberAsString;
 }

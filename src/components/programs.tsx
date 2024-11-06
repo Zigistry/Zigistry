@@ -68,9 +68,9 @@ export default function Programs(props: {
       } else {
         response = await fetch(
           "/api/searchPrograms?q=" +
-          searchTextboxInputValue +
-          "&filter=" +
-          val.value,
+            searchTextboxInputValue +
+            "&filter=" +
+            val.value,
         );
       }
       const result: Repo[] = await response.json();

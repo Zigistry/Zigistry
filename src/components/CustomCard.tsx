@@ -1,5 +1,8 @@
 // ---------- Types ------------
-import { numberAsLetters, type Repo } from "../typesAndFunctions/customFunctions";
+import {
+  numberAsLetters,
+  type Repo,
+} from "../typesAndFunctions/customFunctions";
 import { SiCodeberg } from "react-icons/si";
 import { FaCheck } from "react-icons/fa";
 
@@ -16,7 +19,6 @@ import { GoIssueOpened } from "react-icons/go";
 //       Exports function (Component) Custom Card
 // =====================================================
 export default function CustomCard(props: { item: Repo; program: boolean }) {
-  
   return (
     <Card className="z-0 my-2 w-72 transform-cpu transition-transform hover:z-10 hover:scale-110">
       <img
