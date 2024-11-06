@@ -81,16 +81,17 @@ if (repository.has_build_zig_zon == 1) {
   try {
     const json_parsed = await JSON.parse(zonAsJsonData);
     if ("dependencies" in json_parsed) {
-      for (const [name, dep] of Object.entries(json_parsed.dependencies)) {
+      for (const [key, value] of Object.entries(json_parsed.dependencies)) {
+        const dep = value as { url: string; hash: string; } | { path: string; };
         if ("url" in dep && "hash" in dep) {
           dependencies.push({
-            name,
+            name: key,
             source: "remote",
             location: dep.url,
           });
         } else {
           dependencies.push({
-            name,
+            name: key,
             source: "relative",
             location: dep.path,
           });
