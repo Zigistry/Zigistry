@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: mlugg/setup-zig@v1
       - name: Build binaries
-        run: zig build --release=fast
+        run: zig build
       - name: Run all tasks in parallel
         run: |
           $BINARIES_PATH/databaseCompiler > ./database/main.json &
