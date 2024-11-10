@@ -10,10 +10,6 @@
 
 https://github.com/RohanVashisht1234/zigistry/assets/81112205/962b147c-16ce-44d8-a958-57c0f0e1447b
 
-## How to write a blog on zigistry?
-
-- Just type your blog [here](https://github.com/RohanVashisht1234/zigistry/discussions/6) and wait for it to get reviewed.
-
 ## Support:
 
 - ⭐ This github repo, create PRs, discussions, any sort of support/contribution is welcomed 😃.

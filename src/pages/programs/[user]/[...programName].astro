@@ -15,21 +15,11 @@ import { BsInfoSquareFill } from "react-icons/bs";
 import RootLayout from "../../../layouts/main.astro";
 import data from "../../../../database/programs.json";
 import sanitizeHtml from "sanitize-html";
-import dataBerg from "../../../../database/codebergPrograms.json";
 import zon2json from "z2j";
 import { Card, Badge, Tooltip, Button } from "flowbite-react";
 import CopyButton from "../../../components/CopyButton";
 
-export function getStaticPaths() {
-  const repositories: Repo[] = [...data, ...dataBerg];
-  const result = repositories.map((repo) => {
-    const [user, programName] = repo.full_name.split("/");
-    return { params: { user, programName } };
-  });
-  return result;
-}
-
-const repositories: Repo[] = [...data, ...dataBerg];
+const repositories: Repo[] = [...data];
 const { user, programName } = Astro.params;
 const repoPath = `${user}/${programName}`;
 const repository: Repo | undefined = repositories.find(

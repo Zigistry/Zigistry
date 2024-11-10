@@ -107,15 +107,25 @@ export default function CustomCard(props: { item: Repo; program: boolean }) {
           ""
         )}
       </div>
-      <Button
-        href={
-          (props.program ? "/programs/" : "/packages/") + props.item.full_name
-        }
-        color="light"
-        pill
-      >
-        View programs
-      </Button>
+      {props.item.berg ? (
+        <Button
+          href={"https://codeberg.org/" + props.item.full_name}
+          color="light"
+          pill
+        >
+          View programs
+        </Button>
+      ) : (
+        <Button
+          href={
+            (props.program ? "/programs/" : "/packages/") + props.item.full_name
+          }
+          color="light"
+          pill
+        >
+          View programs
+        </Button>
+      )}
     </Card>
   );
 }

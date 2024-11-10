@@ -21,20 +21,7 @@ import data_gui from "../../../../database/gui.json";
 import zon2json from "z2j";
 import { Card, Badge, Tooltip, Button } from "flowbite-react";
 import CopyButton from "../../../components/CopyButton";
-import { string } from "astro:schema";
-export function getStaticPaths() {
-  const repositories: Repo[] = [
-    ...data,
-    ...data_game,
-    ...data_gui,
-    ...data_web,
-  ];
-  const result = repositories.map((repo) => {
-    const [user, packageName] = repo.full_name.split("/");
-    return { params: { user, packageName } };
-  });
-  return result;
-}
+
 const repositories: Repo[] = [...data, ...data_game, ...data_gui, ...data_web];
 const { user, packageName } = Astro.params;
 const repoPath = `${user}/${packageName}`;

@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     headers: {
       "Content-Security-Policy":
-        "frame-ancestors 'none'; object-src 'none'; img-src 'self' https://avatars.githubusercontent.com https://raw.githubusercontent.com",
+        "frame-ancestors 'none'; object-src 'none'; img-src 'self' https://avatars.githubusercontent.com https://codeberg.org https://raw.githubusercontent.com",
       "X-Frame-Options": "DENY",
     },
   },

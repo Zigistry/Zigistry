@@ -1,4 +1,7 @@
-import mainDatabase from "../../../../../database/programs.json";
+import programsMain from "../../../../../database/programs.json";
+import codebergMain from "../../../../../database/codebergPrograms.json";
+
+const mainDatabase = [...programsMain, ...codebergMain];
 
 export async function GET({
   params,
