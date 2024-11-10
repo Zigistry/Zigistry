@@ -1,12 +1,3 @@
-#!===============================================================
-#!           Zigistry's main GitHub workflows file
-#!===============================================================
-#! Author  : Rohan Vashisht
-#! License : Please check license file
-#! Details : This workflows file is responsible to update the
-#! database i.e the json files automatically. This also builds
-#! the website and deploys it on Netlify.
-#!===============================================================
 name: Update database
 
 on:
@@ -15,34 +6,34 @@ on:
       - main
   schedule:
     - cron: "0 * * * *"
+    
 
 jobs:
   Update_json:
     env:
-      # API token used by scripts/libs/functionsProvider.zig for better
-      # performance while fetching data from GitHub's API.
       API_AUTH_TOKEN: ${{ secrets.API_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: mlugg/setup-zig@v1
-      - name: Update main.json
-        run: zig build run_databaseCompiler > ./database/main.json
-      - name: Update projects.json
-        run: zig build run_databaseCompiler2 > ./database/programs.json
-      - name: Compress web.json
-        run: zig build run_repoListCompressor -- web > ./database/web.json
-      - name: Compress gui.json
-        run: zig build run_repoListCompressor -- gui > ./database/gui.json
-      - name: Compress games.json
-        run: zig build run_repoListCompressor -- games > ./database/games.json
-      - name: Compress codebergPrograms.json
-        run: zig build run_codeberg > ./database/codebergPrograms.json
+      - name: Run all tasks in parallel
+        run: |
+          zig build run_databaseCompiler > ./database/main.json &
+          zig build run_databaseCompiler2 > ./database/programs.json &
+          zig build run_repoListCompressor -- web > ./database/web.json &
+          zig build run_repoListCompressor -- gui > ./database/gui.json &
+          zig build run_repoListCompressor -- games > ./database/games.json &
+          zig build run_codeberg > ./database/codebergPrograms.json &
+          wait
+
       - name: Config email
         run: git config --global user.name "Github Actions" && git config --global user.email "<>"
+      
       - name: Git add
         run: git add .
+
       - name: Commit database
         run: git commit -m 'Updated database'
+
       - name: Push changes
         run: git push
