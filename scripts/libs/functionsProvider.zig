@@ -166,7 +166,7 @@ pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void
         } else {
             print("}},", .{});
         }
-        std.debug.print("{d}\n", .{i});
+        // std.debug.print("{d}\n", .{i});
     }
 }
 
@@ -262,7 +262,7 @@ pub fn compressAndPrintReposBerg(repoList: []std.json.Value, isLastFile: bool) !
         } else {
             print("}},", .{});
         }
-        std.debug.print("{d}\n", .{i});
+        // std.debug.print("{d}\n", .{i});
     }
 }
 

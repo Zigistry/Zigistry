@@ -77,7 +77,7 @@ pub fn main() !void {
         if (!std.mem.eql(u8, res, "")) {
             for (res) |char| {
                 raw_json_data[raw_json_data_length] = char;
-                std.debug.print("{}\n", .{raw_json_data_length});
+                // std.debug.print("{}\n", .{raw_json_data_length});
                 raw_json_data_length += 1;
             }
             if (topic_urls[selection].len - 1 != i) {
