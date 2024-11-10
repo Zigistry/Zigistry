@@ -21,12 +21,12 @@ jobs:
         run: zig build --release=fast
       - name: Run all tasks in parallel
         run: |
-          BINARIES_PATH/databaseCompiler > ./database/main.json &
-          BINARIES_PATH/databaseCompiler2 > ./database/programs.json &
-          BINARIES_PATH/repoListCompressor -- web > ./database/web.json &
-          BINARIES_PATH/repoListCompressor -- gui > ./database/gui.json &
-          BINARIES_PATH/repoListCompressor -- games > ./database/games.json &
-          BINARIES_PATH/codeberg > ./database/codebergPrograms.json &
+          $BINARIES_PATH/databaseCompiler > ./database/main.json &
+          $BINARIES_PATH/databaseCompiler2 > ./database/programs.json &
+          $BINARIES_PATH/repoListCompressor -- web > ./database/web.json &
+          $BINARIES_PATH/repoListCompressor -- gui > ./database/gui.json &
+          $BINARIES_PATH/repoListCompressor -- games > ./database/games.json &
+          $BINARIES_PATH/codeberg > ./database/codebergPrograms.json &
           wait
 
       - name: Config email
