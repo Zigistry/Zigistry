@@ -12,18 +12,21 @@ jobs:
   Update_json:
     env:
       API_AUTH_TOKEN: ${{ secrets.API_TOKEN }}
+      BINARIES_PATH: ./zig-out/bin
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: mlugg/setup-zig@v1
+      - name: Build binaries
+        run: zig build --release=fast
       - name: Run all tasks in parallel
         run: |
-          zig build run_databaseCompiler > ./database/main.json &
-          zig build run_databaseCompiler2 > ./database/programs.json &
-          zig build run_repoListCompressor -- web > ./database/web.json &
-          zig build run_repoListCompressor -- gui > ./database/gui.json &
-          zig build run_repoListCompressor -- games > ./database/games.json &
-          zig build run_codeberg > ./database/codebergPrograms.json &
+          BINARIES_PATH/databaseCompiler > ./database/main.json &
+          BINARIES_PATH/databaseCompiler2 > ./database/programs.json &
+          BINARIES_PATH/repoListCompressor -- web > ./database/web.json &
+          BINARIES_PATH/repoListCompressor -- gui > ./database/gui.json &
+          BINARIES_PATH/repoListCompressor -- games > ./database/games.json &
+          BINARIES_PATH/codeberg > ./database/codebergPrograms.json &
           wait
 
       - name: Config email
