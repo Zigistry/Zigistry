@@ -17,7 +17,6 @@ const std = @import("std");
 //         Constants
 // ==========================
 pub const writer = std.io.getStdOut().writer();
-pub const globalAllocator = std.heap.page_allocator;
 pub const fileFunctions = std.fs.cwd();
 const excludedRepositoriesLists = [_][]const u8{
     "zigcc/awesome-zig",

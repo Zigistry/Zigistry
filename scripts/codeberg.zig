@@ -7,7 +7,7 @@ pub fn main() !void {
     const allocator = gpa.allocator();
     defer {
         const deinit_status = gpa.deinit();
-        if (deinit_status == .leak) @panic("The code is memory unsafe.");
+        if (deinit_status == .leak) @panic("The code doesn't contain any memory leaks.");
     }
     const res = try hp.fetchNormal(allocator, "https://codeberg.org/api/v1/repos/search?q=zig");
     defer allocator.free(res);
