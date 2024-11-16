@@ -3,12 +3,20 @@ const hp = @import("helperFunctions");
 // https://codeberg.org/api/v1/repos/search?q=zig
 pub fn main() !void {
     hp.print("[", .{});
-    const res = try hp.fetchNormal(hp.globalAllocator, "https://codeberg.org/api/v1/repos/search?q=zig");
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    const allocator = gpa.allocator();
+    defer {
+        const deinit_status = gpa.deinit();
+        if (deinit_status == .leak) @panic("The code is memory unsafe.");
+    }
+    const res = try hp.fetchNormal(allocator, "https://codeberg.org/api/v1/repos/search?q=zig");
+    defer allocator.free(res);
     if (std.mem.eql(u8, "", res)) {
         @panic("can't connect to codeberg.");
     }
-    const parsed = try std.json.parseFromSlice(std.json.Value, hp.globalAllocator, res, .{});
+    const parsed = try std.json.parseFromSlice(std.json.Value, allocator, res, .{});
+    defer parsed.deinit();
     const resu = parsed.value.object.get("data").?.array.items;
-    try hp.compressAndPrintReposBerg(resu, true);
+    try hp.compressAndPrintReposBerg(allocator, resu, true);
     hp.print("]", .{});
 }

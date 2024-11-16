@@ -1,9 +1,9 @@
 import databaseMain from "../../../database/main.json";
 
-export async function GET(event: {
-  queryStringParameters: { section: string; range: string };
-}) {
-  const { section, range } = event.queryStringParameters;
+export async function GET({ url }: { url: string }) {
+  const parsedUrl = new URL(url);
+  const section = parsedUrl.searchParams.get("section");
+  const range = parsedUrl.searchParams.get("range");
 
   if (
     !section ||

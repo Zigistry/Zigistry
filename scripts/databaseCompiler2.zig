@@ -74,10 +74,18 @@ pub fn main() !void {
     // -------- Start the json file -------------
     helperFunctions.print("[", .{});
 
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    const allocator = gpa.allocator();
+    defer {
+        const deinit_status = gpa.deinit();
+        if (deinit_status == .leak) @panic("The code is memory unsafe.");
+    }
+
     for (urls, 0..) |url, i| {
-        const res = try helperFunctions.fetch(helperFunctions.globalAllocator, url);
+        const res = try helperFunctions.fetch(allocator, url);
+        defer allocator.free(res);
         if (!std.mem.eql(u8, res, "")) {
-            const parsed = try std.json.parseFromSlice(std.json.Value, helperFunctions.globalAllocator, res, .{});
+            const parsed = try std.json.parseFromSlice(std.json.Value, allocator, res, .{});
             defer parsed.deinit();
 
             // ----- Get all the items (Repos) as array -----
@@ -85,9 +93,9 @@ pub fn main() !void {
 
             // ----- If last result -----
             if (i == urls.len - 1) {
-                try helperFunctions.compressAndPrintRepos(repoListUncompressed, true);
+                try helperFunctions.compressAndPrintRepos(allocator, repoListUncompressed, true);
             } else {
-                try helperFunctions.compressAndPrintRepos(repoListUncompressed, false);
+                try helperFunctions.compressAndPrintRepos(allocator, repoListUncompressed, false);
             }
         } else @panic("unable to reach url");
     }

@@ -17,8 +17,8 @@ const std = @import("std");
 //         Constants
 // ==========================
 pub const writer = std.io.getStdOut().writer();
-pub const fileFunctions = std.fs.cwd();
 pub const globalAllocator = std.heap.page_allocator;
+pub const fileFunctions = std.fs.cwd();
 const excludedRepositoriesLists = [_][]const u8{
     "zigcc/awesome-zig",
 };
@@ -33,8 +33,8 @@ pub fn print(comptime format: []const u8, args: anytype) void {
 }
 
 // ------ Basically string.replaceAll('a', 'b'); ------
-pub fn replace(str: []const u8, charToReplace: u8, replaceWith: u8) []const u8 {
-    var finalString: [5000]u8 = undefined;
+pub fn replace(allocator: std.mem.Allocator, str: []const u8, charToReplace: u8, replaceWith: u8) ![]const u8 {
+    var finalString: []u8 = try allocator.alloc(u8, str.len);
     for (str, 0..) |char, i| {
         if (char == charToReplace) {
             finalString[i] = replaceWith;
@@ -42,7 +42,7 @@ pub fn replace(str: []const u8, charToReplace: u8, replaceWith: u8) []const u8 {
             finalString[i] = char;
         }
     }
-    return finalString[0..str.len];
+    return try allocator.realloc(finalString, str.len);
 }
 
 // ---- Prints json in format: "string":"string", and "string":"string" ----
@@ -83,8 +83,8 @@ pub fn contains(listOfStrings: []const []const u8, string: []const u8) bool {
 }
 
 // ------- Concatenate --------
-pub fn concatenate(str1: []const u8, str2: []const u8, str3: []const u8) []const u8 {
-    var concatenated_string: [5000]u8 = undefined;
+pub fn concatenate(allocator: std.mem.Allocator, str1: []const u8, str2: []const u8, str3: []const u8) ![]const u8 {
+    var concatenated_string: []u8 = try allocator.alloc(u8, str1.len + str2.len + str3.len);
     var count: u32 = 0;
     for (str1) |char| {
         concatenated_string[count] = char;
@@ -98,11 +98,11 @@ pub fn concatenate(str1: []const u8, str2: []const u8, str3: []const u8) []const
         concatenated_string[count] = char;
         count += 1;
     }
-    return concatenated_string[0..count];
+    return try allocator.realloc(concatenated_string, count);
 }
 
 // ---- Prints selected fields in json ----
-pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void {
+pub fn compressAndPrintRepos(alloctor: std.mem.Allocator, repoList: []std.json.Value, isLastFile: bool) !void {
     for (repoList, 0..) |item, i| {
         if (contains(&excludedRepositoriesLists, item.object.get("full_name").?.string)) {
             continue;
@@ -111,7 +111,8 @@ pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void
         printJson("name", item.object.get("name").?.string, true);
         printJson("full_name", item.object.get("full_name").?.string, true);
         if (item.object.get("description").? == .string) {
-            const purifiedString = replace(item.object.get("description").?.string, '"', '\'');
+            const purifiedString = try replace(alloctor, item.object.get("description").?.string, '"', '\'');
+            defer alloctor.free(purifiedString);
             printJson("description", purifiedString, true);
         } else {
             printJson("description", "This repository has no description.", true);
@@ -123,16 +124,20 @@ pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void
         } else {
             printJson("license", item.object.get("license").?.object.get("spdx_id").?.string, true);
         }
-        const url = concatenate("https://raw.githubusercontent.com/", item.object.get("full_name").?.string, "/master/" ++ "build.zig.zon");
-        const result = try fetch(globalAllocator, url);
+        const url = try concatenate(alloctor, "https://raw.githubusercontent.com/", item.object.get("full_name").?.string, "/master/" ++ "build.zig.zon");
+        defer alloctor.free(url);
+        const result = try fetch(alloctor, url);
+        defer alloctor.free(result);
         if (std.mem.eql(u8, "", result) or std.mem.eql(u8, "404: Not Found", result)) {
             printJsonInt("has_build_zig_zon", 0, true);
         } else {
             printJsonInt("has_build_zig_zon", 1, true);
         }
         printJson("default_branch", item.object.get("default_branch").?.string, true);
-        const url2 = concatenate("https://raw.githubusercontent.com/", item.object.get("full_name").?.string, "/master/" ++ "build.zig");
-        const result2 = try fetch(globalAllocator, url2);
+        const url2 = try concatenate(alloctor, "https://raw.githubusercontent.com/", item.object.get("full_name").?.string, "/master/" ++ "build.zig");
+        defer alloctor.free(url2);
+        const result2 = try fetch(alloctor, url2);
+        defer alloctor.free(result2);
         if (std.mem.eql(u8, "", result2) or std.mem.eql(u8, "404: Not Found", result2)) {
             printJsonInt("has_build_zig", 0, true);
         } else {
@@ -174,7 +179,9 @@ pub fn compressAndPrintRepos(repoList: []std.json.Value, isLastFile: bool) !void
 pub fn fetch(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
     var charBuffer = std.ArrayList(u8).init(allocator);
     var client = std.http.Client{ .allocator = allocator };
-    const res = try std.process.getEnvVarOwned(globalAllocator, "API_AUTH_TOKEN");
+    defer client.deinit();
+    const res = try std.process.getEnvVarOwned(allocator, "API_AUTH_TOKEN");
+    defer allocator.free(res);
     const fetchOptions = std.http.Client.FetchOptions{
         .location = std.http.Client.FetchOptions.Location{
             .url = url,
@@ -190,8 +197,9 @@ pub fn fetch(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
 // ---- Fetch Without headers ----
 pub fn fetchNormal(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
     var charBuffer = std.ArrayList(u8).init(allocator);
-    defer charBuffer.deinit();
+    errdefer charBuffer.deinit();
     var client = std.http.Client{ .allocator = allocator };
+    defer client.deinit();
     const fetchOptions = std.http.Client.FetchOptions{
         .location = std.http.Client.FetchOptions.Location{
             .url = url,
@@ -204,7 +212,7 @@ pub fn fetchNormal(allocator: std.mem.Allocator, url: []const u8) ![]const u8 {
 }
 
 // ---- Prints selected fields in json ----
-pub fn compressAndPrintReposBerg(repoList: []std.json.Value, isLastFile: bool) !void {
+pub fn compressAndPrintReposBerg(allocator: std.mem.Allocator, repoList: []std.json.Value, isLastFile: bool) !void {
     for (repoList, 0..) |item, i| {
         if (contains(&excludedRepositoriesLists, item.object.get("full_name").?.string)) {
             continue;
@@ -214,7 +222,8 @@ pub fn compressAndPrintReposBerg(repoList: []std.json.Value, isLastFile: bool) !
         printJsonInt("berg", 1, true);
         printJson("full_name", item.object.get("full_name").?.string, true);
         if (item.object.get("description").? == .string) {
-            const purifiedString = replace(item.object.get("description").?.string, '"', '\'');
+            const purifiedString = try replace(allocator, item.object.get("description").?.string, '"', '\'');
+            defer allocator.free(purifiedString);
             printJson("description", purifiedString, true);
         } else {
             printJson("description", "This repository has no description.", true);
@@ -222,16 +231,20 @@ pub fn compressAndPrintReposBerg(repoList: []std.json.Value, isLastFile: bool) !
         printJsonInt("watchers_count", item.object.get("watchers_count").?.integer, true);
         printJsonInt("forks_count", item.object.get("forks_count").?.integer, true);
         printJson("license", "-", true);
-        const url = concatenate("https://codeberg.org/", item.object.get("full_name").?.string, "/raw/branch/main/" ++ "build.zig.zon");
-        const result = try fetch(globalAllocator, url);
+        const url = try concatenate(allocator, "https://codeberg.org/", item.object.get("full_name").?.string, "/raw/branch/main/" ++ "build.zig.zon");
+        defer allocator.free(url);
+        const result = try fetchNormal(allocator, url);
+        defer allocator.free(result);
         if (std.mem.eql(u8, "", result) or std.mem.eql(u8, "404: Not Found", result)) {
             printJsonInt("has_build_zig_zon", 0, true);
         } else {
             printJsonInt("has_build_zig_zon", 1, true);
         }
         printJson("default_branch", item.object.get("default_branch").?.string, true);
-        const url2 = concatenate("https://codeberg.org/", item.object.get("full_name").?.string, "/raw/branch/main/" ++ "build.zig");
-        const result2 = try fetch(globalAllocator, url2);
+        const url2 = try concatenate(allocator, "https://codeberg.org/", item.object.get("full_name").?.string, "/raw/branch/main/" ++ "build.zig");
+        defer allocator.free(url2);
+        const result2 = try fetchNormal(allocator, url2);
+        defer allocator.free(result2);
         if (std.mem.eql(u8, "", result2) or std.mem.eql(u8, "404: Not Found", result2)) {
             printJsonInt("has_build_zig", 0, true);
         } else {
@@ -240,7 +253,9 @@ pub fn compressAndPrintReposBerg(repoList: []std.json.Value, isLastFile: bool) !
         printJsonBool("fork", item.object.get("fork").?.bool, true);
         printJsonInt("open_issues", item.object.get("open_issues_count").?.integer, true);
         printJsonInt("stargazers_count", item.object.get("stars_count").?.integer, true);
-        printJson("tags_url", concatenate("git@codeberg.org:", item.object.get("full_name").?.string, ".git"), true); //item.object.get("tags_url").?.string
+        const tags_url = try concatenate(allocator, "git@codeberg.org:", item.object.get("full_name").?.string, ".git");
+        defer allocator.free(tags_url);
+        printJson("tags_url", tags_url, true); //item.object.get("tags_url").?.string
         printJson("updated_at", item.object.get("updated_at").?.string, true);
         printJson("created_at", item.object.get("created_at").?.string, true);
         printJsonInt("size", item.object.get("size").?.integer, true);
@@ -290,7 +305,9 @@ test "printJsonInt" {
 }
 
 test "replace" {
-    const result = replace("Hello", 'l', 'o');
+    const alloc = std.heap.page_allocator;
+    const result = try replace(alloc, "Hello", 'l', 'o');
+    defer alloc.free(result);
     print("{s}", .{result});
     std.debug.assert(std.mem.eql(u8, result, "Heooo"));
 }

@@ -93,6 +93,6 @@ pub fn main() !void {
     const jsonParsed = try std.json.parseFromSlice(std.json.Value, helperFunctions.globalAllocator, result, .{});
     defer jsonParsed.deinit();
     helperFunctions.print("[", .{});
-    try helperFunctions.compressAndPrintRepos(jsonParsed.value.array.items, true);
+    try helperFunctions.compressAndPrintRepos(std.heap.page_allocator, jsonParsed.value.array.items, true);
     helperFunctions.print("]", .{});
 }
