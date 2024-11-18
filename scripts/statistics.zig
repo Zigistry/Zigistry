@@ -17,11 +17,11 @@
 //! Please don't forget to (even though once
 //! pushed, gh workflows will):
 //! $ rm -rf ./scripts/main.json
-//! 
+//!
 //! If you want to do the same for programs:
 //! $ cp ./database/programs.json ./scripts/main.json
 //! $ zig run ./scripts/statistics.zig
-//! 
+//!
 //! Please don't forget to (even though once
 //! pushed, gh workflows will):
 //! $ rm -rf ./scripts/main.json
@@ -35,15 +35,20 @@ const std = @import("std");
 // =======================
 //        Constants
 // =======================
-const allocator = std.heap.page_allocator;
 const writer = std.io.getStdOut().writer();
+const jsonRawData = @embedFile("./main.json");
 
 fn print(comptime format: []const u8, args: anytype) void {
     writer.print(format, args) catch return;
 }
 
 pub fn main() !void {
-    const jsonRawData = @embedFile("./main.json");
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    const allocator = gpa.allocator();
+    defer {
+        const deinit_status = gpa.deinit();
+        if (deinit_status == .leak) @panic("The code contains memory leaks.");
+    }
     const parsed = try std.json.parseFromSlice(
         std.json.Value,
         allocator,
@@ -81,6 +86,7 @@ pub fn main() !void {
     }
 
     var topicsHashMap = std.StringHashMap(u32).init(allocator);
+    defer topicsHashMap.deinit();
     const topicsArrayAsString: [][]const u8 = try topicsArray.toOwnedSlice();
     defer allocator.free(topicsArrayAsString);
     for (topicsArrayAsString) |topic| {

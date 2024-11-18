@@ -56,6 +56,12 @@ const topic_urls = [3][5][]const u8{
 //          Main
 // =======================
 pub fn main() !void {
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    const allocator = gpa.allocator();
+    defer {
+        const deinit_status = gpa.deinit();
+        if (deinit_status == .leak) @panic("The code contains memory leaks.");
+    }
     var args = std.process.args();
     _ = args.skip();
     const fileName: []const u8 = args.next().?;
@@ -72,8 +78,8 @@ pub fn main() !void {
     raw_json_data[raw_json_data_length] = '[';
     raw_json_data_length += 1;
     for (0.., topic_urls[selection]) |i, url| {
-        const res = try helperFunctions.fetch(helperFunctions.globalAllocator, url);
-        defer helperFunctions.globalAllocator.free(res);
+        const res = try helperFunctions.fetch(allocator, url);
+        defer allocator.free(res);
         if (!std.mem.eql(u8, res, "")) {
             for (res) |char| {
                 raw_json_data[raw_json_data_length] = char;
@@ -90,7 +96,7 @@ pub fn main() !void {
     raw_json_data_length += 1;
 
     const result = raw_json_data[0..raw_json_data_length];
-    const jsonParsed = try std.json.parseFromSlice(std.json.Value, helperFunctions.globalAllocator, result, .{});
+    const jsonParsed = try std.json.parseFromSlice(std.json.Value, allocator, result, .{});
     defer jsonParsed.deinit();
     helperFunctions.print("[", .{});
     try helperFunctions.compressAndPrintRepos(std.heap.page_allocator, jsonParsed.value.array.items, true);

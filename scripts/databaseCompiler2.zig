@@ -78,7 +78,7 @@ pub fn main() !void {
     const allocator = gpa.allocator();
     defer {
         const deinit_status = gpa.deinit();
-        if (deinit_status == .leak) @panic("The code doesn't contain any memory leaks.");
+        if (deinit_status == .leak) @panic("The code contains memory leaks.");
     }
 
     for (urls, 0..) |url, i| {
