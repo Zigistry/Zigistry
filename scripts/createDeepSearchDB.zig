@@ -1,6 +1,5 @@
 const std = @import("std");
 const helperFunctions = @import("helperFunctions");
-const db = @embedFile("../database/main.json");
 
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
@@ -9,7 +8,7 @@ pub fn main() !void {
         const deinit_status = gpa.deinit();
         if (deinit_status == .leak) @panic("The code contains memory leaks.");
     }
-
+    const db = try std.fs.cwd().readFileAlloc(allocator, "./database/main.json", 100_000_000_000);
     // parse the json
     const json = try std.json.parseFromSlice(std.json.Value, allocator, db, .{});
     defer json.deinit();
