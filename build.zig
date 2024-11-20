@@ -86,6 +86,25 @@ pub fn build(b: *std.Build) void {
         const repoListCompressorRunStep = b.step("run_repoListCompressor", "Run repoListCompressor");
         repoListCompressorRunStep.dependOn(&repoListCompressorRunCmd.step);
     }
+    // Create Deep Search Database
+    {
+        const createDeepSearchDB = b.addExecutable(.{
+            .name = "createDeepSearchDB",
+            .root_source_file = b.path("scripts/createDeepSearchDB.zig"),
+            .target = target,
+            .optimize = optimize,
+        });
+        createDeepSearchDB.root_module.addImport("helperFunctions", helperFunctions);
+        b.installArtifact(createDeepSearchDB);
+
+        const createDeepSearchDBRunCmd = b.addRunArtifact(createDeepSearchDB);
+        createDeepSearchDBRunCmd.step.dependOn(b.getInstallStep());
+        if (b.args) |args| {
+            createDeepSearchDBRunCmd.addArgs(args);
+        }
+        const repoListCompressorRunStep = b.step("run_createDeepSearchDB", "Run createDeepSearchDB");
+        repoListCompressorRunStep.dependOn(&createDeepSearchDBRunCmd.step);
+    }
     // Helper Functions Unit Tests
     {
         const functionsProviderUnitTests = b.addTest(.{
