@@ -23,7 +23,7 @@ pub fn main() !void {
         defer allocator.free(url_to_fetch);
         const result = try helperFunctions.fetchNormal(allocator, url_to_fetch);
         defer allocator.free(result);
-        const result_truncated = if (result.len > 50000) result[0..50000] else result;
+        const result_truncated = if (result.len > 10000) result[0..10000] else result;
         helperFunctions.print(":\"", .{});
         const description = item.object.get("description").?.string;
         helperFunctions.print("{s} ", .{description});
