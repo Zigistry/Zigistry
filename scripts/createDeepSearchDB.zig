@@ -23,18 +23,21 @@ pub fn main() !void {
         defer allocator.free(url_to_fetch);
         const result = try helperFunctions.fetchNormal(allocator, url_to_fetch);
         defer allocator.free(result);
-        const result_truncated = if (result.len > 10000) result[0..10000] else result;
+        const result_truncated = if (result.len > 7000) result[0..7000] else result;
         helperFunctions.print(":\"", .{});
         const description = item.object.get("description").?.string;
         helperFunctions.print("{s} ", .{description});
+        var previous_char: u8 = ' ';
         for (result_truncated) |char| {
+            // I have added heavy compression onto this to make sure I don't exceed the 1mb limit.
+            // The following will also optimize the search results.
+            // The search database will be purer.
             switch (char) {
-                '\n', '\r' => helperFunctions.print(" ", .{}),
-                '"' => helperFunctions.print("'", .{}),
-                '\\' => helperFunctions.print("╲", .{}),
-                '	' => helperFunctions.print("  ", .{}),
-                else => helperFunctions.print("{c}", .{std.ascii.toLower(char)}),
+                ' ' => if (previous_char != ' ') helperFunctions.print(" ", .{}),
+                'a'...'z', 'A'...'Z', '0'...'9' => helperFunctions.print("{c}", .{std.ascii.toLower(char)}),
+                else => {},
             }
+            previous_char = char;
         }
         if (i != all_items.len - 1) helperFunctions.print("\",", .{}) else helperFunctions.print("\"}}", .{});
     }
