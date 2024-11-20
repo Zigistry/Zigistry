@@ -9,6 +9,7 @@ pub fn main() !void {
         if (deinit_status == .leak) @panic("The code contains memory leaks.");
     }
     const db = try std.fs.cwd().readFileAlloc(allocator, "./database/main.json", 100_000_000_000);
+    defer allocator.free(db);
     // parse the json
     const json = try std.json.parseFromSlice(std.json.Value, allocator, db, .{});
     defer json.deinit();
