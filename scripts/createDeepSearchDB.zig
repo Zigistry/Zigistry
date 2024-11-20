@@ -1,6 +1,6 @@
 const std = @import("std");
 const helperFunctions = @import("helperFunctions");
-const db = @embedFile("./main.json");
+const db = @embedFile("../database/main.json");
 
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
