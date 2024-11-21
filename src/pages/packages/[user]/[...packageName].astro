@@ -32,6 +32,7 @@ const repository: Repo | undefined = repositories.find(
 if (!repository) {
   return Astro.redirect("/404");
 }
+var zig_version = "unknown";
 const fetchReadmeContent = async (repo: Repo) => {
   const extensions = ["", "txt", "md"];
   const defaultBranch = repo.default_branch || "master";
@@ -72,6 +73,8 @@ if (repository.has_build_zig_zon == 1) {
 
   try {
     const json_parsed = JSON.parse(zonAsJsonData); // No need for await here
+
+    if("minimum_zig_version" in json_parsed) zig_version = json_parsed.minimum_zig_version;
 
     // Check if 'dependencies' exists in the parsed JSON first
     if ("dependencies" in json_parsed) {
@@ -291,6 +294,9 @@ const compressedRepo: Repo = {
               <Badge color="dark">No known dependencies</Badge>
             )}
           </div>
+        </div>
+        <div class="flex w-full items-center justify-center mb-3">
+          {zig_version !== "unknown" ? <Badge color="success">Supports Zig Version {zig_version}</Badge>:""}
         </div>
         <div class="mx-5 flex items-center justify-center font-mono">
           <div class="mx-2 mb-4 flex w-fit max-w-full items-center justify-center rounded bg-slate-600 py-3 pl-4 pr-7 dark:bg-[#151d28]">
