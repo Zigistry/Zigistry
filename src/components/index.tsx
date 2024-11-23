@@ -80,40 +80,44 @@ export default function IndexComponent(props: {
   return (
     <>
       <div className="flex flex-col items-center">
-        <h1 className="my-5 text-center text-2xl font-semibold">
-          Search Ziglang Packages
-        </h1>
-        <div className="flex">
-          <Tooltip content="Search by filtering GitHub topics">
-            <Select
-              onChange={searchfetchWhenDropDownChanged}
-              id="dropDownID"
-              className="ml-4"
-              required={false}
-            >
-              <option>No Filter</option>
-              <option>api</option>
-              <option>http</option>
-              <option>rest</option>
-              <option>gamedev</option>
-              <option>gui</option>
-              <option>cross-platform</option>
-            </Select>
-          </Tooltip>
-          <TextInput
-            onChange={(e) => handleOnChange(e.target.value)}
-            onKeyUp={handleKeyDown}
-            id="SearchBox"
-            placeholder="Search 400+ Zig libraries"
-            className="mx-4 mb-5 w-60 max-w-72"
-            autoFocus
-          />
+        <div className="sm:m-5 sm:p-5 sm:shadow-lg sm:shadow-black rounded-lg">
+          <h1 className="my-5 text-center text-2xl font-semibold">
+            Search Ziglang Packages
+          </h1>
+          <div className="flex">
+            <Tooltip content="Search by filtering GitHub topics">
+              <Select
+                onChange={searchfetchWhenDropDownChanged}
+                id="dropDownID"
+                className="ml-4"
+                required={false}
+                color="warning"
+              >
+                <option>No Filter</option>
+                <option>api</option>
+                <option>http</option>
+                <option>rest</option>
+                <option>gamedev</option>
+                <option>gui</option>
+                <option>cross-platform</option>
+              </Select>
+            </Tooltip>
+            <TextInput
+              onChange={(e) => handleOnChange(e.target.value)}
+              onKeyUp={handleKeyDown}
+              id="SearchBox"
+              placeholder="Search 500+ Zig libraries"
+              className="mx-4 mb-5 w-60 max-w-72"
+              color="gray"
+              autoFocus
+            />
+          </div>
         </div>
       </div>
 
       {showDefaultIndexPage ? (
         <>
-          <h1 className="my-5 ml-10 flex w-fit items-center rounded border-2 border-slate-400 p-4 text-left text-2xl font-semibold">
+          <h1 className="my-5 ml-10 flex w-fit items-center rounded border-2 border-slate-400 p-4 text-left text-2xl font-semibold  shadow-lg shadow-black">
             <IoMdFastforward size={25} />
             &nbsp;Recently released:
           </h1>

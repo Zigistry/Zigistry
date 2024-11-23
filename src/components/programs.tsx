@@ -109,6 +109,7 @@ export default function Programs(props: {
   return (
     <>
       <div className="flex flex-col items-center">
+      <div className="sm:m-5 sm:p-5 sm:shadow-lg sm:shadow-black rounded-lg">
         <h1 className="my-5 text-center text-2xl font-semibold">
           Search Ziglang Programs
         </h1>
@@ -119,6 +120,7 @@ export default function Programs(props: {
               className="ml-4"
               id="dropDownID"
               required={false}
+              color="warning"
             >
               <option>No Filter</option>
               <option>api</option>
@@ -137,6 +139,7 @@ export default function Programs(props: {
             className="mx-4 mb-5 w-60 max-w-72"
             autoFocus
           />
+          </div>
         </div>
       </div>
       {showDefaultIndexPage ? (
