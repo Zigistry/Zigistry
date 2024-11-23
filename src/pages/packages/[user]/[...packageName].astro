@@ -172,7 +172,7 @@ const compressedRepo: Repo = {
     compressedRepo.contentIsCorrect ? (
       <>
         <div id="main_page" class="flex items-center justify-center">
-          <Card className="my-5 w-72 transform-cpu transition-transform">
+          <Card className="my-5 w-72 transform-cpu transition-transform dark:bg-[rgb(30,30,30)] shadow-lg shadow-black">
             <img
               width="50"
               height="50"
@@ -250,7 +250,7 @@ const compressedRepo: Repo = {
               target="_blank"
               rel="noopener noreferrer"
               href={"https://github.com/" + compressedRepo.full_name}
-              color="light"
+              color="gray"
               pill
             >
               View on Github &nbsp;
@@ -299,7 +299,7 @@ const compressedRepo: Repo = {
           {zig_version !== "unknown" ? <Badge color="success">Supports Zig Version {zig_version}</Badge>:""}
         </div>
         <div class="mx-5 flex items-center justify-center font-mono">
-          <div class="mx-2 mb-4 flex w-fit max-w-full items-center justify-center rounded bg-slate-600 py-3 pl-4 pr-7 dark:bg-[#151d28]">
+          <div class="mx-2 mb-4 flex w-fit max-w-full items-center justify-center rounded bg-slate-600 py-3 pl-4 pr-7 dark:bg-[rgb(34,34,34)] shadow-lg shadow-black">
             <div
               class="overflow-x-scroll text-sm sm:overflow-x-hidden sm:text-base"
               style={{ userSelect: "all" }}
@@ -318,7 +318,7 @@ const compressedRepo: Repo = {
           </div>
         </div>
         <div class="m-4 flex items-center justify-center">
-          <div class="w-full rounded-2xl border-2 border-slate-600 bg-white px-4 py-10 dark:bg-slate-800 sm:w-3/5 sm:px-20">
+          <div class="w-full rounded-2xl bg-white px-4 py-10 sm:w-3/5 sm:px-20 dark:bg-[rgb(34,34,34)] shadow-lg shadow-black">
             {/* please dom purify */}
             <div
               class="readmeDiv"

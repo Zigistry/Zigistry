@@ -68,8 +68,8 @@ textarea:focus {
   overflow-x: scroll;
   color: yellow;
   border-radius: 10px !important;
-  border: solid #373f49 2px;
-  background-color: #2a3038;
+  border: solid rgb(40,40,40) 2px;
+  background-color: rgb(40,40,40) !important;
 }
 
 .readmeDiv > * > pre {
@@ -77,8 +77,8 @@ textarea:focus {
   overflow-x: scroll;
   color: yellow;
   border-radius: 10px !important;
-  border: solid #373f49 2px;
-  background-color: #2a3038;
+  border: solid rgb(40,40,40) 2px;
+  background-color: rgb(40,40,40) !important;
 }
 
 .readmeDiv > p {
