@@ -20,7 +20,7 @@ import { GoIssueOpened } from "react-icons/go";
 // =====================================================
 export default function CustomCard(props: { item: Repo; program: boolean }) {
   return (
-    <Card className="z-0 bg-white dark:bg-[rgb(30,30,30)] shadow-lg shadow-black my-2 w-72 transform-cpu transition-transform hover:z-10 hover:scale-110">
+    <Card className="z-0 bg-white dark:bg-[rgb(30,30,30)] shadow-lg shadow-black border-0 my-2 w-72 transform-cpu transition-transform hover:z-10 hover:scale-110">
       <img
         width="50"
         height="50"
