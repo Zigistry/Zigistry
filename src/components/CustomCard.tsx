@@ -32,11 +32,11 @@ export default function CustomCard(props: { item: Repo; program: boolean }) {
         href={
           (props.program ? "/programs/" : "/packages/") + props.item.full_name
         }
-        className="text-2xl font-bold text-gray-900 dark:text-white"
+        className="truncate text-2xl font-bold text-gray-900 dark:text-white"
       >
         {props.item.name}
       </a>
-      <p className="text-gray-400">{props.item.full_name}</p>
+      <p className="text-gray-400 truncate">{props.item.full_name}</p>
       <div className="flex space-x-3">
         {props.item.archived ? (
           <Badge
