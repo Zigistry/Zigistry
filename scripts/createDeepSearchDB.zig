@@ -1,31 +1,31 @@
 const std = @import("std");
 const helperFunctions = @import("helperFunctions");
 
-pub fn main() !void {
+pub fn main() void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     const allocator = gpa.allocator();
     defer {
         const deinit_status = gpa.deinit();
         if (deinit_status == .leak) @panic("The code contains memory leaks.");
     }
-    const db = try std.fs.cwd().readFileAlloc(allocator, "./database/main.json", 100_000_000_000);
+    const db = std.fs.cwd().readFileAlloc(allocator, "./database/main.json", 100_000_000_000) catch @panic("Can't read file.");
     defer allocator.free(db);
     // parse the json
-    const json = try std.json.parseFromSlice(std.json.Value, allocator, db, .{});
+    const json = std.json.parseFromSlice(std.json.Value, allocator, db, .{}) catch @panic("Json is in wrong format.");
     defer json.deinit();
     const all_items = json.value.array.items;
     helperFunctions.print("{{", .{});
     for (all_items, 0..) |item, i| {
-        const full_name = try std.ascii.allocLowerString(allocator, item.object.get("full_name").?.string);
+        const full_name = std.ascii.allocLowerString(allocator, item.object.get("full_name").?.string) catch @panic("Can't lower case.");
         defer allocator.free(full_name);
-        const description = try std.ascii.allocLowerString(allocator, item.object.get("description").?.string);
+        const description = std.ascii.allocLowerString(allocator, item.object.get("description").?.string) catch @panic("Can't lower case.");
         defer allocator.free(description);
         helperFunctions.print("\"{s}\":\"{s} ", .{ full_name, description });
 
-        const url_to_fetch = try helperFunctions.concatenate(allocator, "https://raw.githubusercontent.com/", full_name, "/master/README.md");
+        const url_to_fetch = helperFunctions.concatenate(allocator, "https://raw.githubusercontent.com/", full_name, "/master/README.md");
         defer allocator.free(url_to_fetch);
 
-        const result = try helperFunctions.fetchNormal(allocator, url_to_fetch);
+        const result = helperFunctions.fetchNormal(allocator, url_to_fetch);
         defer allocator.free(result);
 
         var previous_char: u8 = ' ';

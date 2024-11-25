@@ -34,7 +34,7 @@ const urls = [_][]const u8{
 // =======================
 //          Main
 // =======================
-pub fn main() !void {
+pub fn main() void {
     // -------- Start the json file -------------
     helperFunctions.print("[", .{});
 
@@ -46,10 +46,10 @@ pub fn main() !void {
     }
 
     for (urls, 0..) |url, i| {
-        const res = try helperFunctions.fetch(allocator, url);
+        const res = helperFunctions.fetch(allocator, url);
         defer allocator.free(res);
         if (!std.mem.eql(u8, res, "")) {
-            const parsed = try std.json.parseFromSlice(std.json.Value, allocator, res, .{});
+            const parsed = std.json.parseFromSlice(std.json.Value, allocator, res, .{}) catch @panic("Json is in wrong format.");
             defer parsed.deinit();
 
             // ----- Get all the items (Repos) as array -----
@@ -57,9 +57,9 @@ pub fn main() !void {
 
             // ----- If last result -----
             if (i == urls.len - 1) {
-                try helperFunctions.compressAndPrintRepos(allocator, repoListUncompressed, true);
+                helperFunctions.compressAndPrintRepos(allocator, repoListUncompressed, true);
             } else {
-                try helperFunctions.compressAndPrintRepos(allocator, repoListUncompressed, false);
+                helperFunctions.compressAndPrintRepos(allocator, repoListUncompressed, false);
             }
         } else @panic("unable to reach url");
     }

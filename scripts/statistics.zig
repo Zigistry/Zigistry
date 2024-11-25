@@ -42,19 +42,19 @@ fn print(comptime format: []const u8, args: anytype) void {
     writer.print(format, args) catch return;
 }
 
-pub fn main() !void {
+pub fn main() void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     const allocator = gpa.allocator();
     defer {
         const deinit_status = gpa.deinit();
         if (deinit_status == .leak) @panic("The code contains memory leaks.");
     }
-    const parsed = try std.json.parseFromSlice(
+    const parsed = std.json.parseFromSlice(
         std.json.Value,
         allocator,
         jsonRawData,
         .{},
-    );
+    ) catch @panic("Json is in wrong format.");
     defer parsed.deinit();
 
     const parsedItems = parsed.value.array.items;
@@ -81,13 +81,13 @@ pub fn main() !void {
     for (parsedItems) |item| {
         const topics = item.object.get("topics").?.array.items;
         for (topics) |topic| {
-            try topicsArray.append(topic.string);
+            topicsArray.append(topic.string) catch @panic("Can't append to list.");
         }
     }
 
     var topicsHashMap = std.StringHashMap(u32).init(allocator);
     defer topicsHashMap.deinit();
-    const topicsArrayAsString: [][]const u8 = try topicsArray.toOwnedSlice();
+    const topicsArrayAsString: [][]const u8 = topicsArray.toOwnedSlice() catch @panic("Can't convert buffer to string.");
     defer allocator.free(topicsArrayAsString);
     for (topicsArrayAsString) |topic| {
         if (topicsHashMap.get(topic)) |count| {

@@ -78,7 +78,7 @@ pub fn main() !void {
     raw_json_data[raw_json_data_length] = '[';
     raw_json_data_length += 1;
     for (0.., topic_urls[selection]) |i, url| {
-        const res = try helperFunctions.fetch(allocator, url);
+        const res = helperFunctions.fetch(allocator, url);
         defer allocator.free(res);
         if (!std.mem.eql(u8, res, "")) {
             for (res) |char| {
@@ -96,9 +96,9 @@ pub fn main() !void {
     raw_json_data_length += 1;
 
     const result = raw_json_data[0..raw_json_data_length];
-    const jsonParsed = try std.json.parseFromSlice(std.json.Value, allocator, result, .{});
+    const jsonParsed = std.json.parseFromSlice(std.json.Value, allocator, result, .{}) catch @panic("Json is in wrong format.");
     defer jsonParsed.deinit();
     helperFunctions.print("[", .{});
-    try helperFunctions.compressAndPrintRepos(std.heap.page_allocator, jsonParsed.value.array.items, true);
+    helperFunctions.compressAndPrintRepos(std.heap.page_allocator, jsonParsed.value.array.items, true);
     helperFunctions.print("]", .{});
 }
