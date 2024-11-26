@@ -56,12 +56,7 @@ const topic_urls = [3][5][]const u8{
 //          Main
 // =======================
 pub fn main() !void {
-    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-    const allocator = gpa.allocator();
-    defer {
-        const deinit_status = gpa.deinit();
-        if (deinit_status == .leak) @panic("The code contains memory leaks.");
-    }
+    const allocator = std.heap.c_allocator;
     var args = std.process.args();
     _ = args.skip();
     const fileName: []const u8 = args.next().?;

@@ -2,12 +2,7 @@ const std = @import("std");
 const helperFunctions = @import("helperFunctions");
 
 pub fn main() void {
-    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-    const allocator = gpa.allocator();
-    defer {
-        const deinit_status = gpa.deinit();
-        if (deinit_status == .leak) @panic("The code contains memory leaks.");
-    }
+    const allocator = std.heap.c_allocator;
     const db = std.fs.cwd().readFileAlloc(allocator, "./database/main.json", 100_000_000_000) catch @panic("Can't read file.");
     defer allocator.free(db);
     // parse the json

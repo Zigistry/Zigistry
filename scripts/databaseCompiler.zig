@@ -38,12 +38,7 @@ pub fn main() void {
     // -------- Start the json file -------------
     helperFunctions.print("[", .{});
 
-    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-    const allocator = gpa.allocator();
-    defer {
-        const deinit_status = gpa.deinit();
-        if (deinit_status == .leak) @panic("The code contains memory leaks.");
-    }
+    const allocator = std.heap.c_allocator;
 
     for (urls, 0..) |url, i| {
         const res = helperFunctions.fetch(allocator, url);

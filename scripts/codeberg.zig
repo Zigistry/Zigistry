@@ -3,12 +3,7 @@ const hp = @import("helperFunctions");
 // https://codeberg.org/api/v1/repos/search?q=zig
 pub fn main() void {
     hp.print("[", .{});
-    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-    const allocator = gpa.allocator();
-    defer {
-        const deinit_status = gpa.deinit();
-        if (deinit_status == .leak) @panic("The code contains memory leaks.");
-    }
+    const allocator = std.heap.c_allocator;
     const res = hp.fetchNormal(allocator, "https://codeberg.org/api/v1/repos/search?q=zig");
     defer allocator.free(res);
     if (std.mem.eql(u8, "", res)) {

@@ -43,12 +43,7 @@ fn print(comptime format: []const u8, args: anytype) void {
 }
 
 pub fn main() void {
-    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-    const allocator = gpa.allocator();
-    defer {
-        const deinit_status = gpa.deinit();
-        if (deinit_status == .leak) @panic("The code contains memory leaks.");
-    }
+    const allocator = std.heap.c_allocator;
     const parsed = std.json.parseFromSlice(
         std.json.Value,
         allocator,
