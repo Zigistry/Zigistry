@@ -11,7 +11,6 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-
     // Database Compiler
     {
         const databaseCompiler = b.addExecutable(.{
@@ -20,6 +19,7 @@ pub fn build(b: *std.Build) void {
             .target = target,
             .optimize = optimize,
         });
+        databaseCompiler.linkSystemLibrary("c");
         databaseCompiler.root_module.addImport("helperFunctions", helperFunctions);
         b.installArtifact(databaseCompiler);
 
@@ -38,6 +38,7 @@ pub fn build(b: *std.Build) void {
             .target = target,
             .optimize = optimize,
         });
+        codeberg.linkSystemLibrary("c");
         codeberg.root_module.addImport("helperFunctions", helperFunctions);
         b.installArtifact(codeberg);
 
@@ -56,6 +57,7 @@ pub fn build(b: *std.Build) void {
             .target = target,
             .optimize = optimize,
         });
+        databaseCompiler2.linkSystemLibrary("c");
         databaseCompiler2.root_module.addImport("helperFunctions", helperFunctions);
         b.installArtifact(databaseCompiler2);
 
@@ -75,6 +77,7 @@ pub fn build(b: *std.Build) void {
             .target = target,
             .optimize = optimize,
         });
+        repoListCompressor.linkSystemLibrary("c");
         repoListCompressor.root_module.addImport("helperFunctions", helperFunctions);
         b.installArtifact(repoListCompressor);
 
@@ -94,6 +97,7 @@ pub fn build(b: *std.Build) void {
             .target = target,
             .optimize = optimize,
         });
+        createDeepSearchDB.linkSystemLibrary("c");
         createDeepSearchDB.root_module.addImport("helperFunctions", helperFunctions);
         b.installArtifact(createDeepSearchDB);
 
@@ -112,6 +116,7 @@ pub fn build(b: *std.Build) void {
             .target = target,
             .optimize = optimize,
         });
+        functionsProviderUnitTests.linkSystemLibrary("c");
         const runFunctionsProviderUnitTests = b.addRunArtifact(functionsProviderUnitTests);
         const functionsProviderTestStep = b.step("run_testlib", "Run helperFunctions lib tests");
         functionsProviderTestStep.dependOn(&runFunctionsProviderUnitTests.step);
