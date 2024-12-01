@@ -39,6 +39,7 @@ const urls = [_][]const u8{
 
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:2&page=1&per_page=100",
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:2&page=2&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:2&page=3&per_page=100",
 
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:3&page=1&per_page=100",
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:3&page=2&per_page=100",
@@ -49,6 +50,7 @@ const urls = [_][]const u8{
 
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:6..10&page=1&per_page=100",
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:6..10&page=2&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:6..10&page=3&per_page=100",
 
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:11..20&page=1&per_page=100",
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:11..20&page=2&per_page=100",
@@ -56,6 +58,7 @@ const urls = [_][]const u8{
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:21..100&page=1&per_page=100",
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:21..100&page=2&per_page=100",
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:21..100&page=3&per_page=100",
+    "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:21..100&page=4&per_page=100",
 
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:101..1000&page=1&per_page=100",
     "https://api.github.com/search/repositories?q=topic:zig+fork:true+stars:101..1000&page=2&per_page=100",
