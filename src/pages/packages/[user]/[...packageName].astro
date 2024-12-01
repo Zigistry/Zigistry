@@ -180,10 +180,10 @@ const compressedRepo: Repo = {
               src={compressedRepo.avatar_url}
               alt={compressedRepo.name}
             />
-            <h5 class="text-2xl font-bold text-gray-900 dark:text-white">
+            <h5 class="truncate text-2xl font-bold text-gray-900 dark:text-white">
               {compressedRepo.name}
             </h5>
-            <p class="text-gray-400">{compressedRepo.full_name}</p>
+            <p class="truncate text-gray-400">{compressedRepo.full_name}</p>
             <div class="flex space-x-3">
               {compressedRepo.archived && (
                 <Badge
