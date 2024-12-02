@@ -6,7 +6,6 @@ on:
       - main
   schedule:
     - cron: "0 * * * *"
-    
 
 jobs:
   Update_json:
@@ -32,7 +31,7 @@ jobs:
         run: $BINARIES_PATH/createDeepSearchDB > ./database/deepSearchData.json
       - name: Config email
         run: git config --global user.name "Github Actions" && git config --global user.email "<>"
-      
+
       - name: Git add
         run: git add .
 
