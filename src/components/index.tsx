@@ -80,7 +80,7 @@ export default function IndexComponent(props: {
   return (
     <>
       <div className="flex flex-col items-center">
-        <div className="sm:m-5 sm:p-5 sm:shadow-lg sm:shadow-black rounded-lg">
+        <div className="rounded-lg sm:m-5 sm:p-5 sm:shadow-lg sm:shadow-black">
           <h1 className="my-5 text-center text-2xl font-semibold">
             Search Ziglang Packages
           </h1>
@@ -117,7 +117,7 @@ export default function IndexComponent(props: {
 
       {showDefaultIndexPage ? (
         <>
-          <h1 className="my-5 ml-10 flex w-fit items-center rounded border-2 border-slate-400 p-4 text-left text-2xl font-semibold  shadow-lg shadow-black">
+          <h1 className="my-5 ml-10 flex w-fit items-center rounded border-2 border-slate-400 p-4 text-left text-2xl font-semibold shadow-lg shadow-black">
             <IoMdFastforward size={25} />
             &nbsp;Recently released:
           </h1>

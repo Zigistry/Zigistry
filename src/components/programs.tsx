@@ -109,36 +109,36 @@ export default function Programs(props: {
   return (
     <>
       <div className="flex flex-col items-center">
-      <div className="sm:m-5 sm:p-5 sm:shadow-lg sm:shadow-black rounded-lg">
-        <h1 className="my-5 text-center text-2xl font-semibold">
-          Search Ziglang Programs
-        </h1>
-        <div className="flex">
-          <Tooltip content="Search by filtering github topics">
-            <Select
-              onChange={searchUsingFilter}
-              className="ml-4"
-              id="dropDownID"
-              required={false}
-              color="warning"
-            >
-              <option>No Filter</option>
-              <option>api</option>
-              <option>http</option>
-              <option>rest</option>
-              <option>gamedev</option>
-              <option>gui</option>
-              <option>cross-platform</option>
-            </Select>
-          </Tooltip>
-          <TextInput
-            onChange={(e) => handleOnChage(e.target.value)}
-            onKeyUp={handleKeyDown}
-            id="SearchBox"
-            placeholder="Search 1000+ Zig programs"
-            className="mx-4 mb-5 w-60 max-w-72"
-            autoFocus
-          />
+        <div className="rounded-lg sm:m-5 sm:p-5 sm:shadow-lg sm:shadow-black">
+          <h1 className="my-5 text-center text-2xl font-semibold">
+            Search Ziglang Programs
+          </h1>
+          <div className="flex">
+            <Tooltip content="Search by filtering github topics">
+              <Select
+                onChange={searchUsingFilter}
+                className="ml-4"
+                id="dropDownID"
+                required={false}
+                color="warning"
+              >
+                <option>No Filter</option>
+                <option>api</option>
+                <option>http</option>
+                <option>rest</option>
+                <option>gamedev</option>
+                <option>gui</option>
+                <option>cross-platform</option>
+              </Select>
+            </Tooltip>
+            <TextInput
+              onChange={(e) => handleOnChage(e.target.value)}
+              onKeyUp={handleKeyDown}
+              id="SearchBox"
+              placeholder="Search 1000+ Zig programs"
+              className="mx-4 mb-5 w-60 max-w-72"
+              autoFocus
+            />
           </div>
         </div>
       </div>

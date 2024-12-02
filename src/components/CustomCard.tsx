@@ -20,7 +20,7 @@ import { GoIssueOpened } from "react-icons/go";
 // =====================================================
 export default function CustomCard(props: { item: Repo; program: boolean }) {
   return (
-    <Card className="z-0 bg-white dark:bg-[rgb(30,30,30)] shadow-lg shadow-black border-0 my-2 w-72 transform-cpu transition-transform hover:z-10 hover:scale-110">
+    <Card className="z-0 my-2 w-72 transform-cpu border-0 bg-white shadow-lg shadow-black transition-transform hover:z-10 hover:scale-110 dark:bg-[rgb(30,30,30)]">
       <img
         width="50"
         height="50"
@@ -36,7 +36,7 @@ export default function CustomCard(props: { item: Repo; program: boolean }) {
       >
         {props.item.name}
       </a>
-      <p className="text-gray-400 truncate">{props.item.full_name}</p>
+      <p className="truncate text-gray-400">{props.item.full_name}</p>
       <div className="flex space-x-3">
         {props.item.archived ? (
           <Badge

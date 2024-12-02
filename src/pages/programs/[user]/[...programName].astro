@@ -6,15 +6,14 @@ import {
   type Repo,
   type Dependency,
 } from "../../../typesAndFunctions/customFunctions";
-import { marked } from "marked";
 import { FaCheck } from "react-icons/fa";
 import { GoIssueOpened, GoRelFilePath } from "react-icons/go";
 import { FaCodeFork, FaEye, FaStar } from "react-icons/fa6";
+import { convert2markdown } from "../../../typesAndFunctions/customFunctions.ts";
 import { FaGithub } from "react-icons/fa";
 import { BsInfoSquareFill } from "react-icons/bs";
 import RootLayout from "../../../layouts/main.astro";
 import data from "../../../../database/programs.json";
-import sanitizeHtml from "sanitize-html";
 import zon2json from "z2j";
 import { Card, Badge, Tooltip, Button } from "flowbite-react";
 import CopyButton from "../../../components/CopyButton";
@@ -72,7 +71,8 @@ if (repository.has_build_zig_zon == 1) {
   try {
     const json_parsed = JSON.parse(zonAsJsonData); // No need for await here
 
-    if("minimum_zig_version" in json_parsed) zig_version = json_parsed.minimum_zig_version;
+    if ("minimum_zig_version" in json_parsed)
+      zig_version = json_parsed.minimum_zig_version;
 
     // Check if 'dependencies' exists in the parsed JSON first
     if ("dependencies" in json_parsed) {
@@ -106,28 +106,6 @@ if (repository.has_build_zig_zon == 1) {
   } catch (error) {
     console.error("Error parsing JSON:", error);
   }
-}
-
-async function convert2markdown(x: string): Promise<string> {
-  var content = await marked(x);
-  content = sanitizeHtml(content);
-  content = content.replaceAll(
-    "[!IMPORTANT]",
-    `<span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">IMPORTANT</span>`,
-  );
-  content = content.replaceAll(
-    "[!NOTE]",
-    `<span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">NOTE</span>`,
-  );
-  content = content.replaceAll(
-    "[!WARNING]",
-    `<span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">WARNING</span>`,
-  );
-  content = content.replaceAll(
-    "[!CAUTION]",
-    `<span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">CAUTION</span>`,
-  );
-  return content;
 }
 
 const compressedRepo: Repo = {
@@ -287,11 +265,15 @@ const compressedRepo: Repo = {
             )}
           </div>
         </div>
-        <div class="flex w-full items-center justify-center mb-3">
-          {zig_version !== "unknown" ? <Badge color="success">Supports Zig Version {zig_version}</Badge>:""}
+        <div class="mb-3 flex w-full items-center justify-center">
+          {zig_version !== "unknown" ? (
+            <Badge color="success">Supports Zig Version {zig_version}</Badge>
+          ) : (
+            ""
+          )}
         </div>
         <div class="mx-5 flex items-center justify-center font-mono">
-          <div class="mx-2 mb-4 flex w-fit max-w-full items-center justify-center rounded dark:bg-[rgb(34,34,34)] shadow-lg shadow-black py-3 pl-4 pr-7">
+          <div class="mx-2 mb-4 flex w-fit max-w-full items-center justify-center rounded py-3 pl-4 pr-7 shadow-lg shadow-black dark:bg-[rgb(34,34,34)]">
             <div
               class="overflow-x-scroll text-sm sm:overflow-x-hidden sm:text-base"
               style={{ userSelect: "all" }}
@@ -310,7 +292,7 @@ const compressedRepo: Repo = {
           </div>
         </div>
         <div class="m-4 flex items-center justify-center">
-          <div class="w-full rounded-2xl bg-white px-4 py-10 dark:bg-[rgb(34,34,34)] shadow-lg shadow-black sm:w-3/5 sm:px-20">
+          <div class="w-full rounded-2xl bg-white px-4 py-10 shadow-lg shadow-black dark:bg-[rgb(34,34,34)] sm:w-3/5 sm:px-20">
             {/* please dom purify */}
             <div
               class="readmeDiv"

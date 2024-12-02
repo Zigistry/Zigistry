@@ -8,7 +8,10 @@ export async function GET({ url }: { url: string }) {
     .map(Number);
 
   if (!section || isNaN(lowerLimit) || isNaN(upperLimit)) {
-    return new Response(null, { status: 400, headers: { "Content-Type": "application/json" } });
+    return new Response(null, {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   const getResponse = (data: any[]) =>
@@ -24,10 +27,14 @@ export async function GET({ url }: { url: string }) {
   if (section === "latestRepos") {
     return getResponse(
       [...databaseMain].sort(
-        (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+        (a, b) =>
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
       ),
     );
   }
 
-  return new Response(null, { status: 400, headers: { "Content-Type": "application/json" } });
+  return new Response(null, {
+    status: 400,
+    headers: { "Content-Type": "application/json" },
+  });
 }

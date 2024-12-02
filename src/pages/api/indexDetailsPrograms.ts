@@ -11,14 +11,17 @@ export async function GET({ url }: { url: string }) {
     .map(Number);
 
   if (!section || isNaN(ll) || isNaN(ul)) {
-    return new Response(JSON.stringify([]), { status: 400, headers: { "Content-Type": "application/json" } });
+    return new Response(JSON.stringify([]), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   const getSortedResponse = (sortFn: (a: any, b: any) => number) =>
-    new Response(
-      JSON.stringify([...databaseMain].sort(sortFn).slice(ll, ul)),
-      { status: 200, headers: { "Content-Type": "application/json" } },
-    );
+    new Response(JSON.stringify([...databaseMain].sort(sortFn).slice(ll, ul)), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
 
   if (section === "mostUsed") {
     return getSortedResponse((a, b) => b.stargazers_count - a.stargazers_count);
@@ -26,9 +29,13 @@ export async function GET({ url }: { url: string }) {
 
   if (section === "latestRepos") {
     return getSortedResponse(
-      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
     );
   }
 
-  return new Response(JSON.stringify([]), { status: 400, headers: { "Content-Type": "application/json" } });
+  return new Response(JSON.stringify([]), {
+    status: 400,
+    headers: { "Content-Type": "application/json" },
+  });
 }

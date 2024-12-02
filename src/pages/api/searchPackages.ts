@@ -9,7 +9,7 @@ function searchRepositories(data: any, inputString: any) {
     if ((readmeData as string).toLowerCase().includes(lowerCaseInput)) {
       results.push(repoFullName.toLowerCase()); // Normalize to lowercase
     }
-    if(results.length > 25) break;
+    if (results.length > 25) break;
   }
 
   return results;
@@ -24,7 +24,9 @@ export async function GET({ url }: { url: string }) {
   if (!q || typeof q !== "string") {
     const searchResults = mainDatabase.filter((item) => {
       if (typeof filter === "string") {
-        return item.topics?.some((topic) => topic.toLowerCase() === filter.toLowerCase());
+        return item.topics?.some(
+          (topic) => topic.toLowerCase() === filter.toLowerCase(),
+        );
       }
       return true;
     });
@@ -41,7 +43,6 @@ export async function GET({ url }: { url: string }) {
 
   const matchingRepos = new Set(searchRepositories(data, query));
 
-
   const searchResults = mainDatabase.filter((item) => {
     const fullName = item.full_name?.toLowerCase();
     const description = item.description?.toLowerCase();
@@ -56,7 +57,9 @@ export async function GET({ url }: { url: string }) {
     }
 
     if (typeof filter === "string") {
-      return item.topics?.some((topic) => topic.toLowerCase() === filter.toLowerCase());
+      return item.topics?.some(
+        (topic) => topic.toLowerCase() === filter.toLowerCase(),
+      );
     }
 
     return true;

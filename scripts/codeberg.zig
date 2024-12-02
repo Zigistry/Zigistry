@@ -7,7 +7,7 @@ pub fn main() void {
     const res = hp.fetchNormal(allocator, "https://codeberg.org/api/v1/repos/search?q=zig");
     defer allocator.free(res);
     if (std.mem.eql(u8, "", res)) {
-        @panic("can't connect to codeberg.");
+        @panic("Can't connect to codeberg.");
     }
     const parsed = std.json.parseFromSlice(std.json.Value, allocator, res, .{}) catch @panic("Wrong json");
     defer parsed.deinit();
