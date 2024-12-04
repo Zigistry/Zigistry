@@ -10,10 +10,10 @@ pub fn main() void {
     }
     const parsed = std.json.parseFromSlice(std.json.Value, allocator, res, .{}) catch {
         @panic("Wrong json");
-    }
+    };
     defer parsed.deinit();
 
-    const data = parsed.value.object.get("data").?.array.items; 
+    const data = parsed.value.object.get("data").?.array.items;
 
     hp.print("[", .{});
     hp.compressAndPrintReposBerg(allocator, data, true);
