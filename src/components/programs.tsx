@@ -13,7 +13,13 @@
 // ===================
 
 // ------- Components ---------
-import { Select, TextInput, Tooltip } from "flowbite-react";
+import {
+  Button,
+  ButtonGroup,
+  Select,
+  TextInput,
+  Tooltip,
+} from "flowbite-react";
 import CustomCard from "./CustomCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -106,6 +112,36 @@ export default function Programs(props: {
       setSearchTextboxInputValue(z);
     }
   }
+
+  const sortIt = (criterion: string) => {
+    const sortedData = [...searchResultsData];
+
+    switch (criterion) {
+      case "a-z":
+        sortedData.sort((a, b) =>
+          a.full_name.toLowerCase().localeCompare(b.full_name.toLowerCase()),
+        );
+        break;
+      case "star":
+        sortedData.sort((a, b) => b.stargazers_count - a.stargazers_count);
+        break;
+      case "updates":
+        sortedData.sort((a, b) => {
+          const dateA = new Date(a.updated_at).getTime();
+          const dateB = new Date(b.updated_at).getTime();
+
+          return dateB - dateA; // Sort in descending order
+        });
+        break;
+      case "forks":
+        sortedData.sort((a, b) => b.forks_count - a.forks_count);
+        break;
+      default:
+        console.warn("Unknown sorting criterion:", criterion);
+        break;
+    }
+    setSearchResultsData(sortedData);
+  };
   return (
     <>
       <div className="flex flex-col items-center">
@@ -185,15 +221,33 @@ export default function Programs(props: {
           </InfiniteScroll>
         </>
       ) : (
-        <section className="flex w-full flex-wrap justify-evenly">
-          {searchResultsData.length ? (
-            searchResultsData.map((item, index) => (
-              <CustomCard program={true} key={index} item={item} />
-            ))
-          ) : (
-            <h1>Can&apos;t find what you are looking for</h1>
-          )}
-        </section>
+        <div>
+          <div className="flex justify-center">
+            <ButtonGroup>
+              <Button onClick={() => sortIt("star")} color="dark">
+                Star Count
+              </Button>
+              <Button onClick={() => sortIt("a-z")} color="dark">
+                A-Z
+              </Button>
+              <Button onClick={() => sortIt("updates")} color="dark">
+                Last Updated
+              </Button>
+              <Button onClick={() => sortIt("forks")} color="dark">
+                Forks
+              </Button>
+            </ButtonGroup>
+          </div>
+          <section className="flex w-full flex-wrap justify-evenly">
+            {searchResultsData.length ? (
+              searchResultsData.map((item, index) => (
+                <CustomCard program={true} key={index} item={item} />
+              ))
+            ) : (
+              <h1>Can&apos;t find what you are looking for</h1>
+            )}
+          </section>
+        </div>
       )}
     </>
   );
