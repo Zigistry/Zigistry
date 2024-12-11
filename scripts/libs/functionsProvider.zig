@@ -283,9 +283,9 @@ test "print" {
     print("{d}", .{1});
 }
 
-test "fetch" {
+test "fetchNormal" {
     const file_contents = @embedFile("./test.json");
-    const res = fetch(std.heap.page_allocator, "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/scripts/libs/test.json");
+    const res = fetchNormal(std.heap.page_allocator, "https://raw.githubusercontent.com/RohanVashisht1234/zigistry/main/scripts/libs/test.json");
     std.debug.assert(std.mem.eql(u8, file_contents, res));
 }
 
@@ -318,6 +318,6 @@ test "compressAndPrintRepos" {
     const parsed_value = std.json.parseFromSlice(std.json.Value, std.heap.page_allocator, rawJson, .{}) catch @panic("Json is in wrong format.");
     defer parsed_value.deinit();
     // The bellow should not print zigcc/awsome-zig, because it has been included in the excluded repositories list.
-    compressAndPrintRepos(parsed_value.value.object.get("items").?.array.items, true);
-    compressAndPrintRepos(parsed_value.value.object.get("items").?.array.items, false);
+    compressAndPrintRepos(std.heap.page_allocator, parsed_value.value.object.get("items").?.array.items, true);
+    compressAndPrintRepos(std.heap.page_allocator, parsed_value.value.object.get("items").?.array.items, false);
 }
