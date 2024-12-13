@@ -230,7 +230,7 @@ export default function IndexComponent(props: {
           <h1 className="text-center text-2xl mb-3">Sort:</h1>
           <div className="flex justify-center">
             <div className="flex space-x-4">
-              <Tooltip content="Intelegent Sort">
+              <Tooltip content="Intelligent Sort">
                 <Button onClick={() => sortIt("intels")} color="dark">
                   <GiBrain size={22} />
                 </Button>
