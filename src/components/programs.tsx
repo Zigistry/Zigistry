@@ -29,6 +29,9 @@ import { FaStar } from "react-icons/fa";
 import { IoMdFastforward } from "react-icons/io";
 import { SlGlobe } from "react-icons/sl";
 import { useState } from "react";
+import { GiBrain } from "react-icons/gi";
+import { MdBrowserUpdated } from "react-icons/md";
+import { FaCodeFork } from "react-icons/fa6";
 
 // =============================
 //       Exports "/programs"
@@ -41,6 +44,7 @@ export default function Programs(props: {
   const [hasMore, setHasMore] = useState(true);
   const [infiniteScrollIndex, setIndex] = useState(1);
   const [searchResultsData, setSearchResultsData] = useState<Repo[]>([]);
+  const [intelSearchResults, setIntelSearchResults] = useState<Repo[]>([]);
   const [showDefaultIndexPage, setShowDefaultIndexPage] = useState(true);
   const [searchTextboxInputValue, setSearchTextboxInputValue] = useState("");
   // ------- prevent user ddos --------
@@ -81,6 +85,7 @@ export default function Programs(props: {
       }
       const result: Repo[] = await response.json();
       setSearchResultsData(result);
+      setIntelSearchResults(result);
     }
   };
 
@@ -101,6 +106,7 @@ export default function Programs(props: {
       const result: Repo[] = await response.json();
       setShowDefaultIndexPage(false);
       setSearchResultsData(result);
+      setIntelSearchResults(result);
     }
   };
 
@@ -114,9 +120,12 @@ export default function Programs(props: {
   }
 
   const sortIt = (criterion: string) => {
-    const sortedData = [...searchResultsData];
+    var sortedData = [...searchResultsData];
 
     switch (criterion) {
+      case "intels":
+        sortedData = intelSearchResults;
+        break;
       case "a-z":
         sortedData.sort((a, b) =>
           a.full_name.toLowerCase().localeCompare(b.full_name.toLowerCase()),
@@ -222,22 +231,36 @@ export default function Programs(props: {
         </>
       ) : (
         <div>
-          <div className="flex justify-center">
-            <ButtonGroup>
-              <Button onClick={() => sortIt("star")} color="dark">
-                Star Count
-              </Button>
-              <Button onClick={() => sortIt("a-z")} color="dark">
-                A-Z
-              </Button>
-              <Button onClick={() => sortIt("updates")} color="dark">
-                Last Updated
-              </Button>
-              <Button onClick={() => sortIt("forks")} color="dark">
-                Forks
-              </Button>
-            </ButtonGroup>
-          </div>
+          <h1 className="text-center text-2xl mb-3">Sort:</h1>
+                    <div className="flex justify-center">
+                      <div className="flex space-x-4">
+                        <Tooltip content="Intelegent Sort">
+                          <Button onClick={() => sortIt("intels")} color="dark">
+                            <GiBrain size={22} />
+                          </Button>
+                        </Tooltip>
+                        <Tooltip content="Star Count">
+                          <Button onClick={() => sortIt("star")} color="dark">
+                            <FaStar size={22} />
+                          </Button>
+                        </Tooltip>
+                        <Tooltip content="Alphabetical Sort">
+                          <Button onClick={() => sortIt("a-z")} color="dark">
+                            A-Z
+                          </Button>
+                        </Tooltip>
+                        <Tooltip content="Last Updated">
+                          <Button onClick={() => sortIt("updates")} color="dark">
+                            <MdBrowserUpdated size={22} />
+                          </Button>
+                        </Tooltip>
+                        <Tooltip content="Fork Count">
+                          <Button onClick={() => sortIt("forks")} color="dark">
+                            <FaCodeFork size={22} />
+                          </Button>
+                        </Tooltip>
+                      </div>
+                    </div>
           <section className="flex w-full flex-wrap justify-evenly">
             {searchResultsData.length ? (
               searchResultsData.map((item, index) => (
