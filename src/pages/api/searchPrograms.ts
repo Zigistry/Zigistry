@@ -49,7 +49,9 @@ export async function GET({ url }: { url: any }) {
   const applyFilter = (items: any) => {
     if (typeof filter === "string") {
       return items.filter((item: any) =>
-        item.topics?.some((topic: any) => topic.toLowerCase() === filter.toLowerCase())
+        item.topics?.some(
+          (topic: any) => topic.toLowerCase() === filter.toLowerCase(),
+        ),
       );
     }
     return items;
@@ -61,7 +63,7 @@ export async function GET({ url }: { url: any }) {
   // Combine results in prioritized order
   const searchResults = [
     ...filteredFullNameMatches,
-    ...filteredDescriptionMatches
+    ...filteredDescriptionMatches,
   ];
 
   return new Response(JSON.stringify(searchResults), {

@@ -231,36 +231,36 @@ export default function Programs(props: {
         </>
       ) : (
         <div>
-          <h1 className="text-center text-2xl mb-3">Sort:</h1>
-                    <div className="flex justify-center">
-                      <div className="flex space-x-4">
-                        <Tooltip content="Intelligent Sort">
-                          <Button onClick={() => sortIt("intels")} color="dark">
-                            <GiBrain size={22} />
-                          </Button>
-                        </Tooltip>
-                        <Tooltip content="Star Count">
-                          <Button onClick={() => sortIt("star")} color="dark">
-                            <FaStar size={22} />
-                          </Button>
-                        </Tooltip>
-                        <Tooltip content="Alphabetical Sort">
-                          <Button onClick={() => sortIt("a-z")} color="dark">
-                            A-Z
-                          </Button>
-                        </Tooltip>
-                        <Tooltip content="Last Updated">
-                          <Button onClick={() => sortIt("updates")} color="dark">
-                            <MdBrowserUpdated size={22} />
-                          </Button>
-                        </Tooltip>
-                        <Tooltip content="Fork Count">
-                          <Button onClick={() => sortIt("forks")} color="dark">
-                            <FaCodeFork size={22} />
-                          </Button>
-                        </Tooltip>
-                      </div>
-                    </div>
+          <h1 className="mb-3 text-center text-2xl">Sort:</h1>
+          <div className="flex justify-center">
+            <div className="flex space-x-4">
+              <Tooltip content="Intelligent Sort">
+                <Button onClick={() => sortIt("intels")} color="dark">
+                  <GiBrain size={22} />
+                </Button>
+              </Tooltip>
+              <Tooltip content="Star Count">
+                <Button onClick={() => sortIt("star")} color="dark">
+                  <FaStar size={22} />
+                </Button>
+              </Tooltip>
+              <Tooltip content="Alphabetical Sort">
+                <Button onClick={() => sortIt("a-z")} color="dark">
+                  A-Z
+                </Button>
+              </Tooltip>
+              <Tooltip content="Last Updated">
+                <Button onClick={() => sortIt("updates")} color="dark">
+                  <MdBrowserUpdated size={22} />
+                </Button>
+              </Tooltip>
+              <Tooltip content="Fork Count">
+                <Button onClick={() => sortIt("forks")} color="dark">
+                  <FaCodeFork size={22} />
+                </Button>
+              </Tooltip>
+            </div>
+          </div>
           <section className="flex w-full flex-wrap justify-evenly">
             {searchResultsData.length ? (
               searchResultsData.map((item, index) => (

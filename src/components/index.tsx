@@ -227,7 +227,7 @@ export default function IndexComponent(props: {
         </>
       ) : (
         <div>
-          <h1 className="text-center text-2xl mb-3">Sort:</h1>
+          <h1 className="mb-3 text-center text-2xl">Sort:</h1>
           <div className="flex justify-center">
             <div className="flex space-x-4">
               <Tooltip content="Intelligent Sort">
