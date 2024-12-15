@@ -84,7 +84,7 @@ export default function IndexComponent(props: {
     }
   };
   const sortIt = (criterion: string) => {
-    var sortedData = [...searchResultsData];
+    let sortedData = [...searchResultsData];
 
     switch (criterion) {
       case "intels":

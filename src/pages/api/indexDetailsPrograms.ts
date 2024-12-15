@@ -1,9 +1,10 @@
 import programsMain from "../../../database/programs.json";
 import codebergMain from "../../../database/codebergPrograms.json";
+import type { Repo } from "../../typesAndFunctions/customFunctions";
 
 const databaseMain = [...programsMain, ...codebergMain];
 
-export async function GET({ url }: { url: string }) {
+export async function GET({ url }: { url: string }): Promise<Response> {
   const parsedUrl = new URL(url);
   const section = parsedUrl.searchParams.get("section");
   const [ll, ul] = (parsedUrl.searchParams.get("range") || "")
@@ -17,7 +18,7 @@ export async function GET({ url }: { url: string }) {
     });
   }
 
-  const getSortedResponse = (sortFn: (a: any, b: any) => number) =>
+  const getSortedResponse = (sortFn: (a: Repo, b: Repo) => number): Response =>
     new Response(JSON.stringify([...databaseMain].sort(sortFn).slice(ll, ul)), {
       status: 200,
       headers: { "Content-Type": "application/json" },

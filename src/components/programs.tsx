@@ -13,13 +13,7 @@
 // ===================
 
 // ------- Components ---------
-import {
-  Button,
-  ButtonGroup,
-  Select,
-  TextInput,
-  Tooltip,
-} from "flowbite-react";
+import { Button, Select, TextInput, Tooltip } from "flowbite-react";
 import CustomCard from "./CustomCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -53,10 +47,15 @@ export default function Programs(props: {
   const fetchMoreData = () => {
     fetch(`/api/infiniteScrollPrograms?pageNumber=${infiniteScrollIndex}`)
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: Repo[]) => {
         setInfiniteScrollItems((prevItems) => [...prevItems, ...data]);
 
-        data.length > 0 ? setHasMore(true) : setHasMore(false);
+        if (data.length > 0) {
+          setHasMore(true);
+        }
+        {
+          setHasMore(false);
+        }
       })
       .catch((err) => console.log(err));
 
@@ -120,7 +119,7 @@ export default function Programs(props: {
   }
 
   const sortIt = (criterion: string) => {
-    var sortedData = [...searchResultsData];
+    let sortedData = [...searchResultsData];
 
     switch (criterion) {
       case "intels":

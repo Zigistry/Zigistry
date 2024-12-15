@@ -1,4 +1,5 @@
 import databaseMain from "../../../database/main.json";
+import type { Repo } from "../../typesAndFunctions/customFunctions";
 
 export async function GET({ url }: { url: string }) {
   const parsedUrl = new URL(url);
@@ -14,7 +15,7 @@ export async function GET({ url }: { url: string }) {
     });
   }
 
-  const getResponse = (data: any[]) =>
+  const getResponse = (data: Repo[]) =>
     new Response(JSON.stringify(data.slice(lowerLimit, upperLimit)), {
       status: 200,
       headers: { "Content-Type": "application/json" },

@@ -6,7 +6,6 @@ import {
   type Repo,
   type Dependency,
 } from "../../../typesAndFunctions/customFunctions";
-import { marked } from "marked";
 import { FaCheck } from "react-icons/fa";
 import { GoIssueOpened, GoRelFilePath } from "react-icons/go";
 import { FaCodeFork, FaEye, FaStar } from "react-icons/fa6";
@@ -15,7 +14,6 @@ import { BsInfoSquareFill } from "react-icons/bs";
 import RootLayout from "../../../layouts/main.astro";
 import data from "../../../../database/main.json";
 import data_game from "../../../../database/games.json";
-import sanitizeHtml from "sanitize-html";
 import data_web from "../../../../database/web.json";
 import data_gui from "../../../../database/gui.json";
 import zon2json from "z2j";
@@ -146,7 +144,7 @@ const compressedRepo: Repo = {
     compressedRepo.contentIsCorrect ? (
       <>
         <div id="main_page" class="flex items-center justify-center">
-          <Card className="my-5 w-72 transform-cpu transition-transform dark:bg-[rgb(30,30,30)] shadow-lg shadow-black">
+          <Card className="my-5 w-72 transform-cpu shadow-lg shadow-black transition-transform dark:bg-[rgb(30,30,30)]">
             <img
               width="50"
               height="50"

@@ -1,10 +1,11 @@
 import db from "../../../database/programs.json";
 import berg from "../../../database/codebergPrograms.json";
+import type { Repo } from "../../typesAndFunctions/customFunctions";
 
 // Merge both databases
-const mainDatabase = [...db, ...berg];
+const mainDatabase: Repo[] = [...db, ...berg];
 
-export async function GET({ url }: { url: any }) {
+export async function GET({ url }: { url: string | URL }) {
   const parsedUrl = new URL(url);
   const q = parsedUrl.searchParams.get("q");
   const filter = parsedUrl.searchParams.get("filter");
@@ -31,8 +32,8 @@ export async function GET({ url }: { url: any }) {
   const query = q.toLowerCase();
 
   // Separate search results into two categories
-  const fullNameMatches: any[] = [];
-  const descriptionMatches: any[] = [];
+  const fullNameMatches: Repo[] = [];
+  const descriptionMatches: Repo[] = [];
 
   mainDatabase.forEach((item) => {
     const fullName = item.full_name?.toLowerCase();
@@ -46,11 +47,11 @@ export async function GET({ url }: { url: any }) {
   });
 
   // Apply filtering to each category
-  const applyFilter = (items: any) => {
+  const applyFilter = (items: Repo[]) => {
     if (typeof filter === "string") {
-      return items.filter((item: any) =>
+      return items.filter((item) =>
         item.topics?.some(
-          (topic: any) => topic.toLowerCase() === filter.toLowerCase(),
+          (topic) => topic.toLowerCase() === filter.toLowerCase(),
         ),
       );
     }

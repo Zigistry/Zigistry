@@ -1,9 +1,13 @@
 import mainDatabase from "../../../database/main.json";
 import data from "../../../database/deepSearchData.json";
+import type {
+  deepSearchData,
+  Repo,
+} from "../../typesAndFunctions/customFunctions";
 
-function searchRepositories(data: any, inputString: any) {
+function searchRepositories(data: deepSearchData, inputString: string) {
   const results = [];
-  const lowerCaseInput: any = inputString.toLowerCase(); // Case-insensitive search
+  const lowerCaseInput = inputString.toLowerCase(); // Case-insensitive search
 
   for (const [repoFullName, readmeData] of Object.entries(data)) {
     if ((readmeData as string).toLowerCase().includes(lowerCaseInput)) {
@@ -16,7 +20,7 @@ function searchRepositories(data: any, inputString: any) {
 }
 
 // Search Engine Algorithm API for "/api/searchPackages"
-export async function GET({ url }: { url: any }) {
+export async function GET({ url }: { url: string | URL }) {
   const parsedUrl = new URL(url);
   const q = parsedUrl.searchParams.get("q");
   const filter = parsedUrl.searchParams.get("filter");
@@ -43,9 +47,9 @@ export async function GET({ url }: { url: any }) {
   const matchingRepos = new Set(searchRepositories(data, query));
 
   // Separate search results into three categories
-  const fullNameMatches: any[] = [];
-  const descriptionMatches: any[] = [];
-  const deepSearchMatches: any[] = [];
+  const fullNameMatches: Repo[] = [];
+  const descriptionMatches: Repo[] = [];
+  const deepSearchMatches: Repo[] = [];
 
   mainDatabase.forEach((item) => {
     const fullName = item.full_name?.toLowerCase();
@@ -61,11 +65,11 @@ export async function GET({ url }: { url: any }) {
   });
 
   // Apply filtering to each category
-  const applyFilter = (items: any) => {
+  const applyFilter = (items: Repo[]) => {
     if (typeof filter === "string") {
-      return items.filter((item: any) =>
+      return items.filter((item) =>
         item.topics?.some(
-          (topic: any) => topic.toLowerCase() === filter.toLowerCase(),
+          (topic) => topic.toLowerCase() === filter.toLowerCase(),
         ),
       );
     }

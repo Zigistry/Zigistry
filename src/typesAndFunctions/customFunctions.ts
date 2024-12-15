@@ -7,6 +7,10 @@ export interface Dependency {
   location: string;
 }
 
+export interface deepSearchData {
+  [key: string]: string;
+}
+
 export interface Repo {
   avatar_url: string;
   name: string;
@@ -41,7 +45,7 @@ export function numberAsLetters(i: number): string {
 }
 
 export async function convert2markdown(x: string): Promise<string> {
-  var content = await marked(
+  let content = await marked(
     x.replaceAll("- [x]", "±§±§±§±").replaceAll("- [ ]", "±§±§±§§±"),
   );
   content = sanitizeHtml(content, {
