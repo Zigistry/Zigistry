@@ -5,7 +5,7 @@ import type { Repo } from "../../typesAndFunctions/customFunctions";
 // Merge both databases
 const mainDatabase: Repo[] = [...db, ...berg];
 
-export async function GET({ url }: { url: string | URL }){
+export async function GET({ url }: { url: any }){
   const parsedUrl = new URL(url);
   const q = parsedUrl.searchParams.get("q");
   const filter = parsedUrl.searchParams.get("filter");

@@ -1,6 +1,6 @@
 import databaseMain from "../../../database/main.json";
 
-export async function GET({ url }: { url: string }) {
+export async function GET({ url }: { url: any }) {
   const parsedUrl = new URL(url);
   const pageNumberParam = parsedUrl.searchParams.get("pageNumber");
 

@@ -1,7 +1,7 @@
 import databaseMain from "../../../database/main.json";
 import type { Repo } from "../../typesAndFunctions/customFunctions";
 
-export async function GET({ url }: { url: string }) {
+export async function GET({ url }: { url: any }) {
   const parsedUrl = new URL(url);
   const section = parsedUrl.searchParams.get("section");
   const [lowerLimit, upperLimit] = (parsedUrl.searchParams.get("range") || "")

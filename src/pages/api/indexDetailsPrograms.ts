@@ -4,7 +4,7 @@ import type { Repo } from "../../typesAndFunctions/customFunctions";
 
 const databaseMain = [...programsMain, ...codebergMain];
 
-export async function GET({ url }: { url: string }) {
+export async function GET({ url }: { url: any }) {
   const parsedUrl = new URL(url);
   const section = parsedUrl.searchParams.get("section");
   const [ll, ul] = (parsedUrl.searchParams.get("range") || "")
