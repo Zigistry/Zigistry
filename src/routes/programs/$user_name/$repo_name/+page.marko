@@ -1,0 +1,141 @@
+import program_database from "../../../../../database/programs.json";
+import type { Repo } from "../../../../libs/types_important";
+import type { Dependency } from "../../../../libs/types_important";
+import zon2json from "z2j";
+import { fetchReadmeContent } from "../../../../libs/types_important";
+$ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
+  const repositories = [...program_database];
+  const { user_name, repo_name } = $global.params;
+  const repoPath = `${user_name}/${repo_name}`;
+  const repository = repositories.find((repo) => repo.full_name === repoPath);
+
+  if (!repository) {
+    return reject("/404");
+  }
+
+  var zig_version = "unknown";
+  const dependencies: Dependency[] | undefined = [];
+  if (repository.has_build_zig_zon == 1) {
+    const url = `https://raw.githubusercontent.com/${repository.full_name}/master/build.zig.zon`;
+    const res = await fetch(url);
+    var zonData = await res.text();
+    var zonAsJsonData = zon2json(zonData);
+
+    try {
+      const json_parsed = JSON.parse(zonAsJsonData); // No need for await here
+
+      if ("minimum_zig_version" in json_parsed)
+        zig_version = json_parsed.minimum_zig_version;
+
+      // Check if 'dependencies' exists in the parsed JSON first
+      if ("dependencies" in json_parsed) {
+        const deps: {
+          [name: string]: {
+            url: string | undefined;
+            path: string | undefined;
+            hash: string | undefined;
+          };
+        } = json_parsed.dependencies;
+
+        // Iterate over the dependencies and handle them
+        for (const [name, dep] of Object.entries(deps)) {
+          if (dep.url && dep.hash) {
+            dependencies.push({
+              name,
+              source: "remote",
+              location: dep.url,
+            });
+          } else {
+            dependencies.push({
+              name,
+              source: "relative",
+              location: dep.path ? dep.path : "",
+            });
+          }
+        }
+      }
+    } catch (_) {}
+  }
+
+  const compressedRepo: Repo = {
+    contentIsCorrect: true,
+    name: repository.name,
+    full_name: repository.full_name,
+    readme_content: await fetchReadmeContent(repository),
+    created_at: repository.created_at,
+    description: repository.description,
+    tags_url: repository.tags_url,
+    open_issues: repository.open_issues,
+    archived: repository.archived ? true : false,
+    license: repository.license,
+    stargazers_count: repository.stargazers_count,
+    forks_count: repository.forks_count,
+    watchers_count: repository.watchers_count,
+    topics: repository.topics,
+    avatar_url: repository.avatar_url,
+    dependencies: dependencies,
+    size: repository.size,
+    fork: repository.fork,
+    has_build_zig: repository.has_build_zig,
+    has_build_zig_zon: repository.has_build_zig_zon,
+    updated_at: repository.updated_at,
+  };
+  resolve(compressedRepo);
+});
+
+await(repoPromise) client-reorder timeout=100000000
+  @placeholder
+    <!-- Displays while promise is pending -->
+    label
+      -- Loading…
+      progress
+
+  @then|repo|
+    div.p-5
+      if(repo.contentIsCorrect)
+        custom_card section="special-program" Card_Details=repo
+        div class="mb-4 border-b border-gray-200 dark:border-gray-700"
+          ul#default-tab [
+            class="flex flex-wrap -mb-px text-sm font-medium text-center"
+            data-tabs-toggle="#default-tab-content"
+            role="tablist"
+          ]
+            li.me-2 role="presentation"
+              button.inline-block.p-4.border-b-2.rounded-t-lg#profile-tab [
+                data-tabs-target="#profile"
+                type="button"
+                role="tab"
+                aria-controls="profile"
+                aria-selected="false"
+              ]
+                -- Readme
+            li.me-2 role="presentation"
+              button#dashboard-tab [
+                class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                data-tabs-target="#dashboard"
+                type="button"
+                role="tab"
+                aria-controls="dashboard"
+                aria-selected="false"
+              ]
+                -- Dependencies
+        div#default-tab-content
+          div#profile [
+            class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
+            role="tabpanel"
+            aria-labelledby="profile-tab"
+          ]
+            div class="text-sm text-gray-500 dark:text-gray-400 readmeDiv"
+              -- $!{repo.readme_content}
+          div#dashboard class="" role="tabpanel" aria-labelledby="dashboard-tab"
+            div class=""
+              if(repo.dependencies)
+                for|dependency| of=repo.dependencies
+                  div.bg-slate-700.w-full.p-2.rounded-lg.mb-4.text-xl
+                    --
+                    ${dependency.source !== "remote" ? "./" : ""}${" "}${dependency.name}
+                    --
+      else
+        h1 -- 404!
+  @catch|_|
+    h1 -- 404!

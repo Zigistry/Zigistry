@@ -1,0 +1,6 @@
+{
+  "tailwindCSS.includeLanguages": {
+    "marko": "javascript"
+  },
+  "tailwindCSS.emmetCompletions": true
+}

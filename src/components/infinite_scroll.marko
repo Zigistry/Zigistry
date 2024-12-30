@@ -1,0 +1,49 @@
+import type { Repo } from "../libs/types_important";
+export interface Input {
+  section: string;
+}
+class {
+  state!: {
+    page: number;
+    repo_list: Repo[];
+    input: string;
+  };
+  onCreate() {
+    this.state = { page: 0, repo_list: [], input: "packages" };
+  }
+  onInput(input: { section: string }) {
+    this.state.input = input.section;
+  }
+  onMount() {
+    const targetElement = document.querySelector("#checker") as HTMLElement;
+    new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          this.load_more();
+        } else {
+          console.log("Element is out of view");
+        }
+      });
+    }).observe(targetElement);
+  }
+  load_more() {
+    if (this.state.input == "packages") {
+      fetch(`/api/infiniteScrollPackages/?pageNumber=${this.state.page}`)
+        .then((x) => x.json())
+        .then((y) => {
+          this.state.repo_list = [...this.state.repo_list, ...y];
+        });
+    } else {
+      fetch(`/api/infiniteScrollPrograms/?pageNumber=${this.state.page}`)
+        .then((x) => x.json())
+        .then((y) => {
+          this.state.repo_list = [...this.state.repo_list, ...y];
+        });
+    }
+    this.state.page++;
+  }
+}
+
+for|Card_Details| of=state.repo_list
+  custom_card Card_Details=Card_Details section=state.input
+h1.white#checker -- Loading more...

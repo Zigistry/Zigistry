@@ -1,0 +1,98 @@
+import type { Repo } from "../libs/types_important";
+import { formatDistanceToNow } from "date-fns";
+export interface Input {
+  Card_Details: Repo;
+  section: string;
+}
+
+div [
+  data-testid="flowbite-card"
+  class="z-0 my-2 flex w-72 transform-cpu flex-col rounded-lg border-0 border-gray-200 bg-white shadow-lg shadow-black transition-transform hover:z-10 hover:scale-110 dark:border-gray-700 dark:bg-[rgb(30,30,30)]"
+]
+  div.flex.h-full.flex-col.justify-center.gap-4.p-6
+    img.w-10.rounded-full [
+      width="50"
+      height="50"
+      src=(input.Card_Details.avatar_url)
+      alt="misshod"
+    ]
+    span class="truncate text-2xl font-bold text-gray-900 dark:text-white"
+      -- ${input.Card_Details.name}
+    p.truncate.text-gray-400 -- ${input.Card_Details.full_name}
+    div.flex.space-x-3
+      span [
+        class="mt-1 flex h-fit w-fit items-center gap-1 rounded border border-slate-200 bg-white p-1 px-2 py-0.5 text-xs font-semibold dark:border-none dark:bg-slate-600"
+        data-testid="flowbite-badge"
+      ]
+        span -- ${input.Card_Details.license}
+    p class="font-normal text-gray-700 dark:text-gray-400"
+      -- ${input.Card_Details.description}
+    div.flex.items-center
+      star_icon
+      -- ${input.Card_Details.stargazers_count}
+      watch_count
+      -- ${input.Card_Details.watchers_count}
+      fork_count
+      -- ${input.Card_Details.forks_count}
+      issue_count
+      -- ${input.Card_Details.open_issues}
+      important_count
+      div.w-fit data-testid="flowbite-tooltip-target"
+        -- ${input.Card_Details.topics ? input.Card_Details.topics.length : 0}
+      div [
+        data-testid="flowbite-tooltip"
+        tabindex="-1"
+        class="invisible absolute left-[134.169px] top-[211.993px] z-10 ml-2 mr-1 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700"
+        id=":r0Rkq2a:"
+        role="tooltip"
+      ]
+        div.relative.z-20 -- ${input.Card_Details.topics}
+        div [
+          class="absolute bottom-[-4px] left-[67px] z-10 h-2 w-2 rotate-45 bg-gray-900 dark:bg-gray-700"
+          data-testid="flowbite-tooltip-arrow"
+        ]
+          -- &nbsp;
+    div.flex
+      if(input.Card_Details.has_build_zig)
+        span class="me-2 flex w-min items-center justify-center space-x-3 rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300"
+          -- build.zig.zon
+      if(input.Card_Details.has_build_zig_zon)
+        span class="me-2 flex w-min items-center justify-center space-x-3 rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300"
+          -- build.zig
+      if(input.Card_Details.fork)
+        span class="me-2 flex w-min items-center justify-center space-x-3 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-900 dark:text-gray-300"
+          -- fork
+    if(input.section === "packages")
+      a [
+        href=("/packages/" + input.Card_Details.full_name)
+        type="button"
+        class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+      ]
+        span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
+          -- View package
+    if(input.section === "programs")
+      a [
+        href=("/programs/" + input.Card_Details.full_name)
+        type="button"
+        class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+      ]
+        span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
+          -- View program
+    if(input.section === "special-package")
+      a [
+        href=("https://github.com/" + input.Card_Details.full_name)
+        target="_blank"
+        type="button"
+        class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+      ]
+        span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
+          -- View package on GitHub
+    if(input.section === "special-program")
+      a [
+        href=("https://github.com/" + input.Card_Details.full_name)
+        target="_blank"
+        type="button"
+        class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+      ]
+        span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
+          -- View program on GitHub

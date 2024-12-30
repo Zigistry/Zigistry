@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json.schemastore.org/prettierrc",
+  "plugins": [
+    "prettier-plugin-packagejson",
+    "prettier-plugin-marko",
+    "prettier-plugin-tailwindcss"
+  ]
+}
