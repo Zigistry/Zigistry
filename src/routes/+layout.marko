@@ -7,6 +7,10 @@ html lang="en"
     script async defer src="/buttons.js"
     script defer async src="/main.js"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
+    link [
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/styles/darkMode.css"
+    ]
     title -- Zigistry: A package registry and manager for Zig
     meta [
       name="description"
@@ -189,19 +193,7 @@ html lang="en"
           a href="https://github.com/zigistry/zigistry" class="hover:underline"
             -- GitHub
 script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"
-
-script type="module" defer
-  --
-  import { highlightElements } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25";
-  import { zig } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/zig.js";
-  import { bash } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/bash.js";
-  import { diff } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/diff.js";
-  highlightElements(zig, "language-zig");
-  highlightElements(bash, "language-bash");
-  highlightElements(bash, "language-console");
-  highlightElements(bash, "language-sh");
-  highlightElements(diff, "language-diff");
-  --
+script type="module" src="/highlight.js"
 
 style {
   @tailwind base;
