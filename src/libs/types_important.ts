@@ -6,6 +6,14 @@ export function numberAsLetters(i: number): string {
   if (numberAsString.length > 3) return (i / 1000).toString().slice(0, 3) + "K";
   else return numberAsString;
 }
+export function formatNumber(num: number) {
+  if (num >= 1_000_000) {
+    return (num / 1_000_000).toFixed(1).replace(/\.0$/, "") + "m";
+  } else if (num >= 1_000) {
+    return (num / 1_000).toFixed(1).replace(/\.0$/, "") + "k";
+  }
+  return num.toString();
+}
 
 export async function convert2markdown(x: string): Promise<string> {
   let content = await marked(
