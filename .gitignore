@@ -1,4 +1,8 @@
 node_modules
 dist
 *.log
-.marko-run/*
+.marko-run
+package-lock.json
+zig-out
+.zig-cache
+.DS_Store
