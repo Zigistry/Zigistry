@@ -2,7 +2,7 @@ import database from "@database";
 import $packages_database_main from "../../../database/main.json";
 import type { Repo } from "@types";
 class {
-  state!: {
+  declare state: {
     searchDdosQuery: string;
     searchResults: Repo[];
     showSearchResults: boolean;
