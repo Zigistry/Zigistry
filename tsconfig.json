@@ -5,6 +5,13 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": "./",
+    "paths": {
+      "@types": ["src/libs/types_important"],
+      "@functions": ["src/libs/functions_important"],
+      "@database/*": ["database/*"]
+    },
+    "resolveJsonModule": true
   }
 }

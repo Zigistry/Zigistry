@@ -1,8 +1,7 @@
-import program_database from "../../../../../database/programs.json";
-import type { Repo } from "../../../../libs/types_important";
-import type { Dependency } from "../../../../libs/types_important";
+import program_database from "@database/programs.json";
+import type { Repo, Dependency } from "@types";
+import { fetchReadmeContent } from "@functions";
 import zon2json from "z2j";
-import { fetchReadmeContent } from "../../../../libs/types_important";
 $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
   const repositories = [...program_database];
   const { user_name, repo_name } = $global.params;

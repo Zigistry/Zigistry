@@ -1,11 +1,10 @@
-import main_datbase from "../../../../../database/main.json";
-import web from "../../../../../database/gui.json";
-import game from "../../../../../database/web.json";
-import gui from "../../../../../database/games.json";
-import type { Repo } from "../../../../libs/types_important";
-import type { Dependency } from "../../../../libs/types_important";
+import main_datbase from "@database/main.json";
+import web from "@database/gui.json";
+import game from "@database/web.json";
+import gui from "@database/games.json";
+import type { Repo, Dependency } from "@types";
+import { fetchReadmeContent } from "@functions";
 import zon2json from "z2j";
-import { fetchReadmeContent } from "../../../../libs/types_important";
 static const package_database: Repo[] = [
   ...main_datbase,
   ...web,
