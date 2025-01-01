@@ -10,7 +10,7 @@
     "paths": {
       "@types": ["src/libs/types_important"],
       "@functions": ["src/libs/functions_important"],
-      "@database/*": ["database/*"]
+      "@database": ["database/ts_export"]
     },
     "resolveJsonModule": true
   }

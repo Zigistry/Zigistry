@@ -1,15 +1,12 @@
-import main_datbase from "@database/main.json";
-import web from "@database/gui.json";
-import game from "@database/web.json";
-import gui from "@database/games.json";
+import database from "@database";
 import type { Repo, Dependency } from "@types";
 import { fetchReadmeContent } from "@functions";
 import zon2json from "z2j";
 static const package_database: Repo[] = [
-  ...main_datbase,
-  ...web,
-  ...game,
-  ...gui,
+  ...database.packages,
+  ...database.packages_web,
+  ...database.packages_games,
+  ...database.packages_gui,
 ];
 $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
   const repositories = [...package_database];

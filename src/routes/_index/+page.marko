@@ -1,7 +1,5 @@
-import $GUI_libs from "@database/gui.json";
-import $Game_libs from "@database/games.json";
-import $Web_libs from "@database/web.json";
-import $packages_database_main from "@database/main.json";
+import database from "@database";
+import $packages_database_main from "../../../database/main.json";
 import type { Repo } from "@types";
 class {
   state!: {
@@ -141,19 +139,19 @@ if(!state.showSearchResults)
       game_icon
       -- &nbsp;Famous Game libs:
     section.flex.w-full.flex-wrap.justify-evenly
-      for|Card_Details| of=$Game_libs
+      for|Card_Details| of=database.packages_games
         custom_card Card_Details=Card_Details section="packages"
     h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
       gui_icon
       -- &nbsp;Famous GUI libs:
     section.flex.w-full.flex-wrap.justify-evenly
-      for|Card_Details| of=$GUI_libs
+      for|Card_Details| of=database.packages_gui
         custom_card Card_Details=Card_Details section="packages"
     h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
       internet_icon
       -- &nbsp;Famous Web libs:
     section.flex.w-full.flex-wrap.justify-evenly
-      for|Card_Details| of=$Web_libs
+      for|Card_Details| of=database.packages_web
         custom_card Card_Details=Card_Details section="packages"
     h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
       internet_icon

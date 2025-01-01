@@ -1,4 +1,4 @@
-import $programs_database_main from "@database/programs.json";
+import database from "@database";
 import type { Repo } from "@types";
 class {
   state!: {
@@ -65,13 +65,13 @@ class {
   }
 }
 static const $mostUsed: Repo[] = (
-  $programs_database_main
+  database.programs
     .slice()
     .sort((a, b) => b.stargazers_count - a.stargazers_count)
     .slice(0, 10)
 );
 static const $sortedRepos: Repo[] = (
-  $programs_database_main
+  database.programs
     .slice()
     .sort(
       (a, b) =>

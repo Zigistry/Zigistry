@@ -1,9 +1,9 @@
-import program_database from "@database/programs.json";
+import database from "@database";
 import type { Repo, Dependency } from "@types";
 import { fetchReadmeContent } from "@functions";
 import zon2json from "z2j";
 $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
-  const repositories = [...program_database];
+  const repositories = [...database.programs];
   const { user_name, repo_name } = $global.params;
   const repoPath = `${user_name}/${repo_name}`;
   const repository = repositories.find((repo) => repo.full_name === repoPath);
