@@ -1,9 +1,1 @@
-import { highlightElements } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25";
-import { zig } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/zig.js";
-import { bash } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/bash.js";
-import { diff } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/diff.js";
-highlightElements(zig, "language-zig");
-highlightElements(bash, "language-bash");
-highlightElements(bash, "language-console");
-highlightElements(bash, "language-sh");
-highlightElements(diff, "language-diff");
+import{highlightElements as e}from"https://cdn.jsdelivr.net/npm/zilite@0.0.25";import{zig as n}from"https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/zig.js";import{bash as i}from"https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/bash.js";import{diff as t}from"https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/diff.js";e(n,"language-zig"),e(i,"language-bash"),e(i,"language-console"),e(i,"language-sh"),e(t,"language-diff");
