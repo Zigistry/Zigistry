@@ -80,21 +80,8 @@ pub fn contains(listOfStrings: []const []const u8, string: []const u8) bool {
 
 // ------- Concatenate --------
 pub fn concatenate(allocator: std.mem.Allocator, str1: []const u8, str2: []const u8, str3: []const u8) []const u8 {
-    var concatenated_string: []u8 = allocator.alloc(u8, str1.len + str2.len + str3.len) catch @panic("memory is full.");
-    var count: u32 = 0;
-    for (str1) |char| {
-        concatenated_string[count] = char;
-        count += 1;
-    }
-    for (str2) |char| {
-        concatenated_string[count] = char;
-        count += 1;
-    }
-    for (str3) |char| {
-        concatenated_string[count] = char;
-        count += 1;
-    }
-    return concatenated_string;
+    return std.mem.concat(allocator, u8, &.{str1, str2, str3})
+        catch @panic("Out Of Memory");
 }
 
 // ---- Prints selected fields in json ----
