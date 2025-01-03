@@ -1,5 +1,6 @@
 import packages from "./main.json";
 import packages_deep_search_data from "./deepSearchData.json";
+import programs_gitlab from "./gitlabPrograms.json";
 import packages_games from "./games.json";
 import packages_gui from "./gui.json";
 import packages_web from "./web.json";
@@ -15,4 +16,5 @@ export default {
   packages_web,
   programs_codeberg,
   programs,
+  programs_gitlab,
 };

@@ -2,14 +2,24 @@ import database from "@database";
 import type { Repo, Dependency } from "@types";
 import { fetchReadmeContent } from "@functions";
 import zon2json from "z2j";
-$ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
-  const repositories = [...database.programs];
+$ const repoPromise: Promise<{
+  compressedRepo: Repo;
+  isGithub: boolean;
+}> = new Promise(async (resolve, reject) => {
   const { user_name, repo_name } = $global.params;
   const repoPath = `${user_name}/${repo_name}`;
-  const repository = repositories.find((repo) => repo.full_name === repoPath);
-
+  var repository: Repo | undefined = database.programs.find(
+    (repo) => repo.full_name === repoPath,
+  );
+  var isGithub = true;
   if (!repository) {
-    return reject("/404");
+    isGithub = false;
+    repository = (database.programs_gitlab as Repo[]).find(
+      (repo) => repo.full_name === repoPath,
+    );
+    if (!repository) {
+      return reject("/404");
+    }
   }
 
   var zig_version = "unknown";
@@ -79,7 +89,7 @@ $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
     has_build_zig_zon: repository.has_build_zig_zon,
     updated_at: repository.updated_at,
   };
-  resolve(compressedRepo);
+  resolve({ compressedRepo: compressedRepo, isGithub: isGithub });
 });
 
 await(repoPromise) client-reorder timeout=100000000
@@ -91,8 +101,11 @@ await(repoPromise) client-reorder timeout=100000000
 
   @then|repo|
     div.p-5
-      if(repo.contentIsCorrect)
-        custom_card section="special-program" Card_Details=repo
+      if(repo.compressedRepo.contentIsCorrect)
+        if(repo.isGithub)
+          custom_card section="special-program" Card_Details=repo.compressedRepo
+        else
+          custom_card section="program-gitlab" Card_Details=repo.compressedRepo
         div class="mb-4 border-b border-gray-200 dark:border-gray-700"
           ul#default-tab [
             class="flex flex-wrap -mb-px text-sm font-medium text-center"
@@ -125,14 +138,14 @@ await(repoPromise) client-reorder timeout=100000000
             aria-labelledby="profile-tab"
           ]
             div class="text-sm text-gray-500 dark:text-gray-400 readmeDiv"
-              -- $!{repo.readme_content}
+              -- $!{repo.compressedRepo.readme_content}
           div#dashboard class="" role="tabpanel" aria-labelledby="dashboard-tab"
             div class=""
-              if(repo.dependencies)
-                for|dependency| of=repo.dependencies
+              if(repo.compressedRepo.dependencies)
+                for|dependency| of=(repo.compressedRepo.dependencies)
                   div.bg-slate-700.w-full.p-2.rounded-lg.mb-4.text-xl
                     --
-                    ${dependency.source !== "remote" ? "./" : ""}${" "}${dependency.name}
+                    ${dependency.source !== "remote" ? "./" : ""}${dependency.name}
                     --
       else
         h1 -- 404!
