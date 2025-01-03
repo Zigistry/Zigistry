@@ -11,13 +11,19 @@ pub fn main() void {
     const all_items = json.value.array.items;
     helperFunctions.print("{{", .{});
     for (all_items, 0..) |item, i| {
+        const default_branch = item.object.get("default_branch").?.string;
         const full_name = std.ascii.allocLowerString(allocator, item.object.get("full_name").?.string) catch @panic("Can't lower case.");
         defer allocator.free(full_name);
         const description = std.ascii.allocLowerString(allocator, item.object.get("description").?.string) catch @panic("Can't lower case.");
         defer allocator.free(description);
         helperFunctions.print("\"{s}\":\"{s} ", .{ full_name, description });
 
-        const url_to_fetch = helperFunctions.concatenate(allocator, "https://raw.githubusercontent.com/", full_name, "/master/README.md");
+        const url_to_fetch = helperFunctions.RepoServer.Github.rawFileUrl(
+            allocator, 
+            full_name,
+            default_branch,
+            "README.md",
+        );
         defer allocator.free(url_to_fetch);
 
         const result = helperFunctions.fetchNormal(allocator, url_to_fetch);
