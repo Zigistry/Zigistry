@@ -26,6 +26,7 @@ jobs:
           $BINARIES_PATH/repoListCompressor gui > ./database/gui.json &
           $BINARIES_PATH/repoListCompressor games > ./database/games.json &
           $BINARIES_PATH/codeberg > ./database/codebergPrograms.json &
+          $BINARIES_PATH/gitlab > ./database/gitlabPrograms.json &
           wait
       - name: Create Deep Search Database
         run: $BINARIES_PATH/createDeepSearchDB > ./database/deepSearchData.json
