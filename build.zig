@@ -51,6 +51,25 @@ pub fn build(b: *std.Build) void {
         codebergRunStep.dependOn(&codebergRunCmd.step);
     }
     {
+        const gitlab = b.addExecutable(.{
+            .name = "gitlab",
+            .root_source_file = b.path("scripts/gitlab.zig"),
+            .target = target,
+            .optimize = optimize,
+        });
+        gitlab.linkSystemLibrary("c");
+        gitlab.root_module.addImport("helperFunctions", helperFunctions);
+        b.installArtifact(gitlab);
+
+        const gitlabRunCmd = b.addRunArtifact(gitlab);
+        gitlabRunCmd.step.dependOn(b.getInstallStep());
+        if (b.args) |args| {
+            gitlabRunCmd.addArgs(args);
+        }
+        const gitlabRunStep = b.step("run_gitlab", "Run gitlab");
+        gitlabRunStep.dependOn(&gitlabRunCmd.step);
+    }
+    {
         const databaseCompiler2 = b.addExecutable(.{
             .name = "databaseCompiler2",
             .root_source_file = b.path("scripts/databaseCompiler2.zig"),

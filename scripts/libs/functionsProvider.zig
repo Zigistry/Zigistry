@@ -189,6 +189,53 @@ pub fn fetch(allocator: std.mem.Allocator, url: []const u8) []const u8 {
     return charBuffer.toOwnedSlice() catch @panic("Can't convert buffer to string");
 }
 
+// ---- Fetch With gitlab Pagination
+pub const GitlabPaginationIterator = struct {
+    url: ?[]const u8,
+    allocator: std.mem.Allocator,
+    url_owned: bool = false,
+    pub fn fetch(allocator: std.mem.Allocator, url: []const u8) GitlabPaginationIterator {
+        return .{
+            .url = url,
+            .allocator = allocator,
+        };
+    }
+        
+    pub fn next(self: *GitlabPaginationIterator) !?[]const u8 {
+        if (self.url == null) return null;
+        var serverHeaderBuffer = std.mem.zeroes([4096]u8);
+        var charBuffer = std.ArrayList(u8).init(self.allocator);
+        errdefer charBuffer.deinit();
+        var client = std.http.Client{ .allocator = self.allocator };
+        defer client.deinit();
+        const fetchOptions = std.http.Client.FetchOptions{
+            .location = std.http.Client.FetchOptions.Location{
+                .url = self.url.?,
+            },
+            .method = .GET,
+            .response_storage = .{ .dynamic = &charBuffer },
+            .server_header_buffer = &serverHeaderBuffer,
+        };
+        _ = client.fetch(fetchOptions) catch @panic("Internet issue.");
+        var headers = std.http.HeaderIterator.init(&serverHeaderBuffer);
+        if (self.url_owned) {
+            self.allocator.free(self.url.?);
+        }
+        self.url = null;
+        while (headers.next()) |h| {
+            if (std.mem.eql(u8, h.name, "Link") and std.mem.indexOf(u8, h.value, "rel=\"next\"") != null) {
+                const urlStart = std.mem.indexOfScalar(u8, h.value, '<');
+                const urlEnd = std.mem.indexOfScalar(u8, h.value, '>');
+                if (urlStart != null and urlEnd != null) {
+                    self.url_owned = true;
+                    self.url = try self.allocator.dupe(u8, h.value[urlStart.? + 1 .. urlEnd.?]);
+                }
+            }
+        }
+        return charBuffer.toOwnedSlice() catch @panic("Can't convert buffer to string");
+    }
+};
+
 // ---- Fetch Without headers ----
 pub fn fetchNormal(allocator: std.mem.Allocator, url: []const u8) []const u8 {
     var charBuffer = std.ArrayList(u8).init(allocator);
@@ -204,6 +251,70 @@ pub fn fetchNormal(allocator: std.mem.Allocator, url: []const u8) []const u8 {
     };
     _ = client.fetch(fetchOptions) catch @panic("Internet issue.");
     return charBuffer.toOwnedSlice() catch @panic("Can't convert buffer to string");
+}
+
+// ---- Prints selected fields in json ----
+pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []std.json.Value, isLastFile: bool) void {
+    for (repoList, 0..) |item, i| {
+        if (contains(&excludedRepositoriesLists, item.object.get("path_with_namespace").?.string)) {
+            continue;
+        }
+        print("{{", .{});
+        printJson("name", item.object.get("path").?.string, true);
+        printJsonInt("gitlab", 1, true);
+        printJson("full_name", item.object.get("path_with_namespace").?.string, true);
+        if (item.object.get("description").? == .string) {
+            const purifiedString = replace(allocator, item.object.get("description").?.string, '"', '\'');
+            defer allocator.free(purifiedString);
+            printJson("description", purifiedString, true);
+        } else {
+            printJson("description", "This repository has no description.", true);
+        }
+        printJsonInt("stargazers_count", item.object.get("star_count").?.integer, true);
+        printJson("updated_at", item.object.get("last_activity_at").?.string, true);
+        printJson("created_at", item.object.get("created_at").?.string, true);
+        const forks_count = if (!item.object.contains("forks_count")) 0 else
+            item.object.get("forks_count").?.integer;
+        printJsonInt("forks_count", forks_count, true);
+        const tags_url = concatenate(allocator, "git@gitlab.com:", item.object.get("path_with_namespace").?.string, ".git");
+        defer allocator.free(tags_url);
+        printJson("tags_url", tags_url, true);
+        const default_branch = if (item.object.get("default_branch")) |db|
+            db.string else "main";
+        printJson("default_branch", default_branch, true);
+        printJsonBool("fork", item.object.contains("forked_from_project"), true);
+        if (item.object.get("avatar_url").? == .string) {
+            printJson("avatar_url", item.object.get("avatar_url").?.string, false);
+        } else {
+            printJson("avatar_url", "", false);
+        }
+        if (item.object.get("topics").? == .array) {
+            print("\"topics\":[", .{});
+            for (item.object.get("topics").?.array.items, 0..) |topic, index| {
+                if (index == item.object.get("topics").?.array.items.len - 1) {
+                    print("\"{s}\"", .{topic.string});
+                } else {
+                    print("\"{s}\",", .{topic.string});
+                }
+            }
+            print("],", .{});
+        }
+
+        // TODO: need to implement these values as they are not the same on gitlab:
+        printJsonInt("watchers_count", 0, true);
+        printJson("license", "-", true);
+        printJsonInt("size", 0, true);
+        printJsonInt("has_build_zig_zon", 0, true);
+        printJsonInt("has_build_zig", 0, true);
+        printJsonInt("open_issues", 0, true);
+        // end TODO
+
+        if (isLastFile and i == repoList.len - 2) {
+            print("}}", .{});
+        } else {
+            print("}},", .{});
+        }
+    }
 }
 
 // ---- Prints selected fields in json ----
