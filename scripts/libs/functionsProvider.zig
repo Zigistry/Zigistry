@@ -260,35 +260,20 @@ pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []std
         printJsonInt("open_issues", 0, true);
         // end TODO
 
-        {
-            const build_zon_url = std.mem.concat(allocator, u8, &.{
+        inline for (.{
+            .{"has_build_zig", "build.zig"},
+            .{"has_build_zig_zon", "build.zig.zon"},
+        }) |tup| {
+            const url = std.mem.concat(allocator, u8, &.{
                 "https://gitlab.com/",
                 item.object.get("path_with_namespace").?.string,
                 "/-/raw/",
                 default_branch,
-                "/build.zig.zon",
+                "/" ++ tup[1],
             }) catch @panic("Out Of Memory");
-            defer allocator.free(build_zon_url);
-            if (checkUrlExists(allocator, build_zon_url)) {
-                printJsonInt("has_build_zig_zon", 0, true);
-            } else {
-                printJsonInt("has_build_zig_zon", 1, true);
-            }
-        }
-        {
-            const build_zig_url = std.mem.concat(allocator, u8, &.{
-                "https://gitlab.com/",
-                item.object.get("path_with_namespace").?.string,
-                "/-/raw/",
-                default_branch,
-                "/build.zig",
-            }) catch @panic("Out Of Memory");
-            defer allocator.free(build_zig_url);
-            if (checkUrlExists(allocator, build_zig_url)) {
-                printJsonInt("has_build_zig", 0, true);
-            } else {
-                printJsonInt("has_build_zig", 1, true);
-            }
+            defer allocator.free(url);
+            const has_file: i64 = if (checkUrlExists(allocator, url)) 1 else 0;
+            printJsonInt(tup[0], has_file, true);
         }
 
         if (item.object.get("avatar_url").? == .string) {
