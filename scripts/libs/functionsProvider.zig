@@ -233,6 +233,7 @@ pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []std
         printJsonInt("server", @intFromEnum(server), true);
         printJson("name", item.object.get("path").?.string, true);
         printJson("full_name", item.object.get("path_with_namespace").?.string, true);
+        printJsonInt("gitlab", 1, true);
         if (item.object.get("description").? == .string) {
             const purifiedString = replace(allocator, item.object.get("description").?.string, '"', '\'');
             defer allocator.free(purifiedString);
@@ -333,6 +334,7 @@ pub fn compressAndPrintReposBerg(allocator: std.mem.Allocator, repoList: []std.j
         printJsonInt("server", @intFromEnum(server), true);
         printJson("name", item.object.get("name").?.string, true);
         printJson("full_name", item.object.get("full_name").?.string, true);
+        printJsonInt("berg", 1, true);
         if (item.object.get("description").? == .string) {
             const purifiedString = replace(allocator, item.object.get("description").?.string, '"', '\'');
             defer allocator.free(purifiedString);

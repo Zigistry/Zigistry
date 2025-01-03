@@ -32,5 +32,6 @@ export interface Repo {
   updated_at: string;
   dependencies?: Dependency[];
   berg?: number;
+  gitlab?: number;
   archived?: boolean;
 }

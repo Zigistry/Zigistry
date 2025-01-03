@@ -4,22 +4,14 @@ import { fetchReadmeContent } from "@functions";
 import zon2json from "z2j";
 $ const repoPromise: Promise<{
   compressedRepo: Repo;
-  isGithub: boolean;
 }> = new Promise(async (resolve, reject) => {
   const { user_name, repo_name } = $global.params;
   const repoPath = `${user_name}/${repo_name}`;
   var repository: Repo | undefined = database.programs.find(
     (repo) => repo.full_name === repoPath,
   );
-  var isGithub = true;
   if (!repository) {
-    isGithub = false;
-    repository = (database.programs_gitlab as Repo[]).find(
-      (repo) => repo.full_name === repoPath,
-    );
-    if (!repository) {
       return reject("/404");
-    }
   }
 
   var zig_version = "unknown";
@@ -85,11 +77,13 @@ $ const repoPromise: Promise<{
     dependencies: dependencies,
     size: repository.size,
     fork: repository.fork,
+    berg:repository.berg,
+    gitlab:repository.gitlab,
     has_build_zig: repository.has_build_zig,
     has_build_zig_zon: repository.has_build_zig_zon,
     updated_at: repository.updated_at,
   };
-  resolve({ compressedRepo: compressedRepo, isGithub: isGithub });
+  resolve({ compressedRepo: compressedRepo });
 });
 
 await(repoPromise) client-reorder timeout=100000000
@@ -102,10 +96,7 @@ await(repoPromise) client-reorder timeout=100000000
   @then|repo|
     div.p-5
       if(repo.compressedRepo.contentIsCorrect)
-        if(repo.isGithub)
-          custom_card section="special-program" Card_Details=repo.compressedRepo
-        else
-          custom_card section="program-gitlab" Card_Details=repo.compressedRepo
+        custom_card section="special-program" Card_Details=repo.compressedRepo
         div class="mb-4 border-b border-gray-200 dark:border-gray-700"
           ul#default-tab [
             class="flex flex-wrap -mb-px text-sm font-medium text-center"
