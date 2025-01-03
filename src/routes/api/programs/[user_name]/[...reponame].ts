@@ -1,7 +1,8 @@
 import programsMain from "../../../../../database/programs.json";
 import codebergMain from "../../../../../database/codebergPrograms.json";
+import gitlabMain from "../../../../../database/gitlabPrograms.json";
 
-const mainDatabase = [...programsMain, ...codebergMain];
+const mainDatabase = [...programsMain, ...codebergMain, ...gitlabMain];
 
 export async function GET({
   params,

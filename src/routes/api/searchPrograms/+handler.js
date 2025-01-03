@@ -1,8 +1,9 @@
 import db from "../../../../database/programs.json";
 import berg from "../../../../database/codebergPrograms.json";
+import lab from "../../../../database/gitlabPrograms.json";
 
 // Merge both databases
-const mainDatabase = [...db, ...berg];
+const mainDatabase = [...db, ...berg, ...lab];
 
 export async function GET({ url }) {
   const parsedUrl = new URL(url);
