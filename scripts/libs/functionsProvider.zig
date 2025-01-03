@@ -189,7 +189,25 @@ pub fn fetch(allocator: std.mem.Allocator, url: []const u8) []const u8 {
     return charBuffer.toOwnedSlice() catch @panic("Can't convert buffer to string");
 }
 
-// ---- Fetch With gitlab Pagination
+
+// ---- Fetch Without headers ----
+pub fn fetchNormal(allocator: std.mem.Allocator, url: []const u8) []const u8 {
+    var charBuffer = std.ArrayList(u8).init(allocator);
+    errdefer charBuffer.deinit();
+    var client = std.http.Client{ .allocator = allocator };
+    defer client.deinit();
+    const fetchOptions = std.http.Client.FetchOptions{
+        .location = std.http.Client.FetchOptions.Location{
+            .url = url,
+        },
+        .method = .GET,
+        .response_storage = .{ .dynamic = &charBuffer },
+    };
+    _ = client.fetch(fetchOptions) catch @panic("Internet issue.");
+    return charBuffer.toOwnedSlice() catch @panic("Can't convert buffer to string");
+}
+
+// ---- Fetch until gitlab pagination header ends
 pub const GitlabPaginationIterator = struct {
     allocator: std.mem.Allocator,
     // the next url to fetch. finish if null
@@ -238,23 +256,6 @@ pub const GitlabPaginationIterator = struct {
     }
 };
 
-// ---- Fetch Without headers ----
-pub fn fetchNormal(allocator: std.mem.Allocator, url: []const u8) []const u8 {
-    var charBuffer = std.ArrayList(u8).init(allocator);
-    errdefer charBuffer.deinit();
-    var client = std.http.Client{ .allocator = allocator };
-    defer client.deinit();
-    const fetchOptions = std.http.Client.FetchOptions{
-        .location = std.http.Client.FetchOptions.Location{
-            .url = url,
-        },
-        .method = .GET,
-        .response_storage = .{ .dynamic = &charBuffer },
-    };
-    _ = client.fetch(fetchOptions) catch @panic("Internet issue.");
-    return charBuffer.toOwnedSlice() catch @panic("Can't convert buffer to string");
-}
-
 // ---- Prints selected fields in json ----
 pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []std.json.Value, isLastFile: bool) void {
     for (repoList, 0..) |item, i| {
@@ -285,11 +286,6 @@ pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []std
             db.string else "main";
         printJson("default_branch", default_branch, true);
         printJsonBool("fork", item.object.contains("forked_from_project"), true);
-        if (item.object.get("avatar_url").? == .string) {
-            printJson("avatar_url", item.object.get("avatar_url").?.string, false);
-        } else {
-            printJson("avatar_url", "", false);
-        }
         if (item.object.get("topics").? == .array) {
             print("\"topics\":[", .{});
             for (item.object.get("topics").?.array.items, 0..) |topic, index| {
@@ -311,7 +307,12 @@ pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []std
         printJsonInt("open_issues", 0, true);
         // end TODO
 
-        if (isLastFile and i == repoList.len - 2) {
+        if (item.object.get("avatar_url").? == .string) {
+            printJson("avatar_url", item.object.get("avatar_url").?.string, false);
+        } else {
+            printJson("avatar_url", "", false);
+        }
+        if (isLastFile and i == repoList.len - 1) {
             print("}}", .{});
         } else {
             print("}},", .{});
