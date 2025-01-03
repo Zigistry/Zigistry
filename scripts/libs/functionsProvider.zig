@@ -86,11 +86,13 @@ pub fn concatenate(allocator: std.mem.Allocator, str1: []const u8, str2: []const
 
 // ---- Prints selected fields in json ----
 pub fn compressAndPrintRepos(alloctor: std.mem.Allocator, repoList: []std.json.Value, isLastFile: bool) void {
+    const server = RepoServer.Github;
     for (repoList, 0..) |item, i| {
         if (contains(&excludedRepositoriesLists, item.object.get("full_name").?.string)) {
             continue;
         }
         print("{{", .{});
+        printJsonInt("server", @intFromEnum(server), true);
         printJson("name", item.object.get("name").?.string, true);
         printJson("full_name", item.object.get("full_name").?.string, true);
         if (item.object.get("description").? == .string) {
@@ -114,7 +116,7 @@ pub fn compressAndPrintRepos(alloctor: std.mem.Allocator, repoList: []std.json.V
             .{ "has_build_zig_zon", "build.zig.zon" },
         }) |tup| {
             const has_file: i64 = if (checkRepoFileExists(
-                .Github,
+                server,
                 alloctor,
                 item.object.get("full_name").?.string,
                 default_branch,
@@ -222,13 +224,14 @@ pub fn fetchNormal(allocator: std.mem.Allocator, url: []const u8) []const u8 {
 
 // ---- Prints selected fields in json ----
 pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []std.json.Value, isLastFile: bool) void {
+    const server = RepoServer.Gitlab;
     for (repoList, 0..) |item, i| {
         if (contains(&excludedRepositoriesLists, item.object.get("path_with_namespace").?.string)) {
             continue;
         }
         print("{{", .{});
+        printJsonInt("server", @intFromEnum(server), true);
         printJson("name", item.object.get("path").?.string, true);
-        printJsonInt("gitlab", 1, true);
         printJson("full_name", item.object.get("path_with_namespace").?.string, true);
         if (item.object.get("description").? == .string) {
             const purifiedString = replace(allocator, item.object.get("description").?.string, '"', '\'');
@@ -275,7 +278,7 @@ pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []std
             .{ "has_build_zig_zon", "build.zig.zon" },
         }) |tup| {
             const has_file: i64 = if (checkRepoFileExists(
-                .Codeberg,
+                server,
                 allocator,
                 item.object.get("path_with_namespace").?.string,
                 default_branch,
@@ -321,13 +324,14 @@ pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []std
 
 // ---- Prints selected fields in json ----
 pub fn compressAndPrintReposBerg(allocator: std.mem.Allocator, repoList: []std.json.Value, isLastFile: bool) void {
+    const server = RepoServer.Codeberg;
     for (repoList, 0..) |item, i| {
         if (contains(&excludedRepositoriesLists, item.object.get("full_name").?.string)) {
             continue;
         }
         print("{{", .{});
+        printJsonInt("server", @intFromEnum(server), true);
         printJson("name", item.object.get("name").?.string, true);
-        printJsonInt("berg", 1, true);
         printJson("full_name", item.object.get("full_name").?.string, true);
         if (item.object.get("description").? == .string) {
             const purifiedString = replace(allocator, item.object.get("description").?.string, '"', '\'');
@@ -347,7 +351,7 @@ pub fn compressAndPrintReposBerg(allocator: std.mem.Allocator, repoList: []std.j
             .{ "has_build_zig_zon", "build.zig.zon" },
         }) |tup| {
             const has_file: i64 = if (checkRepoFileExists(
-                .Codeberg,
+                server,
                 allocator,
                 item.object.get("full_name").?.string,
                 default_branch,
