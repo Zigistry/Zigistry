@@ -106,24 +106,21 @@ pub fn compressAndPrintRepos(alloctor: std.mem.Allocator, repoList: []std.json.V
         } else {
             printJson("license", item.object.get("license").?.object.get("spdx_id").?.string, true);
         }
-        const url = concatenate(alloctor, "https://raw.githubusercontent.com/", item.object.get("full_name").?.string, "/master/" ++ "build.zig.zon");
-        defer alloctor.free(url);
-        const result = fetch(alloctor, url);
-        defer alloctor.free(result);
-        if (std.mem.eql(u8, "", result) or std.mem.eql(u8, "404: Not Found", result)) {
-            printJsonInt("has_build_zig_zon", 0, true);
-        } else {
-            printJsonInt("has_build_zig_zon", 1, true);
-        }
-        printJson("default_branch", item.object.get("default_branch").?.string, true);
-        const url2 = concatenate(alloctor, "https://raw.githubusercontent.com/", item.object.get("full_name").?.string, "/master/" ++ "build.zig");
-        defer alloctor.free(url2);
-        const result2 = fetch(alloctor, url2);
-        defer alloctor.free(result2);
-        if (std.mem.eql(u8, "", result2) or std.mem.eql(u8, "404: Not Found", result2)) {
-            printJsonInt("has_build_zig", 0, true);
-        } else {
-            printJsonInt("has_build_zig", 1, true);
+        const default_branch = item.object.get("default_branch").?.string;
+        printJson("default_branch", default_branch, true);
+        inline for (.{
+            .{ "has_build_zig", "build.zig" },
+            .{ "has_build_zig_zon", "build.zig.zon" },
+        }) |tup| {
+            const has_file: i64 = if (checkRepoFileExists(
+                alloctor,
+                "https://raw.githubusercontent.com/",
+                item.object.get("full_name").?.string,
+                null,
+                default_branch,
+                tup[1],
+            )) 1 else 0;
+            printJsonInt(tup[0], has_file, true);
         }
         if (item.object.get("archived").?.bool) {
             printJsonBool("archived", true, true);
@@ -191,6 +188,32 @@ pub fn checkUrlExists(allocator: std.mem.Allocator, url: []const u8) bool {
         .ok => true,
         else => false,
     };
+}
+
+// check if a file in a repository exists, defined by url parts
+pub fn checkRepoFileExists(
+    allocator: std.mem.Allocator,
+    baseUrl: []const u8,
+    repoPath: []const u8,
+    subPath: ?[]const u8,
+    branch: []const u8,
+    file: []const u8,
+) bool {
+    const urlparts = if (subPath) |sp| &.{
+        baseUrl,
+        repoPath,
+        sp,
+        branch,
+        file,
+    } else &.{
+        baseUrl,
+        repoPath,
+        branch,
+        file,
+    };
+    const url = std.mem.join(allocator, "/", urlparts) catch @panic("Out of Memory");
+    defer allocator.free(url);
+    return checkUrlExists(allocator, url);
 }
 
 // ---- Fetch Without headers ----
@@ -261,25 +284,46 @@ pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []std
         // end TODO
 
         inline for (.{
-            .{"has_build_zig", "build.zig"},
-            .{"has_build_zig_zon", "build.zig.zon"},
+            .{ "has_build_zig", "build.zig" },
+            .{ "has_build_zig_zon", "build.zig.zon" },
         }) |tup| {
-            const url = std.mem.concat(allocator, u8, &.{
-                "https://gitlab.com/",
+            const has_file: i64 = if (checkRepoFileExists(
+                allocator,
+                "https://gitlab.com",
                 item.object.get("path_with_namespace").?.string,
-                "/-/raw/",
+                "-/raw",
                 default_branch,
-                "/" ++ tup[1],
-            }) catch @panic("Out Of Memory");
-            defer allocator.free(url);
-            const has_file: i64 = if (checkUrlExists(allocator, url)) 1 else 0;
+                tup[1],
+            )) 1 else 0;
             printJsonInt(tup[0], has_file, true);
         }
 
-        if (item.object.get("avatar_url").? == .string) {
-            printJson("avatar_url", item.object.get("avatar_url").?.string, false);
-        } else {
-            printJson("avatar_url", "", false);
+        if (item.object.get("archived")) |archived| {
+            if (archived.bool) {
+                printJsonBool("archived", true, true);
+            }
+        }
+        {
+            var avatar_url: []const u8 = "";
+            if (item.object.get("avatar_url").? == .string) {
+                avatar_url = item.object.get("avatar_url").?.string;
+            } else {
+                if (item.object.get("namespace")) |namespace| {
+                    if (namespace.object.get("avatar_url").? == .string) {
+                        avatar_url = namespace.object.get("avatar_url").?.string;
+                    }
+                }
+            }
+            if (std.mem.startsWith(u8, avatar_url, "/")) {
+                const avatar_url_prefixed = std.mem.concat(allocator, u8, &.{
+                    "https://gitlab.com",
+                    avatar_url,
+                }) catch @panic("Out Of Memory");
+                defer allocator.free(avatar_url_prefixed);
+                printJson("avatar_url", avatar_url_prefixed, false);
+            } else {
+                printJson("avatar_url", avatar_url, false);
+            }
         }
         if (isLastFile and i == repoList.len - 1) {
             print("}}", .{});
@@ -309,25 +353,24 @@ pub fn compressAndPrintReposBerg(allocator: std.mem.Allocator, repoList: []std.j
         printJsonInt("watchers_count", item.object.get("watchers_count").?.integer, true);
         printJsonInt("forks_count", item.object.get("forks_count").?.integer, true);
         printJson("license", "-", true);
-        const url = concatenate(allocator, "https://codeberg.org/", item.object.get("full_name").?.string, "/raw/branch/main/" ++ "build.zig.zon");
-        defer allocator.free(url);
-        const result = fetchNormal(allocator, url);
-        defer allocator.free(result);
-        if (std.mem.eql(u8, "", result) or std.mem.eql(u8, "404: Not Found", result)) {
-            printJsonInt("has_build_zig_zon", 0, true);
-        } else {
-            printJsonInt("has_build_zig_zon", 1, true);
+
+        const default_branch = item.object.get("default_branch").?.string;
+        printJson("default_branch", default_branch, true);
+        inline for (.{
+            .{ "has_build_zig", "build.zig" },
+            .{ "has_build_zig_zon", "build.zig.zon" },
+        }) |tup| {
+            const has_file: i64 = if (checkRepoFileExists(
+                allocator,
+                "https://codeberg.org",
+                item.object.get("full_name").?.string,
+                "raw/branch",
+                default_branch,
+                tup[1],
+            )) 1 else 0;
+            printJsonInt(tup[0], has_file, true);
         }
-        printJson("default_branch", item.object.get("default_branch").?.string, true);
-        const url2 = concatenate(allocator, "https://codeberg.org/", item.object.get("full_name").?.string, "/raw/branch/main/" ++ "build.zig");
-        defer allocator.free(url2);
-        const result2 = fetchNormal(allocator, url2);
-        defer allocator.free(result2);
-        if (std.mem.eql(u8, "", result2) or std.mem.eql(u8, "404: Not Found", result2)) {
-            printJsonInt("has_build_zig", 0, true);
-        } else {
-            printJsonInt("has_build_zig", 1, true);
-        }
+
         printJsonBool("fork", item.object.get("fork").?.bool, true);
         printJsonInt("open_issues", item.object.get("open_issues_count").?.integer, true);
         printJsonInt("stargazers_count", item.object.get("stars_count").?.integer, true);
