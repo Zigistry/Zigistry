@@ -1,7 +1,7 @@
 //!==============================================
 //!          Basic Functions Provider
 //!==============================================
-//!	Author  : Rohan Vashisht
+//! Author  : Rohan Vashisht
 //! License : Please check license file
 //! Details : This file provides easy access
 //! of a few functions to databaseCompiler.zig
@@ -80,8 +80,7 @@ pub fn contains(listOfStrings: []const []const u8, string: []const u8) bool {
 
 // ------- Concatenate --------
 pub fn concatenate(allocator: std.mem.Allocator, str1: []const u8, str2: []const u8, str3: []const u8) []const u8 {
-    return std.mem.concat(allocator, u8, &.{str1, str2, str3})
-        catch @panic("Out Of Memory");
+    return std.mem.concat(allocator, u8, &.{ str1, str2, str3 }) catch @panic("Out Of Memory");
 }
 
 // ---- Prints selected fields in json ----
@@ -177,6 +176,22 @@ pub fn fetch(allocator: std.mem.Allocator, url: []const u8) []const u8 {
     return charBuffer.toOwnedSlice() catch @panic("Can't convert buffer to string");
 }
 
+// ---- Fetch With HEAD request, test return code ----
+pub fn checkUrlExists(allocator: std.mem.Allocator, url: []const u8) bool {
+    var client = std.http.Client{ .allocator = allocator };
+    defer client.deinit();
+    const fetchOptions = std.http.Client.FetchOptions{
+        .location = std.http.Client.FetchOptions.Location{
+            .url = url,
+        },
+        .method = .HEAD,
+    };
+    const result = client.fetch(fetchOptions) catch @panic("Internet issue.");
+    return switch (result.status) {
+        .ok => true,
+        else => false,
+    };
+}
 
 // ---- Fetch Without headers ----
 pub fn fetchNormal(allocator: std.mem.Allocator, url: []const u8) []const u8 {
@@ -215,14 +230,15 @@ pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []std
         printJsonInt("stargazers_count", item.object.get("star_count").?.integer, true);
         printJson("updated_at", item.object.get("last_activity_at").?.string, true);
         printJson("created_at", item.object.get("created_at").?.string, true);
-        const forks_count = if (!item.object.contains("forks_count")) 0 else
-            item.object.get("forks_count").?.integer;
+        const forks_count = if (!item.object.contains("forks_count")) 0 else item.object.get("forks_count").?.integer;
         printJsonInt("forks_count", forks_count, true);
         const tags_url = concatenate(allocator, "git@gitlab.com:", item.object.get("path_with_namespace").?.string, ".git");
         defer allocator.free(tags_url);
         printJson("tags_url", tags_url, true);
         const default_branch = if (item.object.get("default_branch")) |db|
-            db.string else "main";
+            db.string
+        else
+            "main";
         printJson("default_branch", default_branch, true);
         printJsonBool("fork", item.object.contains("forked_from_project"), true);
         if (item.object.get("topics").? == .array) {
@@ -241,10 +257,39 @@ pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []std
         printJsonInt("watchers_count", 0, true);
         printJson("license", "-", true);
         printJsonInt("size", 0, true);
-        printJsonInt("has_build_zig_zon", 0, true);
-        printJsonInt("has_build_zig", 0, true);
         printJsonInt("open_issues", 0, true);
         // end TODO
+
+        {
+            const build_zon_url = std.mem.concat(allocator, u8, &.{
+                "https://gitlab.com/",
+                item.object.get("path_with_namespace").?.string,
+                "/-/raw/",
+                default_branch,
+                "/build.zig.zon",
+            }) catch @panic("Out Of Memory");
+            defer allocator.free(build_zon_url);
+            if (checkUrlExists(allocator, build_zon_url)) {
+                printJsonInt("has_build_zig_zon", 0, true);
+            } else {
+                printJsonInt("has_build_zig_zon", 1, true);
+            }
+        }
+        {
+            const build_zig_url = std.mem.concat(allocator, u8, &.{
+                "https://gitlab.com/",
+                item.object.get("path_with_namespace").?.string,
+                "/-/raw/",
+                default_branch,
+                "/build.zig",
+            }) catch @panic("Out Of Memory");
+            defer allocator.free(build_zig_url);
+            if (checkUrlExists(allocator, build_zig_url)) {
+                printJsonInt("has_build_zig", 0, true);
+            } else {
+                printJsonInt("has_build_zig", 1, true);
+            }
+        }
 
         if (item.object.get("avatar_url").? == .string) {
             printJson("avatar_url", item.object.get("avatar_url").?.string, false);
