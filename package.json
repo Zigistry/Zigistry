@@ -1,8 +1,8 @@
 {
-  "name": "zigistrym",
+  "name": "zigistry",
   "version": "1.0.0",
   "private": true,
-  "description": "The default Marko starter app",
+  "description": "A place where you can find all the libraries and programs that suit your Zig lang needs.",
   "type": "module",
   "scripts": {
     "build": "marko-run build",

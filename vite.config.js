@@ -3,14 +3,12 @@ import marko from "@marko/run/vite";
 import staticAdapter from "@marko/run-adapter-static";
 import packagesData from "./database/main.json";
 import programsData from "./database/programs.json";
-import gitlabPrograms from "./database/gitlabPrograms.json";
 import path from "path";
 
 function generatePaths() {
   const paths = [
     ...packagesData.map((pkg) => `/packages/${pkg.full_name}`),
     ...programsData.map((program) => `/programs/${program.full_name}`),
-    ...gitlabPrograms.map((program) => `/programs/${program.full_name}`),
   ];
   return paths;
 }

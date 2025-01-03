@@ -1,5 +1,4 @@
 import database from "@database";
-import $packages_database_main from "../../../database/main.json";
 import type { Repo } from "@types";
 class {
   declare state: {
@@ -66,13 +65,13 @@ class {
   }
 }
 static const $mostUsed: Repo[] = (
-  $packages_database_main
+  database.packages
     .slice()
     .sort((a, b) => b.stargazers_count - a.stargazers_count)
     .slice(0, 10)
 );
 static const $sortedRepos: Repo[] = (
-  $packages_database_main
+  database.packages
     .slice()
     .sort(
       (a, b) =>

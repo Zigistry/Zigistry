@@ -11,7 +11,7 @@ $ const repoPromise: Promise<{
     (repo) => repo.full_name === repoPath,
   );
   if (!repository) {
-      return reject("/404");
+    return reject("/404");
   }
 
   var zig_version = "unknown";
@@ -77,8 +77,8 @@ $ const repoPromise: Promise<{
     dependencies: dependencies,
     size: repository.size,
     fork: repository.fork,
-    berg:repository.berg,
-    gitlab:repository.gitlab,
+    berg: repository.berg,
+    gitlab: repository.gitlab,
     has_build_zig: repository.has_build_zig,
     has_build_zig_zon: repository.has_build_zig_zon,
     updated_at: repository.updated_at,

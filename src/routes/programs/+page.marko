@@ -65,13 +65,12 @@ class {
   }
 }
 static const $mostUsed: Repo[] = (
-  database.programs
-    .slice()
+  [...database.programs, ...database.programs_gitlab]
     .sort((a, b) => b.stargazers_count - a.stargazers_count)
     .slice(0, 10)
 );
 static const $sortedRepos: Repo[] = (
-  database.programs
+  [...database.programs, ...database.programs_gitlab]
     .slice()
     .sort(
       (a, b) =>
