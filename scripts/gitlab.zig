@@ -5,7 +5,7 @@ const allocator = std.heap.c_allocator;
 const gitlab_url = "https://gitlab.com/api/v4/projects?order_by=last_activity_at&per_page=100&search=zig";
 
 pub fn main() !void {
-    var iter = hp.GitlabPaginationIterator.fetch(allocator, gitlab_url);
+    var iter = hp.GitlabPaginationIterator.init(allocator, gitlab_url);
     hp.print("[", .{});
     while (try iter.next()) |res| {
         defer allocator.free(res);
@@ -17,7 +17,6 @@ pub fn main() !void {
         };
         defer parsed.deinit();
 
-        std.debug.print("{s}\n", .{res});
         const data = parsed.value.array.items;
 
         hp.compressAndPrintReposGitlab(allocator, data, iter.url == null);

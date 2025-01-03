@@ -191,13 +191,15 @@ pub fn fetch(allocator: std.mem.Allocator, url: []const u8) []const u8 {
 
 // ---- Fetch With gitlab Pagination
 pub const GitlabPaginationIterator = struct {
-    url: ?[]const u8,
     allocator: std.mem.Allocator,
+    // the next url to fetch. finish if null
+    url: ?[]const u8,
+    // is the url owned and should be freed after the next fetch?
     url_owned: bool = false,
-    pub fn fetch(allocator: std.mem.Allocator, url: []const u8) GitlabPaginationIterator {
+    pub fn init(allocator: std.mem.Allocator, url: []const u8) GitlabPaginationIterator {
         return .{
-            .url = url,
             .allocator = allocator,
+            .url = url,
         };
     }
         
