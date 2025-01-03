@@ -13,6 +13,7 @@
 // ==========================
 const std = @import("std");
 pub const GitlabApiIterator = @import("GitlabApiIterator.zig");
+pub const RepoServer = @import("RepoServer.zig").RepoServer;
 
 // ==========================
 //         Constants
@@ -113,10 +114,9 @@ pub fn compressAndPrintRepos(alloctor: std.mem.Allocator, repoList: []std.json.V
             .{ "has_build_zig_zon", "build.zig.zon" },
         }) |tup| {
             const has_file: i64 = if (checkRepoFileExists(
+                .Github,
                 alloctor,
-                "https://raw.githubusercontent.com/",
                 item.object.get("full_name").?.string,
-                null,
                 default_branch,
                 tup[1],
             )) 1 else 0;
@@ -192,26 +192,13 @@ pub fn checkUrlExists(allocator: std.mem.Allocator, url: []const u8) bool {
 
 // check if a file in a repository exists, defined by url parts
 pub fn checkRepoFileExists(
+    server: RepoServer,
     allocator: std.mem.Allocator,
-    baseUrl: []const u8,
-    repoPath: []const u8,
-    subPath: ?[]const u8,
+    repo: []const u8,
     branch: []const u8,
     file: []const u8,
 ) bool {
-    const urlparts = if (subPath) |sp| &.{
-        baseUrl,
-        repoPath,
-        sp,
-        branch,
-        file,
-    } else &.{
-        baseUrl,
-        repoPath,
-        branch,
-        file,
-    };
-    const url = std.mem.join(allocator, "/", urlparts) catch @panic("Out of Memory");
+    const url = server.rawFileUrl(allocator, repo, branch, file);
     defer allocator.free(url);
     return checkUrlExists(allocator, url);
 }
@@ -288,10 +275,9 @@ pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []std
             .{ "has_build_zig_zon", "build.zig.zon" },
         }) |tup| {
             const has_file: i64 = if (checkRepoFileExists(
+                .Codeberg,
                 allocator,
-                "https://gitlab.com",
                 item.object.get("path_with_namespace").?.string,
-                "-/raw",
                 default_branch,
                 tup[1],
             )) 1 else 0;
@@ -361,10 +347,9 @@ pub fn compressAndPrintReposBerg(allocator: std.mem.Allocator, repoList: []std.j
             .{ "has_build_zig_zon", "build.zig.zon" },
         }) |tup| {
             const has_file: i64 = if (checkRepoFileExists(
+                .Codeberg,
                 allocator,
-                "https://codeberg.org",
                 item.object.get("full_name").?.string,
-                "raw/branch",
                 default_branch,
                 tup[1],
             )) 1 else 0;
