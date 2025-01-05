@@ -1,49 +1,31 @@
-div class="mt-5 pl-10 sm:pl-5"
-  div.readme.readmeDiv.block
-    h1.theme-bg -- Zigistry's Apps and Programs
+div.mt-5.px-5
+  h1 class="mb-5 text-3xl font-bold text-gray-800 dark:text-gray-100"
+    -- Zigistry's Apps and Programs
 
-    div.custmDisplay
-      div
-        article.card.theme-bg
-          img src="/Zon-to-json.png"
-          footer
-            h3.theme-bg -- Zilite
-            p.theme-bg -- A syntax highlighter for the web.
-            button -- View
-      div
-        article.card.theme-bg
-          img src="/zilite.png"
-          footer
-            h3 -- Z2j
-            p -- Convert Zon to json on the web.
-            button -- View
-
-style {
-  .readme {
-    padding: 20px;
-    color: white;
-  }
-  .w-3-5 {
-    width: 35vw;
-    height: 35vw;
-  }
-  .card {
-    width: 350px;
-    margin-right: 20px;
-    box-shadow: 0 0 30px black;
-    border-color: #303348;
-    border-radius: 20px;
-    padding: 25px 25px 10px 25px;
-  }
-  .card > img {
-    width: 300px !important;
-    border-radius: 15px;
-  }
-  .card > footer > p {
-    margin-bottom: 10px;
-  }
-  .custmDisplay {
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
+  div.flex.flex-wrap.gap-5
+    <!-- Card 1 -->
+    div class="w-96 overflow-hidden rounded-lg bg-white shadow-lg dark:bg-gray-800"
+      img.w-full src="/Zon-to-json.png" alt="Zilite Image"
+      div.p-5
+        h2 class="mb-2 text-xl font-semibold text-gray-800 dark:text-gray-100"
+          -- Zilite
+        p class="mb-4 text-gray-600 dark:text-gray-300"
+          -- A syntax highlighter for the web.
+        a [
+          href="https://github.com/zigistry/zilite"
+          class="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+        ]
+          -- View
+    <!-- Card 2 -->
+    div class="w-96 overflow-hidden rounded-lg bg-white shadow-lg dark:bg-gray-800"
+      img.w-full.object-cover src="/zilite.png" alt="Z2j Image"
+      div.p-5
+        h2 class="mb-2 text-xl font-semibold text-gray-800 dark:text-gray-100"
+          -- Z2j
+        p class="mb-4 text-gray-600 dark:text-gray-300"
+          -- Convert Zon to JSON on the web.
+        a [
+          href="/apps/Zon-2-json"
+          class="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+        ]
+          -- View
