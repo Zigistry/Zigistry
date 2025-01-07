@@ -4,6 +4,7 @@ class {
   declare state: {
     searchDdosQuery: string;
     searchResults: Repo[];
+    intelegentSortData: Repo[];
     showSearchResults: boolean;
   };
   onCreate() {
@@ -11,6 +12,7 @@ class {
       searchDdosQuery: "",
       searchResults: [],
       showSearchResults: false,
+      intelegentSortData: [],
     };
   }
   onMount() {
@@ -37,6 +39,38 @@ class {
           this.state.showSearchResults = true;
         });
     });
+  }
+  onSort(name: string) {
+    // Store the results from the server here:
+    let sortedResults = [...this.state.searchResults]; // Work on a copy
+    switch (name) {
+      case "intelligent_sort":
+        sortedResults = [...this.state.intelegentSortData];
+        break;
+      case "star_count_sort":
+        sortedResults = sortedResults.sort(
+          (a: Repo, b: Repo) => b.stargazers_count - a.stargazers_count,
+        );
+        break;
+      case "last_updated":
+        sortedResults = sortedResults.sort(
+          (a: Repo, b: Repo) =>
+            new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
+        );
+        break;
+      case "a_to_z":
+        sortedResults = sortedResults.sort((a: Repo, b: Repo) =>
+          a.name.localeCompare(b.name),
+        );
+        break;
+      case "fork_sort":
+        sortedResults = sortedResults.sort(
+          (a: Repo, b: Repo) => b.forks_count - a.forks_count,
+        );
+        break;
+    }
+    // Update state
+    this.state.searchResults = sortedResults;
   }
   onSearch() {
     const ele = document.getElementById("search_box") as HTMLInputElement;
@@ -140,6 +174,39 @@ if(!state.showSearchResults)
       infinite_scroll section="programs"
 else
   div
+    h1.mb-2.text-center.text-2xl -- Sort:
+    div.flex.items-center.justify-center
+      div.inline-flex.rounded-md.shadow-sm role="group"
+        button [
+          type="button"
+          onClick("onSort", "intelegent_sort")
+          class="rounded-s-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-blue-500"
+        ]
+          intelegence
+        button [
+          type="button"
+          onClick("onSort", "star_count_sort")
+          class="border-b border-r border-t border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-blue-500"
+        ]
+          star_icon_2
+        button [
+          type="button"
+          onClick("onSort", "last_updated")
+          class="border-b border-r border-t border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-blue-500"
+        ]
+          last_updated
+        button [
+          type="button"
+          onClick("onSort", "a_to_z")
+          class="border-b border-t border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-blue-500"
+        ]
+          -- A-Z
+        button [
+          type="button"
+          onClick("onSort", "fork_sort")
+          class="rounded-e-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-blue-500"
+        ]
+          fork_2
     h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
       internet_icon
       -- &nbsp;Search Results:
