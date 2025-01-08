@@ -21,15 +21,7 @@ const helperFunctions = @import("helperFunctions");
 // =======================
 //        Constants
 // =======================
-const urls = [_][]const u8{
-    // Increment these whenever repositories having zig-package reach the next 100.
-    "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=1&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=2&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=3&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=4&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=5&per_page=100",
-    "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page=6&per_page=100",
-};
+const url_template = "https://api.github.com/search/repositories?q=topic:zig-package+fork:true&page={}&per_page=100";
 
 // =======================
 //          Main
@@ -40,7 +32,13 @@ pub fn main() void {
 
     const allocator = std.heap.c_allocator;
 
-    for (urls, 0..) |url, i| {
+    // pagination starts from 1
+    var i: usize = 1;
+    var isLastResult = false;
+    while (!isLastResult) : (i += 1) {
+        const url = std.fmt.allocPrint(allocator, url_template, .{i}) catch @panic("OOM on allocPrint");
+        defer allocator.free(url);
+
         const res = helperFunctions.fetch(allocator, url);
         defer allocator.free(res);
         if (!std.mem.eql(u8, res, "")) {
@@ -51,11 +49,9 @@ pub fn main() void {
             const repoListUncompressed = parsed.value.object.get("items").?.array.items;
 
             // ----- If last result -----
-            if (i == urls.len - 1) {
-                helperFunctions.compressAndPrintRepos(allocator, repoListUncompressed, true);
-            } else {
-                helperFunctions.compressAndPrintRepos(allocator, repoListUncompressed, false);
-            }
+            // you could also use the total_count and keep tally but this also works
+            isLastResult = repoListUncompressed.len != 100;
+            helperFunctions.compressAndPrintRepos(allocator, repoListUncompressed, isLastResult);
         } else @panic("unable to reach url");
     }
 
