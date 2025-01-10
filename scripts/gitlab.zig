@@ -2,10 +2,10 @@ const std = @import("std");
 const hp = @import("helperFunctions");
 const allocator = std.heap.c_allocator;
 
-const gitlab_url = "https://gitlab.com/api/v4/projects?order_by=last_activity_at&per_page=100&topic=zig";
+const gitlab_url = "https://gitlab.com/api/v4/projects?order_by=last_activity_at&per_page=100&license=yes&topic=zig";
 
 pub fn main() !void {
-    var iter = hp.GitlabApiIterator.init(allocator, gitlab_url);
+    var iter = hp.GitlabApi.Iterator.init(allocator, gitlab_url);
     hp.print("[", .{});
     while (try iter.next()) |res| {
         defer allocator.free(res);

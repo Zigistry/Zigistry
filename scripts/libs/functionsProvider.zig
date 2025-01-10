@@ -12,7 +12,7 @@
 //          Imports
 // ==========================
 const std = @import("std");
-pub const GitlabApiIterator = @import("GitlabApiIterator.zig");
+pub const GitlabApi = @import("GitlabApi.zig");
 pub const RepoServer = @import("RepoServer.zig").RepoServer;
 
 // ==========================
@@ -229,6 +229,9 @@ pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []std
         if (contains(&excludedRepositoriesLists, item.object.get("path_with_namespace").?.string)) {
             continue;
         }
+        const details = GitlabApi.ProjectDetails.fetch(allocator, @intCast(item.object.get("id").?.integer)) catch @panic("Details Api Error");
+        defer details.deinit();
+
         print("{{", .{});
         printJsonInt("server", @intFromEnum(server), true);
         printJson("name", item.object.get("path").?.string, true);
@@ -266,10 +269,18 @@ pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []std
             }
             print("],", .{});
         }
+        if (details.value.license) |license| {
+            {
+                const license_upper = std.ascii.allocUpperString(allocator, license.key) catch @panic("OOM");
+                defer allocator.free(license_upper);
+                printJson("license", license_upper, true);
+            }
+        } else {
+            printJson("license", "-", true);
+        }
 
         // TODO: need to implement these values as they are not the same on gitlab:
         printJsonInt("watchers_count", 0, true);
-        printJson("license", "-", true);
         printJsonInt("size", 0, true);
         printJsonInt("open_issues", 0, true);
         // end TODO
