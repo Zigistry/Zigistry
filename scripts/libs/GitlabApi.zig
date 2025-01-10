@@ -2,8 +2,6 @@ const std = @import("std");
 const fp = @import("functionsProvider.zig");
 pub const Iterator = @import("GitlabApiIterator.zig");
 
-const host = "gitlab.com";
-
 pub const Projects = struct {
     id: usize,
     path_with_namespace: []const u8,
@@ -54,7 +52,7 @@ pub const Issues = struct {
     const url_tpl = "https://{s}/api/v4/projects/{d}/issues?state=opened";
     pub fn fetch(allocator: std.mem.Allocator, id: usize) !std.json.Parsed(List) {
         const url = try std.fmt.allocPrint(allocator, url_tpl, .{
-            host,
+            fp.RepoServer.Gitlab.hostname(),
             id,
         });
         defer allocator.free(url);
