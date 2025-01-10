@@ -12,14 +12,15 @@ pub fn main() !void {
         if (std.mem.eql(u8, "", res)) {
             @panic("Can't connect to gitlab.");
         }
-        const parsed = std.json.parseFromSlice(std.json.Value, allocator, res, .{}) catch {
+
+        const parsed = std.json.parseFromSlice([]const hp.GitlabApi.Projects, allocator, res, .{
+            .ignore_unknown_fields = true,
+        }) catch {
             @panic("Wrong json");
         };
         defer parsed.deinit();
 
-        const data = parsed.value.array.items;
-
-        hp.compressAndPrintReposGitlab(allocator, data, iter.url == null);
+        hp.compressAndPrintReposGitlab(allocator, parsed.value, iter.url == null);
     }
     hp.print("]", .{});
 }
