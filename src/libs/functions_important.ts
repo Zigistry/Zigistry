@@ -21,7 +21,7 @@ export async function fetchReadmeContent(repo: Repo): Promise<string> {
         }
       }
     }
-  } catch (_) {}
+  } catch {/* */}
   return "404";
 }
 
