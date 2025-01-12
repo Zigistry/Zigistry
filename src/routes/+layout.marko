@@ -2,33 +2,54 @@
 html lang="en"
   head
     meta charset="utf-8"
-    link rel="icon" type="image/x-icon" href="./favicon.ico"
+    meta http-equiv="X-UA-Compatible" content="IE=edge"
     link rel="canonical" href="https://zigistry.dev/"
+
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    
+    link rel="preload" href="/main.js" as="script"
+    link rel="preload" href="/buttons.js" as="script"
+    
     script async defer src="/buttons.js"
     script defer async src="/main.js"
-    meta name="viewport" content="width=device-width, initial-scale=1.0"
-    title -- Zigistry: A package registry and manager for Zig
+    
+    meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
+    meta name="theme-color" content="#1e1e1e"
+    
+    title -- Zigistry: A package registry and manager for Zig | Find & Share Zig Packages
+    meta name="robots" content="index, follow"
     meta [
       name="description"
       content="Zigistry is your go-to registry for Zig programming language libraries and packages. Find, share, and contribute to Zig packages easily. Join the Zig community now!"
     ]
     meta [
       name="keywords"
-      content="Zigistry, Zig programming language, Zig libraries, Zig packages, package registry, open-source Zig, Zig community, package manager, contribute to Zig"
+      content="Zigistry, Zig programming language, Zig libraries, Zig packages, package registry, open-source Zig, Zig community, package manager, contribute to Zig, Zig development, Zig package management, Zig dependencies"
     ]
     meta name="author" content="Rohan Vashisht"
-    <!-- Open Graph / Facebook -->
+    meta name="language" content="English"
+
     meta property="og:type" content="website"
+    meta property="og:site_name" content="Zigistry"
     meta property="og:url" content="https://zigistry.dev/"
     meta [
       property="og:title"
-      content="Zigistry: A package registry and manager for Zig"
+      content="Zigistry: A package registry and manager for Zig | Find & Share Zig Packages"
     ]
     meta [
       property="og:description"
-      content="Explore Zig programming language programs and packages on Zigistry. Find, share, and contribute to the Zig community."
+      content="Explore Zig programming language programs and packages on Zigistry. Find, share, and contribute to the Zig community. Your one-stop solution for Zig package management."
     ]
     meta property="og:image" content="https://zigistry.dev/zigistry-social.jpg"
+    meta property="og:image:width" content="1200"
+    meta property="og:image:height" content="630"
+    meta property="og:locale" content="en_US"
+    
     <!-- Twitter -->
     meta property="twitter:card" content="summary_large_image"
     meta property="twitter:url" content="https://zigistry.dev/"
@@ -38,13 +59,20 @@ html lang="en"
     ]
     meta [
       property="twitter:description"
-      content="Explore Zig programming language programs and packages on Zigistry. Find, share, and contribute to the Zig community."
+      content="Explore Zig programming language programs and packages on Zigistry. Find, share, and contribute to the Zig community. The ultimate Zig package registry."
     ]
     meta [
       property="twitter:image"
       content="https://zigistry.dev/zigistry-social.jpg"
     ]
-    <!-- JSON-LD Structured Data -->
+    meta property="twitter:image:alt" content="Zigistry - Zig Package Registry"
+    
+    meta name="mobile-web-app-capable" content="yes"
+    meta name="apple-mobile-web-app-capable" content="yes"
+    meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"
+    meta name="apple-mobile-web-app-title" content="Zigistry"
+    meta name="application-name" content="Zigistry"
+    
     script type="application/ld+json"
       --
       {
@@ -52,10 +80,27 @@ html lang="en"
         "@type": "WebSite",
         "name": "Zigistry",
         "url": "https://zigistry.dev/",
-        "description": "Zigistry is your go-to registry for Zig programming language libraries and packages.",
+        "description": "Zigistry is your go-to registry for Zig programming language libraries and packages. Find, share, and contribute to Zig packages easily.",
         "author": {
           "@type": "Person",
-          "name": "Rohan Vashisht"
+          "name": "Rohan Vashisht",
+          "url": "https://zigistry.dev/about"
+        },
+        "sameAs": [
+          "https://twitter.com/zigistry",
+          "https://github.com/zigistry"
+        ],
+        "keywords": "Zigistry, Zig programming language, Zig libraries, Zig packages, package registry, open-source Zig",
+        "inLanguage": "en-US",
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Developers"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
         }
       }
       --
