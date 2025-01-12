@@ -38,7 +38,7 @@ pub const ProjectDetails = struct {
     const url_tpl = "https://{s}/api/v4/projects/{d}?license=yes&statistics=yes";
     pub fn fetch(allocator: std.mem.Allocator, id: usize) !std.json.Parsed(@This()) {
         const url = try std.fmt.allocPrint(allocator, url_tpl, .{
-            host,
+            fp.RepoServer.Gitlab.hostname(),
             id,
         });
         defer allocator.free(url);
