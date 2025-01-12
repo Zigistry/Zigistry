@@ -155,9 +155,26 @@ div
 
 if(!state.showSearchResults)
   div
-    h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.px-4.${"pt-[18px]"}.pb-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
-      div.flex.items-center.gap-3.translate-y-[-5px]
-        div.flex.relative.w-8
+    h1 class=[
+      "my-5",
+      "ml-10",
+      "flex",
+      "w-fit",
+      "items-center",
+      "rounded",
+      "border-2",
+      "border-slate-400",
+      "px-4",
+      `pt-[18px]`,
+      "pb-4",
+      "text-left",
+      "text-2xl",
+      "font-semibold",
+      "shadow-lg",
+      "shadow-black",
+    ]
+      div class="flex translate-y-[-5px] items-center gap-3"
+        div.relative.flex.w-8
           flowbite-play-outline [
             stroke="currentColor"
             fill="currentColor"

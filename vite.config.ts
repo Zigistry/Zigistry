@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig, Plugin } from "vite";
 import marko from "@marko/run/vite";
 import staticAdapter from "@marko/run-adapter-static";
 import packagesData from "./database/main.json";
@@ -26,6 +26,6 @@ export default defineConfig({
       adapter: staticAdapter({
         urls: generatePaths,
       }),
-    }),
+    }) as Plugin[],
   ],
 });
