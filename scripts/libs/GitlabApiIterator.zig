@@ -14,6 +14,10 @@ pub fn init(allocator: std.mem.Allocator, url: []const u8) GitlabPaginationItera
     };
 }
 
+pub fn deinit(self: *GitlabPaginationIterator) void {
+    if (self.url_owned) self.allocator.free(self.url);
+}
+
 pub fn next(self: *GitlabPaginationIterator) !?[]const u8 {
     if (self.url == null) return null;
     var serverHeaderBuffer = std.mem.zeroes([4096]u8);

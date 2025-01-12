@@ -12,7 +12,7 @@
 //          Imports
 // ==========================
 const std = @import("std");
-pub const GitlabApiIterator = @import("GitlabApiIterator.zig");
+pub const GitlabApi = @import("GitlabApi.zig");
 pub const RepoServer = @import("RepoServer.zig").RepoServer;
 
 // ==========================
@@ -223,55 +223,74 @@ pub fn fetchNormal(allocator: std.mem.Allocator, url: []const u8) []const u8 {
 }
 
 // ---- Prints selected fields in json ----
-pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []std.json.Value, isLastFile: bool) void {
+pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []const GitlabApi.Projects, isLastFile: bool) void {
     const server = RepoServer.Gitlab;
     for (repoList, 0..) |item, i| {
-        if (contains(&excludedRepositoriesLists, item.object.get("path_with_namespace").?.string)) {
+        if (contains(&excludedRepositoriesLists, item.path_with_namespace)) {
             continue;
         }
+        const details = GitlabApi.ProjectDetails.fetch(allocator, @intCast(item.id)) catch @panic("Details Api Error");
+        defer details.deinit();
+        const issues = GitlabApi.Issues.fetch(allocator, @intCast(item.id)) catch @panic("Issues Api Error");
+        defer issues.deinit();
+
         print("{{", .{});
         printJsonInt("server", @intFromEnum(server), true);
-        printJson("name", item.object.get("path").?.string, true);
-        printJson("full_name", item.object.get("path_with_namespace").?.string, true);
+        printJson("name", item.path, true);
+        printJson("full_name", item.path_with_namespace, true);
         printJsonInt("gitlab", 1, true);
-        if (item.object.get("description").? == .string) {
-            const purifiedString = replace(allocator, item.object.get("description").?.string, '"', '\'');
+        if (item.description) |description| {
+            const purifiedString = replace(allocator, description, '"', '\'');
             defer allocator.free(purifiedString);
             printJson("description", purifiedString, true);
         } else {
             printJson("description", "This repository has no description.", true);
         }
-        printJsonInt("stargazers_count", item.object.get("star_count").?.integer, true);
-        printJson("updated_at", item.object.get("last_activity_at").?.string, true);
-        printJson("created_at", item.object.get("created_at").?.string, true);
-        const forks_count = if (!item.object.contains("forks_count")) 0 else item.object.get("forks_count").?.integer;
-        printJsonInt("forks_count", forks_count, true);
-        const tags_url = concatenate(allocator, "git@gitlab.com:", item.object.get("path_with_namespace").?.string, ".git");
+        printJsonInt("stargazers_count", @intCast(item.star_count), true);
+        printJson("updated_at", item.last_activity_at, true);
+        printJson("created_at", item.created_at, true);
+        const forks_count = if (item.forks_count) |forks_count| forks_count else 0;
+        printJsonInt("forks_count", @intCast(forks_count), true);
+        const tags_url = concatenate(allocator, "git@gitlab.com:", item.path_with_namespace, ".git");
         defer allocator.free(tags_url);
         printJson("tags_url", tags_url, true);
-        const default_branch = if (item.object.get("default_branch")) |db|
-            db.string
+        const default_branch = if (item.default_branch) |db|
+            db
         else
             "main";
         printJson("default_branch", default_branch, true);
-        printJsonBool("fork", item.object.contains("forked_from_project"), true);
-        if (item.object.get("topics").? == .array) {
+        printJsonBool("fork", item.forked_from_project != null, true);
+        if (item.topics) |topics| {
             print("\"topics\":[", .{});
-            for (item.object.get("topics").?.array.items, 0..) |topic, index| {
-                if (index == item.object.get("topics").?.array.items.len - 1) {
-                    print("\"{s}\"", .{topic.string});
+            for (topics, 0..) |topic, index| {
+                if (index == topics.len - 1) {
+                    print("\"{s}\"", .{topic});
                 } else {
-                    print("\"{s}\",", .{topic.string});
+                    print("\"{s}\",", .{topic});
                 }
             }
             print("],", .{});
         }
+        if (details.value.license) |license| {
+            {
+                const license_upper = std.ascii.allocUpperString(allocator, license.key) catch @panic("OOM");
+                defer allocator.free(license_upper);
+                printJson("license", license_upper, true);
+            }
+        } else {
+            printJson("license", "-", true);
+        }
+        printJsonInt("open_issues", @intCast(issues.value.len), true);
+
+        // TODO: this actually needs a Gitlab Token, not available publicly
+        if (details.value.statistics) |stats| {
+            printJsonInt("size", @intCast(stats.repository_size / 1000), true);
+        } else {
+            printJsonInt("size", 0, true);
+        }
 
         // TODO: need to implement these values as they are not the same on gitlab:
         printJsonInt("watchers_count", 0, true);
-        printJson("license", "-", true);
-        printJsonInt("size", 0, true);
-        printJsonInt("open_issues", 0, true);
         // end TODO
 
         inline for (.{
@@ -281,26 +300,26 @@ pub fn compressAndPrintReposGitlab(allocator: std.mem.Allocator, repoList: []std
             const has_file: i64 = if (checkRepoFileExists(
                 server,
                 allocator,
-                item.object.get("path_with_namespace").?.string,
+                item.path_with_namespace,
                 default_branch,
                 tup[1],
             )) 1 else 0;
             printJsonInt(tup[0], has_file, true);
         }
 
-        if (item.object.get("archived")) |archived| {
-            if (archived.bool) {
+        if (item.archived) |archived| {
+            if (archived) {
                 printJsonBool("archived", true, true);
             }
         }
         {
             var avatar_url: []const u8 = "";
-            if (item.object.get("avatar_url").? == .string) {
-                avatar_url = item.object.get("avatar_url").?.string;
+            if (item.avatar_url) |avatar_url_optional| {
+                avatar_url = avatar_url_optional;
             } else {
-                if (item.object.get("namespace")) |namespace| {
-                    if (namespace.object.get("avatar_url").? == .string) {
-                        avatar_url = namespace.object.get("avatar_url").?.string;
+                if (item.namespace) |namespace| {
+                    if (namespace.avatar_url) |avatar_url_optional| {
+                        avatar_url = avatar_url_optional;
                     }
                 }
             }
