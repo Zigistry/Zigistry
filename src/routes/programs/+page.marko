@@ -155,14 +155,40 @@ div
 
 if(!state.showSearchResults)
   div
-    h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
-      play_icon
-      -- &nbsp;Recently released:
+    h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.px-4.${"pt-[18px]"}.pb-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
+      div.flex.items-center.gap-3.translate-y-[-5px]
+        div.flex.relative.w-8
+          flowbite-play-outline [
+            stroke="currentColor"
+            fill="currentColor"
+            stroke-width="0"
+            viewBox="0 0 25 25"
+            height="25"
+            width="25"
+            class="absolute left-0 z-10 -translate-y-[6px]"
+          ]
+          flowbite-play-outline [
+            stroke="currentColor"
+            fill="currentColor"
+            stroke-width="0"
+            viewBox="0 0 25 25"
+            height="25"
+            width="25"
+            class="absolute left-3 -translate-y-[6px]"
+          ]
+      span -- &nbsp;Recently released:
     section.flex.w-full.flex-wrap.justify-evenly
       for|Card_Details| of=$top10LatestRepos
         custom_card Card_Details=Card_Details section="programs"
     h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
-      most_used_icon
+      flowbite-star-solid [
+        stroke="currentColor"
+        fill="currentColor"
+        stroke-width="0"
+        viewBox="0 0 25 25"
+        height="25"
+        width="25"
+      ]
       -- &nbsp;Most used:
     section.flex.w-full.flex-wrap.justify-evenly
       for|Card_Details| of=$mostUsed
