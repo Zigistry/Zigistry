@@ -1,5 +1,6 @@
 /*
-  Content-Security-Policy: default-src 'self' api.github.com; media-src github.com; script-src 'self' ajax.cloudflare.com cdn.jsdelivr.net 'sha256-VK7YZSnpZxbwv0yvRjXVDqzSo+rvza1p1rJJfkjgU6M=' 'sha256-68c1pyVsmjh2muo/J5tE88XRDv4VPEEkovrSw/qzPwk=' 'sha256-jspFx1yeglGmBrutGKmTBQj2OT+4O90LuMUj6v2MFDY=' 'sha256-IMNRxIDL1DN1HC8J+SEbpidmMFBGXB8Sj/UVLOBU/Bo='; media-src 'self' github.com; img-src 'self' avatars.githubusercontent.com; style-src 'self' cdn.jsdelivr.net 'sha256-XYNUzLGV6zi0ReBwnpxow3Cpuots59N8UiEo5OA6xhI='; object-src 'none';
+  Content-Security-Policy: default-src 'self' api.github.com; media-src github.com; script-src 'self' ajax.cloudflare.com cdn.jsdelivr.net 'sha256-VK7YZSnpZxbwv0yvRjXVDqzSo+rvza1p1rJJfkjgU6M=' 'sha256-68c1pyVsmjh2muo/J5tE88XRDv4VPEEkovrSw/qzPwk=' 'sha256-jspFx1yeglGmBrutGKmTBQj2OT+4O90LuMUj6v2MFDY=' 'sha256-IMNRxIDL1DN1HC8J+SEbpidmMFBGXB8Sj/UVLOBU/Bo='
+  'sha256-TRC4EzD/GMuuSgZaXLWTX8AnSt0bampmRieRqDrtdhA='; media-src 'self' github.com; img-src 'self' avatars.githubusercontent.com; style-src 'self' cdn.jsdelivr.net 'sha256-XYNUzLGV6zi0ReBwnpxow3Cpuots59N8UiEo5OA6xhI='; object-src 'none';
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
