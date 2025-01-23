@@ -45,7 +45,12 @@ class {
     let sortedResults = [...this.state.searchResults]; // Work on a copy
     switch (name) {
       case "intelligent_sort":
-        sortedResults = [...this.state.intelegentSortData];
+        if (this.state.intelegentSortData.length > 0) {
+          sortedResults = [...this.state.intelegentSortData]; // Use intelligent sort data
+        } else {
+          console.warn("Intelligent sort data is empty.");
+          return; // Prevent sorting if no data is available
+        }
         break;
       case "star_count_sort":
         sortedResults = sortedResults.sort(
@@ -83,6 +88,7 @@ class {
       })
       .then((y: Repo[]) => {
         this.state.searchResults = y;
+        this.state.intelegentSortData = [...y];
         this.state.showSearchResults = true;
       });
   }
@@ -222,7 +228,7 @@ else
       div.inline-flex.rounded-md.shadow-sm role="group"
         button [
           type="button"
-          onClick("onSort", "intelegent_sort")
+          onClick("onSort", "intelligent_sort")
           class="rounded-s-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-blue-500"
         ]
           flowbite-brain-solid [

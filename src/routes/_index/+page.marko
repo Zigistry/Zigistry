@@ -7,14 +7,16 @@ class {
     intelegentSortData: Repo[];
     showSearchResults: boolean;
   };
+
   onCreate() {
     this.state = {
       searchDdosQuery: "",
       searchResults: [],
-      showSearchResults: false,
       intelegentSortData: [],
+      showSearchResults: false,
     };
   }
+
   onMount() {
     const my_element = document.getElementById(
       "dropDownID",
@@ -22,6 +24,7 @@ class {
     const my_element2 = document.getElementById(
       "search_box",
     ) as HTMLInputElement;
+
     my_element.addEventListener("change", (event) => {
       const selectedValue = my_element.value;
       if (selectedValue === "No Filter") {
@@ -31,69 +34,74 @@ class {
       fetch(
         `/api/searchPackages?q=${my_element2.value}&filter=${selectedValue}`,
       )
-        .then((x) => {
-          return x.json();
-        })
+        .then((x) => x.json())
         .then((y: Repo[]) => {
-          this.state.searchResults = y;
-          this.state.intelegentSortData = [...y];
+          this.state.searchResults = [...y];
+          this.state.intelegentSortData = [...y]; // Store fetched results for intelligent sorting
           this.state.showSearchResults = true;
         });
     });
   }
+
   onSort(name: string) {
-    // Store the results from the server here:
     let sortedResults = [...this.state.searchResults]; // Work on a copy
+
     switch (name) {
-      case "intelligent_sort":
-        sortedResults = [...this.state.intelegentSortData];
+      case "intelegent_sort":
+        if (this.state.intelegentSortData.length > 0) {
+          sortedResults = [...this.state.intelegentSortData]; // Use intelligent sort data
+        } else {
+          console.warn("Intelligent sort data is empty.");
+          return; // Prevent sorting if no data is available
+        }
         break;
       case "star_count_sort":
-        sortedResults = sortedResults.sort(
+        sortedResults.sort(
           (a: Repo, b: Repo) => b.stargazers_count - a.stargazers_count,
         );
         break;
       case "last_updated":
-        sortedResults = sortedResults.sort(
+        sortedResults.sort(
           (a: Repo, b: Repo) =>
             new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
         );
         break;
       case "a_to_z":
-        sortedResults = sortedResults.sort((a: Repo, b: Repo) =>
-          a.name.localeCompare(b.name),
-        );
+        sortedResults.sort((a: Repo, b: Repo) => a.name.localeCompare(b.name));
         break;
       case "fork_sort":
-        sortedResults = sortedResults.sort(
-          (a: Repo, b: Repo) => b.forks_count - a.forks_count,
-        );
+        sortedResults.sort((a: Repo, b: Repo) => b.forks_count - a.forks_count);
         break;
     }
-    // Update state
-    this.state.searchResults = sortedResults;
+
+    this.state.searchResults = sortedResults; // Update state after sorting
   }
 
   onSearch() {
     const ele = document.getElementById("search_box") as HTMLInputElement;
     const value = ele.value;
+
     if (value === this.state.searchDdosQuery || value === "") return;
+
     this.state.searchDdosQuery = value;
+
     fetch(`/api/searchPackages?q=${value}`)
-      .then((x) => {
-        return x.json();
-      })
+      .then((x) => x.json())
       .then((y: Repo[]) => {
         this.state.searchResults = y;
+        this.state.intelegentSortData = [...y]; // Update intelligent sort data with new search results
         this.state.showSearchResults = true;
       });
   }
+
   onKeyUp(event: KeyboardEvent) {
     if (event.key === "Enter") {
       this.onSearch();
     }
+
     const ele = document.getElementById("search_box") as HTMLInputElement;
     const value = ele.value;
+
     if (value === "") {
       this.state.showSearchResults = false;
       this.state.searchDdosQuery = "";
