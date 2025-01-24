@@ -6,15 +6,19 @@ class {
     searchResults: Repo[];
     intelegentSortData: Repo[];
     showSearchResults: boolean;
+    isSidebarOpen: boolean;
   };
+
   onCreate() {
     this.state = {
       searchDdosQuery: "",
       searchResults: [],
       showSearchResults: false,
       intelegentSortData: [],
+      isSidebarOpen: false,
     };
   }
+
   onMount() {
     const my_element = document.getElementById(
       "dropDownID",
@@ -22,6 +26,7 @@ class {
     const my_element2 = document.getElementById(
       "search_box",
     ) as HTMLInputElement;
+
     my_element.addEventListener("change", (event) => {
       const selectedValue = my_element.value;
       if (selectedValue === "No Filter") {
@@ -36,20 +41,26 @@ class {
         })
         .then((y: Repo[]) => {
           this.state.searchResults = y;
+          this.state.intelegentSortData = [...y];
           this.state.showSearchResults = true;
         });
     });
   }
+
+  toggleSidebar() {
+    this.state.isSidebarOpen = !this.state.isSidebarOpen;
+  }
+
   onSort(name: string) {
-    // Store the results from the server here:
-    let sortedResults = [...this.state.searchResults]; // Work on a copy
+    let sortedResults = [...this.state.searchResults];
+
     switch (name) {
       case "intelligent_sort":
         if (this.state.intelegentSortData.length > 0) {
-          sortedResults = [...this.state.intelegentSortData]; // Use intelligent sort data
+          sortedResults = [...this.state.intelegentSortData];
         } else {
           console.warn("Intelligent sort data is empty.");
-          return; // Prevent sorting if no data is available
+          return;
         }
         break;
       case "star_count_sort":
@@ -68,15 +79,43 @@ class {
           a.name.localeCompare(b.name),
         );
         break;
+      case "z_to_a":
+        sortedResults = sortedResults.sort((a: Repo, b: Repo) =>
+          b.name.localeCompare(a.name),
+        );
+        break;
       case "fork_sort":
         sortedResults = sortedResults.sort(
           (a: Repo, b: Repo) => b.forks_count - a.forks_count,
         );
         break;
+      case "most_issues":
+        sortedResults = sortedResults.sort(
+          (a: Repo, b: Repo) => b.open_issues - a.open_issues,
+        );
+        break;
+      case "least_issues":
+        sortedResults = sortedResults.sort(
+          (a: Repo, b: Repo) => a.open_issues - b.open_issues,
+        );
+        break;
+      case "recently_created":
+        sortedResults = sortedResults.sort(
+          (a: Repo, b: Repo) =>
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+        );
+        break;
+      case "oldest_first":
+        sortedResults = sortedResults.sort(
+          (a: Repo, b: Repo) =>
+            new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+        );
+        break;
     }
-    // Update state
+
     this.state.searchResults = sortedResults;
   }
+
   onSearch() {
     const ele = document.getElementById("search_box") as HTMLInputElement;
     const value = ele.value;
@@ -92,6 +131,7 @@ class {
         this.state.showSearchResults = true;
       });
   }
+
   onKeyUp(event: KeyboardEvent) {
     if (event.key === "Enter") {
       this.onSearch();
@@ -136,19 +176,6 @@ div
                 option -- gui
                 option -- cross-platform
 
-        div [
-          data-testid="flowbite-tooltip"
-          tabindex="-1"
-          class="invisible absolute left-[599.35px] top-[126px] z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700"
-          id=":r0Rp:"
-          role="tooltip"
-        ]
-          div.relative.z-20 -- Search by filtering GitHub topics
-          div [
-            class="absolute bottom-[-4px] left-[115.5px] z-10 h-2 w-2 rotate-45 bg-gray-900 dark:bg-gray-700"
-            data-testid="flowbite-tooltip-arrow"
-          ]
-            -- &nbsp;
         div.mx-4.mb-5.flex.w-60.max-w-72
           div.relative.w-full
             input#search_box [
@@ -200,9 +227,11 @@ if(!state.showSearchResults)
             class="absolute left-3 -translate-y-[6px]"
           ]
       span -- &nbsp;Recently released:
+
     section.flex.w-full.flex-wrap.justify-evenly
       for|Card_Details| of=$top10LatestRepos
         custom_card Card_Details=Card_Details section="programs"
+
     h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
       flowbite-star-solid [
         stroke="currentColor"
@@ -213,91 +242,209 @@ if(!state.showSearchResults)
         width="25"
       ]
       -- &nbsp;Most used:
+
     section.flex.w-full.flex-wrap.justify-evenly
       for|Card_Details| of=$mostUsed
         custom_card Card_Details=Card_Details section="programs"
+
     h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
       internet_icon
       -- &nbsp;View More:
+
     section.flex.w-full.flex-wrap.justify-evenly
       infinite_scroll section="programs"
+
 else
-  div
-    h1.mb-2.text-center.text-2xl -- Sort:
-    div.flex.items-center.justify-center
-      div.inline-flex.rounded-md.shadow-sm role="group"
-        button [
-          type="button"
-          onClick("onSort", "intelligent_sort")
-          class="rounded-s-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-blue-500"
-        ]
-          flowbite-brain-solid [
-            stroke="currentColor"
-            fill="currentColor"
-            aria-hidden="true"
-            stroke-width="0"
-            viewBox="0 0 24 24"
-            height="20px"
-            width="20px"
-            xmlns="http://www.w3.org/2000/svg"
+  div.relative
+    <!-- Mobile toggle button -->
+    button [
+      type="button"
+      onClick("toggleSidebar")
+      class="fixed left-0 top-20 z-40 block rounded-r-lg bg-gray-800 p-2 text-white md:hidden"
+    ]
+      flowbite-filter-solid viewBox="0 0 24 24" height="24" width="24"
+    <!-- Sidebar overlay -->
+    div [
+      class=`fixed inset-0 z-30 bg-black bg-opacity-50 transition-opacity md:hidden ${state.isSidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`
+      onClick("toggleSidebar")
+    ]
+    <!-- Sidebar -->
+    aside class=`fixed left-0 top-0 z-500 h-screen w-64 transform transition-transform md:translate-x-0 ${state.isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`
+      div class="h-full overflow-y-auto border-r border-gray-200 bg-white px-3 py-4 dark:border-gray-700 dark:bg-[#1e1e1e]"
+        h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white"
+          -- Sort By
+
+        div.flex.flex-col.space-y-2
+          button [
+            type="button"
+            onClick("onSort", "intelligent_sort")
+            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
           ]
-        button [
-          type="button"
-          onClick("onSort", "star_count_sort")
-          class="border-b border-r border-t border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-blue-500"
-        ]
-          flowbite-star-solid [
-            class="mr-1 text-[white]"
-            stroke="currentColor"
-            fill="currentColor"
-            stroke-width="0"
-            viewBox="0 0 24 24"
-            color="#cfbc0e"
-            height="20"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
+            flowbite-brain-solid.mr-3 [
+              stroke="currentColor"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              height="20"
+              width="20"
+            ]
+            -- Smart Sort
+
+          button [
+            type="button"
+            onClick("onSort", "star_count_sort")
+            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
           ]
-        button [
-          type="button"
-          onClick("onSort", "last_updated")
-          class="border-b border-r border-t border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-blue-500"
-        ]
-          last_updated
-        button [
-          type="button"
-          onClick("onSort", "a_to_z")
-          class="border-b border-t border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-blue-500"
-        ]
-          -- A-Z
-        button [
-          type="button"
-          onClick("onSort", "fork_sort")
-          class="rounded-e-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-blue-500"
-        ]
-          flowbite-code-fork-solid [
-            stroke="currentColor"
-            fill="currentColor"
-            stroke-width="0"
-            viewBox="0 0 24 24"
-            height="20px"
-            width="20px"
-            xmlns="http://www.w3.org/2000/svg"
+            flowbite-star-solid.mr-3 [
+              stroke="currentColor"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              height="20"
+              width="20"
+            ]
+            -- Most Stars
+
+          button [
+            type="button"
+            onClick("onSort", "last_updated")
+            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
           ]
-    h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
-      internet_icon
-      -- &nbsp;Search Results:
-    section.flex.w-full.flex-wrap.justify-evenly
-      if(state.searchResults.length !== 0)
-        for|Card_Details| of=state.searchResults
-          custom_card Card_Details=Card_Details section="programs"
-      else
-        h1.text-4xl -- Can't find what you are looking for.
+            flowbite-clock-solid.mr-3 [
+              stroke="currentColor"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              height="20"
+              width="20"
+            ]
+            -- Recently Updated
+
+          button [
+            type="button"
+            onClick("onSort", "recently_created")
+            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+          ]
+            flowbite-calendar-plus-solid.mr-3 [
+              stroke="currentColor"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              height="20"
+              width="20"
+            ]
+            -- Newly Added
+
+          button [
+            type="button"
+            onClick("onSort", "oldest_first")
+            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+          ]
+            flowbite-history-solid.mr-3 [
+              stroke="currentColor"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              height="20"
+              width="20"
+            ]
+            -- Oldest First
+
+          div class="my-2 border-t border-gray-200 dark:border-gray-700"
+
+          button [
+            type="button"
+            onClick("onSort", "a_to_z")
+            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+          ]
+            flowbite-sort-alpha-down-solid.mr-3 [
+              stroke="currentColor"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              height="20"
+              width="20"
+            ]
+            -- A to Z
+
+          button [
+            type="button"
+            onClick("onSort", "z_to_a")
+            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+          ]
+            flowbite-sort-alpha-up-solid.mr-3 [
+              stroke="currentColor"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              height="20"
+              width="20"
+            ]
+            -- Z to A
+
+          div class="my-2 border-t border-gray-200 dark:border-gray-700"
+
+          button [
+            type="button"
+            onClick("onSort", "fork_sort")
+            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+          ]
+            flowbite-code-fork-solid.mr-3 [
+              stroke="currentColor"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              height="20"
+              width="20"
+            ]
+            -- Most Forks
+
+          button [
+            type="button"
+            onClick("onSort", "most_issues")
+            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+          ]
+            flowbite-exclamation-circle-solid.mr-3 [
+              stroke="currentColor"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              height="20"
+              width="20"
+            ]
+            -- Most Issues
+
+          button [
+            type="button"
+            onClick("onSort", "least_issues")
+            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+          ]
+            flowbite-check-circle-solid.mr-3 [
+              stroke="currentColor"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              height="20"
+              width="20"
+            ]
+            -- Least Issues
+    <!-- Main content area -->
+    div class="transition-all duration-300 md:ml-64"
+      h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
+        internet_icon
+        -- &nbsp;Search Results:
+      section.flex.w-full.flex-wrap.justify-evenly
+        if(state.searchResults.length !== 0)
+          for|Card_Details| of=state.searchResults
+            custom_card Card_Details=Card_Details section="programs"
+        else
+          h1.text-4xl -- Can't find what you are looking for.
 
 style {
   select {
-    appearance: none; /* For most modern browsers */
-    -webkit-appearance: none; /* For Safari */
-    -moz-appearance: none; /* For Firefox */
-    background-image: none; /* Remove native dropdown arrow */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: none;
+  }
+
+  .sidebar-transition {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  @media (max-width: 768px) {
+    .content-shift {
+      transition: margin-left 0.3s ease-in-out;
+    }
   }
 }
