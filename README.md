@@ -1,7 +1,7 @@
 # Zigistry 🦎
 
 <div align="center">
-<img width=500 src="https://github.com/user-attachments/assets/3b59cfad-049a-48dc-b55a-fa5bc433d686" alt="Zigistry Logo"/>
+<img width=500 src="https://github.com/7124cc35-525b-401c-a7b2-04c4ee698eae" alt="Zigistry Logo"/>
 
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fzigistry.dev&up_message=zigistry.dev&down_message=offline&label=website)](https://zigistry.dev)
 </div>
