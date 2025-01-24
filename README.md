@@ -1,23 +1,53 @@
-# Zigistry: A place where you can find all the libraries that suit your Zig lang needs.
+# Zigistry 🦎
 
 <div align="center">
-<img width=500 src=https://github.com/user-attachments/assets/3b59cfad-049a-48dc-b55a-fa5bc433d686 />
+<img width=500 src="https://github.com/user-attachments/assets/3b59cfad-049a-48dc-b55a-fa5bc433d686" alt="Zigistry Logo"/>
+
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fzigistry.dev&up_message=zigistry.dev&down_message=offline&label=website)](https://zigistry.dev)
 </div>
 
-## How to add your zig library on this website?
+## What is Zigistry?
 
-- Just add a `zig-package` topic to your repository.
+Zigistry is an index for both packages and programs written in the Zig programming language. It serves as a central hub where Zig developers can discover useful libraries and applications created by the community. The platform makes it simple to find Zig projects, whether looking for library dependencies or complete programs.
 
-https://github.com/RohanVashisht1234/zigistry/assets/81112205/962b147c-16ce-44d8-a958-57c0f0e1447b
+## Adding to the Index
 
-## Support:
+Zigistry automatically indexes GitHub repositories based on topics:
 
-- ⭐ This github repo, create PRs, discussions, any sort of support/contribution is welcomed 😃.
+### Libraries
+- Add the `zig-package` topic to index a library
+- Examples: parsing libraries, networking tools, testing frameworks
 
-## Contributing:
+### Programs
+- Add the `zig-program` topic to index a program
+- Examples: command-line tools, applications, games
 
-- Feel free to create a PR, create discussions,
+The project will appear on [zigistry.dev](https://zigistry.dev) automatically after adding the appropriate topic.
 
-## Legal:
+## Community Interaction
 
-The contents inside the database folder doesn't belong to me, the main.json file has been created/updated by parsing Github's APIs.
+The Zig community can:
+- Share and discover both libraries and programs
+- Explore different approaches to Zig code
+- Ask questions and share Zig development knowledge
+- Participate in technical discussions
+
+## Contributing
+
+Contributions to improve Zigistry are welcome through:
+- Bug reports and feature suggestions via issues
+- Code improvements via pull requests
+- Technical discussions about the project
+- Helping other developers with questions
+
+## Technical Details
+
+Zigistry is a polyglot project that leverages multiple programming languages and technologies to provide a robust package and program index. Check the [issue tracker](https://github.com/zigistry/zigistry/issues) for current development tasks and feature requests.
+
+## License Notice
+
+The Zigistry codebase is open source. The `database` directory contains files automatically generated through GitHub's API and is subject to GitHub's terms of service.
+
+---
+
+Build something great with Zig! ⚡
