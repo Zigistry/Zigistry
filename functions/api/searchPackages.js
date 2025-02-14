@@ -1,23 +1,24 @@
-import mainDatabase from "../../database/main.json";
-import data from "../../database/deepSearchData.json";
+import mainDatabase from "../../../../database/main.json";
+import data from "../../../../database/deepSearchData.json";
 
 function searchRepositories(data, inputString) {
   const results = [];
-  const lowerCaseInput = inputString.toLowerCase(); // Case-insensitive search
-
-  for (const [repoFullName, readmeData] of Object.entries(data)) {
-    if (readmeData.toLowerCase().includes(lowerCaseInput)) {
-      results.push(repoFullName.toLowerCase()); // Normalize to lowercase
+  const tokens = inputString.toLowerCase().split(" ");
+  for(const token of tokens) {
+    for (const [repoFullName, readmeData] of Object.entries(data)) {
+      if (readmeData.toLowerCase().includes(token)) {
+        results.push(repoFullName.toLowerCase()); // Normalize to lowercase
+      }
+      if (results.length > 25) break;
     }
-    if (results.length > 25) break;
   }
 
   return results;
 }
 
 // Search Engine Algorithm API for "/api/searchPackages"
-export async function onRequest(context) {
-  const parsedUrl = new URL(context.request.url);
+export async function GET({ url }) {
+  const parsedUrl = new URL(url);
   const q = parsedUrl.searchParams.get("q");
   const filter = parsedUrl.searchParams.get("filter");
 
