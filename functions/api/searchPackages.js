@@ -17,8 +17,8 @@ function searchRepositories(data, inputString) {
 }
 
 // Search Engine Algorithm API for "/api/searchPackages"
-export async function GET({ url }) {
-  const parsedUrl = new URL(url);
+export async function onRequest(context) {
+  const parsedUrl = new URL(context.request.url);
   const q = parsedUrl.searchParams.get("q");
   const filter = parsedUrl.searchParams.get("filter");
 
