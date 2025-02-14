@@ -3,13 +3,14 @@ import data from "../../../../database/deepSearchData.json";
 
 function searchRepositories(data, inputString) {
   const results = [];
-  const lowerCaseInput = inputString.toLowerCase(); // Case-insensitive search
-
-  for (const [repoFullName, readmeData] of Object.entries(data)) {
-    if (readmeData.toLowerCase().includes(lowerCaseInput)) {
-      results.push(repoFullName.toLowerCase()); // Normalize to lowercase
+  const tokens = inputString.toLowerCase().split(" ");
+  for(const token of tokens) {
+    for (const [repoFullName, readmeData] of Object.entries(data)) {
+      if (readmeData.toLowerCase().includes(token)) {
+        results.push(repoFullName.toLowerCase()); // Normalize to lowercase
+      }
+      if (results.length > 25) break;
     }
-    if (results.length > 25) break;
   }
 
   return results;
