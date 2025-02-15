@@ -1,5 +1,5 @@
-import mainDatabase from "../../../../database/main.json";
-import data from "../../../../database/deepSearchData.json";
+import mainDatabase from "../../database/main.json";
+import data from "../../database/deepSearchData.json";
 
 function searchRepositories(data, inputString) {
   const results = [];
