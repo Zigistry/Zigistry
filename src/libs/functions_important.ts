@@ -3,12 +3,14 @@ import sanitizeHtml from "sanitize-html";
 import type { Repo } from "@types";
 
 export async function fetchReadmeContent(repo: Repo): Promise<string> {
-  const defaultBranch = "master";
-  const combinations = ["readme.md", "README.md", "readme.txt", "README.txt"];
-
   try {
     const url = `https://api.github.com/repos/${repo.full_name}/readme`;
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${process.env.GITHUB_API_KEY}`,
+        Accept: "application/vnd.github.v3+json",
+      },
+    });
     const as_json = await response.json();
     const readme_url = as_json.download_url;
     if (response.ok && readme_url) {
@@ -23,6 +25,7 @@ export async function fetchReadmeContent(repo: Repo): Promise<string> {
   }
   return "404";
 }
+
 
 export function numberAsLetters(i: number): string {
   const numberAsString = i.toString();
