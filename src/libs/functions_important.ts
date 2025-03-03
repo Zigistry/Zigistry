@@ -8,14 +8,16 @@ export async function fetchReadmeContent(repo: Repo): Promise<string> {
 
   try {
     const url = `https://api.github.com/repos/${repo.full_name}/readme`;
-      const response = await fetch(url);
-      const as_json = await response.json();
-      const readme_url = as_json.download_url;
-      if (response.ok && readme_url) {
-        const response2 = await fetch(readme_url);
-        const data = await response2.text();
-        return await convert2markdown(data);
-      }
+    const response = await fetch(url);
+    const as_json = await response.json();
+    const readme_url = as_json.download_url;
+    if (response.ok && readme_url) {
+      const response2 = await fetch(readme_url);
+      const data = await response2.text();
+      return await convert2markdown(data);
+    } else {
+      return "404";
+    }
   } catch {
     /* */
   }
