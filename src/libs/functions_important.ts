@@ -7,20 +7,15 @@ export async function fetchReadmeContent(repo: Repo): Promise<string> {
   const combinations = ["readme.md", "README.md", "readme.txt", "README.txt"];
 
   try {
-    for (let i = 0; i < combinations.length; i++) {
-      const url = `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/${combinations[i]}`;
+    const url = `https://api.github.com/repos/${repo.full_name}/readme`;
       const response = await fetch(url);
-      if (response.ok) {
-        const ext = combinations[i].includes(".")
-          ? combinations[i].split(".").pop()!
-          : "";
-        if (ext == "md") {
-          return await convert2markdown(await response.text());
-        } else {
-          return await response.text();
-        }
+      const as_json = await response.json();
+      const readme_url = as_json.download_url;
+      if (response.ok && readme_url) {
+        const response2 = await fetch(readme_url);
+        const data = await response2.text();
+        return await convert2markdown(data);
       }
-    }
   } catch {
     /* */
   }
