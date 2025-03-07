@@ -19,6 +19,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: mlugg/setup-zig@v1
+        with:
+          version: 0.14.0
       - name: Build binaries
         run: zig build --release=fast
       - name: Run all tasks in parallel
