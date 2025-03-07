@@ -2,7 +2,7 @@
     .name = .zigistry,
     .version = "0.0.0",
     .fingerprint = 0xd9ed6ccbb7156118,
-    .minimum_zig_version = "0.13.0",
+    .minimum_zig_version = "0.14.0",
     .paths = .{
         "build.zig",
         "build.zig.zon",

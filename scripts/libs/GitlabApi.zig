@@ -47,6 +47,7 @@ pub const ProjectDetails = struct {
 };
 
 pub const Issues = struct {
+    id: usize = 1,
     const List = []const @This();
 
     const url_tpl = "https://{s}/api/v4/projects/{d}/issues?state=opened";
