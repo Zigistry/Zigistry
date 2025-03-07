@@ -77,7 +77,7 @@ pub fn main() void {
     // -------- Start the json file -------------
     helperFunctions.print("[", .{});
 
-    const allocator = std.heap.page_allocator;
+    const allocator = std.heap.c_allocator;
 
     for (urls, 0..) |url, i| {
         const res = helperFunctions.fetch(allocator, url);

@@ -56,7 +56,7 @@ const topic_urls = [3][5][]const u8{
 //          Main
 // =======================
 pub fn main() !void {
-    const allocator = std.heap.page_allocator;
+    const allocator = std.heap.c_allocator;
     var args = std.process.args();
     _ = args.skip();
     const fileName: []const u8 = args.next().?;
@@ -94,6 +94,6 @@ pub fn main() !void {
     const jsonParsed = std.json.parseFromSlice(std.json.Value, allocator, result, .{}) catch @panic("Json is in wrong format.");
     defer jsonParsed.deinit();
     helperFunctions.print("[", .{});
-    helperFunctions.compressAndPrintRepos(std.heap.page_allocator, jsonParsed.value.array.items, true);
+    helperFunctions.compressAndPrintRepos(std.heap.c_allocator, jsonParsed.value.array.items, true);
     helperFunctions.print("]", .{});
 }

@@ -1,6 +1,6 @@
 const std = @import("std");
 const hp = @import("helperFunctions");
-const allocator = std.heap.page_allocator;
+const allocator = std.heap.c_allocator;
 
 pub fn main() void {
     const res = hp.fetchNormal(allocator, "https://codeberg.org/api/v1/repos/search?q=zig");

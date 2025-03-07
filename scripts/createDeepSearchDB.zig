@@ -2,7 +2,7 @@ const std = @import("std");
 const helperFunctions = @import("helperFunctions");
 
 pub fn main() void {
-    const allocator = std.heap.page_allocator;
+    const allocator = std.heap.c_allocator;
     const db = std.fs.cwd().readFileAlloc(allocator, "./database/main.json", 100_000_000_000) catch @panic("Can't read file.");
     defer allocator.free(db);
     // parse the json

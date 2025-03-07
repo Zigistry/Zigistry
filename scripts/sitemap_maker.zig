@@ -26,11 +26,11 @@ const FORMAT_PROGRAMS =
 ;
 
 pub fn main() !void {
-    const actual_result = try std.mem.replaceOwned(u8, std.heap.page_allocator, START, "§", UPDATED_AT);
+    const actual_result = try std.mem.replaceOwned(u8, std.heap.c_allocator, START, "§", UPDATED_AT);
     try writer.print("{s}\n", .{actual_result});
 
-    const packages_json = try std.json.parseFromSlice(std.json.Value, std.heap.page_allocator, PACKAGES_JSON, .{});
-    const programs_json = try std.json.parseFromSlice(std.json.Value, std.heap.page_allocator, PROGRAMS_JSON, .{});
+    const packages_json = try std.json.parseFromSlice(std.json.Value, std.heap.c_allocator, PACKAGES_JSON, .{});
+    const programs_json = try std.json.parseFromSlice(std.json.Value, std.heap.c_allocator, PROGRAMS_JSON, .{});
     for (packages_json.value.array.items) |repo| {
         const package_name = repo.object.get("full_name").?.string;
         try writer.print(FORMAT_PACKAGES, .{ package_name, UPDATED_AT });

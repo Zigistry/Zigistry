@@ -30,7 +30,7 @@ pub fn main() void {
     // -------- Start the json file -------------
     helperFunctions.print("[", .{});
 
-    const allocator = std.heap.page_allocator;
+    const allocator = std.heap.c_allocator;
 
     // pagination starts from 1
     var i: usize = 1;

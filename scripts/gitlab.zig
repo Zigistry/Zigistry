@@ -1,6 +1,6 @@
 const std = @import("std");
 const hp = @import("helperFunctions");
-const allocator = std.heap.page_allocator;
+const allocator = std.heap.c_allocator;
 
 const gitlab_url = "https://gitlab.com/api/v4/projects?order_by=last_activity_at&per_page=100&license=yes&topic=zig";
 
