@@ -9,7 +9,7 @@ on:
 
 permissions:
   contents: write
-  
+
 jobs:
   Update_json:
     env:
