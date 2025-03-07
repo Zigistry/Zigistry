@@ -1,7 +1,7 @@
 //!======================================================================
 //!              The games.json web.json gui.json creator
 //!======================================================================
-//!	Author  : Rohan Vashisht
+//! Author  : Rohan Vashisht
 //! License : Please check license file
 //! Details : This file downloads and *compresses json from gh api
 //! and stores it inside games.json, web.json and gui.json.
@@ -56,7 +56,7 @@ const topic_urls = [3][5][]const u8{
 //          Main
 // =======================
 pub fn main() !void {
-    const allocator = std.heap.c_allocator;
+    const allocator = std.heap.page_allocator;
     var args = std.process.args();
     _ = args.skip();
     const fileName: []const u8 = args.next().?;
@@ -65,11 +65,11 @@ pub fn main() !void {
     var raw_json_data_length: u16 = 0;
     const selection: u8 =
         if (std.mem.eql(u8, "games", fileName))
-        0
-    else if (std.mem.eql(u8, "web", fileName))
-        1
-    else
-        2;
+            0
+        else if (std.mem.eql(u8, "web", fileName))
+            1
+        else
+            2;
     raw_json_data[raw_json_data_length] = '[';
     raw_json_data_length += 1;
     for (0.., topic_urls[selection]) |i, url| {

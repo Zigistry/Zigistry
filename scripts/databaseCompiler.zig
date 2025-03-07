@@ -1,7 +1,7 @@
 //!==================================================================
-//!     		         Main.json creator
+//!                        Main.json creator
 //!==================================================================
-//!	Author  : Rohan Vashisht
+//! Author  : Rohan Vashisht
 //! License : Please check license file
 //! Details : This file downloads and *compresses json from gh api
 //! and stores it inside main.json.
@@ -30,7 +30,7 @@ pub fn main() void {
     // -------- Start the json file -------------
     helperFunctions.print("[", .{});
 
-    const allocator = std.heap.c_allocator;
+    const allocator = std.heap.page_allocator;
 
     // pagination starts from 1
     var i: usize = 1;

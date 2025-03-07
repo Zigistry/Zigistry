@@ -43,7 +43,7 @@ fn print(comptime format: []const u8, args: anytype) void {
 }
 
 pub fn main() void {
-    const allocator = std.heap.c_allocator;
+    const allocator = std.heap.page_allocator;
     const parsed = std.json.parseFromSlice(
         std.json.Value,
         allocator,
