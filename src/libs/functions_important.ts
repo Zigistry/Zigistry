@@ -26,7 +26,6 @@ export async function fetchReadmeContent(repo: Repo): Promise<string> {
   return "404";
 }
 
-
 export function numberAsLetters(i: number): string {
   const numberAsString = i.toString();
   if (numberAsString.length > 3) return (i / 1000).toString().slice(0, 3) + "K";

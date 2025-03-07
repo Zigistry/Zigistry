@@ -5,23 +5,28 @@ html lang="en"
     meta http-equiv="X-UA-Compatible" content="IE=edge"
     link rel="canonical" href="https://zigistry.dev/"
 
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
+    link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96"
+    link rel="icon" type="image/svg+xml" href="/favicon.svg"
+    link rel="shortcut icon" href="/favicon.ico"
+    link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"
+    link rel="manifest" href="/site.webmanifest"
 
-    
     link rel="preload" href="/main.js" as="script"
     link rel="preload" href="/buttons.js" as="script"
-    
+
     script async defer src="/buttons.js"
     script defer async src="/main.js"
-    
-    meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
+
+    meta [
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
+    ]
     meta name="theme-color" content="#1e1e1e"
-    
-    title -- Zigistry: A package registry and manager for Zig | Find & Share Zig Packages
+
+    title
+      --
+      Zigistry: A package registry and manager for Zig | Find & Share Zig Packages
+      --
     meta name="robots" content="index, follow"
     meta [
       name="description"
@@ -49,7 +54,6 @@ html lang="en"
     meta property="og:image:width" content="1200"
     meta property="og:image:height" content="630"
     meta property="og:locale" content="en_US"
-    
     <!-- Twitter -->
     meta property="twitter:card" content="summary_large_image"
     meta property="twitter:url" content="https://zigistry.dev/"
@@ -66,13 +70,16 @@ html lang="en"
       content="https://zigistry.dev/zigistry-social.jpg"
     ]
     meta property="twitter:image:alt" content="Zigistry - Zig Package Registry"
-    
+
     meta name="mobile-web-app-capable" content="yes"
     meta name="apple-mobile-web-app-capable" content="yes"
-    meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"
+    meta [
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    ]
     meta name="apple-mobile-web-app-title" content="Zigistry"
     meta name="application-name" content="Zigistry"
-    
+
     script type="application/ld+json"
       --
       {
@@ -232,7 +239,11 @@ html lang="en"
         li class="me-4 last:mr-0 md:mr-6"
           a href="https://github.com/zigistry/zigistry" class="hover:underline"
             -- GitHub
-script crossorigin="anonymous" integrity="sha256-r1sNy3cZhwxGfS8EtV8qteamDYcwyHC4X2HxPxsxeD8=" src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"
+script [
+  crossorigin="anonymous"
+  integrity="sha256-r1sNy3cZhwxGfS8EtV8qteamDYcwyHC4X2HxPxsxeD8="
+  src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"
+]
 script type="module" src="/highlight.js"
 
 style {

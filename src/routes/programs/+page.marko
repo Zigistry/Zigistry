@@ -271,10 +271,9 @@ else
       ]
     <!-- Sidebar overlay -->
     div [
-     class=`fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity md:hidden ${state.isSidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`
+      class=`fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity md:hidden ${state.isSidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`
       onClick("toggleSidebar")
     ]
-  
     <!-- Sidebar -->
     aside class=`fixed left-0 top-0 z-50 h-screen w-64 transform transition-transform md:translate-x-0 ${state.isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`
       div class="h-full overflow-y-auto border-r border-gray-200 bg-white px-3 py-4 dark:border-gray-700 dark:bg-[#1e1e1e]"

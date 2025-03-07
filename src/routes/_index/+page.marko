@@ -1,6 +1,5 @@
 import database from "@database";
 import type { Repo } from "@types";
-
 class {
   declare state: {
     searchDdosQuery: string;
@@ -83,14 +82,10 @@ class {
         sortedResults.sort((a: Repo, b: Repo) => b.forks_count - a.forks_count);
         break;
       case "most_issues":
-        sortedResults.sort(
-          (a: Repo, b: Repo) => b.open_issues - a.open_issues,
-        );
+        sortedResults.sort((a: Repo, b: Repo) => b.open_issues - a.open_issues);
         break;
       case "least_issues":
-        sortedResults.sort(
-          (a: Repo, b: Repo) => a.open_issues - b.open_issues,
-        );
+        sortedResults.sort((a: Repo, b: Repo) => a.open_issues - b.open_issues);
         break;
       case "recently_created":
         sortedResults.sort(
@@ -140,14 +135,12 @@ class {
     }
   }
 }
-
 static const $mostUsed: Repo[] = (
   database.packages
     .slice()
     .sort((a, b) => b.stargazers_count - a.stargazers_count)
     .slice(0, 10)
 );
-
 static const $sortedRepos: Repo[] = (
   database.packages
     .slice()
@@ -156,7 +149,6 @@ static const $sortedRepos: Repo[] = (
         new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
     )
 );
-
 static const $top10LatestRepos: Repo[] = $sortedRepos.slice(0, 10);
 
 div
@@ -242,7 +234,7 @@ div
           width="25"
         ]
         -- &nbsp;Most used:
-      
+
       section.flex.w-full.flex-wrap.justify-evenly
         for|Card_Details| of=$mostUsed
           custom_card Card_Details=Card_Details section="packages"
@@ -250,7 +242,7 @@ div
       h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
         game_icon
         -- &nbsp;Famous Game libs:
-      
+
       section.flex.w-full.flex-wrap.justify-evenly
         for|Card_Details| of=database.packages_games
           custom_card Card_Details=Card_Details section="packages"
@@ -258,7 +250,7 @@ div
       h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
         gui_icon
         -- &nbsp;Famous GUI libs:
-      
+
       section.flex.w-full.flex-wrap.justify-evenly
         for|Card_Details| of=database.packages_gui
           custom_card Card_Details=Card_Details section="packages"
@@ -266,7 +258,7 @@ div
       h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
         internet_icon
         -- &nbsp;Famous Web libs:
-      
+
       section.flex.w-full.flex-wrap.justify-evenly
         for|Card_Details| of=database.packages_web
           custom_card Card_Details=Card_Details section="packages"
@@ -274,12 +266,12 @@ div
       h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
         internet_icon
         -- &nbsp;View More:
-      
+
       section.flex.w-full.flex-wrap.justify-evenly
         infinite_scroll section="packages"
 
   else
-    div class="relative"
+    div.relative
       <!-- Mobile toggle button -->
       button [
         type="button"
@@ -293,18 +285,17 @@ div
           height="24"
           width="24"
         ]
-
       <!-- Sidebar overlay -->
       div [
         class=`fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity md:hidden ${state.isSidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`
         onClick("toggleSidebar")
       ]
-
       <!-- Sidebar -->
       aside class=`fixed left-0 top-0 z-50 h-screen w-64 transform transition-transform md:translate-x-0 ${state.isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`
         div class="h-full overflow-y-auto border-r border-gray-200 bg-white px-3 py-4 dark:border-gray-700 dark:bg-[#1e1e1e]"
-          h2.mb-4.text-lg.font-semibold.text-gray-900.dark:text-white -- Sort By
-          
+          h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white"
+            -- Sort By
+
           div.flex.flex-col.space-y-2
             button [
               type="button"
@@ -376,7 +367,7 @@ div
               ]
               -- Oldest First
 
-            div.my-2.border-t.border-gray-200.dark:border-gray-700
+            div class="my-2 border-t border-gray-200 dark:border-gray-700"
 
             button [
               type="button"
@@ -406,7 +397,7 @@ div
               ]
               -- Z to A
 
-            div.my-2.border-t.border-gray-200.dark:border-gray-700
+            div class="my-2 border-t border-gray-200 dark:border-gray-700"
 
             button [
               type="button"
@@ -449,7 +440,6 @@ div
                 width="20"
               ]
               -- Least Issues
-
       <!-- Main content area -->
       div class="transition-all duration-300 md:ml-64"
         h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black

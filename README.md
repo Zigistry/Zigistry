@@ -4,6 +4,7 @@
 <img width=500 src="./public/zigister-finds-repos.png" alt="Zigistry Logo"/>
 
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fzigistry.dev&up_message=zigistry.dev&down_message=offline&label=website)](https://zigistry.dev)
+
 </div>
 
 ## What is Zigistry?
@@ -15,10 +16,12 @@ Zigistry is an index for both packages and programs written in the Zig programmi
 Zigistry automatically indexes GitHub repositories based on topics:
 
 ### Libraries
+
 - Add the `zig-package` topic to index a library
 - Examples: parsing libraries, networking tools, testing frameworks
 
 ### Programs
+
 - Add the `zig-program` topic to index a program
 - Examples: command-line tools, applications, games
 
@@ -27,6 +30,7 @@ The project will appear on [zigistry.dev](https://zigistry.dev) automatically af
 ## Community Interaction
 
 The Zig community can:
+
 - Share and discover both libraries and programs
 - Explore different approaches to Zig code
 - Ask questions and share Zig development knowledge
@@ -35,6 +39,7 @@ The Zig community can:
 ## Contributing
 
 Contributions to improve Zigistry are welcome through:
+
 - Bug reports and feature suggestions via issues
 - Code improvements via pull requests
 - Technical discussions about the project

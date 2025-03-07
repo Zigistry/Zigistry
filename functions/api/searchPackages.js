@@ -4,7 +4,7 @@ import data from "../../database/deepSearchData.json";
 function searchRepositories(data, inputString) {
   const results = [];
   const tokens = inputString.toLowerCase().split(" ");
-  for(const token of tokens) {
+  for (const token of tokens) {
     for (const [repoFullName, readmeData] of Object.entries(data)) {
       if (readmeData.toLowerCase().includes(token)) {
         results.push(repoFullName.toLowerCase()); // Normalize to lowercase

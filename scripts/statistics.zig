@@ -1,7 +1,7 @@
 //!==============================================
-//!     		 Statistics generator
+//!             Statistics generator
 //!==============================================
-//!	Author  : Rohan Vashisht
+//! Author  : Rohan Vashisht
 //! License : Please check license file
 //! Details : This file generates statistics
 //! by reading data from main.json. For this
