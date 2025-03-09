@@ -1,5 +1,5 @@
 <!doctype html>
-html lang="en"
+html lang="en" class="dark"
   head
     script blocking="render"
       --
@@ -255,6 +255,7 @@ script [
 script type="module" src="/highlight.js"
 
 style {
+  @custom-variant dark (&:where(.dark, .dark *));
   @tailwind base;
   @tailwind components;
   @tailwind utilities;
