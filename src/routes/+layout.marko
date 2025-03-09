@@ -1,6 +1,42 @@
 <!doctype html>
 html lang="en"
   head
+    script
+      --
+      "dark" === localStorage.getItem("color-theme") ||
+      (!("color-theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ? document.documentElement.classList.add("dark")
+        : document.documentElement.classList.remove("dark");
+      var themeToggleDarkIcon = document.getElementById(
+          "theme-toggle-dark-icon",
+        ),
+        themeToggleLightIcon = document.getElementById(
+          "theme-toggle-light-icon",
+        );
+      "dark" === localStorage.getItem("color-theme") ||
+      (!("color-theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ? themeToggleLightIcon?.classList.remove("hidden")
+        : themeToggleDarkIcon?.classList.remove("hidden");
+      var themeToggleBtn = document.getElementById("theme-toggle");
+      themeToggleBtn?.addEventListener("click", function () {
+        themeToggleDarkIcon?.classList.toggle("hidden"),
+          themeToggleLightIcon?.classList.toggle("hidden"),
+          localStorage.getItem("color-theme")
+            ? "light" === localStorage.getItem("color-theme")
+              ? (document.documentElement.classList.add("dark"),
+                localStorage.setItem("color-theme", "dark"))
+              : (document.documentElement.classList.remove("dark"),
+                localStorage.setItem("color-theme", "light"))
+            : document.documentElement.classList.contains("dark")
+              ? (document.documentElement.classList.remove("dark"),
+                localStorage.setItem("color-theme", "light"))
+              : (document.documentElement.classList.add("dark"),
+                localStorage.setItem("color-theme", "dark"));
+      });
+      --
+    script defer async src="/main.js"
     meta charset="utf-8"
     meta http-equiv="X-UA-Compatible" content="IE=edge"
     link rel="canonical" href="https://zigistry.dev/"
@@ -10,12 +46,9 @@ html lang="en"
     link rel="shortcut icon" href="/favicon.ico"
     link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"
     link rel="manifest" href="/site.webmanifest"
-
-    link rel="preload" href="/main.js" as="script"
     link rel="preload" href="/buttons.js" as="script"
 
     script async defer src="/buttons.js"
-    script defer async src="/main.js"
 
     meta [
       name="viewport"
