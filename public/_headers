@@ -1,5 +1,6 @@
 /*
-  Content-Security-Policy: default-src 'self' api.github.com; script-src 'self' ajax.cloudflare.com cdn.jsdelivr.net 'sha256-ZxBjcxRAOu9fIvqFha6iU99TvbHZ6u+Y7pWgYF5DZxg=' 'sha256-ryhTYErrHcdQlgD8vpeAx5I/fSa+7y1rA4M9qkeBuns=' 'sha256-VK7YZSnpZxbwv0yvRjXVDqzSo+rvza1p1rJJfkjgU6M=' 'sha256-68c1pyVsmjh2muo/J5tE88XRDv4VPEEkovrSw/qzPwk=' 'sha256-jspFx1yeglGmBrutGKmTBQj2OT+4O90LuMUj6v2MFDY=' 'sha256-TRC4EzD/GMuuSgZaXLWTX8AnSt0bampmRieRqDrtdhA='; media-src 'self' github.com; img-src 'self' avatars.githubusercontent.com; style-src 'self' cdn.jsdelivr.net 'sha256-XYNUzLGV6zi0ReBwnpxow3Cpuots59N8UiEo5OA6xhI='; object-src 'none';
+  Content-Security-Policy: default-src 'self' api.github.com; script-src 'self' ajax.cloudflare.com cdn.jsdelivr.net 'sha256-ZxBjcxRAOu9fIvqFha6iU99TvbHZ6u+Y7pWgYF5DZxg=' 'sha256-ryhTYErrHcdQlgD8vpeAx5I/fSa+7y1rA4M9qkeBuns=' 'sha256-VK7YZSnpZxbwv0yvRjXVDqzSo+rvza1p1rJJfkjgU6M=' 'sha256-68c1pyVsmjh2muo/J5tE88XRDv4VPEEkovrSw/qzPwk=' 'sha256-jspFx1yeglGmBrutGKmTBQj2OT+4O90LuMUj6v2MFDY=' 'sha256-TRC4EzD/GMuuSgZaXLWTX8AnSt0bampmRieRqDrtdhA='; media-src 'self' github.com; img-src 'self' avatars.githubusercontent.com; style-src 'self' cdn.jsdelivr.net 'sha256-XYNUzLGV6zi0ReBwnpxow3Cpuots59N8UiEo5OA6xhI=';
+  object-src 'none';
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
@@ -7,6 +8,6 @@
   Permissions-Policy: geolocation=(), microphone=(), camera=()
   Cross-Origin-Embedder-Policy: require-corp
   Cross-Origin-Opener-Policy: same-origin
-  Cross-Origin-Resource-Policy: same-origin github.com
+  Cross-Origin-Resource-Policy: same-origin
   Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate
 
