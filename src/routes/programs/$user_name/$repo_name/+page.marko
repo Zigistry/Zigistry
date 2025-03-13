@@ -132,12 +132,17 @@ await(repoPromise) client-reorder timeout=100000000
               -- $!{repo.compressedRepo.readme_content}
           div#dashboard class="" role="tabpanel" aria-labelledby="dashboard-tab"
             div class=""
-              if(repo.compressedRepo.dependencies)
+              if(
+                repo.compressedRepo.dependencies &&
+                repo.compressedRepo.dependencies?.length > 0
+              )
                 for|dependency| of=(repo.compressedRepo.dependencies)
                   div.bg-slate-700.w-full.p-2.rounded-lg.mb-4.text-xl
                     --
                     ${dependency.source !== "remote" ? "./" : ""}${dependency.name}
                     --
+              else
+                h1 -- No dependencies found
       else
         h1 -- 404!
   @catch|_|
