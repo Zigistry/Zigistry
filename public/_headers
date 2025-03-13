@@ -7,6 +7,6 @@
   Permissions-Policy: geolocation=(), microphone=(), camera=()
   Cross-Origin-Embedder-Policy: require-corp
   Cross-Origin-Opener-Policy: same-origin
-  Cross-Origin-Resource-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin github.com
   Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate
 
