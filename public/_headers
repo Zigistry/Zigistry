@@ -5,7 +5,7 @@
   X-Frame-Options: DENY
   Referrer-Policy: no-referrer
   Permissions-Policy: geolocation=(), microphone=(), camera=()
-  Cross-Origin-Embedder-Policy: require-corp
+  Cross-Origin-Embedder-Policy: require-corp youtube.com
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
   Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate
