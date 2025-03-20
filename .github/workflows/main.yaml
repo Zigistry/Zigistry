@@ -1,0 +1,27 @@
+name: Update Zigistry Database Submodule
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Runs every hour
+
+jobs:
+  update-submodule:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Update submodule
+        run: |
+          cd zigistry/database
+          git pull origin main
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add zigistry/database
+          git commit -m "Update zigistry/database submodule"
+          git push
