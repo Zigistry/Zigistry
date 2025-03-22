@@ -1,4 +1,4 @@
-import programsMain from "../../../database/jsons/programs.json";
+import programsMain from "../../database/jsons/programs.json";
 // import codebergMain from "../../../../../database/jsons/codebergPrograms.json";
 // import gitlabMain from "../../../../../database/jsons/gitlabPrograms.json";
 

@@ -6,3 +6,4 @@ package-lock.json
 zig-out
 .zig-cache
 .DS_Store
+.wrangler/
