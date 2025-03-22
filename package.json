@@ -23,6 +23,7 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "sanitize-html": "^2.14.0",
     "vite": "^6.2.1",
+    "wrangler": "^4.4.0",
     "z2j": "^0.0.48",
     "zilite": "^0.0.4"
   },
