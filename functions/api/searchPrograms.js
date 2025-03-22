@@ -1,25 +1,16 @@
-import db from "../../database/jsons/programs.json";
+import programsMain from "../../../../../database/jsons/programs.json";
+// import codebergMain from "../../../../../database/jsons/codebergPrograms.json";
+// import gitlabMain from "../../../../../database/jsons/gitlabPrograms.json";
 
-// Merge both databases
-const mainDatabase = [...db, ...berg, ...gitlab];
+const mainDatabase = programsMain;
 
 export async function onRequest(context) {
   const parsedUrl = new URL(context.request.url);
-  const q = parsedUrl.searchParams.get("q");
-  const filter = parsedUrl.searchParams.get("filter");
+  const user_name = parsedUrl.searchParams.get("user_name")?.trim();
+  const reponame = parsedUrl.searchParams.get("reponame")?.trim();
 
-  // Check if the query parameter `q` exists and is a string
-  if (!q || typeof q !== "string") {
-    const searchResults = mainDatabase.filter((item) => {
-      if (typeof filter === "string") {
-        return item.topics?.some(
-          (topic) => topic.toLowerCase() === filter.toLowerCase(),
-        );
-      }
-      return true; // Return all items if no filter is applied
-    });
-
-    return new Response(JSON.stringify(searchResults), {
+  if (!user_name || !reponame) {
+    return new Response(JSON.stringify(null), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
@@ -27,45 +18,13 @@ export async function onRequest(context) {
     });
   }
 
-  const query = q.toLowerCase();
+  const fullName = `${user_name.toLowerCase()}/${reponame.toLowerCase()}`;
 
-  // Separate search results into two categories
-  const fullNameMatches = [];
-  const descriptionMatches = [];
+  const searchResults = mainDatabase.filter(
+    (item) => item.full_name.toLowerCase() === fullName
+  );
 
-  mainDatabase.forEach((item) => {
-    const fullName = item.full_name?.toLowerCase();
-    const description = item.description?.toLowerCase();
-
-    if (fullName && fullName.includes(query)) {
-      fullNameMatches.push(item);
-    } else if (description && description.includes(query)) {
-      descriptionMatches.push(item);
-    }
-  });
-
-  // Apply filtering to each category
-  const applyFilter = (items) => {
-    if (typeof filter === "string") {
-      return items.filter((item) =>
-        item.topics?.some(
-          (topic) => topic.toLowerCase() === filter.toLowerCase(),
-        ),
-      );
-    }
-    return items;
-  };
-
-  const filteredFullNameMatches = applyFilter(fullNameMatches);
-  const filteredDescriptionMatches = applyFilter(descriptionMatches);
-
-  // Combine results in prioritized order
-  const searchResults = [
-    ...filteredFullNameMatches,
-    ...filteredDescriptionMatches,
-  ];
-
-  return new Response(JSON.stringify(searchResults), {
+  return new Response(JSON.stringify(searchResults[0] || null), {
     status: 200,
     headers: {
       "Content-Type": "application/json",

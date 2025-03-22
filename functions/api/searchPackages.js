@@ -1,92 +1,77 @@
-import mainDatabase from "../../database/jsons/main.json";
+import mainDatabase from "../../../../database/jsons/main.json";
 
 function searchRepositories(inputString) {
-  const results = [];
-  const tokens = inputString.toLowerCase().split(" ");
-  for (const token of tokens) {
-    for (const entry of mainDatabase) {
-      if (entry["readme_content"].toLowerCase().includes(token)) {
-        results.push(repoFullName.toLowerCase()); // Normalize to lowercase
+  const results = new Set();
+  const tokens = inputString.toLowerCase().split(/\s+/);
+
+  for (const entry of mainDatabase) {
+    const readmeContent = entry.readme_content?.toLowerCase();
+    if (!readmeContent) continue;
+
+    for (const token of tokens) {
+      if (readmeContent.includes(token)) {
+        results.add(entry.full_name.toLowerCase());
+        if (results.size > 25) return Array.from(results);
       }
-      if (results.length > 25) break;
     }
   }
 
-  return results;
+  return Array.from(results);
 }
 
-// Search Engine Algorithm API for "/api/searchPackages"
 export async function onRequest(context) {
   const parsedUrl = new URL(context.request.url);
-  const q = parsedUrl.searchParams.get("q");
-  const filter = parsedUrl.searchParams.get("filter");
+  const q = parsedUrl.searchParams.get("q")?.trim();
+  const filter = parsedUrl.searchParams.get("filter")?.trim();
 
-  if (!q || typeof q !== "string") {
-    const searchResults = mainDatabase.filter((item) => {
-      if (typeof filter === "string") {
-        return item.topics?.some(
-          (topic) => topic.toLowerCase() === filter.toLowerCase(),
-        );
-      }
-      return true;
-    });
+  if (!q) {
+    const searchResults = mainDatabase.filter((item) =>
+      filter
+        ? item.topics?.some((topic) => topic.toLowerCase() === filter.toLowerCase())
+        : true
+    );
 
     return new Response(JSON.stringify(searchResults), {
       status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
   const query = q.toLowerCase();
   const matchingRepos = new Set(searchRepositories(query));
 
-  // Separate search results into three categories
   const fullNameMatches = [];
   const descriptionMatches = [];
   const deepSearchMatches = [];
 
-  mainDatabase.forEach((item) => {
+  for (const item of mainDatabase) {
     const fullName = item.full_name?.toLowerCase();
     const description = item.description?.toLowerCase();
 
-    if (fullName && fullName.includes(query)) {
+    if (fullName?.includes(query)) {
       fullNameMatches.push(item);
-    } else if (description && description.includes(query)) {
+    } else if (description?.includes(query)) {
       descriptionMatches.push(item);
-    } else if (fullName && matchingRepos.has(fullName)) {
+    } else if (matchingRepos.has(fullName)) {
       deepSearchMatches.push(item);
     }
-  });
+  }
 
-  // Apply filtering to each category
-  const applyFilter = (items) => {
-    if (typeof filter === "string") {
-      return items.filter((item) =>
-        item.topics?.some(
-          (topic) => topic.toLowerCase() === filter.toLowerCase(),
-        ),
-      );
-    }
-    return items;
-  };
+  const applyFilter = (items) =>
+    filter
+      ? items.filter((item) =>
+          item.topics?.some((topic) => topic.toLowerCase() === filter.toLowerCase())
+        )
+      : items;
 
-  const filteredFullNameMatches = applyFilter(fullNameMatches);
-  const filteredDescriptionMatches = applyFilter(descriptionMatches);
-  const filteredDeepSearchMatches = applyFilter(deepSearchMatches);
-
-  // Combine results in prioritized order
   const searchResults = [
-    ...filteredFullNameMatches,
-    ...filteredDescriptionMatches,
-    ...filteredDeepSearchMatches,
+    ...applyFilter(fullNameMatches),
+    ...applyFilter(descriptionMatches),
+    ...applyFilter(deepSearchMatches),
   ];
 
   return new Response(JSON.stringify(searchResults), {
     status: 200,
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
   });
 }

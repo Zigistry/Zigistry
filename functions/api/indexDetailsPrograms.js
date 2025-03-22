@@ -1,8 +1,8 @@
-import programsMain from "../../database/programs.json";
+import programsMain from "../../database/jsons/programs.json";
 // import codebergMain from "../../database/codebergPrograms.json";
 // import gitlabMain from "../../database/gitlabPrograms.json";
 
-const databaseMain = [...programsMain, ...codebergMain, ...gitlabMain];
+const databaseMain = [...programsMain];
 
 export async function onRequest(context) {
   const parsedUrl = new URL(context.request.url);
