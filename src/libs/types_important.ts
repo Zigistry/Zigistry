@@ -13,7 +13,7 @@ export interface Repo {
   name: string;
   full_name: string;
   created_at: string;
-  description: string;
+  description: string | undefined | null;
   default_branch?: string;
   open_issues: number;
   stargazers_count: number;
@@ -22,13 +22,13 @@ export interface Repo {
   contentIsCorrect?: boolean;
   tags_url: string;
   license: string;
-  readme_content?: string;
+  readme_content: string;
   specials?: string;
   topics?: Array<string>;
   size: number;
-  has_build_zig_zon?: number;
-  has_build_zig?: number;
-  fork?: boolean;
+  has_build_zig_zon?: boolean;
+  has_build_zig?: boolean;
+  fork: boolean;
   updated_at: string;
   dependencies?: Dependency[];
   berg?: number;

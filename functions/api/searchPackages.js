@@ -1,12 +1,11 @@
-import mainDatabase from "../../database/main.json";
-import data from "../../database/deepSearchData.json";
+import mainDatabase from "../../database/jsons/main.json";
 
-function searchRepositories(data, inputString) {
+function searchRepositories(inputString) {
   const results = [];
   const tokens = inputString.toLowerCase().split(" ");
   for (const token of tokens) {
-    for (const [repoFullName, readmeData] of Object.entries(data)) {
-      if (readmeData.toLowerCase().includes(token)) {
+    for (const entry of mainDatabase) {
+      if (entry["readme_content"].toLowerCase().includes(token)) {
         results.push(repoFullName.toLowerCase()); // Normalize to lowercase
       }
       if (results.length > 25) break;
@@ -41,7 +40,7 @@ export async function onRequest(context) {
   }
 
   const query = q.toLowerCase();
-  const matchingRepos = new Set(searchRepositories(data, query));
+  const matchingRepos = new Set(searchRepositories(query));
 
   // Separate search results into three categories
   const fullNameMatches = [];

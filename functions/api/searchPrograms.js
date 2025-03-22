@@ -1,6 +1,4 @@
-import db from "../../database/programs.json";
-import berg from "../../database/codebergPrograms.json";
-import gitlab from "../../database/gitlabPrograms.json";
+import db from "../../database/jsons/programs.json";
 
 // Merge both databases
 const mainDatabase = [...db, ...berg, ...gitlab];

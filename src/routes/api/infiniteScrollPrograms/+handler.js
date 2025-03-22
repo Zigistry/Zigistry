@@ -1,7 +1,7 @@
-import programsMain from "../../../../database/programs.json";
-import codebergMain from "../../../../database/codebergPrograms.json";
+import programsMain from "../../../../database/jsons/programs.json";
+// import codebergMain from "../../../../database/jsons/codebergPrograms.json";
 
-const databaseMain = [...programsMain, ...codebergMain];
+const databaseMain = [...programsMain];
 
 export async function GET({ url }) {
   const parsedUrl = new URL(url);

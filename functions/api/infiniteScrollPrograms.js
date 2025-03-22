@@ -1,6 +1,4 @@
-import programsMain from "../../database/programs.json";
-import codebergMain from "../../database/codebergPrograms.json";
-import gitlabMain from "../../database/gitlabPrograms.json";
+import programsMain from "../../database/jsons/programs.json";
 
 const databaseMain = [...programsMain, ...codebergMain, ...gitlabMain];
 

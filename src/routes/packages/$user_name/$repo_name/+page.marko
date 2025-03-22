@@ -1,6 +1,6 @@
 import database from "@database";
 import type { Repo, Dependency } from "@types";
-import { fetchReadmeContent } from "@functions";
+import { convert2markdown } from "@functions";
 import zon2json from "z2j";
 static const package_database: Repo[] = [
   ...database.packages,
@@ -20,7 +20,7 @@ $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
 
   var zig_version = "unknown";
   const dependencies: Dependency[] | undefined = [];
-  if (repository.has_build_zig_zon == 1) {
+  if (repository.has_build_zig_zon) {
     const url = `https://raw.githubusercontent.com/${repository.full_name}/master/build.zig.zon`;
     const res = await fetch(url);
     var zonData = await res.text();
@@ -66,7 +66,7 @@ $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
     contentIsCorrect: true,
     name: repository.name,
     full_name: repository.full_name,
-    readme_content: await fetchReadmeContent(repository),
+    readme_content: await convert2markdown(repository.readme_content),
     created_at: repository.created_at,
     description: repository.description,
     tags_url: repository.tags_url,

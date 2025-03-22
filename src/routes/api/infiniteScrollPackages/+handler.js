@@ -1,4 +1,4 @@
-import databaseMain from "../../../../database/main.json";
+import databaseMain from "../../../../database/jsons/main.json";
 
 export async function GET({ url }) {
   const parsedUrl = new URL(url);

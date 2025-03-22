@@ -25,9 +25,11 @@ div [
         span -- ${input.Card_Details.license}
     p class="font-normal text-gray-700 dark:text-gray-400"
       --
-      ${input.Card_Details.description.length >= 150
-        ? input.Card_Details.description.slice(0, 150) + "..."
-        : input.Card_Details.description}
+      ${input.Card_Details.description
+        ? input.Card_Details.description.length >= 150
+          ? input.Card_Details.description.slice(0, 150) + "..."
+          : input.Card_Details.description
+        : "No description provided."}
       --
     div.flex.items-center
       flowbite-star-solid [

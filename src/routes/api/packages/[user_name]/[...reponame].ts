@@ -1,4 +1,4 @@
-import mainDatabase from "../../../../../database/main.json";
+import mainDatabase from "../../../../../database/jsons/main.json";
 
 export async function GET({
   params,

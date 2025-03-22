@@ -1,8 +1,8 @@
-import programsMain from "../../../../../database/programs.json";
-import codebergMain from "../../../../../database/codebergPrograms.json";
-import gitlabMain from "../../../../../database/gitlabPrograms.json";
+import programsMain from "../../../../../database/jsons/programs.json";
+// import codebergMain from "../../../../../database/jsons/codebergPrograms.json";
+// import gitlabMain from "../../../../../database/jsons/gitlabPrograms.json";
 
-const mainDatabase = [...programsMain, ...codebergMain, ...gitlabMain];
+const mainDatabase = programsMain;
 
 export async function GET({
   params,
@@ -25,7 +25,7 @@ export async function GET({
 
   // Search for the repository in the main database
   const searchResults = mainDatabase.filter(
-    (item) => item.full_name.toLowerCase() === fullName,
+    (item: { full_name: string; }) => item.full_name.toLowerCase() === fullName,
   );
 
   return new Response(JSON.stringify(searchResults[0] || null), {
