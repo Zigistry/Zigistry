@@ -1,4 +1,4 @@
-import db from "../../../database/jsonsForAPICompressed/programs.json";
+import db from "../../database/jsonsForAPICompressed/programs.json";
 // import berg from "../../../../database/jsons/codebergPrograms.json";
 // import lab from "../../../../database/jsons/gitlabPrograms.json";
 
