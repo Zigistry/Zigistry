@@ -1,6 +1,9 @@
 name: Update Zigistry Database Submodule
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: '0 * * * *' # Runs every hour
 
