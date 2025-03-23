@@ -1,15 +1,18 @@
-import { Client } from "@gradio/client";
 import type { Repo } from "@types";
 class {
     declare state: {
-        searchDdosQuery: string;
-        searchResults: Repo[];
+        searchQuery: string;
+        packageResults: Repo[];
+        programResults: Repo[];
+        isLoading: boolean;
     };
 
     async onCreate() {
         this.state = {
-            searchDdosQuery: "",
-            searchResults: [],
+            searchQuery: "",
+            packageResults: [],
+            programResults: [],
+            isLoading: false
         };
     }
 
@@ -17,35 +20,37 @@ class {
         const searchBox = document.getElementById(
             "search_box",
         ) as HTMLInputElement;
-
-        const client = await Client.connect("Zigistry/Advanced-Search");
-
         searchBox.addEventListener("keyup", async (event) => {
             if (
                 event.key === "Enter" &&
-                this.state.searchDdosQuery !== searchBox.value
+                this.state.searchQuery !== searchBox.value
             ) {
-                this.state.searchDdosQuery = searchBox.value;
-                const result = await client.predict("/predict", {
-                    query: this.state.searchDdosQuery,
-                });
+                this.state.searchQuery = searchBox.value;
+                this.state.isLoading = true;
 
-                const res = (result.data as Repo[][])[0];
-                this.state.searchResults = res;
+                try {
+                    const [packageResp, programResp] = await Promise.all([
+                        fetch("https://zigistry-api.hf.space/searchPackages/?q=" + encodeURIComponent(searchBox.value)),
+                        fetch("https://zigistry-api.hf.space/searchPrograms/?q=" + encodeURIComponent(searchBox.value))
+                    ]);
+
+                    const packageResults = await packageResp.json();
+                    const programResults = await programResp.json();
+
+                    this.state.packageResults = packageResults;
+                    this.state.programResults = programResults;
+                } catch (error) {
+                    console.error("Search failed:", error);
+                } finally {
+                    this.state.isLoading = false;
+                }
             }
         });
     }
 }
-// ...existing imports and class code...
-
-
-// ...existing imports and class code...
 
 div class="flex min-h-screen flex-col bg-gray-50 dark:bg-[#1e1e1e]"
     div class="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8"
-        // Header Section
-        // ...existing imports and class code...
-
         // Header Section
         div.mb-10.text-center
             div.mb-4.gap-3.flex-wrap.justify-center
@@ -54,9 +59,7 @@ div class="flex min-h-screen flex-col bg-gray-50 dark:bg-[#1e1e1e]"
                 span class="mt-4 inline-flex items-center rounded-md bg-yellow-50 dark:bg-yellow-900/30 px-2 py-1 text-xs font-medium text-yellow-800 dark:text-yellow-500 ring-1 ring-inset ring-yellow-600/20"
                     -- Beta
             p class="mx-auto max-w-2xl text-lg text-gray-600 dark:text-gray-300"
-                --
-                Search through thousands of repositories using advanced AI algorithms
-                --
+                -- Search through thousands of repositories using advanced AI algorithms
 
         // Search Box Section
         div.relative.mx-auto.mb-12.max-w-3xl
@@ -74,30 +77,53 @@ div class="flex min-h-screen flex-col bg-gray-50 dark:bg-[#1e1e1e]"
                     ]
             input#search_box [
                 type="text"
-                placeholder="Please tell me libraries that work with Javascript."
+                placeholder="Search for packages or programs..."
                 class="block w-full rounded-xl border border-gray-300 bg-white py-4 pl-10 pr-3 text-gray-900 placeholder-gray-500 transition-colors duration-200 focus:border-[#1e1e1e] focus:outline-none focus:ring-2 focus:ring-[#1e1e1e] focus:ring-offset-2 dark:border-gray-700 dark:bg-[#374151] dark:text-white dark:placeholder-gray-400 dark:focus:border-gray-900 dark:focus:ring-gray-900"
             ]
 
+        // Loading State
+        if(state.isLoading)
+            div class="flex justify-center my-8"
+                div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900 dark:border-white"
+
         // Results Section
-        div class="results-container grid gap-6 md:grid-cols-2 lg:grid-cols-3"
-            if(state.searchResults.length > 0 && state.searchResults[0].full_name)
-                for|repo| of=state.searchResults
-                    custom_card section="special-AI" Card_Details=repo
-            else
-                div class="col-span-full rounded-xl bg-white px-4 py-16 text-center shadow-sm dark:bg-gray-800/50"
-                    svg.mx-auto.h-12.w-12.text-gray-400.dark:text-gray-500 [
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    ]
-                        path [
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                        ]
-                    p class="mt-4 text-lg font-medium text-gray-900 dark:text-white"
-                        -- No results found
-                    p class="mt-2 text-gray-500 dark:text-gray-400"
-                        -- Ask for packages or programs as you would ask a friend.
+        div class="grid grid-cols-1 lg:grid-cols-2 gap-8"
+            // Packages Column
+            div class="space-y-4"
+                div class="flex items-center justify-between mb-6"
+                    h2 class="text-2xl font-bold text-gray-900 dark:text-white"
+                        -- Packages
+                    if(state.packageResults.length > 0)
+                        span class="text-sm text-gray-500 dark:text-gray-400"
+                            -- ${state.packageResults.length} results
+
+                div class="results-container grid gap-4"
+                    if(state.packageResults.length > 0)
+                        for|repo| of=state.packageResults
+                            custom_card section="special-AI" Card_Details=repo
+                    else
+                        div class="rounded-xl bg-white px-4 py-8 text-center shadow-sm dark:bg-gray-800/50"
+                            p class="text-lg font-medium text-gray-900 dark:text-white"
+                                -- No packages found
+                            p class="mt-2 text-gray-500 dark:text-gray-400"
+                                -- Try different search terms
+
+            // Programs Column
+            div class="space-y-4"
+                div class="flex items-center justify-between mb-6"
+                    h2 class="text-2xl font-bold text-gray-900 dark:text-white"
+                        -- Programs
+                    if(state.programResults.length > 0)
+                        span class="text-sm text-gray-500 dark:text-gray-400"
+                            -- ${state.programResults.length} results
+
+                div class="results-container grid gap-4"
+                    if(state.programResults.length > 0)
+                        for|repo| of=state.programResults
+                            custom_card section="special-AI" Card_Details=repo
+                    else
+                        div class="rounded-xl bg-white px-4 py-8 text-center shadow-sm dark:bg-gray-800/50"
+                            p class="text-lg font-medium text-gray-900 dark:text-white"
+                                -- No programs found
+                            p class="mt-2 text-gray-500 dark:text-gray-400"
+                                -- Try different search terms
