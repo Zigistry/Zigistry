@@ -1,4 +1,4 @@
-import programsMain from "../../database/jsons/programs.json";
+import programsMain from "../../database/jsonsForAPICompressed/programs.json";
 
 const databaseMain = [...programsMain];
 

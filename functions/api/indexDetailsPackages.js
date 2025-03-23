@@ -1,4 +1,4 @@
-import databaseMain from "../../database/jsons/main.json";
+import databaseMain from "../../database/jsonsForAPICompressed/main.json";
 
 export async function onRequest(context) {
   const parsedUrl = new URL(context.request.url);
