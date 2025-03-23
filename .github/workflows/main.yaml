@@ -19,7 +19,7 @@ jobs:
       - name: Update submodule
         run: |
           cd ./database
-          git pull origin main
+          git pull origin main --rebase
 
       - name: Commit and push changes
         run: |
