@@ -18,12 +18,15 @@ jobs:
 
       - name: Update submodule
         run: |
-          git submodule update --remote --merge
-
+          cd database
+          git fetch origin main
+          git reset --hard origin/main
+          cd ..
+          git add database
+          
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add .gitmodules database
           git commit -m "Update zigistry/database submodule" || exit 0
           git push
