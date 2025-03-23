@@ -18,7 +18,7 @@ jobs:
 
       - name: Update submodule
         run: |
-          cd zigistry/database
+          cd ./database
           git pull origin main
 
       - name: Commit and push changes
