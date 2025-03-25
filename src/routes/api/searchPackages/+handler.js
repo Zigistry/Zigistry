@@ -1,80 +1,19 @@
-import mainDatabase from "../../../../database/jsons/main.json";
+import db from "../../../../database/jsonsForAPICompressed/main.json";
 
-function searchRepositories(inputString) {
-  const results = new Set();
-  const tokens = inputString.toLowerCase().split(/\s+/);
+export const GET = async ({ url }) => {
+  const q = new URL(url).searchParams.get("q")?.trim()?.toLowerCase();
+  const filter = new URL(url).searchParams.get("filter")?.trim()?.toLowerCase();
 
-  for (const entry of mainDatabase) {
-    const readmeContent = entry.readme_content?.toLowerCase();
-    if (!readmeContent) continue;
-
-    for (const token of tokens) {
-      if (readmeContent.includes(token)) {
-        results.add(entry.full_name.toLowerCase());
-        if (results.size > 25) return Array.from(results);
-      }
-    }
-  }
-
-  return Array.from(results);
-}
-
-// Search Engine Algorithm API for "/api/searchPackages"
-export async function GET({ url }) {
-  const parsedUrl = new URL(url);
-  const q = parsedUrl.searchParams.get("q")?.trim();
-  const filter = parsedUrl.searchParams.get("filter")?.trim();
-
-  if (!q) {
-    const searchResults = mainDatabase.filter((item) =>
-      filter
-        ? item.topics?.some((topic) => topic.toLowerCase() === filter.toLowerCase())
-        : true
+  const matches = db.filter(({ name, full_name, description, topics }) => {
+    if (filter && !topics?.some((t) => t.toLowerCase() === filter)) return false;
+    if (!q) return true;
+    return [name, full_name, description, ...(topics || [])].some(
+      (field) => field?.toLowerCase().includes(q)
     );
+  });
 
-    return new Response(JSON.stringify(searchResults), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
-
-  const query = q.toLowerCase();
-  const matchingRepos = new Set(searchRepositories(query));
-
-  // Separate search results into three categories
-  const fullNameMatches = [];
-  const descriptionMatches = [];
-  const deepSearchMatches = [];
-
-  for (const item of mainDatabase) {
-    const fullName = item.full_name?.toLowerCase();
-    const description = item.description?.toLowerCase();
-
-    if (fullName?.includes(query)) {
-      fullNameMatches.push(item);
-    } else if (description?.includes(query)) {
-      descriptionMatches.push(item);
-    } else if (matchingRepos.has(fullName)) {
-      deepSearchMatches.push(item);
-    }
-  }
-
-  // Apply filtering
-  const applyFilter = (items) =>
-    filter
-      ? items.filter((item) =>
-          item.topics?.some((topic) => topic.toLowerCase() === filter.toLowerCase())
-        )
-      : items;
-
-  const searchResults = [
-    ...applyFilter(fullNameMatches),
-    ...applyFilter(descriptionMatches),
-    ...applyFilter(deepSearchMatches),
-  ];
-
-  return new Response(JSON.stringify(searchResults), {
+  return new Response(JSON.stringify(matches.slice(0, 25)), {
     status: 200,
     headers: { "Content-Type": "application/json" },
   });
-}
+};
