@@ -1,4 +1,4 @@
-import db from "../../../../database/jsonsForAPICompressed/main.json";
+import db from "../../../../database/jsonsForAPICompressed/packages.json";
 
 export const GET = async ({ url }) => {
   const q = new URL(url).searchParams.get("q")?.trim()?.toLowerCase();

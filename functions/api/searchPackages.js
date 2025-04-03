@@ -1,4 +1,4 @@
-import mainDatabase from "../../database/jsonsForAPICompressed/main.json";
+import mainDatabase from "../../database/jsonsForAPICompressed/packages.json";
 
 export async function onRequest(context) {
   const { searchParams } = new URL(context.request.url);

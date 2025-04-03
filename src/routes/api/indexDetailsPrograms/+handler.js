@@ -1,4 +1,4 @@
-import databaseMain from "../../../../database/jsons/main.json";
+import databaseMain from "../../../../database/jsons/packages.json";
 // import type { Repo } from "../../typesAndFunctions/customFunctions";
 
 export async function GET({ url }) {

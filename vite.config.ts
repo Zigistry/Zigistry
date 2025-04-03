@@ -1,7 +1,7 @@
 import { defineConfig, Plugin } from "vite";
 import marko from "@marko/run/vite";
 import staticAdapter from "@marko/run-adapter-static";
-import packagesData from "./database/jsons/main.json";
+import packagesData from "./database/jsons/packages.json";
 import programsData from "./database/jsons/programs.json";
 import path from "path";
 
