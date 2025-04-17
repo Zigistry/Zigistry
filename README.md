@@ -22,7 +22,7 @@ Zigistry automatically indexes GitHub repositories based on topics:
 
 ### Programs
 
-- Add the `zig-program` topic to index a program
+- Add the `zig` topic to index a program
 - Examples: command-line tools, applications, games
 
 The project will appear on [zigistry.dev](https://zigistry.dev) automatically after adding the appropriate topic.
