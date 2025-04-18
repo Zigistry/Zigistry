@@ -34,7 +34,7 @@ class {
         return;
       }
       fetch(
-        `https://zigistry-test.hf.space/api/searchPrograms?q=${my_element2.value}&filter=${selectedValue}`,
+        `https://zigistry.hf.space/api/searchPrograms?q=${my_element2.value}&filter=${selectedValue}`,
       )
         .then((x) => {
           return x.json();
@@ -121,7 +121,7 @@ class {
     const value = ele.value;
     if (value === this.state.searchDdosQuery || value === "") return;
     this.state.searchDdosQuery = value;
-    fetch(`https://zigistry-test.hf.space/api/searchPrograms?q=${value}`)
+    fetch(`https://zigistry.hf.space/api/searchPrograms?q=${value}`)
       .then((x) => {
         return x.json();
       })

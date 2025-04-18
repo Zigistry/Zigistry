@@ -28,13 +28,13 @@ class {
   }
   load_more() {
     if (this.state.input == "packages") {
-      fetch(`https://zigistry-test.hf.space/api/infiniteScrollPackages?pageNumber=${this.state.page}`)
+      fetch(`https://zigistry.hf.space/api/infiniteScrollPackages?pageNumber=${this.state.page}`)
         .then((x) => x.json())
         .then((y) => {
           this.state.repo_list = [...this.state.repo_list, ...y];
         });
     } else {
-      fetch(`https://zigistry-test.hf.space/api/infiniteScrollPrograms?pageNumber=${this.state.page}`)
+      fetch(`https://zigistry.hf.space/api/infiniteScrollPrograms?pageNumber=${this.state.page}`)
         .then((x) => x.json())
         .then((y) => {
           this.state.repo_list = [...this.state.repo_list, ...y];
