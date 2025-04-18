@@ -34,7 +34,7 @@ class {
         return;
       }
       fetch(
-        `https://zigistry.hf.space/api/searchPackages?q=${my_element2.value}&filter=${selectedValue}`,
+        `https://zigistry-api.hf.space/api/searchPackages?q=${my_element2.value}&filter=${selectedValue}`,
       )
         .then((x) => x.json())
         .then((y: Repo[]) => {
@@ -112,7 +112,7 @@ class {
 
     this.state.searchDdosQuery = value;
 
-    fetch(`https://zigistry.hf.space/api/searchPackages?q=${value}`)
+    fetch(`https://zigistry-api.hf.space/api/searchPackages?q=${value}`)
       .then((x) => x.json())
       .then((y: Repo[]) => {
         this.state.searchResults = y;
