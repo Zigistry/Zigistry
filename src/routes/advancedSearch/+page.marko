@@ -30,8 +30,8 @@ class {
 
                 try {
                     const [packageResp, programResp] = await Promise.all([
-                        fetch("https://zigistry-api.hf.space/searchPackages/?q=" + encodeURIComponent(searchBox.value)),
-                        fetch("https://zigistry-api.hf.space/searchPrograms/?q=" + encodeURIComponent(searchBox.value))
+                        fetch("https://zigistry-api-ai.hf.space/searchPackages/?q=" + encodeURIComponent(searchBox.value)),
+                        fetch("https://zigistry-api-ai.hf.space/searchPrograms/?q=" + encodeURIComponent(searchBox.value))
                     ]);
 
                     const packageResults = await packageResp.json();
