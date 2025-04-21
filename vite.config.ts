@@ -1,8 +1,8 @@
 import { defineConfig, Plugin } from "vite";
 import marko from "@marko/run/vite";
 import staticAdapter from "@marko/run-adapter-static";
-import packagesData from "./database/packages.json";
-import programsData from "./database/programs.json";
+import packagesData from "./database/database/packages.json";
+import programsData from "./database/database/programs.json";
 import path from "path";
 
 function generatePaths() {
