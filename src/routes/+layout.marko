@@ -22,9 +22,7 @@ html.dark lang="en"
     link rel="shortcut icon" href="/favicon.ico"
     link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"
     link rel="manifest" href="/site.webmanifest"
-    link rel="preload" href="/buttons.js" as="script"
 
-    script async defer src="/buttons.js"
     script async defer src="/theme.js"
 
     meta [
@@ -232,16 +230,24 @@ html.dark lang="en"
               ]
                 -- Help
             li class="mt-0.5"
-              a.github-button [
+              a [
                 href="https://github.com/zigistry/zigistry"
-                data-color-scheme="no-preference: dark; light: dark; dark: light;"
-                data-icon="octicon-star"
-                data-show-count="true"
-                aria-label="Star zigistry/zigistry on GitHub"
+                class="flex border-2 border-gray-600 bg-gray-700 text-white hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-500 dark:bg-white dark:text-gray-900 dark:border-gray-300 dark:hover:bg-gray-100 dark:hover:border-gray-300 dark:focus:ring-gray-200 font-medium rounded-lg text-sm px-3 text-center"
+                target="_blank"
+                rel="noopener noreferrer"
               ]
-                -- Star
+                flowbite-star-outline [
+                  class="mr-1.5 dark:text-[#161616] text-[#ffffff]"
+                  stroke="currentColor"
+                  fill="currentColor"
+                  stroke-width="0"
+                  color="black"
+                  viewBox="0 0 24 24"
+                  height="18"
+                  width="18"
+                ]
+                --  Star
             li
-
               button#theme-toggle [
                 type="button"
                 class="rounded-lg p-1 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
