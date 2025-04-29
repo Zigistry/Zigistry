@@ -1,8 +1,13 @@
-export interface Dependency {
+type DependencyType = "remote" | "system" | "local" | "unknown";
+
+interface Dependency {
   name: string;
-  source: "relative" | "remote";
-  location: string;
+  url: string;
+  commit?: string;
+  tar_url?: string;
+  type?: DependencyType;
 }
+
 
 export interface deepSearchData {
   [key: string]: string;
@@ -34,4 +39,5 @@ export interface Repo {
   berg?: number;
   gitlab?: number;
   archived?: boolean;
+  dependents?:string[],
 }

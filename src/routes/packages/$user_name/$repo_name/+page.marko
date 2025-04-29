@@ -1,5 +1,5 @@
 import database from "@database";
-import type { Repo, Dependency } from "@types";
+import type { Repo } from "@types";
 import { convert2markdown } from "@functions";
 import zon2json from "z2j";
 static const package_database: Repo[] = [
@@ -18,50 +18,6 @@ $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
     return reject("/404");
   }
 
-  var zig_version = "unknown";
-  const dependencies: Dependency[] | undefined = [];
-  if (repository.has_build_zig_zon) {
-    const url = `https://raw.githubusercontent.com/${repository.full_name}/master/build.zig.zon`;
-    const res = await fetch(url);
-    var zonData = await res.text();
-    var zonAsJsonData = zon2json(zonData);
-
-    try {
-      const json_parsed = JSON.parse(zonAsJsonData); // No need for await here
-
-      if ("minimum_zig_version" in json_parsed)
-        zig_version = json_parsed.minimum_zig_version;
-
-      // Check if 'dependencies' exists in the parsed JSON first
-      if ("dependencies" in json_parsed) {
-        const deps: {
-          [name: string]: {
-            url: string | undefined;
-            path: string | undefined;
-            hash: string | undefined;
-          };
-        } = json_parsed.dependencies;
-
-        // Iterate over the dependencies and handle them
-        for (const [name, dep] of Object.entries(deps)) {
-          if (dep.url && dep.hash) {
-            dependencies.push({
-              name,
-              source: "remote",
-              location: dep.url,
-            });
-          } else {
-            dependencies.push({
-              name,
-              source: "relative",
-              location: dep.path ? dep.path : "",
-            });
-          }
-        }
-      }
-    } catch (_) {}
-  }
-
   const compressedRepo: Repo = {
     contentIsCorrect: true,
     name: repository.name,
@@ -78,7 +34,8 @@ $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
     watchers_count: repository.watchers_count,
     topics: repository.topics,
     avatar_url: repository.avatar_url,
-    dependencies: dependencies,
+    dependencies: repository.dependencies,
+    dependents: repository.dependents,
     size: repository.size,
     fork: repository.fork,
     has_build_zig: repository.has_build_zig,
@@ -90,63 +47,105 @@ $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
 
 await(repoPromise) client-reorder timeout=100000000
   @placeholder
-    <!-- Displays while promise is pending -->
-    label
-      -- Loading…
-      progress
+    div.flex.items-center.justify-center.min-h-screen
+      div.animate-pulse.text-xl -- Loading...
 
   @then|repo|
-    div.p-5
+    div.min-h-screen.p-2.sm:p-4.md:p-6.lg:p-8
       if(repo.contentIsCorrect)
+        <!-- Package Card -->
         custom_card section="special-package" Card_Details=repo
-        div class="mb-4 border-b border-gray-200 dark:border-gray-700"
-          ul#default-tab [
-            class="flex flex-wrap -mb-px text-sm font-medium text-center"
-            data-tabs-toggle="#default-tab-content"
-            role="tablist"
-          ]
-            li.me-2 role="presentation"
-              button.inline-block.p-4.border-b-2.rounded-t-lg#profile-tab [
-                data-tabs-target="#profile"
-                type="button"
-                role="tab"
-                aria-controls="profile"
-                aria-selected="false"
-              ]
-                -- Readme
-            li.me-2 role="presentation"
-              button#dashboard-tab [
-                class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
-                data-tabs-target="#dashboard"
-                type="button"
-                role="tab"
-                aria-controls="dashboard"
-                aria-selected="false"
-              ]
-                -- Dependencies
-        div#default-tab-content
-          div#profile [
-            class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
-            role="tabpanel"
-            aria-labelledby="profile-tab"
-          ]
-            div class="text-sm text-gray-500 dark:text-gray-400 readmeDiv"
-              -- $!{repo.readme_content}
-          div#dashboard class="" role="tabpanel" aria-labelledby="dashboard-tab"
-            div class=""
-              if(repo.dependencies && repo.dependencies?.length > 0)
+        
+        div.mt-4.sm:mt-8.space-y-4.sm:space-y-8
+          <!-- Dependencies Section -->
+          if(repo.dependencies && repo.dependencies?.length > 0)
+            div.bg-slate-800.rounded-lg.sm:rounded-xl.p-3.sm:p-6.shadow-lg.sm:shadow-xl
+              h2.text-xl.sm:text-2xl.font-bold.mb-3.sm:mb-4.text-white.border-b.border-slate-600.pb-2 -- Dependencies
+              div.grid.gap-3.sm:gap-4.grid-cols-1.md:grid-cols-2.lg:grid-cols-3
                 for|dependency| of=repo.dependencies
-                  div.bg-slate-700.w-full.p-2.rounded-lg.mb-4.text-xl
-                    --
-                    ${dependency.source !== "remote" ? "./" : ""}${" "}${dependency.name}
-                    --
-              else
-                h1 -- No dependencies found
+                  div.bg-slate-700.rounded-lg.p-3.sm:p-4.hover:bg-slate-600.transition-all.duration-300.transform.hover:scale-102
+                    div.space-y-2.sm:space-y-3
+                      div.flex.items-center.space-x-2.text-sm.sm:text-base
+                        span.text-emerald-400.font-medium -- Name
+                        span.text-white -- ${dependency.type !== "remote" ? "./" : ""}${dependency.name}
+                      div.space-y-1
+                        div.text-sky-400.font-medium.text-sm.sm:text-base -- URL
+                        a.text-white.hover:text-sky-300.text-xs.sm:text-sm.break-all href=dependency.url target="_blank" -- ${dependency.url}
+                      div.space-y-1
+                        div.text-purple-400.font-medium.text-sm.sm:text-base -- Tag URL
+                        a.text-white.hover:text-purple-300.text-xs.sm:text-sm.break-all href=dependency.tar_url target="_blank" -- ${dependency.tar_url}
+                      div.flex.items-center.space-x-2
+                        span.text-amber-400.font-medium.text-sm.sm:text-base -- Commit
+                        code.bg-slate-800.px-2.py-1.rounded.text-xs.sm:text-sm.font-mono -- ${dependency.commit}
+
+          <!-- Dependents Section -->
+          if(repo.dependents && repo.dependents?.length > 0)
+            div.bg-slate-800.rounded-lg.sm:rounded-xl.p-3.sm:p-6.shadow-lg.sm:shadow-xl
+              h2.text-xl.sm:text-2xl.font-bold.mb-3.sm:mb-4.text-white.border-b.border-slate-600.pb-2 -- Dependents
+              div.grid.gap-3.sm:gap-4.grid-cols-1.md:grid-cols-2.lg:grid-cols-3
+                for|dependent| of=repo.dependents
+                  div.bg-slate-700.rounded-lg.p-3.sm:p-4.hover:bg-slate-600.transition-all.duration-300.transform.hover:scale-102
+                    a.text-white.hover:text-sky-300.text-sm.sm:text-base.break-all href=`/packages/${dependent}` -- ${dependent}
+
+          <!-- README Section -->
+          div.bg-slate-800.rounded-lg.sm:rounded-xl.p-3.sm:p-6.shadow-lg.sm:shadow-xl
+            h2.text-xl.sm:text-2xl.font-bold.mb-3.sm:mb-4.text-white.border-b.border-slate-600.pb-2 -- README
+            div.prose.prose-invert.max-w-none.readmeDiv.prose-sm.sm:prose-base
+              -- $!{repo.readme_content}
       else
-        h1 -- 404!
+        h1.text-3xl.sm:text-4xl.text-center.text-red-500 -- 404!
   @catch|_|
-    h1 -- 404!
+    h1.text-3xl.sm:text-4xl.text-center.text-red-500 -- 404!
 
 style {
   @import url("https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/styles/darkMode.css");
+
+  :root {
+    --content-width: 100%;
+    --max-content-width: 1400px;
+  }
+
+  .readmeDiv {
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 0.375rem;
+    }
+
+    pre {
+      overflow-x: auto;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  .prose-sm {
+    font-size: 0.875rem;
+    
+    code {
+      font-size: 0.75rem;
+    }
+    
+    pre {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .p-2 {
+      padding: 0.5rem;
+    }
+    
+    .space-y-2 > * + * {
+      margin-top: 0.5rem;
+    }
+    
+    .break-all {
+      word-break: break-all;
+    }
+  }
 }
