@@ -1,3 +1,0 @@
-[submodule "database"]
-	path = database
-	url = https://github.com/zigistry/database
