@@ -1,8 +1,10 @@
 import type { Repo } from "../libs/types_important";
 import { formatNumber } from "../libs/functions_important";
+import type { repofrom } from "../libs/types_important";
 export interface Input {
   Card_Details: Repo;
   section: string;
+  repo_from:repofrom;
 }
 
 div [
@@ -112,22 +114,47 @@ div [
         span class="me-2 flex w-min items-center justify-center space-x-3 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-900 dark:text-gray-300"
           -- fork
     if(input.section === "packages")
-      a [
-        href=("/packages/" + input.Card_Details.full_name)
-        type="button"
-        class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
-      ]
-        span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
-          -- View package
-    if(input.section === "programs")
-      if(input.Card_Details.gitlab && input.Card_Details.gitlab === 1)
+      if(input.Card_Details.repo_from === "gitlab")
         a [
-          href=("https://gitlab.com/" + input.Card_Details.full_name)
+          href=("/packages/" + input.Card_Details.full_name + "?repo_from=gitlab")
+          type="button"
+          class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+        ]
+          span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
+            -- View package (GitLab)
+      else-if(input.Card_Details.repo_from === "codeberg")
+        a [
+          href=("/packages/" + input.Card_Details.full_name + "?repo_from=codeberg")
+          type="button"
+          class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+        ]
+          span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
+            -- View package (codeberg)
+      else
+        a [
+          href=("/packages/" + input.Card_Details.full_name)
+          type="button"
+          class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+        ]
+          span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
+            -- View package
+    if(input.section === "programs")
+      if(input.Card_Details.repo_from === "gitlab")
+        a [
+          href=("/programs/" + input.Card_Details.full_name + "?repo_from=gitlab")
           type="button"
           class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
         ]
           span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
             -- View program (GitLab)
+      else-if(input.Card_Details.repo_from === "codeberg")
+        a [
+          href=("/programs/" + input.Card_Details.full_name + "?repo_from=codeberg")
+          type="button"
+          class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+        ]
+          span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
+            -- View program (codeberg)
       else
         a [
           href=("/programs/" + input.Card_Details.full_name)
@@ -137,23 +164,61 @@ div [
           span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
             -- View program
     if(input.section === "special-package")
-      a [
-        href=("https://github.com/" + input.Card_Details.full_name)
-        target="_blank"
-        type="button"
-        class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
-      ]
-        span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
-          -- View package on GitHub
+      if(input.Card_Details.repo_from === "gitlab")
+        a [
+          href=("https://gitlab.com/" + input.Card_Details.full_name)
+          target="_blank"
+          type="button"
+          class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+        ]
+          span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
+            -- View package on GitLab
+      else-if(input.Card_Details.repo_from === "codeberg")
+        a [
+          href=("https://codeberg.org/" + input.Card_Details.full_name)
+          target="_blank"
+          type="button"
+          class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+        ]
+          span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
+            -- View package on codeberg
+      else
+        a [
+          href=("https://github.com/" + input.Card_Details.full_name)
+          target="_blank"
+          type="button"
+          class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+        ]
+          span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
+            -- View package on GitHub
     if(input.section === "special-program")
-      a [
-        href=("https://github.com/" + input.Card_Details.full_name)
-        target="_blank"
-        type="button"
-        class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
-      ]
-        span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
-          -- View program on GitHub
+      if(input.Card_Details.repo_from === "gitlab")
+        a [
+          href=("https://gitlab.com/" + input.Card_Details.full_name)
+          target="_blank"
+          type="button"
+          class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+        ]
+          span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
+            -- View program on GitLab
+      else-if(input.Card_Details.repo_from === "codeberg")
+        a [
+          href=("https://codeberg.org/" + input.Card_Details.full_name)
+          target="_blank"
+          type="button"
+          class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+        ]
+          span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
+            -- View program on codeberg
+      else
+        a [
+          href=("https://github.com/" + input.Card_Details.full_name)
+          target="_blank"
+          type="button"
+          class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+        ]
+          span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
+            -- View program on GitHub
     if(input.section === "special-AI")
       a [
         href=("https://github.com/" + input.Card_Details.full_name)
@@ -162,4 +227,4 @@ div [
         class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
       ]
         span.flex.items-stretch.rounded-md.px-4.py-2.text-sm.transition-all.duration-200
-          -- View on GitHub
+          -- View

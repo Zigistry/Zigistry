@@ -1,5 +1,7 @@
 type DependencyType = "remote" | "system" | "local" | "unknown";
 
+export type repofrom = "github" | "gitlab" | "codeberg";
+
 interface Dependency {
   name: string;
   url: string;
@@ -39,5 +41,6 @@ export interface Repo {
   berg?: number;
   gitlab?: number;
   archived?: boolean;
-  dependents?:string[],
+  dependents?:string[];
+  repo_from:repofrom;
 }

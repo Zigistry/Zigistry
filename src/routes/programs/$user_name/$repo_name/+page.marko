@@ -1,15 +1,36 @@
 import database from "@database";
 import type { Repo } from "@types";
 import { convert2markdown } from "@functions";
+import type { repofrom } from "@types";
+
 import zon2json from "z2j";
 $ const repoPromise: Promise<{
   compressedRepo: Repo;
 }> = new Promise(async (resolve, reject) => {
   const { user_name, repo_name } = $global.params;
   const repoPath = `${user_name}/${repo_name}`;
-  var repository: Repo | undefined = database.programs.find(
-    (repo) => repo.full_name === repoPath,
-  );
+  const repositories:Repo[] = [...database.programs] as any as Repo[];
+  const repoSource: repofrom = $global.url.searchParams.get("repo_from") as repofrom;
+  let repository;
+
+  if (!repoSource) {
+    // GitHub repos (no repo_from attribute)
+    repository = repositories.find(
+      (repo) => repo.full_name === repoPath && repo.repo_from === "github",
+    );
+  } else if (repoSource === "gitlab") {
+    // GitLab repos
+    repository = repositories.find(
+      (repo) => repo.full_name === repoPath && repo.repo_from === "gitlab",
+    );
+  } else if (repoSource === "codeberg") {
+    // Codeberg repos
+    repository = repositories.find(
+      (repo) => repo.full_name === repoPath && repo.repo_from === "codeberg",
+    );
+  } else {
+    return reject("Error: Invalid repo_from value");
+  }
   if (!repository) {
     return reject("/404");
   }
@@ -33,8 +54,7 @@ $ const repoPromise: Promise<{
     dependents: repository.dependents,
     size: repository.size,
     fork: repository.fork,
-    berg: repository.berg,
-    gitlab: repository.gitlab,
+    repo_from: repository.repo_from,
     has_build_zig: repository.has_build_zig,
     has_build_zig_zon: repository.has_build_zig_zon,
     updated_at: repository.updated_at,
@@ -51,7 +71,7 @@ await(repoPromise) client-reorder timeout=100000000
     div class="min-h-screen p-2 sm:p-4 md:p-6 lg:p-8"
       if(repo.compressedRepo.contentIsCorrect)
         <!-- Program Card -->
-        custom_card section="special-program" Card_Details=repo.compressedRepo
+        custom_card section="special-program" Card_Details=repo.compressedRepo repo_from=repo.compressedRepo.repo_from
 
         div class="mt-4 sm:mt-8 space-y-4 sm:space-y-8"
           <!-- Dependencies Section -->

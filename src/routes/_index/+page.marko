@@ -222,7 +222,7 @@ div
 
       section.flex.w-full.flex-wrap.justify-evenly
         for|Card_Details| of=$top10LatestRepos
-          custom_card Card_Details=Card_Details section="packages"
+          custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from
 
       h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
         flowbite-star-solid [
@@ -237,31 +237,31 @@ div
 
       section.flex.w-full.flex-wrap.justify-evenly
         for|Card_Details| of=$mostUsed
-          custom_card Card_Details=Card_Details section="packages"
+          custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from
 
       h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
         game_icon
         -- &nbsp;Famous Game libs:
 
       section.flex.w-full.flex-wrap.justify-evenly
-        for|Card_Details| of=database.packages_games
-          custom_card Card_Details=Card_Details section="packages"
+        for|Card_Details| of=(database.packages_games as Repo[])
+          custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from
 
       h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
         gui_icon
         -- &nbsp;Famous GUI libs:
 
       section.flex.w-full.flex-wrap.justify-evenly
-        for|Card_Details| of=database.packages_gui
-          custom_card Card_Details=Card_Details section="packages"
+        for|Card_Details| of=(database.packages_games as Repo[])
+          custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from
 
       h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
         internet_icon
         -- &nbsp;Famous Web libs:
 
       section.flex.w-full.flex-wrap.justify-evenly
-        for|Card_Details| of=database.packages_web
-          custom_card Card_Details=Card_Details section="packages"
+        for|Card_Details| of=(database.packages_games as Repo[])
+          custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from
 
       h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
         internet_icon
@@ -448,7 +448,7 @@ div
         section.flex.w-full.flex-wrap.justify-evenly
           if(state.searchResults.length !== 0)
             for|Card_Details| of=state.searchResults
-              custom_card Card_Details=Card_Details section="packages"
+              custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from
           else
             h1.text-4xl -- Can't find what you are looking for.
 

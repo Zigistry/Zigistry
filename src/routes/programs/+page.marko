@@ -232,7 +232,7 @@ if(!state.showSearchResults)
 
     section.flex.w-full.flex-wrap.justify-evenly
       for|Card_Details| of=$top10LatestRepos
-        custom_card Card_Details=Card_Details section="programs"
+        custom_card Card_Details=Card_Details section="programs" repo_from=Card_Details.repo_from
 
     h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
       flowbite-star-solid [
@@ -247,7 +247,7 @@ if(!state.showSearchResults)
 
     section.flex.w-full.flex-wrap.justify-evenly
       for|Card_Details| of=$mostUsed
-        custom_card Card_Details=Card_Details section="programs"
+        custom_card Card_Details=Card_Details section="programs" repo_from=Card_Details.repo_from
 
     h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
       internet_icon

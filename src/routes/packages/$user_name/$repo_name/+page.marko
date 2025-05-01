@@ -1,5 +1,6 @@
 import database from "@database";
 import type { Repo } from "@types";
+import type { repofrom } from "@types";
 import { convert2markdown } from "@functions";
 import zon2json from "z2j";
 static const package_database: Repo[] = [
@@ -7,12 +8,33 @@ static const package_database: Repo[] = [
   ...database.packages_web,
   ...database.packages_games,
   ...database.packages_gui,
-];
+] as any as Repo[];
 $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
   const repositories = [...package_database];
   const { user_name, repo_name } = $global.params;
   const repoPath = `${user_name}/${repo_name}`;
-  const repository = repositories.find((repo) => repo.full_name === repoPath);
+
+  const repoSource: repofrom = $global.url.searchParams.get("repo_from") as repofrom;
+  let repository;
+
+  if (!repoSource) {
+    // GitHub repos (no repo_from attribute)
+    repository = repositories.find(
+      (repo) => repo.full_name === repoPath && repo.repo_from === "github",
+    );
+  } else if (repoSource === "gitlab") {
+    // GitLab repos
+    repository = repositories.find(
+      (repo) => repo.full_name === repoPath && repo.repo_from === "gitlab",
+    );
+  } else if (repoSource === "codeberg") {
+    // Codeberg repos
+    repository = repositories.find(
+      (repo) => repo.full_name === repoPath && repo.repo_from === "codeberg",
+    );
+  } else {
+    return reject("Error: Invalid repo_from value");
+  }
 
   if (!repository) {
     return reject("/404");
@@ -38,6 +60,7 @@ $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
     dependents: repository.dependents,
     size: repository.size,
     fork: repository.fork,
+    repo_from: repoSource,
     has_build_zig: repository.has_build_zig,
     has_build_zig_zon: repository.has_build_zig_zon,
     updated_at: repository.updated_at,
@@ -51,51 +74,73 @@ await(repoPromise) client-reorder timeout=100000000
       div.animate-pulse.text-xl -- Loading...
 
   @then|repo|
-    div.min-h-screen.p-2.sm:p-4.md:p-6.lg:p-8
+    div class="min-h-screen p-2 sm:p-4 md:p-6 lg:p-8"
       if(repo.contentIsCorrect)
         <!-- Package Card -->
-        custom_card section="special-package" Card_Details=repo
-        
-        div.mt-4.sm:mt-8.space-y-4.sm:space-y-8
+        custom_card section="special-package" Card_Details=repo repo_from=repo.repo_from
+
+        div class="mt-4 sm:mt-8 space-y-4 sm:space-y-8"
           <!-- Dependencies Section -->
           if(repo.dependencies && repo.dependencies?.length > 0)
-            div.bg-slate-800.rounded-lg.sm:rounded-xl.p-3.sm:p-6.shadow-lg.sm:shadow-xl
-              h2.text-xl.sm:text-2xl.font-bold.mb-3.sm:mb-4.text-white.border-b.border-slate-600.pb-2 -- Dependencies
-              div.grid.gap-3.sm:gap-4.grid-cols-1.md:grid-cols-2.lg:grid-cols-3
+            div class="bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"
+              h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-white border-b border-slate-600 pb-2"
+                -- Dependencies
+              div class="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
                 for|dependency| of=repo.dependencies
-                  div.bg-slate-700.rounded-lg.p-3.sm:p-4.hover:bg-slate-600.transition-all.duration-300.transform.hover:scale-102
-                    div.space-y-2.sm:space-y-3
-                      div.flex.items-center.space-x-2.text-sm.sm:text-base
+                  div class="bg-slate-700 rounded-lg p-3 sm:p-4 hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
+                    div class="space-y-2 sm:space-y-3"
+                      div class="flex items-center space-x-2 text-sm sm:text-base"
                         span.text-emerald-400.font-medium -- Name
-                        span.text-white -- ${dependency.type !== "remote" ? "./" : ""}${dependency.name}
+                        span.text-white
+                          --
+                          ${dependency.type !== "remote" ? "./" : ""}${dependency.name}
+                          --
                       div.space-y-1
-                        div.text-sky-400.font-medium.text-sm.sm:text-base -- URL
-                        a.text-white.hover:text-sky-300.text-xs.sm:text-sm.break-all href=dependency.url target="_blank" -- ${dependency.url}
+                        div class="text-sky-400 font-medium text-sm sm:text-base"
+                          -- URL
+                        a [
+                          href=dependency.url
+                          target="_blank"
+                          class="text-white hover:text-sky-300 text-xs sm:text-sm break-all"
+                        ]
+                          -- ${dependency.url}
                       div.space-y-1
-                        div.text-purple-400.font-medium.text-sm.sm:text-base -- Tag URL
-                        a.text-white.hover:text-purple-300.text-xs.sm:text-sm.break-all href=dependency.tar_url target="_blank" -- ${dependency.tar_url}
+                        div class="text-purple-400 font-medium text-sm sm:text-base"
+                          -- Tag URL
+                        a [
+                          href=dependency.tar_url
+                          target="_blank"
+                          class="text-white hover:text-purple-300 text-xs sm:text-sm break-all"
+                        ]
+                          -- ${dependency.tar_url}
                       div.flex.items-center.space-x-2
-                        span.text-amber-400.font-medium.text-sm.sm:text-base -- Commit
-                        code.bg-slate-800.px-2.py-1.rounded.text-xs.sm:text-sm.font-mono -- ${dependency.commit}
-
+                        span class="text-amber-400 font-medium text-sm sm:text-base"
+                          -- Commit
+                        code class="bg-slate-800 px-2 py-1 rounded text-xs sm:text-sm font-mono"
+                          -- ${dependency.commit}
           <!-- Dependents Section -->
           if(repo.dependents && repo.dependents?.length > 0)
-            div.bg-slate-800.rounded-lg.sm:rounded-xl.p-3.sm:p-6.shadow-lg.sm:shadow-xl
-              h2.text-xl.sm:text-2xl.font-bold.mb-3.sm:mb-4.text-white.border-b.border-slate-600.pb-2 -- Dependents
-              div.grid.gap-3.sm:gap-4.grid-cols-1.md:grid-cols-2.lg:grid-cols-3
+            div class="bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"
+              h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-white border-b border-slate-600 pb-2"
+                -- Dependents
+              div class="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
                 for|dependent| of=repo.dependents
-                  div.bg-slate-700.rounded-lg.p-3.sm:p-4.hover:bg-slate-600.transition-all.duration-300.transform.hover:scale-102
-                    a.text-white.hover:text-sky-300.text-sm.sm:text-base.break-all href=dependent -- ${dependent}
-
+                  div class="bg-slate-700 rounded-lg p-3 sm:p-4 hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
+                    a [
+                      href=dependent
+                      class="text-white hover:text-sky-300 text-sm sm:text-base break-all"
+                    ]
+                      -- ${dependent}
           <!-- README Section -->
-          div.bg-slate-800.rounded-lg.sm:rounded-xl.p-3.sm:p-6.shadow-lg.sm:shadow-xl
-            h2.text-xl.sm:text-2xl.font-bold.mb-3.sm:mb-4.text-white.border-b.border-slate-600.pb-2 -- README
-            div.prose.prose-invert.max-w-none.readmeDiv.prose-sm.sm:prose-base
+          div class="bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"
+            h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-white border-b border-slate-600 pb-2"
+              -- README
+            div class="prose prose-invert max-w-none readmeDiv prose-sm sm:prose-base"
               -- $!{repo.readme_content}
       else
-        h1.text-3xl.sm:text-4xl.text-center.text-red-500 -- 404!
+        h1 class="text-3xl sm:text-4xl text-center text-red-500" -- 404!
   @catch|_|
-    h1.text-3xl.sm:text-4xl.text-center.text-red-500 -- 404!
+    h1 class="text-3xl sm:text-4xl text-center text-red-500" -- 404!
 
 style {
   @import url("https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/styles/darkMode.css");
@@ -125,11 +170,11 @@ style {
 
   .prose-sm {
     font-size: 0.875rem;
-    
+
     code {
       font-size: 0.75rem;
     }
-    
+
     pre {
       font-size: 0.75rem;
     }
@@ -139,11 +184,11 @@ style {
     .p-2 {
       padding: 0.5rem;
     }
-    
+
     .space-y-2 > * + * {
       margin-top: 0.5rem;
     }
-    
+
     .break-all {
       word-break: break-all;
     }
