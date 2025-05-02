@@ -1,8 +1,7 @@
 import database from "@database";
 import type { Repo } from "@types";
-import type { repofrom } from "@types";
 import { convert2markdown } from "@functions";
-import zon2json from "z2j";
+
 static const package_database: Repo[] = [
   ...database.packages,
   ...database.packages_web,
@@ -40,7 +39,7 @@ $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
   }
 
   const compressedRepo: Repo = {
-    contentIsCorrect: true,
+    content_is_correct: true,
     name: repository.name,
     full_name: repository.full_name,
     readme_content: await convert2markdown(repository.readme_content),
@@ -48,7 +47,6 @@ $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
     description: repository.description,
     tags_url: repository.tags_url,
     open_issues: repository.open_issues,
-    archived: repository.archived ? true : false,
     license: repository.license,
     stargazers_count: repository.stargazers_count,
     forks_count: repository.forks_count,
@@ -63,6 +61,8 @@ $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
     has_build_zig: repository.has_build_zig,
     has_build_zig_zon: repository.has_build_zig_zon,
     updated_at: repository.updated_at,
+    default_branch: repository.default_branch,
+    zig_minimum_version: repository.zig_minimum_version,
   };
   resolve(compressedRepo);
 });
@@ -74,7 +74,7 @@ await(repoPromise) client-reorder timeout=100000000
 
   @then|repo|
     div class="min-h-screen p-2 sm:p-4 md:p-6 lg:p-8"
-      if(repo.contentIsCorrect)
+      if(repo.content_is_correct)
         <!-- Package Card -->
         custom_card section="special-package" Card_Details=repo repo_from=repo.repo_from
 
@@ -86,37 +86,38 @@ await(repoPromise) client-reorder timeout=100000000
                 -- Dependencies
               div class="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
                 for|dependency| of=repo.dependencies
-                  div class="bg-slate-700 rounded-lg p-3 sm:p-4 hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
-                    div class="space-y-2 sm:space-y-3"
-                      div class="flex items-center space-x-2 text-sm sm:text-base"
-                        span.text-emerald-400.font-medium -- Name
-                        span.text-white
-                          --
-                          ${dependency.type !== "remote" ? "./" : ""}${dependency.name}
-                          --
-                      div.space-y-1
-                        div class="text-sky-400 font-medium text-sm sm:text-base"
-                          -- URL
-                        a [
-                          href=dependency.url
-                          target="_blank"
-                          class="text-white hover:text-sky-300 text-xs sm:text-sm break-all"
-                        ]
-                          -- ${dependency.url}
-                      div.space-y-1
-                        div class="text-purple-400 font-medium text-sm sm:text-base"
-                          -- Tag URL
-                        a [
-                          href=dependency.tar_url
-                          target="_blank"
-                          class="text-white hover:text-purple-300 text-xs sm:text-sm break-all"
-                        ]
-                          -- ${dependency.tar_url}
-                      div.flex.items-center.space-x-2
-                        span class="text-amber-400 font-medium text-sm sm:text-base"
-                          -- Commit
-                        code class="bg-slate-800 px-2 py-1 rounded text-xs sm:text-sm font-mono"
-                          -- ${dependency.commit}
+                  if (dependency)
+                    div class="bg-slate-700 rounded-lg p-3 sm:p-4 hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
+                      div class="space-y-2 sm:space-y-3"
+                        div class="flex items-center space-x-2 text-sm sm:text-base"
+                          span.text-emerald-400.font-medium -- Name
+                          span.text-white
+                            --
+                            ${dependency.type !== "remote" ? "./" : ""}${dependency.name}
+                            --
+                        div.space-y-1
+                          div class="text-sky-400 font-medium text-sm sm:text-base"
+                            -- URL
+                          a [
+                            href=dependency.url
+                            target="_blank"
+                            class="text-white hover:text-sky-300 text-xs sm:text-sm break-all"
+                          ]
+                            -- ${dependency.url}
+                        div.space-y-1
+                          div class="text-purple-400 font-medium text-sm sm:text-base"
+                            -- Tag URL
+                          a [
+                            href=dependency.tar_url
+                            target="_blank"
+                            class="text-white hover:text-purple-300 text-xs sm:text-sm break-all"
+                          ]
+                            -- ${dependency.tar_url}
+                        div.flex.items-center.space-x-2
+                          span class="text-amber-400 font-medium text-sm sm:text-base"
+                            -- Commit
+                          code class="bg-slate-800 px-2 py-1 rounded text-xs sm:text-sm font-mono"
+                            -- ${dependency.commit}
           <!-- Dependents Section -->
           if(repo.dependents && repo.dependents?.length > 0)
             div class="bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"

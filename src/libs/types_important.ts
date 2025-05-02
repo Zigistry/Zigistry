@@ -1,46 +1,37 @@
-type DependencyType = "remote" | "system" | "local" | "unknown";
+// type DependencyType = "remote" | "system" | "local" | "unknown";
 
-export type repofrom = "github" | "gitlab" | "codeberg";
-
-interface Dependency {
-  name: string;
-  url: string;
-  commit?: string;
-  tar_url?: string;
-  type?: DependencyType;
-}
-
-
-export interface deepSearchData {
-  [key: string]: string;
-}
+// export type repofrom = "github" | "gitlab" | "codeberg";
 
 export interface Repo {
-  avatar_url: string;
+  content_is_correct?: boolean;
+  avatar_url: string | null;
   name: string;
   full_name: string;
   created_at: string;
-  description: string | undefined | null;
-  default_branch?: string;
+  description?: string | null;
+  default_branch: string;
   open_issues: number;
   stargazers_count: number;
   forks_count: number;
   watchers_count: number;
-  contentIsCorrect?: boolean;
   tags_url: string;
   license: string;
-  readme_content: string;
-  specials?: string;
-  topics?: Array<string>;
+  topics?: (string)[] | null;
   size: number;
-  has_build_zig_zon?: boolean;
-  has_build_zig?: boolean;
   fork: boolean;
   updated_at: string;
-  dependencies?: Dependency[];
-  berg?: number;
-  gitlab?: number;
-  archived?: boolean;
-  dependents?:string[];
-  repo_from:repofrom;
+  has_build_zig: boolean;
+  has_build_zig_zon: boolean;
+  zig_minimum_version: string;
+  repo_from: string;
+  dependencies?: (DependenciesEntity | null)[] | null;
+  readme_content: string;
+  dependents?: (string | null)[] | null;
+}
+export interface DependenciesEntity {
+  name: string;
+  url: string;
+  commit?: string | null;
+  tar_url?: string | null;
+  type: string;
 }

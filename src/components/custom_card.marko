@@ -1,10 +1,9 @@
 import type { Repo } from "../libs/types_important";
 import { formatNumber } from "../libs/functions_important";
-import type { repofrom } from "../libs/types_important";
 export interface Input {
   Card_Details: Repo;
   section: string;
-  repo_from:repofrom;
+  repo_from: string;
 }
 
 div [
@@ -116,7 +115,9 @@ div [
     if(input.section === "packages")
       if(input.Card_Details.repo_from === "gitlab")
         a [
-          href=("/packages/" + input.repo_from + "/" + input.Card_Details.full_name)
+          href=(
+            "/packages/" + input.repo_from + "/" + input.Card_Details.full_name
+          )
           type="button"
           class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
         ]
@@ -124,7 +125,9 @@ div [
             -- View package (GitLab)
       else-if(input.Card_Details.repo_from === "codeberg")
         a [
-          href=("/packages/" + input.repo_from + "/" + input.Card_Details.full_name)
+          href=(
+            "/packages/" + input.repo_from + "/" + input.Card_Details.full_name
+          )
           type="button"
           class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
         ]
@@ -132,7 +135,9 @@ div [
             -- View package (codeberg)
       else
         a [
-          href=("/packages/" + input.repo_from + "/" + input.Card_Details.full_name)
+          href=(
+            "/packages/" + input.repo_from + "/" + input.Card_Details.full_name
+          )
           type="button"
           class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
         ]
@@ -141,7 +146,9 @@ div [
     if(input.section === "programs")
       if(input.Card_Details.repo_from === "gitlab")
         a [
-          href=("/programs/" + input.repo_from + "/" + input.Card_Details.full_name)
+          href=(
+            "/programs/" + input.repo_from + "/" + input.Card_Details.full_name
+          )
           type="button"
           class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
         ]
@@ -149,7 +156,9 @@ div [
             -- View program (GitLab)
       else-if(input.Card_Details.repo_from === "codeberg")
         a [
-          href=("/programs/" + input.repo_from + "/" + input.Card_Details.full_name)
+          href=(
+            "/programs/" + input.repo_from + "/" + input.Card_Details.full_name
+          )
           type="button"
           class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
         ]
@@ -157,7 +166,9 @@ div [
             -- View program (codeberg)
       else
         a [
-          href=("/programs/" + input.repo_from + "/" + input.Card_Details.full_name)
+          href=(
+            "/programs/" + input.repo_from + "/" + input.Card_Details.full_name
+          )
           type="button"
           class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:outline-none focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
         ]
