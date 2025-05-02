@@ -7,7 +7,7 @@ static const package_database: Repo[] = [
   ...database.packages_web,
   ...database.packages_games,
   ...database.packages_gui,
-] as any as Repo[];
+];
 $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
   const repositories = [...package_database];
   const { repo_from, user_name, repo_name } = $global.params;

@@ -6,7 +6,7 @@ $ const repoPromise: Promise<{
 }> = new Promise(async (resolve, reject) => {
   const { repo_from, user_name, repo_name } = $global.params;
   const repoPath = `${user_name}/${repo_name}`;
-  const repositories: Repo[] = [...database.programs] as Repo[];
+  const repositories: Repo[] = [...database.programs];
   let repository;
   if (repo_from === "github") {
     // GitHub repos (no repo_from attribute)
