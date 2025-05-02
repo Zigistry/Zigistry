@@ -7,23 +7,21 @@ import zon2json from "z2j";
 $ const repoPromise: Promise<{
   compressedRepo: Repo;
 }> = new Promise(async (resolve, reject) => {
-  const { user_name, repo_name } = $global.params;
+  const { repo_from, user_name, repo_name } = $global.params;
   const repoPath = `${user_name}/${repo_name}`;
   const repositories:Repo[] = [...database.programs] as any as Repo[];
-  const repoSource: repofrom = $global.url.searchParams.get("repo_from") as repofrom;
   let repository;
-
-  if (!repoSource) {
+  if (repo_from === "github") {
     // GitHub repos (no repo_from attribute)
     repository = repositories.find(
       (repo) => repo.full_name === repoPath && repo.repo_from === "github",
     );
-  } else if (repoSource === "gitlab") {
+  } else if (repo_from === "gitlab") {
     // GitLab repos
     repository = repositories.find(
       (repo) => repo.full_name === repoPath && repo.repo_from === "gitlab",
     );
-  } else if (repoSource === "codeberg") {
+  } else if (repo_from === "codeberg") {
     // Codeberg repos
     repository = repositories.find(
       (repo) => repo.full_name === repoPath && repo.repo_from === "codeberg",

@@ -434,7 +434,7 @@ else
       section.flex.w-full.flex-wrap.justify-evenly
         if(state.searchResults.length !== 0)
           for|Card_Details| of=state.searchResults
-            custom_card Card_Details=Card_Details section="programs"
+            custom_card Card_Details=Card_Details section="programs" repo_from=Card_Details.repo_from
         else
           h1.text-4xl -- Can't find what you are looking for.
 
