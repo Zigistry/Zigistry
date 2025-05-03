@@ -1,7 +1,3 @@
-// type DependencyType = "remote" | "system" | "local" | "unknown";
-
-// export type repofrom = "github" | "gitlab" | "codeberg";
-
 export interface Repo {
   content_is_correct?: boolean;
   avatar_url: string | null;
