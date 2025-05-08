@@ -1,7 +1,6 @@
 import database from "@database";
 import type { Repo } from "@types";
 import { convert2markdown } from "@functions";
-
 static const package_database: Repo[] = [
   ...database.packages,
   ...database.packages_web,
@@ -76,7 +75,11 @@ await(repoPromise) client-reorder timeout=100000000
     div class="min-h-screen p-2 sm:p-4 md:p-6 lg:p-8"
       if(repo.content_is_correct)
         <!-- Package Card -->
-        custom_card section="special-package" Card_Details=repo repo_from=repo.repo_from
+        custom_card [
+          section="special-package"
+          Card_Details=repo
+          repo_from=repo.repo_from
+        ]
 
         div class="mt-4 sm:mt-8 space-y-4 sm:space-y-8"
           <!-- Dependencies Section -->
@@ -86,7 +89,7 @@ await(repoPromise) client-reorder timeout=100000000
                 -- Dependencies
               div class="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
                 for|dependency| of=repo.dependencies
-                  if (dependency)
+                  if(dependency)
                     div class="bg-slate-700 rounded-lg p-3 sm:p-4 hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
                       div class="space-y-2 sm:space-y-3"
                         div class="flex items-center space-x-2 text-sm sm:text-base"
@@ -141,6 +144,19 @@ await(repoPromise) client-reorder timeout=100000000
         h1 class="text-3xl sm:text-4xl text-center text-red-500" -- 404!
   @catch|_|
     h1 class="text-3xl sm:text-4xl text-center text-red-500" -- 404!
+
+script type="module"
+  --
+  import { highlightElements as e } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25";
+  import { zig as n } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/zig.js";
+  import { bash as i } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/bash.js";
+  import { diff as t } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/diff.js";
+  e(n, "language-zig");
+  e(i, "language-bash");
+  e(i, "language-console");
+  e(i, "language-sh");
+  e(t, "language-diff");
+  --
 
 style {
   @import url("https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/styles/darkMode.css");

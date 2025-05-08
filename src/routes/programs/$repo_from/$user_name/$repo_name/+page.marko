@@ -1,6 +1,8 @@
 import database from "@database";
 import type { Repo } from "@types";
 import { convert2markdown } from "@functions";
+import { highlightElements, zig, bash, diff } from "zilite";
+
 $ const repoPromise: Promise<{
   compressedRepo: Repo;
 }> = new Promise(async (resolve, reject) => {
@@ -140,8 +142,14 @@ await(repoPromise) client-reorder timeout=100000000
               -- $!{repo.compressedRepo.readme_content}
       else
         h1 class="text-3xl sm:text-4xl text-center text-red-500" -- 404!
+      
   @catch|_|
     h1 class="text-3xl sm:text-4xl text-center text-red-500" -- 404!
+
+script type="module"
+  --
+  import {highlightElements as e} from"https://cdn.jsdelivr.net/npm/zilite@0.0.25";import{zig as n}from"https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/zig.js";import{bash as i}from"https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/bash.js";import{diff as t}from"https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/diff.js";e(n,"language-zig"),e(i,"language-bash"),e(i,"language-console"),e(i,"language-sh"),e(t,"language-diff");
+  --
 
 style {
   @import url("https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/styles/darkMode.css");

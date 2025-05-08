@@ -33,7 +33,7 @@ div [
         : "No description provided."}
       --
     div.flex.items-center
-      flowbite-star-solid [
+      svg [
         class="mr-1 text-[#cfbc0e]"
         stroke="currentColor"
         fill="currentColor"
@@ -43,8 +43,9 @@ div [
         height="20"
         width="20"
       ]
+        use href="#icon-star"
       -- ${formatNumber(input.Card_Details.stargazers_count)}
-      flowbite-eye-solid [
+      svg [
         class="ml-2 mr-1 text-[skyblue]"
         stroke="currentColor"
         fill="currentColor"
@@ -54,8 +55,9 @@ div [
         height="20"
         width="20"
       ]
+        use href="#icon-eye"
       -- ${formatNumber(input.Card_Details.watchers_count)}
-      flowbite-code-fork-solid [
+      svg [
         class="ml-2 mr-1 text-[lightpink]"
         stroke="currentColor"
         fill="currentColor"
@@ -65,8 +67,9 @@ div [
         height="20"
         width="20"
       ]
+        use href="#icon-fork"
       -- ${formatNumber(input.Card_Details.forks_count)}
-      flowbite-check-circle-solid [
+      svg [
         class="ml-2 mr-1 text-[lightgreen]"
         stroke="currentColor"
         fill="currentColor"
@@ -76,8 +79,9 @@ div [
         height="18"
         width="18"
       ]
+        use href="#icon-check"
       -- ${formatNumber(input.Card_Details.open_issues)}
-      flowbite-info-circle-solid [
+      svg [
         class="ml-2 mr-1 text-[darkorange]"
         stroke="currentColor"
         fill="currentColor"
@@ -87,6 +91,7 @@ div [
         height="18"
         width="18"
       ]
+        use href="#icon-info"
       div.w-fit data-testid="flowbite-tooltip-target"
         -- ${input.Card_Details.topics ? input.Card_Details.topics.length : 0}
       div [
