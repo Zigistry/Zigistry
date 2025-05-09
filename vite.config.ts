@@ -39,7 +39,6 @@ export default defineConfig({
     alias: {
       "@functions": path.resolve(__dirname, "./src/libs/functions_important"),
       "@types": path.resolve(__dirname, "./src/libs/types_important"),
-      "@database": path.resolve(__dirname, "./database/ts_export"),
     },
   },
   plugins: [

@@ -1,4 +1,5 @@
-import database from "@database";
+import programs from "../../../../../../database/database/programs.json";
+
 import type { Repo } from "@types";
 import { convert2markdown } from "@functions";
 
@@ -7,7 +8,7 @@ $ const repoPromise: Promise<{
 }> = new Promise(async (resolve, reject) => {
   const { repo_from, user_name, repo_name } = $global.params;
   const repoPath = `${user_name}/${repo_name}`;
-  const repositories: Repo[] = [...database.programs];
+  const repositories: Repo[] = [...programs];
   let repository;
   if (repo_from === "github") {
     // GitHub repos (no repo_from attribute)

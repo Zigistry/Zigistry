@@ -1,4 +1,7 @@
-import database from "@database";
+import packages from "../../../database/database/packages.json";
+import packages_web from "../../../database/database/web.json";
+import packages_gui from "../../../database/database/gui.json";
+import packages_games from "../../../database/database/games.json";
 import type { Repo } from "@types";
 class {
   declare state: {
@@ -136,13 +139,13 @@ class {
   }
 }
 static const $mostUsed: Repo[] = (
-  database.packages
+  packages
     .slice()
     .sort((a, b) => b.stargazers_count - a.stargazers_count)
     .slice(0, 10)
 );
 static const $sortedRepos: Repo[] = (
-  database.packages
+  packages
     .slice()
     .sort(
       (a, b) =>
@@ -222,7 +225,7 @@ div
 
       section.flex.w-full.flex-wrap.justify-evenly
         for|Card_Details| of=$top10LatestRepos
-          custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from
+          custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from no-update
 
       h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
         flowbite-star-solid [
@@ -237,31 +240,31 @@ div
 
       section.flex.w-full.flex-wrap.justify-evenly
         for|Card_Details| of=$mostUsed
-          custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from
+          custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from no-update
 
       h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
         game_icon
         -- &nbsp;Famous Game libs:
 
       section.flex.w-full.flex-wrap.justify-evenly
-        for|Card_Details| of=(database.packages_games)
-          custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from
+        for|Card_Details| of=(packages_games)
+          custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from no-update
 
       h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
         gui_icon
         -- &nbsp;Famous GUI libs:
 
       section.flex.w-full.flex-wrap.justify-evenly
-        for|Card_Details| of=(database.packages_gui)
-          custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from
+        for|Card_Details| of=(packages_gui)
+          custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from no-update
 
       h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
         internet_icon
         -- &nbsp;Famous Web libs:
 
       section.flex.w-full.flex-wrap.justify-evenly
-        for|Card_Details| of=(database.packages_web)
-          custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from
+        for|Card_Details| of=(packages_web)
+          custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from no-update
 
       h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
         internet_icon
@@ -448,7 +451,7 @@ div
         section.flex.w-full.flex-wrap.justify-evenly
           if(state.searchResults.length !== 0)
             for|Card_Details| of=state.searchResults
-              custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from
+              custom_card Card_Details=Card_Details section="packages" repo_from=Card_Details.repo_from no-update
           else
             h1.text-4xl -- Can't find what you are looking for.
 
