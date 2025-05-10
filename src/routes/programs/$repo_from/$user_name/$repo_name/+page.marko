@@ -1,8 +1,6 @@
 import programs from "../../../../../../database/database/programs.json";
-
 import type { Repo } from "@types";
 import { convert2markdown } from "@functions";
-
 $ const repoPromise: Promise<{
   compressedRepo: Repo;
 }> = new Promise(async (resolve, reject) => {
@@ -71,8 +69,21 @@ await(repoPromise) client-reorder timeout=100000000
         <!-- Program Card -->
         custom_card [
           section="special-program"
-          Card_Details=repo.compressedRepo
           repo_from=(repo.compressedRepo.repo_from)
+          avatar_url=(repo.compressedRepo.avatar_url)
+          description=(repo.compressedRepo.description)
+          name=(repo.compressedRepo.name)
+          stargazers_count=(repo.compressedRepo.stargazers_count)
+          forks_count=(repo.compressedRepo.forks_count)
+          open_issues=(repo.compressedRepo.open_issues)
+          fork=(repo.compressedRepo.fork)
+          full_name=(repo.compressedRepo.full_name)
+          has_build_zig=(repo.compressedRepo.has_build_zig)
+          has_build_zig_zon=(repo.compressedRepo.has_build_zig_zon)
+          license=(repo.compressedRepo.license)
+          watchers_count=(repo.compressedRepo.watchers_count)
+          topics=(repo.compressedRepo.topics)
+          no-update
         ]
 
         div class="mt-4 sm:mt-8 space-y-4 sm:space-y-8"
@@ -142,13 +153,21 @@ await(repoPromise) client-reorder timeout=100000000
               -- $!{repo.compressedRepo.readme_content}
       else
         h1 class="text-3xl sm:text-4xl text-center text-red-500" -- 404!
-      
+
   @catch|_|
     h1 class="text-3xl sm:text-4xl text-center text-red-500" -- 404!
 
 script type="module"
   --
-  import {highlightElements as e} from"https://cdn.jsdelivr.net/npm/zilite@0.0.25";import{zig as n}from"https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/zig.js";import{bash as i}from"https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/bash.js";import{diff as t}from"https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/diff.js";e(n,"language-zig"),e(i,"language-bash"),e(i,"language-console"),e(i,"language-sh"),e(t,"language-diff");
+  import { highlightElements as e } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25";
+  import { zig as n } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/zig.js";
+  import { bash as i } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/bash.js";
+  import { diff as t } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/diff.js";
+  e(n, "language-zig"),
+    e(i, "language-bash"),
+    e(i, "language-console"),
+    e(i, "language-sh"),
+    e(t, "language-diff");
   --
 
 style {

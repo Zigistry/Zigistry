@@ -80,8 +80,21 @@ await(repoPromise) client-reorder timeout=100000000
         <!-- Package Card -->
         custom_card [
           section="special-package"
-          Card_Details=repo
           repo_from=repo.repo_from
+          avatar_url=repo.avatar_url
+          description=repo.description
+          name=repo.name
+          stargazers_count=repo.stargazers_count
+          forks_count=repo.forks_count
+          open_issues=repo.open_issues
+          fork=repo.fork
+          full_name=repo.full_name
+          has_build_zig=repo.has_build_zig
+          has_build_zig_zon=repo.has_build_zig_zon
+          license=repo.license
+          watchers_count=repo.watchers_count
+          topics=repo.topics
+          no-update
         ]
 
         div class="mt-4 sm:mt-8 space-y-4 sm:space-y-8"

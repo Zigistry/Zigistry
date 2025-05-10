@@ -59,6 +59,7 @@ div class="flex min-h-screen flex-col bg-gray-50 dark:bg-[#1e1e1e]"
     div class="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8"
         // Header Section
 
+
         div.mb-10.text-center
             div.mb-4.flex-wrap.justify-center.gap-3
                 h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl"
@@ -70,6 +71,7 @@ div class="flex min-h-screen flex-col bg-gray-50 dark:bg-[#1e1e1e]"
                 Search through thousands of repositories using advanced AI algorithms
                 --
         // Search Box Section
+
 
         div.relative.mx-auto.mb-12.max-w-3xl
             div.pointer-events-none.absolute.inset-y-0.left-0.flex.items-center.pl-3
@@ -92,13 +94,16 @@ div class="flex min-h-screen flex-col bg-gray-50 dark:bg-[#1e1e1e]"
             ]
         // Loading State
 
+
         if(state.isLoading)
             div.my-8.flex.justify-center
                 div class="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-gray-900 dark:border-white"
         // Results Section
 
+
         div class="grid grid-cols-1 gap-8 lg:grid-cols-2"
             // Packages Column
+
 
             div.space-y-4
                 div.mb-6.flex.items-center.justify-between
@@ -113,8 +118,21 @@ div class="flex min-h-screen flex-col bg-gray-50 dark:bg-[#1e1e1e]"
                         for|repo| of=state.packageResults
                             custom_card [
                                 section="special-AI"
-                                Card_Details=repo
                                 repo_from=repo.repo_from
+                                avatar_url=repo.avatar_url
+                                description=repo.description
+                                name=repo.name
+                                stargazers_count=repo.stargazers_count
+                                forks_count=repo.forks_count
+                                open_issues=repo.open_issues
+                                fork=repo.fork
+                                full_name=repo.full_name
+                                has_build_zig=repo.has_build_zig
+                                has_build_zig_zon=repo.has_build_zig_zon
+                                license=repo.license
+                                watchers_count=repo.watchers_count
+                                topics=repo.topics
+                                no-update
                             ]
                     else
                         div class="rounded-xl bg-white px-4 py-8 text-center shadow-sm dark:bg-gray-800/50"
@@ -123,6 +141,7 @@ div class="flex min-h-screen flex-col bg-gray-50 dark:bg-[#1e1e1e]"
                             p class="mt-2 text-gray-500 dark:text-gray-400"
                                 -- Try different search terms
             // Programs Column
+
 
             div.space-y-4
                 div.mb-6.flex.items-center.justify-between
@@ -137,8 +156,21 @@ div class="flex min-h-screen flex-col bg-gray-50 dark:bg-[#1e1e1e]"
                         for|repo| of=state.programResults
                             custom_card [
                                 section="special-AI"
-                                Card_Details=repo
                                 repo_from=repo.repo_from
+                                avatar_url=repo.avatar_url
+                                description=repo.description
+                                name=repo.name
+                                stargazers_count=repo.stargazers_count
+                                forks_count=repo.forks_count
+                                open_issues=repo.open_issues
+                                fork=repo.fork
+                                full_name=repo.full_name
+                                has_build_zig=repo.has_build_zig
+                                has_build_zig_zon=repo.has_build_zig_zon
+                                license=repo.license
+                                watchers_count=repo.watchers_count
+                                topics=repo.topics
+                                no-update
                             ]
                     else
                         div class="rounded-xl bg-white px-4 py-8 text-center shadow-sm dark:bg-gray-800/50"

@@ -28,13 +28,17 @@ class {
   }
   load_more() {
     if (this.state.input == "packages") {
-      fetch(`https://zigistry-api.hf.space/api/infiniteScrollPackages?pageNumber=${this.state.page}`)
+      fetch(
+        `https://zigistry-api.hf.space/api/infiniteScrollPackages?pageNumber=${this.state.page}`,
+      )
         .then((x) => x.json())
         .then((y) => {
           this.state.repo_list = [...this.state.repo_list, ...y];
         });
     } else {
-      fetch(`https://zigistry-api.hf.space/api/infiniteScrollPrograms?pageNumber=${this.state.page}`)
+      fetch(
+        `https://zigistry-api.hf.space/api/infiniteScrollPrograms?pageNumber=${this.state.page}`,
+      )
         .then((x) => x.json())
         .then((y) => {
           this.state.repo_list = [...this.state.repo_list, ...y];
@@ -45,5 +49,22 @@ class {
 }
 
 for|Card_Details| of=state.repo_list
-  custom_card Card_Details=Card_Details section=state.input repo_from=Card_Details.repo_from
+  custom_card [
+    section=state.input
+    repo_from=Card_Details.repo_from
+    avatar_url=Card_Details.avatar_url
+    description=Card_Details.description
+    name=Card_Details.name
+    stargazers_count=Card_Details.stargazers_count
+    forks_count=Card_Details.forks_count
+    open_issues=Card_Details.open_issues
+    fork=Card_Details.fork
+    full_name=Card_Details.full_name
+    has_build_zig=Card_Details.has_build_zig
+    has_build_zig_zon=Card_Details.has_build_zig_zon
+    license=Card_Details.license
+    watchers_count=Card_Details.watchers_count
+    topics=Card_Details.topics
+    no-update
+  ]
 h1.white#checker -- Loading more...

@@ -232,7 +232,24 @@ if(!state.showSearchResults)
 
     section.flex.w-full.flex-wrap.justify-evenly
       for|Card_Details| of=$top10LatestRepos
-        custom_card Card_Details=Card_Details section="programs" repo_from=Card_Details.repo_from
+        custom_card [
+          section="programs"
+          repo_from=Card_Details.repo_from
+          avatar_url=Card_Details.avatar_url
+          description=Card_Details.description
+          name=Card_Details.name
+          stargazers_count=Card_Details.stargazers_count
+          forks_count=Card_Details.forks_count
+          open_issues=Card_Details.open_issues
+          fork=Card_Details.fork
+          full_name=Card_Details.full_name
+          has_build_zig=Card_Details.has_build_zig
+          has_build_zig_zon=Card_Details.has_build_zig_zon
+          license=Card_Details.license
+          watchers_count=Card_Details.watchers_count
+          topics=Card_Details.topics
+          no-update
+        ]
 
     h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
       flowbite-star-solid [
@@ -247,7 +264,24 @@ if(!state.showSearchResults)
 
     section.flex.w-full.flex-wrap.justify-evenly
       for|Card_Details| of=$mostUsed
-        custom_card Card_Details=Card_Details section="programs" repo_from=Card_Details.repo_from
+        custom_card [
+          section="programs"
+          repo_from=Card_Details.repo_from
+          avatar_url=Card_Details.avatar_url
+          description=Card_Details.description
+          name=Card_Details.name
+          stargazers_count=Card_Details.stargazers_count
+          forks_count=Card_Details.forks_count
+          open_issues=Card_Details.open_issues
+          fork=Card_Details.fork
+          full_name=Card_Details.full_name
+          has_build_zig=Card_Details.has_build_zig
+          has_build_zig_zon=Card_Details.has_build_zig_zon
+          license=Card_Details.license
+          watchers_count=Card_Details.watchers_count
+          topics=Card_Details.topics
+          no-update
+        ]
 
     h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
       internet_icon
@@ -434,7 +468,24 @@ else
       section.flex.w-full.flex-wrap.justify-evenly
         if(state.searchResults.length !== 0)
           for|Card_Details| of=state.searchResults
-            custom_card Card_Details=Card_Details section="programs" repo_from=Card_Details.repo_from
+            custom_card [
+              section="programs"
+              repo_from=Card_Details.repo_from
+              avatar_url=Card_Details.avatar_url
+              description=Card_Details.description
+              name=Card_Details.name
+              stargazers_count=Card_Details.stargazers_count
+              forks_count=Card_Details.forks_count
+              open_issues=Card_Details.open_issues
+              fork=Card_Details.fork
+              full_name=Card_Details.full_name
+              has_build_zig=Card_Details.has_build_zig
+              has_build_zig_zon=Card_Details.has_build_zig_zon
+              license=Card_Details.license
+              watchers_count=Card_Details.watchers_count
+              topics=Card_Details.topics
+              no-update
+            ]
         else
           h1.text-4xl -- Can't find what you are looking for.
 
