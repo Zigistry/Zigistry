@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 * * * *' # Runs every hour
+    - cron: "0 * * * *" # Runs every hour
 
 jobs:
   update-submodule:
@@ -23,7 +23,7 @@ jobs:
           git reset --hard origin/main
           cd ..
           git add database
-          
+
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"

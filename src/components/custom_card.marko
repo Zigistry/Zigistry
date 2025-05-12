@@ -22,7 +22,12 @@ div [
   class="z-0 my-2 flex w-72 transform-cpu flex-col rounded-lg border-0 border-gray-200 bg-white shadow-lg shadow-black transition-transform hover:z-10 hover:scale-110 dark:border-gray-700 dark:bg-[rgb(30,30,30)]"
 ]
   div.flex.h-full.flex-col.justify-center.gap-4.p-6
-    img.w-10.rounded-full src=input.avatar_url + "&size=60" alt="misshod" width="40" height="40"
+    img.w-10.rounded-full [
+      src=input.avatar_url + "&size=60"
+      alt="misshod"
+      width="40"
+      height="40"
+    ]
     span class="truncate text-2xl font-bold text-gray-900 dark:text-white"
       -- ${input.name}
     p.truncate.text-gray-400 -- ${input.full_name}

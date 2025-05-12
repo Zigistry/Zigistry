@@ -12,7 +12,7 @@ export interface Repo {
   watchers_count: number;
   tags_url: string;
   license: string;
-  topics?: (string)[] | null;
+  topics?: string[] | null;
   size: number;
   fork: boolean;
   updated_at: string;

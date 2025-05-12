@@ -10,7 +10,7 @@
     "baseUrl": "./",
     "paths": {
       "@types": ["src/libs/types_important"],
-      "@functions": ["src/libs/functions_important"],
+      "@functions": ["src/libs/functions_important"]
     },
     "resolveJsonModule": true
   }

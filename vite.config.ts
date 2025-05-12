@@ -11,20 +11,20 @@ function generatePaths() {
   const paths = [
     ...packagesData.map((pkg) => {
       if (pkg.repo_from === "github") {
-        return `/packages/github/${pkg.full_name}`
+        return `/packages/github/${pkg.full_name}`;
       } else if (pkg.repo_from === "gitlab") {
-        return `/packages/gitlab/${pkg.full_name}`
+        return `/packages/gitlab/${pkg.full_name}`;
       } else {
-        return `/packages/codeberg/${pkg.full_name}`
+        return `/packages/codeberg/${pkg.full_name}`;
       }
     }),
     ...programsData.map((program) => {
       if (program.repo_from === "github") {
-        return `/programs/github/${program.full_name}`
+        return `/programs/github/${program.full_name}`;
       } else if (program.repo_from === "gitlab") {
-        return `/programs/gitlab/${program.full_name}`
+        return `/programs/gitlab/${program.full_name}`;
       } else {
-        return `/programs/codeberg/${program.full_name}`
+        return `/programs/codeberg/${program.full_name}`;
       }
     }),
   ];

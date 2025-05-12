@@ -1,9 +1,7 @@
 import packages from "../../../../../../database/database/packages.json";
 import type { Repo } from "@types";
 import { convert2markdown } from "@functions";
-static const package_database: Repo[] = [
-  ...packages
-];
+static const package_database: Repo[] = [...packages];
 $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
   const repositories = [...package_database];
   const { repo_from, user_name, repo_name } = $global.params;
