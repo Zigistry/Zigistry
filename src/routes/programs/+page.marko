@@ -1,4 +1,4 @@
-import programs from "../../../database/database/programs.json";
+import programs from "../../../database/database/progams_details.json";
 import type { Repo } from "@types";
 class {
   declare state: {
@@ -144,22 +144,6 @@ class {
     }
   }
 }
-static const $mostUsed: Repo[] = (
-  // [...database.programs, ...database.programs_gitlab]
-  [...programs]
-    .sort((a, b) => b.stargazers_count - a.stargazers_count)
-    .slice(0, 10)
-);
-static const $sortedRepos: Repo[] = (
-  // [...database.programs, ...database.programs_gitlab]
-  [...programs]
-    .slice()
-    .sort(
-      (a, b) =>
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-    )
-);
-static const $top10LatestRepos: Repo[] = $sortedRepos.slice(0, 10);
 
 div
   div.flex.flex-col.items-center
@@ -231,7 +215,7 @@ if(!state.showSearchResults)
       span -- &nbsp;Recently released:
 
     section.flex.w-full.flex-wrap.justify-evenly
-      for|Card_Details| of=$top10LatestRepos
+      for|Card_Details| of=programs.top10latestrepos
         custom_card [
           section="programs"
           repo_from=Card_Details.repo_from
@@ -263,7 +247,7 @@ if(!state.showSearchResults)
       -- &nbsp;Most used:
 
     section.flex.w-full.flex-wrap.justify-evenly
-      for|Card_Details| of=$mostUsed
+      for|Card_Details| of=programs.mostused
         custom_card [
           section="programs"
           repo_from=Card_Details.repo_from
