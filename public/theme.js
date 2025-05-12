@@ -16,7 +16,7 @@ const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 const themeToggleBtn = document.getElementById('theme-toggle');
 
 // Initialize theme icons based on current setting
-(function initializeTheme() {
+(() => {
     let theme = localStorage.getItem('color-theme');
     if (!theme) {
         theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
