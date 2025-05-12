@@ -30,10 +30,10 @@
   "devDependencies": {
     "@eslint/js": "^9.26.0",
     "@gradio/client": "^1.14.2",
-    "@marko/run": "^0.5.17",
+    "@marko/run": "0.6.6",
     "@types/sanitize-html": "^2.16.0",
-    "@typescript-eslint/eslint-plugin": "^8.32.0",
-    "@typescript-eslint/parser": "^8.32.0",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.26.0",
     "postcss": "^8.5.3",
@@ -41,6 +41,6 @@
     "prettier-plugin-marko": "^3.1.12",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.32.0"
+    "typescript-eslint": "^8.32.1"
   }
 }

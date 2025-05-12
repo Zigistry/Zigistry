@@ -27,7 +27,7 @@ class {
       "search_box",
     ) as HTMLInputElement;
 
-    my_element.addEventListener("change", (event) => {
+    my_element.addEventListener("change", () => {
       const selectedValue = my_element.value;
       if (selectedValue === "No Filter") {
         this.state.showSearchResults = false;
