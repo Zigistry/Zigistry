@@ -1,7 +1,4 @@
-import packages from "../../../database/database/packages.json";
-import packages_web from "../../../database/database/web.json";
-import packages_gui from "../../../database/database/gui.json";
-import packages_games from "../../../database/database/games.json";
+import index_details from "../../../database/database/index_details.json"
 import type { Repo } from "@types";
 class {
   declare state: {
@@ -138,21 +135,6 @@ class {
     }
   }
 }
-static const $mostUsed: Repo[] = (
-  packages
-    .slice()
-    .sort((a, b) => b.stargazers_count - a.stargazers_count)
-    .slice(0, 10)
-);
-static const $sortedRepos: Repo[] = (
-  packages
-    .slice()
-    .sort(
-      (a, b) =>
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-    )
-);
-static const $top10LatestRepos: Repo[] = $sortedRepos.slice(0, 10);
 
 div
   div.flex.flex-col.items-center
@@ -224,7 +206,7 @@ div
         span -- &nbsp;Recently released:
 
       section.flex.w-full.flex-wrap.justify-evenly
-        for|Card_Details: Repo| of=$top10LatestRepos
+        for|Card_Details| of=index_details.top10latestrepos
           custom_card [
             section="packages"
             repo_from=Card_Details.repo_from
@@ -256,7 +238,7 @@ div
         -- &nbsp;Most used:
 
       section.flex.w-full.flex-wrap.justify-evenly
-        for|Card_Details: Repo| of=$mostUsed
+        for|Card_Details| of=index_details.mostused
           custom_card [
             section="packages"
             repo_from=Card_Details.repo_from
@@ -281,7 +263,7 @@ div
         -- &nbsp;Famous Game libs:
 
       section.flex.w-full.flex-wrap.justify-evenly
-        for|Card_Details: Repo| of=packages_games
+        for|Card_Details| of=index_details.games
           custom_card [
             section="packages"
             repo_from=Card_Details.repo_from
@@ -306,7 +288,7 @@ div
         -- &nbsp;Famous GUI libs:
 
       section.flex.w-full.flex-wrap.justify-evenly
-        for|Card_Details: Repo| of=packages_gui
+        for|Card_Details| of=index_details.gui
           custom_card [
             section="packages"
             repo_from=Card_Details.repo_from
@@ -331,7 +313,7 @@ div
         -- &nbsp;Famous Web libs:
 
       section.flex.w-full.flex-wrap.justify-evenly
-        for|Card_Details| of=packages_web
+        for|Card_Details| of=index_details.web
           custom_card [
             section="packages"
             repo_from=Card_Details.repo_from

@@ -1,14 +1,8 @@
 import packages from "../../../../../../database/database/packages.json";
-import packages_web from "../../../../../../database/database/web.json";
-import packages_gui from "../../../../../../database/database/gui.json";
-import packages_games from "../../../../../../database/database/games.json";
 import type { Repo } from "@types";
 import { convert2markdown } from "@functions";
 static const package_database: Repo[] = [
-  ...packages,
-  ...packages_web,
-  ...packages_games,
-  ...packages_gui,
+  ...packages
 ];
 $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
   const repositories = [...package_database];

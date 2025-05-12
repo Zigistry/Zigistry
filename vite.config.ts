@@ -3,12 +3,9 @@ import marko from "@marko/run/vite";
 import staticAdapter from "@marko/run-adapter-static";
 import pkgdata from "./database/database/packages.json";
 import programsData from "./database/database/programs.json";
-import games from "./database/database/games.json";
-import web from "./database/database/web.json";
-import gui from "./database/database/gui.json";
 import path from "path";
 
-const packagesData = [...pkgdata, ...games, ...web, ...gui];
+const packagesData = [...pkgdata];
 
 function generatePaths() {
   const paths = [
