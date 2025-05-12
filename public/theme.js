@@ -38,3 +38,19 @@ themeToggleBtn.addEventListener('click', function() {
     }
     
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const toggleBtn = document.querySelector('[data-collapse-toggle="navbar-default"]');
+  const navbar = document.getElementById("navbar-default");
+
+  if (!toggleBtn || !navbar) return;
+
+  toggleBtn.addEventListener("click", function () {
+    // Toggle visibility (you can use Tailwind's hidden/block if desired)
+    navbar.classList.toggle("hidden");
+
+    // Toggle aria-expanded attribute for accessibility
+    const expanded = toggleBtn.getAttribute("aria-expanded") === "true";
+    toggleBtn.setAttribute("aria-expanded", !expanded);
+  });
+});
