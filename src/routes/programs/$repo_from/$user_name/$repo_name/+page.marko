@@ -1,26 +1,22 @@
 import programs from "../../../../../../database/database/programs.json";
 import type { Repo } from "@types";
-
-$ const repoPromise: Promise<{
-  compressedRepo: Repo;
-}> = new Promise(async (resolve, reject) => {
+$ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
   const { repo_from, user_name, repo_name } = $global.params;
   const repoPath = `${user_name}/${repo_name}`;
-  const repositories: Repo[] = [...programs];
   let repository;
   if (repo_from === "github") {
     // GitHub repos (no repo_from attribute)
-    repository = repositories.find(
+    repository = programs.find(
       (repo) => repo.full_name === repoPath && repo.repo_from === "github",
     );
   } else if (repo_from === "gitlab") {
     // GitLab repos
-    repository = repositories.find(
+    repository = programs.find(
       (repo) => repo.full_name === repoPath && repo.repo_from === "gitlab",
     );
   } else if (repo_from === "codeberg") {
     // Codeberg repos
-    repository = repositories.find(
+    repository = programs.find(
       (repo) => repo.full_name === repoPath && repo.repo_from === "codeberg",
     );
   } else {
@@ -29,33 +25,7 @@ $ const repoPromise: Promise<{
   if (!repository) {
     return reject("/404");
   }
-  const compressedRepo: Repo = {
-    content_is_correct: true,
-    name: repository.name,
-    full_name: repository.full_name,
-    readme_content: repository.readme_content,
-    created_at: repository.created_at,
-    description: repository.description,
-    tags_url: repository.tags_url,
-    open_issues: repository.open_issues,
-    license: repository.license,
-    stargazers_count: repository.stargazers_count,
-    forks_count: repository.forks_count,
-    watchers_count: repository.watchers_count,
-    topics: repository.topics,
-    avatar_url: repository.avatar_url,
-    dependencies: repository.dependencies,
-    dependents: repository.dependents,
-    size: repository.size,
-    fork: repository.fork,
-    repo_from: repository.repo_from,
-    has_build_zig: repository.has_build_zig,
-    has_build_zig_zon: repository.has_build_zig_zon,
-    updated_at: repository.updated_at,
-    default_branch: repository.default_branch,
-    zig_minimum_version: repository.zig_minimum_version,
-  };
-  resolve({ compressedRepo: compressedRepo });
+  resolve(repository);
 });
 
 await(repoPromise) client-reorder timeout=100000000
@@ -65,95 +35,84 @@ await(repoPromise) client-reorder timeout=100000000
 
   @then|repo|
     div class="min-h-screen p-2 sm:p-4 md:p-6 lg:p-8"
-      if(repo.compressedRepo.content_is_correct)
-        <!-- Program Card -->
-        custom_card [
-          section="special-program"
-          repo_from=(repo.compressedRepo.repo_from)
-          avatar_url=(repo.compressedRepo.avatar_url)
-          description=(repo.compressedRepo.description)
-          name=(repo.compressedRepo.name)
-          stargazers_count=(repo.compressedRepo.stargazers_count)
-          forks_count=(repo.compressedRepo.forks_count)
-          open_issues=(repo.compressedRepo.open_issues)
-          fork=(repo.compressedRepo.fork)
-          full_name=(repo.compressedRepo.full_name)
-          has_build_zig=(repo.compressedRepo.has_build_zig)
-          has_build_zig_zon=(repo.compressedRepo.has_build_zig_zon)
-          license=(repo.compressedRepo.license)
-          watchers_count=(repo.compressedRepo.watchers_count)
-          topics=(repo.compressedRepo.topics)
-          no-update
-        ]
+      custom_card [
+        section="special-program"
+        repo_from=repo.repo_from
+        avatar_url=repo.avatar_url
+        description=repo.description
+        name=repo.name
+        stargazers_count=repo.stargazers_count
+        forks_count=repo.forks_count
+        open_issues=repo.open_issues
+        fork=repo.fork
+        full_name=repo.full_name
+        has_build_zig=repo.has_build_zig
+        has_build_zig_zon=repo.has_build_zig_zon
+        license=repo.license
+        watchers_count=repo.watchers_count
+        topics=repo.topics
+        no-update
+      ]
 
-        div class="mt-4 sm:mt-8 space-y-4 sm:space-y-8"
-          <!-- Dependencies Section -->
-          if(
-            repo.compressedRepo.dependencies &&
-            repo.compressedRepo.dependencies?.length > 0
-          )
-            div class="bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"
-              h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-white border-b border-slate-600 pb-2"
-                -- Dependencies
-              div class="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-                for|dependency| of=(repo.compressedRepo.dependencies)
-                  if(dependency)
-                    div class="bg-slate-700 rounded-lg p-3 sm:p-4 hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
-                      div class="space-y-2 sm:space-y-3"
-                        div class="flex items-center space-x-2 text-sm sm:text-base"
-                          span.text-emerald-400.font-medium -- Name
-                          span.text-white
-                            --
-                            ${dependency.type !== "remote" ? "./" : ""}${dependency.name}
-                            --
-                        div.space-y-1
-                          div class="text-sky-400 font-medium text-sm sm:text-base"
-                            -- URL
-                          a [
-                            href=dependency.url
-                            target="_blank"
-                            class="text-white hover:text-sky-300 text-xs sm:text-sm break-all"
-                          ]
-                            -- ${dependency.url}
-                        div.space-y-1
-                          div class="text-purple-400 font-medium text-sm sm:text-base"
-                            -- Tag URL
-                          a [
-                            href=dependency.tar_url
-                            target="_blank"
-                            class="text-white hover:text-purple-300 text-xs sm:text-sm break-all"
-                          ]
-                            -- ${dependency.tar_url}
-                        div.flex.items-center.space-x-2
-                          span class="text-amber-400 font-medium text-sm sm:text-base"
-                            -- Commit
-                          code class="bg-slate-800 px-2 py-1 rounded text-xs sm:text-sm font-mono"
-                            -- ${dependency.commit}
-          <!-- Dependents Section -->
-          if(
-            repo.compressedRepo.dependents &&
-            repo.compressedRepo.dependents?.length > 0
-          )
-            div class="bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"
-              h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-white border-b border-slate-600 pb-2"
-                -- Dependents
-              div class="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-                for|dependent| of=(repo.compressedRepo.dependents)
-                  div class="bg-slate-700 rounded-lg p-3 sm:p-4 hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
-                    a [
-                      href=dependent
-                      class="text-white hover:text-sky-300 text-sm sm:text-base break-all"
-                    ]
-                      -- ${dependent}
-          <!-- README Section -->
+      div class="mt-4 sm:mt-8 space-y-4 sm:space-y-8"
+        <!-- Dependencies Section -->
+        if(repo.dependencies && repo.dependencies?.length > 0)
           div class="bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"
             h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-white border-b border-slate-600 pb-2"
-              -- README
-            div class="prose prose-invert max-w-none readmeDiv prose-sm sm:prose-base"
-              -- $!{repo.compressedRepo.readme_content}
-      else
-        h1 class="text-3xl sm:text-4xl text-center text-red-500" -- 404!
-
+              -- Dependencies
+            div class="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+              for|dependency| of=repo.dependencies
+                if(dependency)
+                  div class="bg-slate-700 rounded-lg p-3 sm:p-4 hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
+                    div class="space-y-2 sm:space-y-3"
+                      div class="flex items-center space-x-2 text-sm sm:text-base"
+                        span.text-emerald-400.font-medium -- Name
+                        span.text-white
+                          --
+                          ${dependency.type !== "remote" ? "./" : ""}${dependency.name}
+                          --
+                      div.space-y-1
+                        div class="text-sky-400 font-medium text-sm sm:text-base"
+                          -- URL
+                        a [
+                          href=dependency.url
+                          target="_blank"
+                          class="text-white hover:text-sky-300 text-xs sm:text-sm break-all"
+                        ]
+                          -- ${dependency.url}
+                      div.space-y-1
+                        div class="text-purple-400 font-medium text-sm sm:text-base"
+                          -- Tag URL
+                        a [
+                          href=dependency.tar_url
+                          target="_blank"
+                          class="text-white hover:text-purple-300 text-xs sm:text-sm break-all"
+                        ]
+                          -- ${dependency.tar_url}
+                      div.flex.items-center.space-x-2
+                        span class="text-amber-400 font-medium text-sm sm:text-base"
+                          -- Commit
+                        code class="bg-slate-800 px-2 py-1 rounded text-xs sm:text-sm font-mono"
+                          -- ${dependency.commit}
+        <!-- Dependents Section -->
+        if(repo.dependents && repo.dependents?.length > 0)
+          div class="bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"
+            h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-white border-b border-slate-600 pb-2"
+              -- Dependents
+            div class="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+              for|dependent| of=repo.dependents
+                div class="bg-slate-700 rounded-lg p-3 sm:p-4 hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
+                  a [
+                    href=dependent
+                    class="text-white hover:text-sky-300 text-sm sm:text-base break-all"
+                  ]
+                    -- ${dependent}
+        <!-- README Section -->
+        div class="bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"
+          h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-white border-b border-slate-600 pb-2"
+            -- README
+          div class="prose prose-invert max-w-none readmeDiv prose-sm sm:prose-base"
+            -- $!{repo.readme_content}
   @catch|_|
     h1 class="text-3xl sm:text-4xl text-center text-red-500" -- 404!
 
