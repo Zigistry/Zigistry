@@ -1,6 +1,5 @@
 import packages from "../../../../../../database/database/packages.json";
 import type { Repo } from "@types";
-import { convert2markdown } from "@functions";
 static const package_database: Repo[] = [...packages];
 $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
   const repositories = [...package_database];
@@ -36,7 +35,7 @@ $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
     content_is_correct: true,
     name: repository.name,
     full_name: repository.full_name,
-    readme_content: await convert2markdown(repository.readme_content),
+    readme_content: repository.readme_content,
     created_at: repository.created_at,
     description: repository.description,
     tags_url: repository.tags_url,

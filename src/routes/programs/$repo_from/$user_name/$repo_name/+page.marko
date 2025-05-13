@@ -1,6 +1,6 @@
 import programs from "../../../../../../database/database/programs.json";
 import type { Repo } from "@types";
-import { convert2markdown } from "@functions";
+
 $ const repoPromise: Promise<{
   compressedRepo: Repo;
 }> = new Promise(async (resolve, reject) => {
@@ -33,7 +33,7 @@ $ const repoPromise: Promise<{
     content_is_correct: true,
     name: repository.name,
     full_name: repository.full_name,
-    readme_content: await convert2markdown(repository.readme_content),
+    readme_content: repository.readme_content,
     created_at: repository.created_at,
     description: repository.description,
     tags_url: repository.tags_url,

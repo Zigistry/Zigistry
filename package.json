@@ -15,9 +15,7 @@
     "@marko/run-adapter-static": "^0.2.1",
     "@types/node": "^22.15.17",
     "flowbite-icons-marko": "0.0.6",
-    "marked": "^15.0.11",
     "marko": "^5.37.30",
-    "sanitize-html": "^2.16.0",
     "vite": "^6.3.5",
     "z2j": "^0.0.48",
     "zilite": "^0.0.4"
