@@ -23,7 +23,7 @@ div [
 ]
   div.flex.h-full.flex-col.justify-center.gap-4.p-6
     img.w-10.rounded-full [
-      src=input.avatar_url + "&size=60"
+      src=input.avatar_url + (input.repo_from === "github" ? "&size=60" : "")
       alt="misshod"
       width="40"
       height="40"
