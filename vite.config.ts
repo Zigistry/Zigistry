@@ -40,7 +40,7 @@ const generatedPaths = (() => {
         return `/programs/codeberg/${program.full_name}`;
       }
     }),
-    ...staticPaths
+    ...staticPaths,
   ];
   return paths;
 })();
@@ -62,7 +62,6 @@ const createSiteMap = () => {
   }
   fs.writeFileSync(path.join(outputDir, "sitemap.xml"), sitemap.trim());
 };
-
 
 export default defineConfig({
   resolve: {

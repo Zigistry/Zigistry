@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
         dropdownToggle.addEventListener("click", function (e) {
             e.stopPropagation();
             dropdownMenu.classList.toggle("hidden");
+            dropdownMenu.classList.toggle("absolute");
         });
 
         // Hide dropdown if clicking outside

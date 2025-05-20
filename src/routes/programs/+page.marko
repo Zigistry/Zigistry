@@ -147,7 +147,7 @@ class {
 
 div
   div.flex.flex-col.items-center
-    div class="rounded-lg sm:m-5 sm:p-5 sm:shadow-lg sm:shadow-black"
+    div class="searchArea rounded-lg sm:m-5 sm:p-5 sm:shadow-lg sm:shadow-black"
       h1.my-5.text-center.text-2xl.font-semibold -- Search Ziglang Programs
       div.flex
         div.w-fit data-testid="flowbite-tooltip-target"
@@ -271,8 +271,7 @@ if(!state.showSearchResults)
       internet_icon
       -- &nbsp;View More:
 
-    section.flex.w-full.flex-wrap.justify-evenly
-      infinite_scroll section="programs"
+    infinite_scroll section="programs"
 
 else
   div.relative
@@ -478,10 +477,6 @@ style {
     -webkit-appearance: none;
     -moz-appearance: none;
     background-image: none;
-  }
-
-  .sidebar-transition {
-    transition: transform 0.3s ease-in-out;
   }
 
   @media (max-width: 768px) {
