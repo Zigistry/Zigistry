@@ -367,7 +367,7 @@ style {
     background-color: rgb(125, 178, 230);
   }
 
-  .readmeDiv > table {
+  .readmeDiv table {
     display: block;
     overflow-x: auto;
     white-space: nowrap;
@@ -379,19 +379,19 @@ style {
     font-weight: 700;
   }
 
-  .readmeDiv > h1 {
+  .readmeDiv h1 {
     font-size: 40px;
   }
 
-  .readmeDiv > h2 {
+  .readmeDiv h2 {
     font-size: 35px;
   }
 
-  .readmeDiv > h3 {
+  .readmeDiv h3 {
     font-size: 30px;
   }
 
-  .readmeDiv > pre {
+  .readmeDiv pre {
     padding: 20px !important;
     overflow-x: scroll;
     color: yellow;
@@ -400,16 +400,7 @@ style {
     background-color: rgb(40, 40, 40) !important;
   }
 
-  .readmeDiv > * > pre {
-    padding: 20px !important;
-    overflow-x: scroll;
-    color: yellow;
-    border-radius: 10px !important;
-    border: solid rgb(40, 40, 40) 2px;
-    background-color: rgb(40, 40, 40) !important;
-  }
-
-  .readmeDiv > p {
+  .readmeDiv p {
     padding: 5px 5px 5px 0 !important;
   }
 
@@ -425,15 +416,34 @@ style {
     height: fit-content !important;
   }
 
-  .readmeDiv > table,
+  html .readmeDiv table,
   th,
   td {
-    border: 1px solid white !important;
     padding: 5px !important;
+    border: 2px solid black;
+    width: fit-content;
   }
 
-  .api_section {
+  html.dark .readmeDiv table,
+  th,
+  td {
+    padding: 5px !important;
+    border: 2px solid rgb(151, 187, 203);
+    width: fit-content;
+  }
+
+  html.dark .api_section {
     background-color: #2a3038;
+    border: 2px solid #373f49;
+    padding: 10px;
+    margin: 0 0 40px 0 !important;
+    border-radius: 10px;
+    overflow-x: scroll;
+    word-break: break-all;
+  }
+
+  html .api_section {
+    background-color: #a3d2f3;
     border: 2px solid #373f49;
     padding: 10px;
     margin: 0 0 40px 0 !important;
