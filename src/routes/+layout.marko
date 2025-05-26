@@ -486,7 +486,9 @@ style {
     animation: fadeIn 0.4s ease-out;
   }
 
-  aside {
-    animation: fadesideSidebar 0.4s ease-out;
+  @media (min-width: 768px) {
+    aside {
+      animation: fadesideSidebar 0.4s ease-out;
+    }
   }
 }

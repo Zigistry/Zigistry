@@ -50,30 +50,26 @@ class {
   }
 }
 
-div class="flex min-h-screen flex-col bg-gray-50 dark:bg-[#1e1e1e]"
+div class="flex min-h-screen flex-col bg-gray-100 dark:bg-[#1e1e1e]"
   div class="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8"
     // Header Section
+    div class="mb-12 text-center"
+      h1 class="mb-4 text-4xl font-extrabold tracking-tight text-slate-800 dark:text-slate-100 sm:text-5xl"
+        -- Advanced AI-Powered Repository Search
+      span class="inline-flex items-center rounded-full bg-slate-200 px-3 py-1 text-sm font-medium text-slate-700 ring-1 ring-inset ring-slate-300 dark:bg-slate-700 dark:text-slate-200 dark:ring-slate-600"
+        -- Beta Feature
+      p class="mx-auto mt-6 max-w-2xl text-lg text-gray-600 dark:text-gray-400"
+        -- Search through thousands of Zig repositories using advanced AI algorithms. Discover packages and programs effortlessly.
 
-
-    div.mb-10.text-center
-      div.mb-4.flex-wrap.justify-center.gap-3
-        h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl"
-          -- Advanced AI-Powered Repository Search
-        span class="mt-4 inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20 dark:bg-yellow-900/30 dark:text-yellow-500"
-          -- Beta
-      p class="mx-auto max-w-2xl text-lg text-gray-600 dark:text-gray-300"
-        -- Search through thousands of repositories using advanced AI algorithms
     // Search Box Section
-
-
-    div.relative.mx-auto.mb-12.max-w-3xl
-      div.pointer-events-none.absolute.inset-y-0.left-0.flex.items-center.pl-3
+    div class="relative mx-auto mb-16 max-w-4xl"
+      div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4"
         svg [
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
           aria-hidden="true"
-          class="h-5 w-5 text-gray-400 dark:text-gray-500"
+          class="h-6 w-6 text-gray-400 dark:text-gray-500"
         ]
           path [
             fill-rule="evenodd"
@@ -83,91 +79,90 @@ div class="flex min-h-screen flex-col bg-gray-50 dark:bg-[#1e1e1e]"
       input#search_box [
         type="text"
         placeholder="Search for packages or programs..."
-        class="block w-full rounded-xl border border-gray-300 bg-white py-4 pl-10 pr-3 text-gray-900 placeholder-gray-500 transition-colors duration-200 focus:border-[#1e1e1e] focus:outline-none focus:ring-2 focus:ring-[#1e1e1e] focus:ring-offset-2 dark:border-gray-700 dark:bg-[#374151] dark:text-white dark:placeholder-gray-400 dark:focus:border-gray-900 dark:focus:ring-gray-900"
+        class="block w-full rounded-full border border-gray-300 bg-white py-4 pl-12 pr-6 text-gray-900 placeholder-gray-500 shadow-lg transition-all duration-300 ease-in-out focus:border-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:focus:border-slate-400 dark:focus:ring-slate-400"
       ]
+
     // Loading State
-
-
     if(state.isLoading)
-      div.my-8.flex.justify-center
-        div class="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-gray-900 dark:border-white"
+      div class="my-16 flex justify-center"
+        div class="h-16 w-16 animate-spin rounded-full border-4 border-t-4 border-slate-500 border-t-transparent dark:border-slate-400 dark:border-t-transparent"
+
     // Results Section
-
-
-    div class="grid grid-cols-1 gap-8 lg:grid-cols-2"
-      // Packages Column
-
-
-      div.space-y-4
-        div.mb-6.flex.items-center.justify-between
-          h2 class="text-2xl font-bold text-gray-900 dark:text-white"
-            -- Packages
-          if(state.packageResults.length > 0)
-            span class="text-sm text-gray-500 dark:text-gray-400"
+    else-if(state.packageResults.length > 0 || state.programResults.length > 0)
+      div class="grid grid-cols-1 gap-12 lg:grid-cols-2"
+        // Packages Column
+        div
+          div class="mb-8 flex items-center justify-between border-b border-gray-200 pb-4 dark:border-gray-700"
+            h2 class="text-3xl font-bold text-slate-800 dark:text-slate-100"
+              -- Packages
+            span class="rounded-full bg-slate-100 px-4 py-2 text-lg font-semibold text-slate-700 dark:bg-slate-700 dark:text-slate-200"
               -- ${state.packageResults.length} results
 
-        div.results-container.grid.gap-4
-          if(state.packageResults.length > 0)
-            for|repo| of=state.packageResults
-              custom_card [
-                section="special-AI"
-                repo_from=repo.repo_from
-                avatar_url=repo.avatar_url
-                description=repo.description
-                name=repo.name
-                stargazers_count=repo.stargazers_count
-                forks_count=repo.forks_count
-                open_issues=repo.open_issues
-                fork=repo.fork
-                full_name=repo.full_name
-                has_build_zig=repo.has_build_zig
-                has_build_zig_zon=repo.has_build_zig_zon
-                license=repo.license
-                watchers_count=repo.watchers_count
-                topics=repo.topics
-                no-update
-              ]
-          else
-            div class="rounded-xl bg-white px-4 py-8 text-center shadow-sm dark:bg-gray-800/50"
-              p class="text-lg font-medium text-gray-900 dark:text-white"
-                -- No packages found
-              p class="mt-2 text-gray-500 dark:text-gray-400"
-                -- Try different search terms
-      // Programs Column
-
-
-      div.space-y-4
-        div.mb-6.flex.items-center.justify-between
-          h2 class="text-2xl font-bold text-gray-900 dark:text-white"
-            -- Programs
-          if(state.programResults.length > 0)
-            span class="text-sm text-gray-500 dark:text-gray-400"
+          div class="results-container space-y-6"
+            if(state.packageResults.length > 0)
+              for|repo| of=state.packageResults
+                custom_card [
+                  section="special-AI"
+                  repo_from=repo.repo_from
+                  avatar_url=repo.avatar_url
+                  description=repo.description
+                  name=repo.name
+                  stargazers_count=repo.stargazers_count
+                  forks_count=repo.forks_count
+                  open_issues=repo.open_issues
+                  fork=repo.fork
+                  full_name=repo.full_name
+                  has_build_zig=repo.has_build_zig
+                  has_build_zig_zon=repo.has_build_zig_zon
+                  license=repo.license
+                  watchers_count=repo.watchers_count
+                  topics=repo.topics
+                  no-update
+                ]
+            else
+              div class="rounded-xl bg-gray-50 px-6 py-12 text-center shadow-inner dark:bg-gray-800/60"
+                p class="text-xl font-semibold text-gray-700 dark:text-gray-300"
+                  -- No packages found
+                p class="mt-3 text-gray-500 dark:text-gray-400"
+                  -- Try adjusting your search terms or filters.
+        // Programs Column
+        div
+          div class="mb-8 flex items-center justify-between border-b border-gray-200 pb-4 dark:border-gray-700"
+            h2 class="text-3xl font-bold text-slate-800 dark:text-slate-100"
+              -- Programs
+            span class="rounded-full bg-slate-100 px-4 py-2 text-lg font-semibold text-slate-700 dark:bg-slate-700 dark:text-slate-200"
               -- ${state.programResults.length} results
 
-        div.results-container.grid.gap-4
-          if(state.programResults.length > 0)
-            for|repo| of=state.programResults
-              custom_card [
-                section="special-AI"
-                repo_from=repo.repo_from
-                avatar_url=repo.avatar_url
-                description=repo.description
-                name=repo.name
-                stargazers_count=repo.stargazers_count
-                forks_count=repo.forks_count
-                open_issues=repo.open_issues
-                fork=repo.fork
-                full_name=repo.full_name
-                has_build_zig=repo.has_build_zig
-                has_build_zig_zon=repo.has_build_zig_zon
-                license=repo.license
-                watchers_count=repo.watchers_count
-                topics=repo.topics
-                no-update
-              ]
-          else
-            div class="rounded-xl bg-white px-4 py-8 text-center shadow-sm dark:bg-gray-800/50"
-              p class="text-lg font-medium text-gray-900 dark:text-white"
-                -- No programs found
-              p class="mt-2 text-gray-500 dark:text-gray-400"
-                -- Try different search terms
+          div class="results-container space-y-6"
+            if(state.programResults.length > 0)
+              for|repo| of=state.programResults
+                custom_card [
+                  section="special-AI"
+                  repo_from=repo.repo_from
+                  avatar_url=repo.avatar_url
+                  description=repo.description
+                  name=repo.name
+                  stargazers_count=repo.stargazers_count
+                  forks_count=repo.forks_count
+                  open_issues=repo.open_issues
+                  fork=repo.fork
+                  full_name=repo.full_name
+                  has_build_zig=repo.has_build_zig
+                  has_build_zig_zon=repo.has_build_zig_zon
+                  license=repo.license
+                  watchers_count=repo.watchers_count
+                  topics=repo.topics
+                  no-update
+                ]
+            else
+              div class="rounded-xl bg-gray-50 px-6 py-12 text-center shadow-inner dark:bg-gray-800/60"
+                p class="text-xl font-semibold text-gray-700 dark:text-gray-300"
+                  -- No programs found
+                p class="mt-3 text-gray-500 dark:text-gray-400"
+                  -- Try adjusting your search terms or filters.
+    else-if (!state.isLoading && state.searchQuery)
+      div class="my-16 text-center"
+        p class="text-xl font-semibold text-gray-700 dark:text-gray-300"
+          -- No results found for "${state.searchQuery}"
+        p class="mt-3 text-gray-500 dark:text-gray-400"
+          -- Please try a different search query.

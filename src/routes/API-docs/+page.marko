@@ -1,29 +1,29 @@
 div class="mt-8 flex justify-center px-4 sm:px-6 md:px-8 lg:px-12"
   div class="readme readmeDiv block w-full max-w-4xl rounded-xl border border-gray-200 bg-white p-6 shadow-2xl dark:border-gray-700 dark:bg-[#282828] sm:p-8 lg:p-10"
-    h1 class="mb-6 text-center text-5xl font-extrabold text-blue-700 drop-shadow-md dark:text-blue-400"
+    h1 class="mb-6 text-center text-5xl font-extrabold text-gray-700 drop-shadow-md dark:text-gray-300"
       -- Zigistry API Documentation
     p class="mx-auto mb-8 max-w-2xl text-center text-lg leading-relaxed text-gray-700 dark:text-gray-300"
       --
       Welcome to the official Zigistry API documentation! Here, you'll find everything you need to start integrating Zigistry's powerful package and program data into your applications.
       --
 
-    h2 class="mb-6 mt-10 border-b-2 border-blue-500 pb-2 text-3xl font-bold text-gray-800 dark:text-gray-100"
+    h2 class="mb-6 mt-10 border-b-2 border-slate-400 pb-2 text-3xl font-bold text-gray-800 dark:text-gray-100"
       -- API Endpoints for Packages
 
     p class="my-5 text-xl font-semibold text-gray-700 dark:text-gray-300"
       -- Get details for individual packages:
-    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-300"
-      code class="text-blue-600 dark:text-blue-300"
+    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-slate-600 shadow-sm dark:bg-gray-700 dark:text-slate-300"
+      code class="text-slate-600 dark:text-slate-300"
         -- https://zigistry-api.hf.space/api/packages/
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :repo_from
-        -- /
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :user_name
-        -- /
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :repo_name
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :repo_from
+        --  /
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :user_name
+        --  /
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :repo_name
     p class="my-4 border-l-2 border-gray-300 pl-4 text-sm italic text-gray-600 dark:border-gray-600 dark:text-gray-400"
       span.ml-2.mr-1 -- Example:
       a [
-        class="text-blue-600 underline transition-colors duration-200 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+        class="text-slate-600 underline transition-colors duration-200 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
         href="https://zigistry-api.hf.space/api/packages/github/travisstaloch/simdjzon"
       ]
         --
@@ -32,66 +32,65 @@ div class="mt-8 flex justify-center px-4 sm:px-6 md:px-8 lg:px-12"
 
     p class="my-5 text-xl font-semibold text-gray-700 dark:text-gray-300"
       -- Get search results for packages:
-    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-300"
-      code class="text-blue-600 dark:text-blue-300"
+    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-slate-600 shadow-sm dark:bg-gray-700 dark:text-slate-300"
+      code class="text-slate-600 dark:text-slate-300"
         -- https://zigistry-api.hf.space/api/searchPackages?q=
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :query
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :query
     p class="my-4 border-l-2 border-gray-300 pl-4 text-sm italic text-gray-600 dark:border-gray-600 dark:text-gray-400"
       span.ml-2.mr-1 -- Example:
       a [
-        class="text-blue-600 underline transition-colors duration-200 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+        class="text-slate-600 underline transition-colors duration-200 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
         href="https://zigistry-api.hf.space/api/searchPackages?q=Zap"
       ]
         -- https://zigistry-api.hf.space/api/searchPackages?q=Zap
 
     p class="my-5 text-xl font-semibold text-gray-700 dark:text-gray-300"
       -- Get filtered search results for packages:
-    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-300"
-      code class="text-blue-600 dark:text-blue-300"
+    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-slate-600 shadow-sm dark:bg-gray-700 dark:text-slate-300"
+      code class="text-slate-600 dark:text-slate-300"
         -- https://zigistry-api.hf.space/api/searchPackages?q=
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :query
-        -- &filter=
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :topic
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :query
+        --  &filter=
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :topic
     p class="my-4 border-l-2 border-gray-300 pl-4 text-sm italic text-gray-600 dark:border-gray-600 dark:text-gray-400"
       span.ml-2.mr-1 -- Example:
       a [
-        class="text-blue-600 underline transition-colors duration-200 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+        class="text-slate-600 underline transition-colors duration-200 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
         href="https://zigistry-api.hf.space/api/searchPackages?q=Zap&filter=http"
       ]
         -- https://zigistry-api.hf.space/api/searchPackages?q=Zap&filter=http
 
     p class="my-5 text-xl font-semibold text-gray-700 dark:text-gray-300"
       -- Get all results from a single topic for packages:
-    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-300"
-      code class="text-blue-600 dark:text-blue-300"
+    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-slate-600 shadow-sm dark:bg-gray-700 dark:text-slate-300"
+      code class="text-slate-600 dark:text-slate-300"
         -- https://zigistry-api.hf.space/api/searchPackages?filter=
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :topic
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :topic
     p class="my-4 border-l-2 border-gray-300 pl-4 text-sm italic text-gray-600 dark:border-gray-600 dark:text-gray-400"
       span.ml-2.mr-1 -- Example:
       a [
-        class="text-blue-600 underline transition-colors duration-200 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+        class="text-slate-600 underline transition-colors duration-200 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
         href="https://zigistry-api.hf.space/api/searchPackages?filter=http"
       ]
         -- https://zigistry-api.hf.space/api/searchPackages?filter=http
-    --  ---
 
-    h2 class="mb-6 mt-12 border-b-2 border-blue-500 pb-2 text-3xl font-bold text-gray-800 dark:text-gray-100"
+    h2 class="mb-6 mt-12 border-b-2 border-slate-400 pb-2 text-3xl font-bold text-gray-800 dark:text-gray-100"
       -- API Endpoints for Programs
 
     p class="my-5 text-xl font-semibold text-gray-700 dark:text-gray-300"
       -- Get details for individual programs:
-    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-300"
-      code class="text-blue-600 dark:text-blue-300"
+    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-slate-600 shadow-sm dark:bg-gray-700 dark:text-slate-300"
+      code class="text-slate-600 dark:text-slate-300"
         -- https://zigistry-api.hf.space/api/programs/
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :repo_from
-        -- /
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :user_name
-        -- /
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :repo_name
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :repo_from
+        --  /
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :user_name
+        --  /
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :repo_name
     p class="my-4 border-l-2 border-gray-300 pl-4 text-sm italic text-gray-600 dark:border-gray-600 dark:text-gray-400"
       span.ml-2.mr-1 -- Example:
       a [
-        class="text-blue-600 underline transition-colors duration-200 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+        class="text-slate-600 underline transition-colors duration-200 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
         href="https://zigistry-api.hf.space/api/programs/github/travisstaloch/roc-cli-platform-zig"
       ]
         --
@@ -100,65 +99,65 @@ div class="mt-8 flex justify-center px-4 sm:px-6 md:px-8 lg:px-12"
 
     p class="my-5 text-xl font-semibold text-gray-700 dark:text-gray-300"
       -- Get search results for programs:
-    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-300"
-      code class="text-blue-600 dark:text-blue-300"
+    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-slate-600 shadow-sm dark:bg-gray-700 dark:text-slate-300"
+      code class="text-slate-600 dark:text-slate-300"
         -- https://zigistry-api.hf.space/api/searchPrograms?q=
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :query
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :query
     p class="my-4 border-l-2 border-gray-300 pl-4 text-sm italic text-gray-600 dark:border-gray-600 dark:text-gray-400"
       span.ml-2.mr-1 -- Example:
       a [
-        class="text-blue-600 underline transition-colors duration-200 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+        class="text-slate-600 underline transition-colors duration-200 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
         href="https://zigistry-api.hf.space/api/searchPrograms?q=Zap"
       ]
         -- https://zigistry-api.hf.space/api/searchPrograms?q=Zap
 
     p class="my-5 text-xl font-semibold text-gray-700 dark:text-gray-300"
       -- Get filtered search results for programs:
-    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-300"
-      code class="text-blue-600 dark:text-blue-300"
+    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-slate-600 shadow-sm dark:bg-gray-700 dark:text-slate-300"
+      code class="text-slate-600 dark:text-slate-300"
         -- https://zigistry-api.hf.space/api/searchPrograms?q=
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :query
-        -- &filter=
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :topic
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :query
+        --  &filter=
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :topic
     p class="my-4 border-l-2 border-gray-300 pl-4 text-sm italic text-gray-600 dark:border-gray-600 dark:text-gray-400"
       span.ml-2.mr-1 -- Example:
       a [
-        class="text-blue-600 underline transition-colors duration-200 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+        class="text-slate-600 underline transition-colors duration-200 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
         href="https://zigistry-api.hf.space/api/searchPrograms?q=Zap&filter=http"
       ]
         -- https://zigistry-api.hf.space/api/searchPrograms?q=Zap&filter=http
 
     p class="my-5 text-xl font-semibold text-gray-700 dark:text-gray-300"
       -- Get all results from a single topic for programs:
-    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-300"
-      code class="text-blue-600 dark:text-blue-300"
+    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-slate-600 shadow-sm dark:bg-gray-700 dark:text-slate-300"
+      code class="text-slate-600 dark:text-slate-300"
         -- https://zigistry-api.hf.space/api/searchPrograms?filter=
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :topic
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :topic
     p class="my-4 border-l-2 border-gray-300 pl-4 text-sm italic text-gray-600 dark:border-gray-600 dark:text-gray-400"
       span.ml-2.mr-1 -- Example:
       a [
-        class="text-blue-600 underline transition-colors duration-200 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+        class="text-slate-600 underline transition-colors duration-200 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
         href="https://zigistry-api.hf.space/api/searchPrograms?filter=http"
       ]
         -- https://zigistry-api.hf.space/api/searchPrograms?filter=http
 
-    h2 class="mb-6 mt-12 border-b-2 border-blue-500 pb-2 text-3xl font-bold text-gray-800 dark:text-gray-100"
+    h2 class="mb-6 mt-12 border-b-2 border-slate-400 pb-2 text-3xl font-bold text-gray-800 dark:text-gray-100"
       -- Special Index Details (Packages)
 
     p class="my-5 text-xl font-semibold text-gray-700 dark:text-gray-300"
       -- Get most used packages (ascending order):
-    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-300"
-      code class="text-blue-600 dark:text-blue-300"
+    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-slate-600 shadow-sm dark:bg-gray-700 dark:text-slate-300"
+      code class="text-slate-600 dark:text-slate-300"
         --
         https://zigistry-api.hf.space/api/indexDetailsPackages?section=mostUsed&range=${" "}
         --
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :start
-        -- ..
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :end
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :start
+        --  ..
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :end
     p class="my-4 border-l-2 border-gray-300 pl-4 text-sm italic text-gray-600 dark:border-gray-600 dark:text-gray-400"
       span.ml-2.mr-1 -- Example:
       a [
-        class="text-blue-600 underline transition-colors duration-200 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+        class="text-slate-600 underline transition-colors duration-200 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
         href="https://zigistry-api.hf.space/api/indexDetailsPackages?section=mostUsed&range=0..100"
       ]
         --
@@ -167,41 +166,41 @@ div class="mt-8 flex justify-center px-4 sm:px-6 md:px-8 lg:px-12"
 
     p class="my-5 text-xl font-semibold text-gray-700 dark:text-gray-300"
       -- Get latest used packages (ascending order):
-    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-300"
-      code class="text-blue-600 dark:text-blue-300"
+    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-slate-600 shadow-sm dark:bg-gray-700 dark:text-slate-300"
+      code class="text-slate-600 dark:text-slate-300"
         --
         https://zigistry-api.hf.space/api/indexDetailsPackages?section=latestRepos&range=${" "}
         --
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :start
-        -- ..
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :end
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :start
+        --  ..
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :end
     p class="my-4 border-l-2 border-gray-300 pl-4 text-sm italic text-gray-600 dark:border-gray-600 dark:text-gray-400"
       span.ml-2.mr-1 -- Example:
       a [
-        class="text-blue-600 underline transition-colors duration-200 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+        class="text-slate-600 underline transition-colors duration-200 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
         href="https://zigistry-api.hf.space/api/indexDetailsPackages?section=latestRepos&range=0..100"
       ]
         --
         https://zigistry-api.hf.space/api/indexDetailsPackages?section=latestRepos&range=0..100
         --
 
-    h2 class="mb-6 mt-12 border-b-2 border-blue-500 pb-2 text-3xl font-bold text-gray-800 dark:text-gray-100"
+    h2 class="mb-6 mt-12 border-b-2 border-slate-400 pb-2 text-3xl font-bold text-gray-800 dark:text-gray-100"
       -- Special Index Details (Programs)
 
     p class="my-5 text-xl font-semibold text-gray-700 dark:text-gray-300"
       -- Get most used programs (ascending order):
-    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-300"
-      code class="text-blue-600 dark:text-blue-300"
+    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-slate-600 shadow-sm dark:bg-gray-700 dark:text-slate-300"
+      code class="text-slate-600 dark:text-slate-300"
         --
         https://zigistry-api.hf.space/api/indexDetailsPrograms?section=mostUsed&range=${" "}
         --
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :start
-        -- ..
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :end
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :start
+        --  ..
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :end
     p class="my-4 border-l-2 border-gray-300 pl-4 text-sm italic text-gray-600 dark:border-gray-600 dark:text-gray-400"
       span.ml-2.mr-1 -- Example:
       a [
-        class="text-blue-600 underline transition-colors duration-200 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+        class="text-slate-600 underline transition-colors duration-200 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
         href="https://zigistry-api.hf.space/api/indexDetailsPrograms?section=mostUsed&range=0..100"
       ]
         --
@@ -210,18 +209,18 @@ div class="mt-8 flex justify-center px-4 sm:px-6 md:px-8 lg:px-12"
 
     p class="my-5 text-xl font-semibold text-gray-700 dark:text-gray-300"
       -- Get latest used programs (ascending order):
-    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-300"
-      code class="text-blue-600 dark:text-blue-300"
+    div class="api_section break-all rounded-md bg-gray-100 p-3 font-mono text-base text-slate-600 shadow-sm dark:bg-gray-700 dark:text-slate-300"
+      code class="text-slate-600 dark:text-slate-300"
         --
         https://zigistry-api.hf.space/api/indexDetailsPrograms?section=latestRepos&range=${" "}
         --
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :start
-        -- ..
-        span class="font-bold text-blue-600 dark:text-blue-300" -- :end
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :start
+        --  ..
+        span class="font-bold text-slate-600 dark:text-slate-300" -- :end
     p class="my-4 border-l-2 border-gray-300 pl-4 text-sm italic text-gray-600 dark:border-gray-600 dark:text-gray-400"
       span.ml-2.mr-1 -- Example:
       a [
-        class="text-blue-600 underline transition-colors duration-200 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+        class="text-slate-600 underline transition-colors duration-200 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
         href="https://zigistry-api.hf.space/api/indexDetailsPrograms?section=latestRepos&range=0..100"
       ]
         --
