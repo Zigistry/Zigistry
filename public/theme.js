@@ -62,4 +62,10 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
+    fetch("https://api.github.com/repos/zigistry/zigistry").then((res) => {
+        return res.json()
+    }).then((json) => {
+        document.getElementById("star_count").innerHTML = json["stargazers_count"];
+    })
 });
