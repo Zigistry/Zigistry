@@ -71,7 +71,8 @@ await(repoPromise) client-reorder timeout=100000000
                   div class="bg-gray-100 dark:bg-slate-700 rounded-lg p-3 sm:p-4 hover:bg-gray-200 dark:hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
                     div class="space-y-2 sm:space-y-3"
                       div class="flex items-center space-x-2 text-sm sm:text-base"
-                        span class="text-emerald-600 dark:text-emerald-400 font-medium" -- Name
+                        span class="text-emerald-600 dark:text-emerald-400 font-medium"
+                          -- Name
                         span class="text-black dark:text-white"
                           --
                           ${dependency.type !== "remote" ? "./" : ""}${dependency.name}
@@ -99,7 +100,6 @@ await(repoPromise) client-reorder timeout=100000000
                           -- Commit
                         code class="relative truncate bg-gray-200 dark:bg-slate-800 px-2 py-1 rounded text-xs sm:text-sm font-mono text-gray-800 dark:text-white hover:whitespace-normal hover:overflow-visible hover:z-10 hover:absolute hover:shadow-lg"
                           -- ${dependency.commit}
-
         <!-- Dependents Section -->
         if(repo.dependents && repo.dependents?.length > 0)
           div class="bg-white dark:bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"
@@ -113,7 +113,6 @@ await(repoPromise) client-reorder timeout=100000000
                     class="text-black dark:text-white hover:text-sky-600 dark:hover:text-sky-300 text-sm sm:text-base break-all"
                   ]
                     -- ${dependent}
-
         <!-- README Section -->
         div class="bg-white dark:bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"
           h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-black dark:text-white border-b border-gray-300 dark:border-slate-600 pb-2"
