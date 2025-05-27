@@ -93,6 +93,12 @@ class {
             new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
         );
         break;
+      case "dependents_count_sort":
+        sortedResults.sort(
+          (a: Repo, b: Repo) =>
+            (b.dependents?.length || 0) - (a.dependents?.length || 0),
+        );
+        break;
       case "oldest_first":
         sortedResults.sort(
           (a: Repo, b: Repo) =>
@@ -485,6 +491,20 @@ div
                 width="20"
               ]
               -- Most Stars
+
+            button [
+              type="button"
+              onClick("onSort", "dependents_count_sort")
+              class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            ]
+              flowbite-code-fork-solid.mr-3 [
+                stroke="currentColor"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                height="20"
+                width="20"
+              ]
+              -- Most Depended On
 
             button [
               type="button"
