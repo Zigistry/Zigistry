@@ -83,16 +83,17 @@ class {
       dropDownEle.value = "No Filter";
     }
 
+    // Pass the sort key to onSearch so it can apply sorting after data is fetched
     if (searchIfThere || (filterIfThere && filterIfThere !== "No Filter")) {
-      this.onSearch(searchIfThere || "", filterIfThere || "No Filter");
+      this.onSearch(searchIfThere || "", filterIfThere || "No Filter", sortIfThere || "intelligent_sort");
     } else {
       this.state.showSearchResults = false;
       this.state.searchDdosQuery = "";
       this.state.searchResults = [];
       this.state.intelegentSortData = [];
+      // If no search or filter, still apply the default sort if there's existing data
+      this.applySort(sortIfThere || "intelligent_sort");
     }
-
-    this.applySort(sortIfThere || "intelligent_sort");
   }
 
   toggleSidebar() {
@@ -100,15 +101,17 @@ class {
   }
 
   applySort(sortKey: string) {
+    // Ensure we are working with a fresh copy of the array to avoid direct mutation issues
     let sortedResults = [...this.state.searchResults];
 
     switch (sortKey) {
       case "intelligent_sort":
+        // If intelligent sort data is available, use it, otherwise sort by name
         if (this.state.intelegentSortData.length > 0) {
           sortedResults = [...this.state.intelegentSortData];
         } else {
           console.warn(
-            "Intelligent sort data is empty, cannot apply intelligent sort.",
+            "Intelligent sort data is empty, cannot apply intelligent sort. Falling back to A-Z sort.",
           );
           sortedResults.sort((a: Repo, b: Repo) =>
             a.name.localeCompare(b.name),
@@ -154,11 +157,13 @@ class {
         );
         break;
       default:
+        // Default sort if no specific key is matched
         sortedResults.sort((a: Repo, b: Repo) => a.name.localeCompare(b.name));
         break;
     }
 
-    this.state.searchResults = sortedResults;
+    // Update the state with the newly sorted results
+    this.state.searchResults = [...sortedResults];
   }
 
   onSort(name: string) {
@@ -180,7 +185,8 @@ class {
     }
   }
 
-  onSearch(queryFromUrl: string, filterFromUrl: string) {
+  // Modified onSearch to accept a sortKey and apply sort after fetch
+  onSearch(queryFromUrl: string, filterFromUrl: string, sortKey: string) {
     const value = queryFromUrl;
     const filterValue = filterFromUrl;
 
@@ -204,6 +210,8 @@ class {
         this.state.searchResults = y;
         this.state.intelegentSortData = [...y];
         this.state.showSearchResults = true;
+        // Apply sort *after* search results are updated
+        this.applySort(sortKey);
       })
       .catch((error) => {
         console.error("Error fetching search results:", error);
