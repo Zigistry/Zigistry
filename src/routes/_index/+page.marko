@@ -82,7 +82,11 @@ class {
 
     // Pass the sort key to onSearch so it can apply sorting after data is fetched
     if (searchIfThere || (filterIfThere && filterIfThere !== "No Filter")) {
-      this.onSearch(searchIfThere || "", filterIfThere || "No Filter", sortIfThere || "intelegent_sort");
+      this.onSearch(
+        searchIfThere || "",
+        filterIfThere || "No Filter",
+        sortIfThere || "intelegent_sort",
+      );
     } else {
       this.state.showSearchResults = false;
       this.state.searchDdosQuery = "";
