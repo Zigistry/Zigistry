@@ -62,13 +62,13 @@ await(repoPromise) client-reorder timeout=100000000
       div class="mt-4 sm:mt-8 space-y-4 sm:space-y-8"
         <!-- Dependencies Section -->
         if(repo.dependencies && repo.dependencies?.length > 0)
-          div class="bg-white dark:bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"
-            h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-black dark:text-white border-b border-gray-300 dark:border-slate-600 pb-2"
+          div class="bg-white dark:bg-[#1e1e1e] rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg shadow-black"
+            h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-black dark:text-white border-b border-gray-300 dark:border-yellow-500 pb-2"
               -- Dependencies
             div class="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
               for|dependency| of=repo.dependencies
                 if(dependency)
-                  div class="bg-gray-100 dark:bg-slate-700 rounded-lg p-3 sm:p-4 hover:bg-gray-200 dark:hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
+                  div class="bg-gray-100 dark:bg-[#2e2e2e] rounded-lg p-3 sm:p-4 hover:bg-gray-200 dark:hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
                     div class="space-y-2 sm:space-y-3"
                       div class="flex items-center space-x-2 text-sm sm:text-base"
                         span class="text-emerald-600 dark:text-emerald-400 font-medium"
@@ -102,20 +102,20 @@ await(repoPromise) client-reorder timeout=100000000
                           -- ${dependency.commit}
         <!-- Dependents Section -->
         if(repo.dependents && repo.dependents?.length > 0)
-          div class="bg-white dark:bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"
-            h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-black dark:text-white border-b border-gray-300 dark:border-slate-600 pb-2"
+          div class="bg-white dark:bg-[#1e1e1e] rounded-lg sm:rounded-lg p-3 sm:p-6 shadow-lg shadow-black"
+            h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-black dark:text-white border-b border-gray-300 dark:border-yellow-500 pb-2"
               -- Dependents
             div class="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
               for|dependent| of=repo.dependents
-                div class="bg-gray-100 dark:bg-slate-700 rounded-lg p-3 sm:p-4 hover:bg-gray-200 dark:hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
+                div class="bg-gray-100 dark:bg-[#2e2e2e] rounded-lg p-3 sm:p-4 hover:bg-gray-200 dark:hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
                   a [
                     href=dependent
                     class="text-black dark:text-white hover:text-sky-600 dark:hover:text-sky-300 text-sm sm:text-base break-all"
                   ]
                     -- ${dependent}
         <!-- README Section -->
-        div class="bg-white dark:bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"
-          h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-black dark:text-white border-b border-gray-300 dark:border-slate-600 pb-2"
+        div class="bg-white dark:bg-[#1e1e1e] rounded-lg sm:rounded-lg p-3 sm:p-6 shadow-lg shadow-black"
+          h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-black dark:text-white border-b border-gray-300 dark:border-yellow-500 pb-2"
             -- README
           div class="prose dark:prose-invert max-w-none readmeDiv prose-sm sm:prose-base"
             -- $!{repo.readme_content}

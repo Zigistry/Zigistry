@@ -57,13 +57,13 @@ await(repoPromise) client-reorder timeout=100000000
       div class="mt-4 sm:mt-8 space-y-4 sm:space-y-8"
         <!-- Dependencies Section -->
         if(repo.dependencies?.length)
-          div class="bg-white dark:bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"
-            h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white border-b border-gray-300 dark:border-slate-600 pb-2"
+          div class="bg-white dark:bg-[#1e1e1e] rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg shadow-black"
+            h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white border-b border-gray-300 dark:border-yellow-500 pb-2"
               -- Dependencies
             div class="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
               for|dep| of=repo.dependencies
                 if(dep)
-                  div class="bg-gray-100 dark:bg-slate-700 rounded-lg p-3 sm:p-4 hover:bg-gray-200 dark:hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
+                  div class="bg-gray-100 dark:bg-[#2e2e2e] rounded-lg p-3 sm:p-4 hover:bg-gray-200 dark:hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
                     div class="space-y-2 sm:space-y-3"
                       div class="flex items-center space-x-2 text-sm sm:text-base"
                         span class="text-emerald-600 dark:text-emerald-400 font-medium"
@@ -93,24 +93,25 @@ await(repoPromise) client-reorder timeout=100000000
                           -- Commit
                         code class="relative truncate bg-gray-200 dark:bg-slate-800 px-2 py-1 rounded text-xs sm:text-sm font-mono text-gray-800 dark:text-white hover:whitespace-normal hover:overflow-visible hover:z-10 hover:absolute hover:shadow-lg"
                           -- ${dep.commit}
-        <!-- Dependents Section -->
-        if(repo.dependents?.length)
-          div class="bg-white dark:bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"
-            h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white border-b border-gray-300 dark:border-slate-600 pb-2"
-              -- Dependents
-            div class="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-              for|url| of=repo.dependents
-                div class="bg-gray-100 dark:bg-slate-700 rounded-lg p-3 sm:p-4 hover:bg-gray-200 dark:hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
-                  a [
-                    href=url
-                    class="text-gray-800 dark:text-white hover:text-sky-700 dark:hover:text-sky-300 text-sm sm:text-base break-all"
-                    target="_blank"
-                  ]
-                    -- ${url}
+        // Don't have dependents section for programs
+        // <!-- Dependents Section -->
+        // if(repo.dependents?.length)
+        //   div class="bg-white dark:bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"
+        //     h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white border-b border-gray-300 dark:border-slate-600 pb-2"
+        //       -- Dependents
+        //     div class="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+        //       for|url| of=repo.dependents
+        //         div class="bg-gray-100 dark:bg-slate-700 rounded-lg p-3 sm:p-4 hover:bg-gray-200 dark:hover:bg-slate-600 transition-all duration-300 transform hover:scale-102"
+        //           a [
+        //             href=url
+        //             class="text-gray-800 dark:text-white hover:text-sky-700 dark:hover:text-sky-300 text-sm sm:text-base break-all"
+        //             target="_blank"
+        //           ]
+        //             -- ${url}
         <!-- README Section -->
         if(repo.readme_content)
-          div class="bg-white dark:bg-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg sm:shadow-xl"
-            h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white border-b border-gray-300 dark:border-slate-600 pb-2"
+          div class="bg-white dark:bg-[#1e1e1e] rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-lg shadow-black"
+            h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white border-b border-gray-300 dark:border-yellow-500 pb-2"
               -- README
             div class="prose dark:prose-invert max-w-none readmeDiv prose-sm sm:prose-base"
               -- $!{repo.readme_content}
