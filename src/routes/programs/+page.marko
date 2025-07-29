@@ -13,90 +13,63 @@ class {
     this.state = {
       searchDdosQuery: "",
       searchResults: [],
-      showSearchResults: false,
       intelegentSortData: [],
+      showSearchResults: false,
       isSidebarOpen: false,
     };
   }
 
   onMount() {
     window.addEventListener("hashchange", this.handleHashChange.bind(this));
-
     this.handleHashChange();
 
-    const dropDownElement = document.getElementById(
-      "dropDownID",
-    ) as HTMLSelectElement;
-    const searchBoxElement = document.getElementById(
-      "search_box",
-    ) as HTMLInputElement;
+    const dropdown = document.getElementById("dropDownID") as HTMLSelectElement;
+    const searchBox = document.getElementById("search_box") as HTMLInputElement;
 
-    dropDownElement.addEventListener("change", () => {
-      const selectedValue = dropDownElement.value;
-      const currentSearchQuery = searchBoxElement.value;
+    dropdown.addEventListener("change", () => {
+      const params = new URLSearchParams(location.hash.slice(1));
+      const newQuery = searchBox.value;
+      const newFilter = dropdown.value;
+      const oldQuery = params.get("search") || "";
+      const oldFilter = params.get("filter") || "No Filter";
+      const sort = params.get("sort") || "intelligent_sort";
 
-      const currentParams = new URLSearchParams(location.hash.slice(1));
-      const currentSearchInHash = currentParams.get("search") || "";
-      const currentFilterInHash = currentParams.get("filter") || "No Filter";
-      const currentSortInHash = currentParams.get("sort") || "intelligent_sort";
-
-      if (
-        selectedValue !== currentFilterInHash ||
-        currentSearchQuery !== currentSearchInHash
-      ) {
-        const params = new URLSearchParams();
-        if (currentSearchQuery) {
-          params.set("search", currentSearchQuery);
-        }
-        if (selectedValue !== "No Filter") {
-          params.set("filter", selectedValue);
-        }
-        params.set("sort", currentSortInHash);
-        location.hash = params.toString();
+      if (newQuery !== oldQuery || newFilter !== oldFilter) {
+        const newParams = new URLSearchParams();
+        if (newQuery) newParams.set("search", newQuery);
+        if (newFilter !== "No Filter") newParams.set("filter", newFilter);
+        newParams.set("sort", sort);
+        location.hash = newParams.toString();
       }
     });
   }
 
   handleHashChange() {
     const params = new URLSearchParams(location.hash.slice(1));
-    const searchIfThere = params.get("search");
-    const filterIfThere = params.get("filter");
-    const sortIfThere = params.get("sort");
+    const search = params.get("search") || "";
+    const filter = params.get("filter") || "No Filter";
+    const sort = params.get("sort") || "intelligent_sort";
 
-    const ele = document.getElementById("search_box") as HTMLInputElement;
-    const dropDownEle = document.getElementById(
-      "dropDownID",
-    ) as HTMLSelectElement;
+    const searchBox = document.getElementById("search_box") as HTMLInputElement;
+    const dropdown = document.getElementById("dropDownID") as HTMLSelectElement;
 
-    // Update search input field
-    ele.value = searchIfThere || "";
+    searchBox.value = search;
+    dropdown.value = Array.from(dropdown.options).some(
+      (o) => o.value === filter,
+    )
+      ? filter
+      : "No Filter";
 
-    // Update filter dropdown
-    if (
-      filterIfThere &&
-      Array.from(dropDownEle.options).some(
-        (option) => option.value === filterIfThere,
-      )
-    ) {
-      dropDownEle.value = filterIfThere;
+    if (search || filter !== "No Filter") {
+      this.onSearch(search, filter, sort);
     } else {
-      dropDownEle.value = "No Filter";
-    }
-
-    // Pass the sort key to onSearch so it can apply sorting after data is fetched
-    if (searchIfThere || (filterIfThere && filterIfThere !== "No Filter")) {
-      this.onSearch(
-        searchIfThere || "",
-        filterIfThere || "No Filter",
-        sortIfThere || "intelligent_sort",
-      );
-    } else {
-      this.state.showSearchResults = false;
-      this.state.searchDdosQuery = "";
-      this.state.searchResults = [];
-      this.state.intelegentSortData = [];
-      // If no search or filter, still apply the default sort if there's existing data
-      this.applySort(sortIfThere || "intelligent_sort");
+      Object.assign(this.state, {
+        searchDdosQuery: "",
+        searchResults: [],
+        intelegentSortData: [],
+        showSearchResults: false,
+      });
+      this.applySort(sort);
     }
   }
 
@@ -105,166 +78,98 @@ class {
   }
 
   applySort(sortKey: string) {
-    // Ensure we are working with a fresh copy of the array to avoid direct mutation issues
-    let sortedResults = [...this.state.searchResults];
+    let results = [...this.state.searchResults];
 
-    switch (sortKey) {
-      case "intelligent_sort":
-        // If intelligent sort data is available, use it, otherwise sort by name
-        if (this.state.intelegentSortData.length > 0) {
-          sortedResults = [...this.state.intelegentSortData];
-        } else {
-          console.warn(
-            "Intelligent sort data is empty, cannot apply intelligent sort. Falling back to A-Z sort.",
-          );
-          sortedResults.sort((a: Repo, b: Repo) =>
-            a.name.localeCompare(b.name),
-          );
-        }
-        break;
-      case "star_count_sort":
-        sortedResults.sort(
-          (a: Repo, b: Repo) => b.stargazers_count - a.stargazers_count,
-        );
-        break;
-      case "last_updated":
-        sortedResults.sort(
-          (a: Repo, b: Repo) =>
-            new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
-        );
-        break;
-      case "a_to_z":
-        sortedResults.sort((a: Repo, b: Repo) => a.name.localeCompare(b.name));
-        break;
-      case "z_to_a":
-        sortedResults.sort((a: Repo, b: Repo) => b.name.localeCompare(a.name));
-        break;
-      case "fork_sort":
-        sortedResults.sort((a: Repo, b: Repo) => b.forks_count - a.forks_count);
-        break;
-      case "most_issues":
-        sortedResults.sort((a: Repo, b: Repo) => b.open_issues - a.open_issues);
-        break;
-      case "least_issues":
-        sortedResults.sort((a: Repo, b: Repo) => a.open_issues - b.open_issues);
-        break;
-      case "recently_created":
-        sortedResults.sort(
-          (a: Repo, b: Repo) =>
-            new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-        );
-        break;
-      case "oldest_first":
-        sortedResults.sort(
-          (a: Repo, b: Repo) =>
-            new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
-        );
-        break;
-      default:
-        // Default sort if no specific key is matched
-        sortedResults.sort((a: Repo, b: Repo) => a.name.localeCompare(b.name));
-        break;
+    const byDate =
+      (key: "created_at" | "updated_at", asc = false) =>
+      (a: Repo, b: Repo) =>
+        (new Date(b[key]).getTime() - new Date(a[key]).getTime()) *
+        (asc ? -1 : 1);
+
+    const sorters: Record<string, (a: Repo, b: Repo) => number> = {
+      star_count_sort: (a, b) => b.stargazers_count - a.stargazers_count,
+      fork_sort: (a, b) => b.forks_count - a.forks_count,
+      most_issues: (a, b) => b.open_issues - a.open_issues,
+      least_issues: (a, b) => a.open_issues - b.open_issues,
+      recently_created: byDate("created_at"),
+      oldest_first: byDate("created_at", true),
+      last_updated: byDate("updated_at"),
+      dependents_count_sort: (a, b) =>
+        (b.dependents?.length || 0) - (a.dependents?.length || 0),
+      a_to_z: (a, b) => a.name.localeCompare(b.name),
+      z_to_a: (a, b) => b.name.localeCompare(a.name),
+    };
+
+    if (sortKey === "intelligent_sort") {
+      results = this.state.intelegentSortData.length
+        ? [...this.state.intelegentSortData]
+        : results.sort((a, b) => a.name.localeCompare(b.name));
+    } else {
+      const sorter = sorters[sortKey] || sorters["a_to_z"];
+      results.sort(sorter);
     }
 
-    // Update the state with the newly sorted results
-    this.state.searchResults = [...sortedResults];
+    this.state.searchResults = results;
   }
 
-  onSort(name: string) {
-    const currentParams = new URLSearchParams(location.hash.slice(1));
-    const currentSearchInHash = currentParams.get("search") || "";
-    const currentFilterInHash = currentParams.get("filter") || "No Filter";
-    const currentSortInHash = currentParams.get("sort") || "intelligent_sort";
-
-    if (name !== currentSortInHash) {
-      const params = new URLSearchParams();
-      if (currentSearchInHash) {
-        params.set("search", currentSearchInHash);
-      }
-      if (currentFilterInHash !== "No Filter") {
-        params.set("filter", currentFilterInHash);
-      }
-      params.set("sort", name);
-      location.hash = params.toString();
-    }
+  onSort(key: string) {
+    const params = new URLSearchParams(location.hash.slice(1));
+    params.set("sort", key);
+    location.hash = params.toString();
   }
 
-  // Modified onSearch to accept a sortKey and apply sort after fetch
-  onSearch(queryFromUrl: string, filterFromUrl: string, sortKey: string) {
-    const value = queryFromUrl;
-    const filterValue = filterFromUrl;
+  onSearch(query: string, filter: string, sortKey: string) {
+    this.state.searchDdosQuery = query;
 
-    this.state.searchDdosQuery = value;
-
-    if (value === "" && filterValue === "No Filter") {
-      this.state.showSearchResults = false;
-      this.state.searchResults = [];
-      this.state.intelegentSortData = [];
+    if (!query && filter === "No Filter") {
+      Object.assign(this.state, {
+        showSearchResults: false,
+        searchResults: [],
+        intelegentSortData: [],
+      });
       return;
     }
 
-    let apiUrl = `https://zigistry-api.hf.space/api/searchPrograms?q=${value}`;
-    if (filterValue !== "No Filter") {
-      apiUrl += `&filter=${filterValue}`;
-    }
+    let url = `https://zigistry-api.hf.space/api/searchPrograms?q=${query}`;
+    if (filter !== "No Filter") url += `&filter=${filter}`;
 
-    fetch(apiUrl)
-      .then((x) => x.json())
-      .then((y: Repo[]) => {
-        this.state.searchResults = y;
-        this.state.intelegentSortData = [...y];
+    fetch(url)
+      .then((res) => res.json())
+      .then((data: Repo[]) => {
+        this.state.searchResults = data;
+        this.state.intelegentSortData = [...data];
         this.state.showSearchResults = true;
-        // Apply sort *after* search results are updated
         this.applySort(sortKey);
       })
-      .catch((error) => {
-        console.error("Error fetching search results:", error);
-        this.state.showSearchResults = false;
-        this.state.searchResults = [];
-        this.state.intelegentSortData = [];
+      .catch((err) => {
+        console.error("Search error:", err);
+        Object.assign(this.state, {
+          searchResults: [],
+          intelegentSortData: [],
+          showSearchResults: false,
+        });
       });
   }
 
-  onKeyUp(event: KeyboardEvent) {
-    const ele = document.getElementById("search_box") as HTMLInputElement;
-    const dropDownEle = document.getElementById(
-      "dropDownID",
-    ) as HTMLSelectElement;
-    const value = ele.value;
-    const filterValue = dropDownEle.value;
+  onKeyUp(e: KeyboardEvent) {
+    const input = document.getElementById("search_box") as HTMLInputElement;
+    const dropdown = document.getElementById("dropDownID") as HTMLSelectElement;
+    const query = input.value;
+    const filter = dropdown.value;
+    const params = new URLSearchParams(location.hash.slice(1));
+    const sort = params.get("sort") || "intelligent_sort";
 
-    const currentParams = new URLSearchParams(location.hash.slice(1));
-    const currentSearchInHash = currentParams.get("search") || "";
-    const currentFilterInHash = currentParams.get("filter") || "No Filter";
-    const currentSortInHash = currentParams.get("sort") || "intelligent_sort";
-
-    if (event.key === "Enter") {
-      if (
-        value !== currentSearchInHash ||
-        filterValue !== currentFilterInHash
-      ) {
-        const params = new URLSearchParams();
-        if (value) {
-          params.set("search", value);
-        }
-        if (filterValue !== "No Filter") {
-          params.set("filter", filterValue);
-        }
-        params.set("sort", currentSortInHash);
-        location.hash = params.toString();
-      }
+    if (e.key === "Enter") {
+      const newParams = new URLSearchParams();
+      if (query) newParams.set("search", query);
+      if (filter !== "No Filter") newParams.set("filter", filter);
+      newParams.set("sort", sort);
+      location.hash = newParams.toString();
     }
 
-    if (value === "") {
-      const params = new URLSearchParams(location.hash.slice(1));
-      if (params.has("search")) {
-        params.delete("search");
-        if (params.toString()) {
-          location.hash = params.toString();
-        } else {
-          location.hash = "";
-        }
-      }
+    if (query === "" && params.has("search")) {
+      params.delete("search");
+      location.hash = params.toString() || "";
     }
   }
 }
@@ -289,13 +194,12 @@ div
 
         div.mx-4.mb-5.flex.w-60.max-w-72
           div.relative.w-full
-            input#search_box [
-              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-[#2e2e2e] dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500"
-              type="text"
-              placeholder="Search 2000+ Zig programs"
-              autofocus
-              on-keyup("onKeyUp")
-            ]
+            input#search_box
+              ,class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-[#2e2e2e] dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500"
+              ,type="text"
+              ,placeholder="Search 2000+ Zig programs"
+              ,autofocus
+              ,on-keyup("onKeyUp")
 
 if(!state.showSearchResults)
   div
@@ -320,46 +224,43 @@ if(!state.showSearchResults)
     ]
       div class="flex translate-y-[-5px] items-center gap-3"
         div.relative.flex.w-8
-          flowbite-play-outline [
-            stroke="currentColor"
-            fill="currentColor"
-            stroke-width="0"
-            viewBox="0 0 25 25"
-            height="25"
-            width="25"
-            class="absolute left-0 z-10 -translate-y-[6px]"
-          ]
-          flowbite-play-outline [
-            stroke="currentColor"
-            fill="currentColor"
-            stroke-width="0"
-            viewBox="0 0 25 25"
-            height="25"
-            width="25"
-            class="absolute left-3 -translate-y-[6px]"
-          ]
+          flowbite-play-outline
+            ,stroke="currentColor"
+            ,fill="currentColor"
+            ,stroke-width="0"
+            ,viewBox="0 0 25 25"
+            ,height="25"
+            ,width="25"
+            ,class="absolute left-0 z-10 -translate-y-[6px]"
+          flowbite-play-outline
+            ,stroke="currentColor"
+            ,fill="currentColor"
+            ,stroke-width="0"
+            ,viewBox="0 0 25 25"
+            ,height="25"
+            ,width="25"
+            ,class="absolute left-3 -translate-y-[6px]"
       span -- &nbsp;Recently released:
 
     section.flex.w-full.flex-wrap.justify-evenly
       for|Card_Details| of=programs.top10latestrepos
-        custom_card [
-          section="programs"
-          repo_from=Card_Details.repo_from
-          avatar_url=Card_Details.avatar_url
-          description=Card_Details.description
-          name=Card_Details.name
-          stargazers_count=Card_Details.stargazers_count
-          forks_count=Card_Details.forks_count
-          open_issues=Card_Details.open_issues
-          fork=Card_Details.fork
-          full_name=Card_Details.full_name
-          has_build_zig=Card_Details.has_build_zig
-          has_build_zig_zon=Card_Details.has_build_zig_zon
-          license=Card_Details.license
-          watchers_count=Card_Details.watchers_count
-          topics=Card_Details.topics
-          no-update
-        ]
+        custom_card
+          ,section="programs"
+          ,repo_from=Card_Details.repo_from
+          ,avatar_url=Card_Details.avatar_url
+          ,description=Card_Details.description
+          ,name=Card_Details.name
+          ,stargazers_count=Card_Details.stargazers_count
+          ,forks_count=Card_Details.forks_count
+          ,open_issues=Card_Details.open_issues
+          ,fork=Card_Details.fork
+          ,full_name=Card_Details.full_name
+          ,has_build_zig=Card_Details.has_build_zig
+          ,has_build_zig_zon=Card_Details.has_build_zig_zon
+          ,license=Card_Details.license
+          ,watchers_count=Card_Details.watchers_count
+          ,topics=Card_Details.topics
+          ,no-update
 
     h1 class=[
       "my-5",
@@ -380,36 +281,34 @@ if(!state.showSearchResults)
       "shadow-black",
       "titles",
     ]
-      flowbite-star-solid [
-        stroke="currentColor"
-        fill="currentColor"
-        stroke-width="0"
-        viewBox="0 0 25 25"
-        height="25"
-        width="25"
-      ]
+      flowbite-star-solid
+        ,stroke="currentColor"
+        ,fill="currentColor"
+        ,stroke-width="0"
+        ,viewBox="0 0 25 25"
+        ,height="25"
+        ,width="25"
       -- &nbsp;Most used:
 
     section.flex.w-full.flex-wrap.justify-evenly
       for|Card_Details| of=programs.mostused
-        custom_card [
-          section="programs"
-          repo_from=Card_Details.repo_from
-          avatar_url=Card_Details.avatar_url
-          description=Card_Details.description
-          name=Card_Details.name
-          stargazers_count=Card_Details.stargazers_count
-          forks_count=Card_Details.forks_count
-          open_issues=Card_Details.open_issues
-          fork=Card_Details.fork
-          full_name=Card_Details.full_name
-          has_build_zig=Card_Details.has_build_zig
-          has_build_zig_zon=Card_Details.has_build_zig_zon
-          license=Card_Details.license
-          watchers_count=Card_Details.watchers_count
-          topics=Card_Details.topics
-          no-update
-        ]
+        custom_card
+          ,section="programs"
+          ,repo_from=Card_Details.repo_from
+          ,avatar_url=Card_Details.avatar_url
+          ,description=Card_Details.description
+          ,name=Card_Details.name
+          ,stargazers_count=Card_Details.stargazers_count
+          ,forks_count=Card_Details.forks_count
+          ,open_issues=Card_Details.open_issues
+          ,fork=Card_Details.fork
+          ,full_name=Card_Details.full_name
+          ,has_build_zig=Card_Details.has_build_zig
+          ,has_build_zig_zon=Card_Details.has_build_zig_zon
+          ,license=Card_Details.license
+          ,watchers_count=Card_Details.watchers_count
+          ,topics=Card_Details.topics
+          ,no-update
 
     h1 class=[
       "my-5",
@@ -437,170 +336,147 @@ if(!state.showSearchResults)
 
 else
   div.relative
-    button [
-      type="button"
-      onClick("toggleSidebar")
-      class="fixed left-0 top-20 z-30 block rounded-r-lg bg-gray-800 p-2 text-white md:hidden"
-    ]
-      flowbite-filter-solid [
-        stroke="currentColor"
-        fill="currentColor"
-        viewBox="0 0 24 24"
-        height="24"
-        width="24"
-      ]
-    div [
-      class=`fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity md:hidden ${state.isSidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`
-      onClick("toggleSidebar")
-    ]
+    button
+      ,type="button"
+      ,onClick("toggleSidebar")
+      ,class="fixed left-0 top-20 z-30 block rounded-r-lg bg-gray-800 p-2 text-white md:hidden"
+      flowbite-filter-solid
+        ,stroke="currentColor"
+        ,fill="currentColor"
+        ,viewBox="0 0 24 24"
+        ,height="24"
+        ,width="24"
+    div
+      ,class=`fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity md:hidden ${state.isSidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`
+      ,onClick("toggleSidebar")
     aside class=`fixed left-0 top-0 z-50 h-screen w-64 transform transition-transform md:translate-x-0 ${state.isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`
       div class="h-full overflow-y-auto border-r border-gray-200 bg-white px-3 py-4 dark:border-gray-700 dark:bg-[#1e1e1e]"
         h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white"
           -- Sort By
 
         div.flex.flex-col.space-y-2
-          button [
-            type="button"
-            onClick("onSort", "intelligent_sort")
-            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-          ]
-            flowbite-brain-solid.mr-3 [
-              stroke="currentColor"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              height="20"
-              width="20"
-            ]
+          button
+            ,type="button"
+            ,onClick("onSort", "intelligent_sort")
+            ,class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            flowbite-brain-solid.mr-3
+              ,stroke="currentColor"
+              ,fill="currentColor"
+              ,viewBox="0 0 24 24"
+              ,height="20"
+              ,width="20"
             -- Intelegent Sort
 
-          button [
-            type="button"
-            onClick("onSort", "star_count_sort")
-            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-          ]
-            flowbite-star-solid.mr-3 [
-              stroke="currentColor"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              height="20"
-              width="20"
-            ]
+          button
+            ,type="button"
+            ,onClick("onSort", "star_count_sort")
+            ,class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            flowbite-star-solid.mr-3
+              ,stroke="currentColor"
+              ,fill="currentColor"
+              ,viewBox="0 0 24 24"
+              ,height="20"
+              ,width="20"
             -- Most Stars
 
-          button [
-            type="button"
-            onClick("onSort", "last_updated")
-            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-          ]
-            flowbite-clock-solid.mr-3 [
-              stroke="currentColor"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              height="20"
-              width="20"
-            ]
+          button
+            ,type="button"
+            ,onClick("onSort", "last_updated")
+            ,class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            flowbite-clock-solid.mr-3
+              ,stroke="currentColor"
+              ,fill="currentColor"
+              ,viewBox="0 0 24 24"
+              ,height="20"
+              ,width="20"
             -- Recently Updated
 
-          button [
-            type="button"
-            onClick("onSort", "recently_created")
-            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-          ]
-            flowbite-calendar-plus-solid.mr-3 [
-              stroke="currentColor"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              height="20"
-              width="20"
-            ]
+          button
+            ,type="button"
+            ,onClick("onSort", "recently_created")
+            ,class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            flowbite-calendar-plus-solid.mr-3
+              ,stroke="currentColor"
+              ,fill="currentColor"
+              ,viewBox="0 0 24 24"
+              ,height="20"
+              ,width="20"
             -- Newly Added
 
-          button [
-            type="button"
-            onClick("onSort", "oldest_first")
-            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-          ]
-            flowbite-clock-solid.mr-3 [
-              stroke="currentColor"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              height="20"
-              width="20"
-            ]
+          button
+            ,type="button"
+            ,onClick("onSort", "oldest_first")
+            ,class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            flowbite-clock-solid.mr-3
+              ,stroke="currentColor"
+              ,fill="currentColor"
+              ,viewBox="0 0 24 24"
+              ,height="20"
+              ,width="20"
             -- Oldest First
 
           div class="my-2 border-t border-gray-200 dark:border-gray-700"
 
-          button [
-            type="button"
-            onClick("onSort", "a_to_z")
-            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-          ]
-            flowbite-adjustments-horizontal-solid.mr-3 [
-              stroke="currentColor"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              height="20"
-              width="20"
-            ]
+          button
+            ,type="button"
+            ,onClick("onSort", "a_to_z")
+            ,class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            flowbite-adjustments-horizontal-solid.mr-3
+              ,stroke="currentColor"
+              ,fill="currentColor"
+              ,viewBox="0 0 24 24"
+              ,height="20"
+              ,width="20"
             -- A to Z
 
-          button [
-            type="button"
-            onClick("onSort", "z_to_a")
-            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-          ]
-            flowbite-adjustments-horizontal-solid.mr-3 [
-              stroke="currentColor"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              height="20"
-              width="20"
-            ]
+          button
+            ,type="button"
+            ,onClick("onSort", "z_to_a")
+            ,class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            flowbite-adjustments-horizontal-solid.mr-3
+              ,stroke="currentColor"
+              ,fill="currentColor"
+              ,viewBox="0 0 24 24"
+              ,height="20"
+              ,width="20"
             -- Z to A
 
           div class="my-2 border-t border-gray-200 dark:border-gray-700"
 
-          button [
-            type="button"
-            onClick("onSort", "fork_sort")
-            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-          ]
-            flowbite-code-fork-solid.mr-3 [
-              stroke="currentColor"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              height="20"
-              width="20"
-            ]
+          button
+            ,type="button"
+            ,onClick("onSort", "fork_sort")
+            ,class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            flowbite-code-fork-solid.mr-3
+              ,stroke="currentColor"
+              ,fill="currentColor"
+              ,viewBox="0 0 24 24"
+              ,height="20"
+              ,width="20"
             -- Most Forks
 
-          button [
-            type="button"
-            onClick("onSort", "most_issues")
-            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-          ]
-            flowbite-exclamation-circle-solid.mr-3 [
-              stroke="currentColor"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              height="20"
-              width="20"
-            ]
+          button
+            ,type="button"
+            ,onClick("onSort", "most_issues")
+            ,class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            flowbite-exclamation-circle-solid.mr-3
+              ,stroke="currentColor"
+              ,fill="currentColor"
+              ,viewBox="0 0 24 24"
+              ,height="20"
+              ,width="20"
             -- Most Issues
 
-          button [
-            type="button"
-            onClick("onSort", "least_issues")
-            class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-          ]
-            flowbite-check-circle-solid.mr-3 [
-              stroke="currentColor"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              height="20"
-              width="20"
-            ]
+          button
+            ,type="button"
+            ,onClick("onSort", "least_issues")
+            ,class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            flowbite-check-circle-solid.mr-3
+              ,stroke="currentColor"
+              ,fill="currentColor"
+              ,viewBox="0 0 24 24"
+              ,height="20"
+              ,width="20"
             -- Least Issues
     div class="transition-all duration-300 md:ml-64"
       h1 class=[
@@ -627,23 +503,22 @@ else
       section.flex.w-full.flex-wrap.justify-evenly
         if(state.searchResults.length !== 0)
           for|Card_Details| of=state.searchResults
-            custom_card [
-              section="programs"
-              repo_from=Card_Details.repo_from
-              avatar_url=Card_Details.avatar_url
-              description=Card_Details.description
-              name=Card_Details.name
-              stargazers_count=Card_Details.stargazers_count
-              forks_count=Card_Details.forks_count
-              open_issues=Card_Details.open_issues
-              fork=Card_Details.fork
-              full_name=Card_Details.full_name
-              has_build_zig=Card_Details.has_build_zig
-              has_build_zig_zon=Card_Details.has_build_zig_zon
-              license=Card_Details.license
-              watchers_count=Card_Details.watchers_count
-              topics=Card_Details.topics
-            ]
+            custom_card
+              ,section="programs"
+              ,repo_from=Card_Details.repo_from
+              ,avatar_url=Card_Details.avatar_url
+              ,description=Card_Details.description
+              ,name=Card_Details.name
+              ,stargazers_count=Card_Details.stargazers_count
+              ,forks_count=Card_Details.forks_count
+              ,open_issues=Card_Details.open_issues
+              ,fork=Card_Details.fork
+              ,full_name=Card_Details.full_name
+              ,has_build_zig=Card_Details.has_build_zig
+              ,has_build_zig_zon=Card_Details.has_build_zig_zon
+              ,license=Card_Details.license
+              ,watchers_count=Card_Details.watchers_count
+              ,topics=Card_Details.topics
         else
           h1.text-4xl -- Can't find what you are looking for.
 
