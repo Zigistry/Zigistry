@@ -376,24 +376,26 @@ div
 
       section.flex.w-full.flex-wrap.justify-evenly
         for|Card_Details, idx| of=state.games
-            custom_card
-              ,section="packages"
-              ,repo_from=Card_Details.repo_from
-              ,avatar_url=Card_Details.avatar_url
-              ,description=Card_Details.description
-              ,name=Card_Details.name
-              ,stargazers_count=Card_Details.stargazers_count
-              ,forks_count=Card_Details.forks_count
-              ,open_issues=Card_Details.open_issues
-              ,fork=Card_Details.fork
-              ,full_name=Card_Details.full_name
-              ,has_build_zig=Card_Details.has_build_zig
-              ,has_build_zig_zon=Card_Details.has_build_zig_zon
-              ,license=Card_Details.license
-              ,watchers_count=Card_Details.watchers_count
-              ,topics=Card_Details.topics
-              ,no-update
-        div#gamesExpander onClick("showAllGames") class="flex h-14 w-full items-center justify-center rounded-b-[100px] bg-opacity-90 bg-gradient-to-b from-[#1e1e1e] to-[#2f2f2f] text-lg text-gray-400 hover:text-gray-300 cursor-pointer"
+          custom_card
+            ,section="packages"
+            ,repo_from=Card_Details.repo_from
+            ,avatar_url=Card_Details.avatar_url
+            ,description=Card_Details.description
+            ,name=Card_Details.name
+            ,stargazers_count=Card_Details.stargazers_count
+            ,forks_count=Card_Details.forks_count
+            ,open_issues=Card_Details.open_issues
+            ,fork=Card_Details.fork
+            ,full_name=Card_Details.full_name
+            ,has_build_zig=Card_Details.has_build_zig
+            ,has_build_zig_zon=Card_Details.has_build_zig_zon
+            ,license=Card_Details.license
+            ,watchers_count=Card_Details.watchers_count
+            ,topics=Card_Details.topics
+            ,no-update
+        div#gamesExpander
+          ,onClick("showAllGames")
+          ,class="flex h-14 w-full cursor-pointer items-center justify-center rounded-b-[100px] bg-opacity-90 bg-gradient-to-b from-[#1e1e1e] to-[#2f2f2f] text-lg text-gray-400 hover:text-gray-300"
           p -- View all Game libraries
           svg.mr-1
             ,stroke="currentColor"
@@ -445,7 +447,9 @@ div
             ,watchers_count=Card_Details.watchers_count
             ,topics=Card_Details.topics
             ,no-update
-        div#guiExpander onClick("showAllGUIs") class="flex h-14 w-full items-center justify-center rounded-b-[100px] bg-opacity-90 bg-gradient-to-b from-[#1e1e1e] to-[#2f2f2f] text-lg text-gray-400 hover:text-gray-300 cursor-pointer"
+        div#guiExpander
+          ,onClick("showAllGUIs")
+          ,class="flex h-14 w-full cursor-pointer items-center justify-center rounded-b-[100px] bg-opacity-90 bg-gradient-to-b from-[#1e1e1e] to-[#2f2f2f] text-lg text-gray-400 hover:text-gray-300"
           p -- View all GUI libraries
           svg.mr-1
             ,stroke="currentColor"
@@ -497,7 +501,9 @@ div
             ,watchers_count=Card_Details.watchers_count
             ,topics=Card_Details.topics
             ,no-update
-        div#webExpander onClick("showAllWebs") class="flex h-14 w-full items-center justify-center rounded-b-[100px] bg-opacity-90 bg-gradient-to-b from-[#1e1e1e] to-[#2f2f2f] text-lg text-gray-400 hover:text-gray-300 cursor-pointer"
+        div#webExpander
+          ,onClick("showAllWebs")
+          ,class="flex h-14 w-full cursor-pointer items-center justify-center rounded-b-[100px] bg-opacity-90 bg-gradient-to-b from-[#1e1e1e] to-[#2f2f2f] text-lg text-gray-400 hover:text-gray-300"
           p -- View all Web libraries
           svg.mr-1
             ,stroke="currentColor"

@@ -35,24 +35,23 @@ await(repoPromise) client-reorder timeout=100000000
 
   @then|repo|
     div class="min-h-screen p-2 sm:p-4 md:p-6 lg:p-8"
-      custom_card [
-        section="special-program"
-        repo_from=repo.repo_from
-        avatar_url=repo.avatar_url
-        description=repo.description
-        name=repo.name
-        stargazers_count=repo.stargazers_count
-        forks_count=repo.forks_count
-        open_issues=repo.open_issues
-        fork=repo.fork
-        full_name=repo.full_name
-        has_build_zig=repo.has_build_zig
-        has_build_zig_zon=repo.has_build_zig_zon
-        license=repo.license
-        watchers_count=repo.watchers_count
-        topics=repo.topics
-        no-update
-      ]
+      custom_card
+        ,section="special-program"
+        ,repo_from=repo.repo_from
+        ,avatar_url=repo.avatar_url
+        ,description=repo.description
+        ,name=repo.name
+        ,stargazers_count=repo.stargazers_count
+        ,forks_count=repo.forks_count
+        ,open_issues=repo.open_issues
+        ,fork=repo.fork
+        ,full_name=repo.full_name
+        ,has_build_zig=repo.has_build_zig
+        ,has_build_zig_zon=repo.has_build_zig_zon
+        ,license=repo.license
+        ,watchers_count=repo.watchers_count
+        ,topics=repo.topics
+        ,no-update
 
       div class="mt-4 sm:mt-8 space-y-4 sm:space-y-8"
         <!-- Dependencies Section -->
@@ -73,20 +72,18 @@ await(repoPromise) client-reorder timeout=100000000
                       div.space-y-1
                         div class="text-sky-600 dark:text-sky-400 font-medium text-sm sm:text-base"
                           -- URL
-                        a [
-                          href=dep.url
-                          target="_blank"
-                          class="text-gray-800 dark:text-white hover:text-sky-700 dark:hover:text-sky-300 text-xs sm:text-sm break-all"
-                        ]
+                        a
+                          ,href=dep.url
+                          ,target="_blank"
+                          ,class="text-gray-800 dark:text-white hover:text-sky-700 dark:hover:text-sky-300 text-xs sm:text-sm break-all"
                           -- ${dep.url}
                       div.space-y-1
                         div class="text-purple-600 dark:text-purple-400 font-medium text-sm sm:text-base"
                           -- Tag URL
-                        a [
-                          href=dep.tar_url
-                          target="_blank"
-                          class="text-gray-800 dark:text-white hover:text-purple-700 dark:hover:text-purple-300 text-xs sm:text-sm break-all"
-                        ]
+                        a
+                          ,href=dep.tar_url
+                          ,target="_blank"
+                          ,class="text-gray-800 dark:text-white hover:text-purple-700 dark:hover:text-purple-300 text-xs sm:text-sm break-all"
                           -- ${dep.tar_url}
                       div.flex.items-center.space-x-2
                         span class="text-amber-600 dark:text-amber-400 font-medium text-sm sm:text-base"
@@ -119,8 +116,7 @@ await(repoPromise) client-reorder timeout=100000000
   @catch|_|
     h1 class="text-3xl sm:text-4xl text-center text-red-500" -- 404!
 
-script type="module"
-  --
+script type="module" --
   import { highlightElements as e } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25";
   import { zig as n } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/zig.js";
   import { bash as i } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/bash.js";
@@ -130,7 +126,6 @@ script type="module"
   e(i, "language-console");
   e(i, "language-sh");
   e(t, "language-diff");
-  --
 
 style {
   @import url("https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/styles/darkMode.css");
