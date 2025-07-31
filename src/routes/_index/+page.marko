@@ -7,6 +7,9 @@ class {
     intelegentSortData: Repo[];
     showSearchResults: boolean;
     isSidebarOpen: boolean;
+    games: any[];
+    gui: any[];
+    web: any[];
   };
 
   onCreate() {
@@ -16,6 +19,9 @@ class {
       intelegentSortData: [],
       showSearchResults: false,
       isSidebarOpen: false,
+      games: index_details.games.slice(0, 5),
+      gui: index_details.gui.slice(0, 5),
+      web: index_details.web.slice(0, 5),
     };
   }
 
@@ -131,6 +137,21 @@ class {
     const params = new URLSearchParams(location.hash.slice(1));
     params.set("sort", key);
     location.hash = params.toString();
+  }
+
+  showAllGames() {
+    this.state.games = index_details.games;
+    document.getElementById("gamesExpander")!.classList.add("hidden");
+  }
+
+  showAllGUIs() {
+    this.state.gui = index_details.gui;
+    document.getElementById("guiExpander")!.classList.add("hidden");
+  }
+
+  showAllWebs() {
+    this.state.web = index_details.web;
+    document.getElementById("webExpander")!.classList.add("hidden");
   }
 
   onSearch(query: string, filter: string, sortKey: string) {
@@ -354,7 +375,7 @@ div
         -- &nbsp;Famous Game libs:
 
       section.flex.w-full.flex-wrap.justify-evenly
-        for|Card_Details| of=index_details.games
+        for|Card_Details, idx| of=state.games
           custom_card
             ,section="packages"
             ,repo_from=Card_Details.repo_from
@@ -372,6 +393,18 @@ div
             ,watchers_count=Card_Details.watchers_count
             ,topics=Card_Details.topics
             ,no-update
+        div#gamesExpander
+          ,onClick("showAllGames")
+          ,class="flex h-14 w-full cursor-pointer items-center justify-center rounded-b-[100px] bg-opacity-90 bg-gradient-to-b from-[#1e1e1e] to-[#2f2f2f] text-lg text-gray-400 hover:text-gray-300"
+          p -- View all Game libraries
+          svg.mr-1
+            ,stroke="currentColor"
+            ,fill="currentColor"
+            ,stroke-width="0"
+            ,viewBox="0 0 24 24"
+            ,height="20"
+            ,width="20"
+            use href="#icon-double-down"
 
       h1 class=[
         "my-5",
@@ -396,7 +429,7 @@ div
         -- &nbsp;Famous GUI libs:
 
       section.flex.w-full.flex-wrap.justify-evenly
-        for|Card_Details| of=index_details.gui
+        for|Card_Details| of=state.gui
           custom_card
             ,section="packages"
             ,repo_from=Card_Details.repo_from
@@ -414,6 +447,18 @@ div
             ,watchers_count=Card_Details.watchers_count
             ,topics=Card_Details.topics
             ,no-update
+        div#guiExpander
+          ,onClick("showAllGUIs")
+          ,class="flex h-14 w-full cursor-pointer items-center justify-center rounded-b-[100px] bg-opacity-90 bg-gradient-to-b from-[#1e1e1e] to-[#2f2f2f] text-lg text-gray-400 hover:text-gray-300"
+          p -- View all GUI libraries
+          svg.mr-1
+            ,stroke="currentColor"
+            ,fill="currentColor"
+            ,stroke-width="0"
+            ,viewBox="0 0 24 24"
+            ,height="20"
+            ,width="20"
+            use href="#icon-double-down"
 
       h1 class=[
         "my-5",
@@ -438,7 +483,7 @@ div
         -- &nbsp;Famous Web libs:
 
       section.flex.w-full.flex-wrap.justify-evenly
-        for|Card_Details| of=index_details.web
+        for|Card_Details| of=state.web
           custom_card
             ,section="packages"
             ,repo_from=Card_Details.repo_from
@@ -456,6 +501,18 @@ div
             ,watchers_count=Card_Details.watchers_count
             ,topics=Card_Details.topics
             ,no-update
+        div#webExpander
+          ,onClick("showAllWebs")
+          ,class="flex h-14 w-full cursor-pointer items-center justify-center rounded-b-[100px] bg-opacity-90 bg-gradient-to-b from-[#1e1e1e] to-[#2f2f2f] text-lg text-gray-400 hover:text-gray-300"
+          p -- View all Web libraries
+          svg.mr-1
+            ,stroke="currentColor"
+            ,fill="currentColor"
+            ,stroke-width="0"
+            ,viewBox="0 0 24 24"
+            ,height="20"
+            ,width="20"
+            use href="#icon-double-down"
 
       h1 class=[
         "my-5",

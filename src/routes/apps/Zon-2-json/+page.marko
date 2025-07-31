@@ -31,27 +31,24 @@ class {
 div.flex.h-screen
   div class="h-screen w-1/2 border-r-2 border-yellow-400 bg-white dark:bg-[#2a2a2a]"
     div.border-b-2.border-yellow-400
-      button [
-        type="button"
-        on-click("onConvert")
-        class="bg-white p-4 hover:bg-[#dadada] dark:bg-[#2a2a2a] hover:dark:bg-[#3a3a3a]"
-      ]
+      button
+        ,type="button"
+        ,on-click("onConvert")
+        ,class="bg-white p-4 hover:bg-[#dadada] dark:bg-[#2a2a2a] hover:dark:bg-[#3a3a3a]"
         -- Convet to json
     div
       div#input_zon_data_pseudo class="absolute z-10 h-screen w-1/2 border-r-2 border-yellow-400 bg-white font-mono dark:bg-[#2a2a2a] dark:text-white"
-      textarea#input_zon_data [
-        class="relative z-30 h-screen w-1/2 bg-transparent font-mono text-transparent caret-white"
-        onInput("onInp")
-        placeholder="Type zon here..."
-      ]
+      textarea#input_zon_data
+        ,class="relative z-30 h-screen w-1/2 bg-transparent font-mono text-transparent caret-white"
+        ,onInput("onInp")
+        ,placeholder="Type zon here..."
 
   div class="w-1/2 bg-white dark:bg-[#2a2a2a]"
     div.border-b-2.border-yellow-400
-      button [
-        type="button"
-        onClick("onclicked")
-        class="bg-white p-4 hover:bg-[#dadada] dark:bg-[#2a2a2a] hover:dark:bg-[#3a3a3a]"
-      ]
+      button
+        ,type="button"
+        ,onClick("onclicked")
+        ,class="bg-white p-4 hover:bg-[#dadada] dark:bg-[#2a2a2a] hover:dark:bg-[#3a3a3a]"
         -- Copy
     div.font-mono#output_json_data
 

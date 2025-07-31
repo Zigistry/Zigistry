@@ -1,8 +1,7 @@
 <!doctype html>
 html.dark lang="en"
   head
-    script blocking="render"
-      --
+    script blocking="render" --
       if (
         localStorage.getItem("color-theme") === "dark" ||
         (!("color-theme" in localStorage) &&
@@ -12,7 +11,6 @@ html.dark lang="en"
       } else {
         document.documentElement.classList.remove("dark");
       }
-      --
     meta charset="utf-8"
     meta http-equiv="X-UA-Compatible" content="IE=edge"
     link rel="canonical" href="https://zigistry.dev/"
@@ -22,39 +20,33 @@ html.dark lang="en"
 
     script defer src="/theme.js"
 
-    meta [
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
-    ]
+    meta
+      ,name="viewport"
+      ,content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
     meta name="theme-color" content="#1e1e1e"
 
-    title
-      --
-      Zigistry: A package registry and manager for Zig | Find & Share Zig Packages
-      --
+    title --
+      Zigistry: A package registry and manager for Zig | Find & Share Zig
+      Packages
     meta name="robots" content="index, follow"
-    meta [
-      name="description"
-      content="Zigistry is your go-to registry for Zig programming language libraries and packages. Find, share, and contribute to Zig packages easily. Join the Zig community now!"
-    ]
-    meta [
-      name="keywords"
-      content="Zigistry, Zig programming language, Zig libraries, Zig packages, package registry, open-source Zig, Zig community, package manager, contribute to Zig, Zig development, Zig package management, Zig dependencies"
-    ]
+    meta
+      ,name="description"
+      ,content="Zigistry is your go-to registry for Zig programming language libraries and packages. Find, share, and contribute to Zig packages easily. Join the Zig community now!"
+    meta
+      ,name="keywords"
+      ,content="Zigistry, Zig programming language, Zig libraries, Zig packages, package registry, open-source Zig, Zig community, package manager, contribute to Zig, Zig development, Zig package management, Zig dependencies"
     meta name="author" content="Rohan Vashisht"
     meta name="language" content="English"
 
     meta property="og:type" content="website"
     meta property="og:site_name" content="Zigistry"
     meta property="og:url" content="https://zigistry.dev/"
-    meta [
-      property="og:title"
-      content="Zigistry: A package registry and manager for Zig | Find & Share Zig Packages"
-    ]
-    meta [
-      property="og:description"
-      content="Explore Zig programming language programs and packages on Zigistry. Find, share, and contribute to the Zig community. Your one-stop solution for Zig package management."
-    ]
+    meta
+      ,property="og:title"
+      ,content="Zigistry: A package registry and manager for Zig | Find & Share Zig Packages"
+    meta
+      ,property="og:description"
+      ,content="Explore Zig programming language programs and packages on Zigistry. Find, share, and contribute to the Zig community. Your one-stop solution for Zig package management."
     meta property="og:image" content="https://zigistry.dev/zigistry-social.jpg"
     meta property="og:image:width" content="1200"
     meta property="og:image:height" content="630"
@@ -62,31 +54,26 @@ html.dark lang="en"
     <!-- Twitter -->
     meta property="twitter:card" content="summary_large_image"
     meta property="twitter:url" content="https://zigistry.dev/"
-    meta [
-      property="twitter:title"
-      content="Zigistry: Discover & Contribute to Zig Libraries & Packages"
-    ]
-    meta [
-      property="twitter:description"
-      content="Explore Zig programming language programs and packages on Zigistry. Find, share, and contribute to the Zig community. The ultimate Zig package registry."
-    ]
-    meta [
-      property="twitter:image"
-      content="https://zigistry.dev/zigistry-social.jpg"
-    ]
+    meta
+      ,property="twitter:title"
+      ,content="Zigistry: Discover & Contribute to Zig Libraries & Packages"
+    meta
+      ,property="twitter:description"
+      ,content="Explore Zig programming language programs and packages on Zigistry. Find, share, and contribute to the Zig community. The ultimate Zig package registry."
+    meta
+      ,property="twitter:image"
+      ,content="https://zigistry.dev/zigistry-social.jpg"
     meta property="twitter:image:alt" content="Zigistry - Zig Package Registry"
 
     meta name="mobile-web-app-capable" content="yes"
     meta name="apple-mobile-web-app-capable" content="yes"
-    meta [
-      name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
-    ]
+    meta
+      ,name="apple-mobile-web-app-status-bar-style"
+      ,content="black-translucent"
     meta name="apple-mobile-web-app-title" content="Zigistry"
     meta name="application-name" content="Zigistry"
 
-    script type="application/ld+json"
-      --
+    script type="application/ld+json" --
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
@@ -114,7 +101,6 @@ html.dark lang="en"
           "availability": "https://schema.org/InStock"
         }
       }
-      --
   body class="bg-white dark:bg-[rgb(30,30,30)] dark:text-white"
     svg.hidden xmlns="http://www.w3.org/2000/svg"
       <!-- Star -->
@@ -122,32 +108,33 @@ html.dark lang="en"
         path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"
       <!-- Eye -->
       symbol#icon-eye viewBox="0 0 24 24" fill="currentColor"
-        path [
-          fill-rule="evenodd"
-          d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-          clip-rule="evenodd"
-        ]
+        path
+          ,fill-rule="evenodd"
+          ,d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+          ,clip-rule="evenodd"
       <!-- Fork -->
       symbol#icon-fork viewBox="0 0 24 24" fill="currentColor"
-        path [
-          fill-rule="evenodd"
-          d="M5 6a3 3 0 1 1 4 2.83V10a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V8.83a3.001 3.001 0 1 1 2 0V10a3 3 0 0 1-3 3h-1v2.17a3.001 3.001 0 1 1-2 0V13h-1a3 3 0 0 1-3-3V8.83A3.001 3.001 0 0 1 5 6Z"
-          clip-rule="evenodd"
-        ]
+        path
+          ,fill-rule="evenodd"
+          ,d="M5 6a3 3 0 1 1 4 2.83V10a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V8.83a3.001 3.001 0 1 1 2 0V10a3 3 0 0 1-3 3h-1v2.17a3.001 3.001 0 1 1-2 0V13h-1a3 3 0 0 1-3-3V8.83A3.001 3.001 0 0 1 5 6Z"
+          ,clip-rule="evenodd"
       <!-- Check -->
       symbol#icon-check viewBox="0 0 24 24" fill="currentColor"
-        path [
-          fill-rule="evenodd"
-          d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z"
-          clip-rule="evenodd"
-        ]
+        path
+          ,fill-rule="evenodd"
+          ,d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z"
+          ,clip-rule="evenodd"
       <!-- Information -->
       symbol#icon-info viewBox="0 0 24 24" fill="currentColor"
-        path [
-          fill-rule="evenodd"
-          d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z"
-          clip-rule="evenodd"
-        ]
+        path
+          ,fill-rule="evenodd"
+          ,d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z"
+          ,clip-rule="evenodd"
+      <!-- Expand Icon -->
+      symbol#icon-double-down viewBox="0 0 24 24" fill="currentColor"
+        path fill="none" d="M0 0h24v24H0z"
+        path d="M18 6.41 16.59 5 12 9.58 7.41 5 6 6.41l6 6z"
+        path d="m18 13-1.41-1.41L12 16.17l-4.59-4.58L6 13l6 6z"
 
     nav class="border-b-2 border-b-[#faca15]"
       div.mx-auto.flex.max-w-screen-xl.flex-wrap.items-center.justify-between.p-3
@@ -155,166 +142,141 @@ html.dark lang="en"
           span class="self-center whitespace-nowrap text-2xl font-extrabold dark:text-white"
             span class="text-amber-600 dark:text-yellow-300" -- Zig
             -- istry
-        button [
-          data-collapse-toggle="navbar-default"
-          type="button"
-          class="inline-flex size-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden"
-          aria-controls="navbar-default"
-          aria-expanded="false"
-        ]
+        button
+          ,data-collapse-toggle="navbar-default"
+          ,type="button"
+          ,class="inline-flex size-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden"
+          ,aria-controls="navbar-default"
+          ,aria-expanded="false"
           span.sr-only -- Open main menu
-          svg.size-5 [
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 17 14"
-          ]
-            path [
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 1h15M1 7h15M1 13h15"
-            ]
+          svg.size-5
+            ,aria-hidden="true"
+            ,xmlns="http://www.w3.org/2000/svg"
+            ,fill="none"
+            ,viewBox="0 0 17 14"
+            path
+              ,stroke="currentColor"
+              ,stroke-linecap="round"
+              ,stroke-linejoin="round"
+              ,stroke-width="2"
+              ,d="M1 1h15M1 7h15M1 13h15"
         div#navbar-default class="hidden w-full md:block md:w-auto"
           ul class="mt-4 flex flex-col rounded-lg border border-gray-100 p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse"
             li
-              a [
-                href="/"
-                class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
-              ]
+              a
+                ,href="/"
+                ,class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                 -- Packages
             li
-              a [
-                href="/programs"
-                class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
-              ]
+              a
+                ,href="/programs"
+                ,class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                 -- Programs
             li
-              a [
-                href="/advancedSearch"
-                class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
-              ]
+              a
+                ,href="/advancedSearch"
+                ,class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                 -- AI
             li
-              button#dropdownNavbarLink [
-                data-dropdown-toggle="dropdownNavbar"
-                data-dropdown-trigger="hover"
-                class="flex w-full items-center justify-between rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:text-white md:w-auto md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
-              ]
+              button#dropdownNavbarLink
+                ,data-dropdown-toggle="dropdownNavbar"
+                ,data-dropdown-trigger="hover"
+                ,class="flex w-full items-center justify-between rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:text-white md:w-auto md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                 -- View More
-                svg.5.5.ms-2.h-2.w-2.transition-transform.duration-200 [
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 10 6"
-                ]
-                  path [
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m1 1 4 4 4-4"
-                  ]
+                svg.5.5.ms-2.h-2.w-2.transition-transform.duration-200
+                  ,aria-hidden="true"
+                  ,xmlns="http://www.w3.org/2000/svg"
+                  ,fill="none"
+                  ,viewBox="0 0 10 6"
+                  path
+                    ,stroke="currentColor"
+                    ,stroke-linecap="round"
+                    ,stroke-linejoin="round"
+                    ,stroke-width="2"
+                    ,d="m1 1 4 4 4-4"
             div#dropdownNavbar class="z-10 hidden w-44 divide-y divide-gray-100 rounded-lg bg-white font-normal shadow dark:divide-gray-600 dark:bg-gray-700"
-              ul [
-                aria-labelledby="dropdownNavbarLink"
-                class="py-2 text-sm text-gray-700 dark:text-gray-400"
-              ]
+              ul
+                ,aria-labelledby="dropdownNavbarLink"
+                ,class="py-2 text-sm text-gray-700 dark:text-gray-400"
                 li
-                  a [
-                    href="/statistics"
-                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  ]
+                  a
+                    ,href="/statistics"
+                    ,class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     -- Statistics
                 li
-                  a [
-                    href="/apps"
-                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  ]
+                  a
+                    ,href="/apps"
+                    ,class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     -- Apps
                 li
-                  a [
-                    href="/API-docs"
-                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  ]
+                  a
+                    ,href="/API-docs"
+                    ,class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     -- API
                 li
-                  a [
-                    href="/help"
-                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  ]
+                  a
+                    ,href="/help"
+                    ,class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     -- Help
             li
-              a [
-                href="/about"
-                class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
-              ]
+              a
+                ,href="/about"
+                ,class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                 -- About
             li
-              a [
-                href="/help"
-                class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
-              ]
+              a
+                ,href="/help"
+                ,class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                 -- Help
             li class="mt-0.5"
-              a [
-                href="https://github.com/zigistry/zigistry"
-                class="flex rounded-lg border-2 border-gray-600 bg-gray-700 px-3 text-center text-sm font-medium text-white hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-500 dark:border-gray-300 dark:bg-white dark:text-gray-900 dark:hover:border-gray-300 dark:hover:bg-gray-100 dark:focus:ring-gray-200"
-                target="_blank"
-                rel="noopener noreferrer"
-              ]
-                flowbite-star-outline [
-                  class="mr-1.5 text-[#ffffff] dark:text-[#161616]"
-                  stroke="currentColor"
-                  fill="currentColor"
-                  stroke-width="0"
-                  color="black"
-                  viewBox="0 0 24 24"
-                  height="18"
-                  width="18"
-                ]
-                span class="pr-1.5" --  Star
+              a
+                ,href="https://github.com/zigistry/zigistry"
+                ,class="flex rounded-lg border-2 border-gray-600 bg-gray-700 px-3 text-center text-sm font-medium text-white hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-500 dark:border-gray-300 dark:bg-white dark:text-gray-900 dark:hover:border-gray-300 dark:hover:bg-gray-100 dark:focus:ring-gray-200"
+                ,target="_blank"
+                ,rel="noopener noreferrer"
+                flowbite-star-outline
+                  ,class="mr-1.5 text-[#ffffff] dark:text-[#161616]"
+                  ,stroke="currentColor"
+                  ,fill="currentColor"
+                  ,stroke-width="0"
+                  ,color="black"
+                  ,viewBox="0 0 24 24"
+                  ,height="18"
+                  ,width="18"
+                span class="pr-1.5" -- ${" "}Star
                 span#star_count class="border-l-2 pl-1.5"
             li
-              button#theme-toggle [
-                aria-label="theme toggle"
-                type="button"
-                class="rounded-lg p-1 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
-              ]
-                svg.hidden.h-5.w-5#theme-toggle-dark-icon [
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                ]
+              button#theme-toggle
+                ,aria-label="theme toggle"
+                ,type="button"
+                ,class="rounded-lg p-1 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+                svg.hidden.h-5.w-5#theme-toggle-dark-icon
+                  ,fill="currentColor"
+                  ,viewBox="0 0 20 20"
+                  ,xmlns="http://www.w3.org/2000/svg"
                   path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
-                svg.hidden.h-5.w-5#theme-toggle-light-icon [
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                ]
-                  path [
-                    d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                  ]
+                svg.hidden.h-5.w-5#theme-toggle-light-icon
+                  ,fill="currentColor"
+                  ,viewBox="0 0 20 20"
+                  ,xmlns="http://www.w3.org/2000/svg"
+                  path
+                    ,d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                    ,fill-rule="evenodd"
+                    ,clip-rule="evenodd"
     ${input.renderBody}
-    footer [
-      data-testid="flowbite-footer"
-      class="w-full rounded-none bg-white p-6 shadow dark:bg-[rgb(30,30,30)] md:flex md:items-center md:justify-between"
-    ]
+    footer
+      ,data-testid="flowbite-footer"
+      ,class="w-full rounded-none bg-white p-6 shadow dark:bg-[rgb(30,30,30)] md:flex md:items-center md:justify-between"
       -- ${" "}
-      div [
-        data-testid="flowbite-footer-copyright"
-        class="text-sm text-gray-500 dark:text-gray-400 sm:text-center"
-      ]
+      div
+        ,data-testid="flowbite-footer-copyright"
+        ,class="text-sm text-gray-500 dark:text-gray-400 sm:text-center"
         -- © <!-- -->2024
         a href="/" class="ml-1 hover:underline" -- Rohan Vashisht
       -- ${" "}
-      ul [
-        data-testid="footer-groupLink"
-        class="flex flex-wrap text-sm text-gray-500 dark:text-white"
-      ]
+      ul
+        ,data-testid="footer-groupLink"
+        ,class="flex flex-wrap text-sm text-gray-500 dark:text-white"
         li class="me-4 last:mr-0 md:mr-6"
           a href="/about" class="hover:underline" -- About
         li class="me-4 last:mr-0 md:mr-6"
