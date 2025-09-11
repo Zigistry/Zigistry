@@ -16,7 +16,7 @@
     "@types/node": "^22.16.5",
     "flowbite-icons-marko": "0.0.6",
     "marko": "^5.37.42",
-    "vite": "^6.3.5",
+    "vite": "^7.1.5",
     "z2j": "^0.0.48",
     "zilite": "^0.0.4"
   },
