@@ -12,3 +12,9 @@ export function formatNumber(num: number) {
   }
   return num.toString();
 }
+
+export function parseVersion(version: string): number[] {
+  if (!version || version === "unknown") return [-1];
+  const clean = version.split(/[-+]/)[0];
+  return clean.split(".").map((x) => parseInt(x, 10) || 0);
+}
