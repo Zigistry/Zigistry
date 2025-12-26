@@ -1,5 +1,11 @@
 <script>
 	import LeftMiniTitle from '../components/+LeftMiniTitle.svelte';
+	import Card from '../components/+card.svelte';
+	import all_database from '../b.json';
+
+	const top_10_latest_repos = Object.entries(all_database.programs)
+		.sort(([, a], [, b]) => new Date(b.c) - new Date(a.c))
+		.slice(0, 10);
 </script>
 
 <div class="flex flex-col items-center">
@@ -34,5 +40,16 @@
 	</div>
 </div>
 <div>
-<LeftMiniTitle name="Recently Released:" />
+	<LeftMiniTitle name="Recently Released" />
+	<section class="flex w-full flex-wrap justify-evenly">
+		{#each top_10_latest_repos as [name, program]}
+			{@const name_splitted = name.split('/')}
+			{console.log(program)}
+			{#if name_splitted[0] == 'gh'}
+				<Card avatar_url={'https://avatars.githubusercontent.com/' + name_splitted[1]} />
+			{:else if name_splitted[0] == 'cb'}
+				<Card avatar_url={'https://codeberg.org/avatars/' + program.a} />
+			{/if}
+		{/each}
+	</section>
 </div>

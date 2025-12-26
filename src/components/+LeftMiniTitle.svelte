@@ -1,5 +1,6 @@
 <script>
 	let props = $props();
+	import { Rocket } from '@lucide/svelte';
 </script>
 
 <h1
@@ -7,41 +8,7 @@
 >
 	<div class="flex translate-y-[-5px] items-center gap-3">
 		<div class="relative flex w-8">
-			<svg
-				stroke="currentColor"
-				fill="currentColor"
-				strokewidth="0"
-				viewBox="0 0 25 25"
-				height="25"
-				width="25"
-				class="absolute left-0 z-10 -translate-y-[6px]"
-				xmlns="http://www.w3.org/2000/svg"
-				strokeWidth="0"
-				><path
-					stroke="currentColor"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M8 18V6l8 6-8 6Z"
-				></path></svg
-			><svg
-				stroke="currentColor"
-				fill="currentColor"
-				strokewidth="0"
-				viewBox="0 0 25 25"
-				height="25"
-				width="25"
-				class="absolute left-3 -translate-y-[6px]"
-				xmlns="http://www.w3.org/2000/svg"
-				strokeWidth="0"
-				><path
-					stroke="currentColor"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M8 18V6l8 6-8 6Z"
-				></path></svg
-			>
+			<Rocket class="absolute left-0 z-10 -translate-y-[6px]" viewBox="0 0 25 25" />
 		</div>
 	</div>
 	<span>&nbsp;{props.name}</span>
