@@ -57,6 +57,8 @@
 					forks={library.f}
 					issues={library.i}
 					provider="gh"
+					spdx_id={library.l}
+					minimum_zig_version={library.dbi.m}
 				/>
 			{:else if name_splitted[0] === 'cb'}
 				<Card
@@ -68,7 +70,9 @@
 					stars={library.s}
 					forks={library.f}
 					issues={library.i}
+					minimum_zig_version={library.dbi.m}
 					provider="cb"
+					spdx_id={library.l}
 				/>
 			{/if}
 		{/each}
