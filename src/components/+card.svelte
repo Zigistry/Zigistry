@@ -1,5 +1,6 @@
 <script>
-	import { Star, User } from '@lucide/svelte';
+	import { Star, User, Github, Eye, GitFork, CircleDotDashed } from '@lucide/svelte';
+	import  Codeberg  from "../../static/codeberg.svg"
 	let props = $props();
 </script>
 
@@ -10,9 +11,18 @@
 		<img src={props.avatar_url} alt="misshod" width="40" height="40" class="w-10 rounded-full" />
 
 		<span class="truncate text-2xl font-bold text-gray-900 dark:text-white">{props.repo_name}</span>
-
-		<p class="flex w-min truncate rounded-2xl bg-gray-800 p-2 text-gray-600 dark:text-gray-400">
-			<User size={22} />&nbsp;jeffective
+		
+		<p class="flex w-min truncate rounded-2xl bg-gray-600 text-gray-400 dark:text-gray-400">
+			<span class="flex w-min truncate rounded-2xl bg-gray-800 p-2 text-gray-600 dark:text-gray-400">
+				<User size={22} />&nbsp;{props.owner_name}
+			</span>
+			<span class="flex content-center items-center px-2">
+				{#if props.provider === "gh"}
+					<Github size={22}/>
+				{:else if props.provider === "cb"}
+					<Codeberg />
+					{/if}
+				<span>
 		</p>
 		<div class="flex space-x-3">
 			<span
@@ -37,44 +47,29 @@
 				color="#cfbc0e"
 				height="10"
 				width="10"
-			></Star>0<svg
-				class="mr-1 ml-2 text-[skyblue]"
+			></Star>{props.stars}<Eye 	class="mr-1 ml-2 text-[skyblue]"
 				stroke="currentColor"
-				fill="currentColor"
 				stroke-width="0"
 				color="skyblue"
 				viewBox="0 0 24 24"
 				height="20"
-				width="20"><use href="#icon-eye"></use></svg
-			>1<svg
+				width="20"><use href="#icon-eye"></use></Eye
+			>{props.watchers}<GitFork 
 				class="mr-1 ml-2 text-[lightpink]"
 				stroke="currentColor"
-				fill="currentColor"
 				stroke-width="0"
 				viewBox="0 0 24 24"
 				color="lightpink"
 				height="20"
-				width="20"><use href="#icon-fork"></use></svg
-			>0<svg
-				class="mr-1 ml-2 text-[lightgreen]"
+				width="20"><use href="#icon-fork"></use></GitFork
+			>0<CircleDotDashed				class="mr-1 ml-2 text-[lightgreen]"
 				stroke="currentColor"
-				fill="currentColor"
 				stroke-width="0"
 				viewBox="0 0 24 24"
 				color="lightgreen"
 				height="18"
-				width="18"><use href="#icon-check"></use></svg
-			>0<svg
-				class="mr-1 ml-2 text-[darkorange]"
-				stroke="currentColor"
-				fill="currentColor"
-				stroke-width="0"
-				viewBox="0 0 24 24"
-				color="darkorange"
-				height="18"
-				width="18"><use href="#icon-info"></use></svg
-			>
-			<div class="w-fit">4</div>
+				width="18">{props.forks}</CircleDotDashed
+			>{props.issues}
 			<div
 				tabindex="-1"
 				class="invisible absolute top-[211.993px] left-[134.169px] z-10 mr-1 ml-2 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700"

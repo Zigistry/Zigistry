@@ -1,9 +1,9 @@
 <script>
 	import LeftMiniTitle from '../components/+LeftMiniTitle.svelte';
 	import Card from '../components/+card.svelte';
-	import all_database from '../b.json';
+	import all_database from '../database.json';
 
-	const top_10_latest_repos = Object.entries(all_database.programs)
+	const top_10_latest_repos = Object.entries(all_database.packages)
 		.sort(([, a], [, b]) => new Date(b.c) - new Date(a.c))
 		.slice(0, 10);
 </script>
@@ -42,13 +42,34 @@
 <div>
 	<LeftMiniTitle name="Recently Released" />
 	<section class="flex w-full flex-wrap justify-evenly">
-		{#each top_10_latest_repos as [name, program]}
+		{@html '<!--What!!!! package is a reserved keyword!!!!!!-->'}
+		{#each top_10_latest_repos as [name, library]}
 			{@const name_splitted = name.split('/')}
-			{console.log(program)}
-			{#if name_splitted[0] == 'gh'}
-				<Card avatar_url={'https://avatars.githubusercontent.com/' + name_splitted[1]} />
-			{:else if name_splitted[0] == 'cb'}
-				<Card avatar_url={'https://codeberg.org/avatars/' + program.a} />
+			{console.log(library)}
+			{#if name_splitted[0] === 'gh'}
+				<Card
+					avatar_url={'https://avatars.githubusercontent.com/' + name_splitted[1]}
+					owner_name={name_splitted[1]}
+					repo_name={name_splitted[2]}
+					stars={library.s}
+					description={library.d}
+					watchers={library.w}
+					forks={library.f}
+					issues={library.i}
+					provider="gh"
+				/>
+			{:else if name_splitted[0] === 'cb'}
+				<Card
+					avatar_url={'https://codeberg.org/avatars/' + library.a}
+					owner_name={name_splitted[1]}
+					repo_name={name_splitted[2]}
+					description={library.d}
+					watchers={library.w}
+					stars={library.s}
+					forks={library.f}
+					issues={library.i}
+					provider="cb"
+				/>
 			{/if}
 		{/each}
 	</section>
