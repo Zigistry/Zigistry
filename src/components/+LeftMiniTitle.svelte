@@ -1,6 +1,6 @@
 <script>
 	let props = $props();
-	import { Rocket } from '@lucide/svelte';
+	const Icon = props.icon;
 </script>
 
 <div
@@ -8,7 +8,7 @@
 >
 	<div class="flex translate-y-[-5px] items-center gap-3">
 		<div class="relative flex w-8">
-			<Rocket class="absolute left-0 z-10 -translate-y-[6px]" viewBox="0 0 25 25" />
+			<Icon class="absolute left-0 z-10 -translate-y-[6px]" viewBox="0 0 25 25" />
 		</div>
 	</div>
 	<h1>&nbsp;{props.name}</h1>

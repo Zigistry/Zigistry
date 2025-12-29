@@ -1,6 +1,5 @@
 <script>
-	import { Star, User, Github, Eye, GitFork, CircleDotDashed } from '@lucide/svelte';
-	import  Codeberg  from "../../static/codeberg.svg"
+	import { MountainSnow,  Star, User, Github, Eye, GitFork, CircleDotDashed } from '@lucide/svelte';
 	let props = $props();
 </script>
 
@@ -11,18 +10,18 @@
 		<img src={props.avatar_url} alt="misshod" width="40" height="40" class="w-10 rounded-full" />
 
 		<span class="truncate text-2xl font-bold text-gray-900 dark:text-white">{props.repo_name}</span>
-		
+
 		<p class="flex w-min truncate rounded-2xl bg-gray-600 text-gray-400 dark:text-gray-400">
-			<span class="flex w-min truncate rounded-2xl bg-gray-800 p-2 text-gray-600 dark:text-gray-400">
-				<User size={22} />&nbsp;{props.owner_name}
+			<span class="flex w-fit rounded-2xl bg-gray-800 p-2 text-gray-600 dark:text-gray-400">
+				<User size={22} width={22} class="min-h-[22px] min-w-[22px]" />&nbsp;{props.owner_name}
 			</span>
 			<span class="flex content-center items-center px-2">
-				{#if props.provider === "gh"}
-					<Github size={22}/>
-				{:else if props.provider === "cb"}
-					<Codeberg />
-					{/if}
-				<span>
+				{#if props.provider === 'gh'}
+					<Github size={22} />
+				{:else if props.provider === 'cb'}
+					
+<MountainSnow size={22} />				{/if}
+			</span>
 		</p>
 		<div class="flex space-x-3">
 			<span
@@ -47,14 +46,15 @@
 				color="#cfbc0e"
 				height="10"
 				width="10"
-			></Star>{props.stars}<Eye 	class="mr-1 ml-2 text-[skyblue]"
+			></Star>{props.stars}<Eye
+				class="mr-1 ml-2 text-[skyblue]"
 				stroke="currentColor"
 				stroke-width="0"
 				color="skyblue"
 				viewBox="0 0 24 24"
 				height="20"
 				width="20"><use href="#icon-eye"></use></Eye
-			>{props.watchers}<GitFork 
+			>{props.watchers}<GitFork
 				class="mr-1 ml-2 text-[lightpink]"
 				stroke="currentColor"
 				stroke-width="0"
@@ -62,7 +62,8 @@
 				color="lightpink"
 				height="20"
 				width="20"><use href="#icon-fork"></use></GitFork
-			>0<CircleDotDashed				class="mr-1 ml-2 text-[lightgreen]"
+			>0<CircleDotDashed
+				class="mr-1 ml-2 text-[lightgreen]"
 				stroke="currentColor"
 				stroke-width="0"
 				viewBox="0 0 24 24"

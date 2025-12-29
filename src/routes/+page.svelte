@@ -2,7 +2,7 @@
 	import LeftMiniTitle from '../components/+LeftMiniTitle.svelte';
 	import Card from '../components/+card.svelte';
 	import all_database from '../database.json';
-
+	import { Rocket } from '@lucide/svelte';
 	const top_10_latest_repos = Object.entries(all_database.packages)
 		.sort(([, a], [, b]) => new Date(b.c) - new Date(a.c))
 		.slice(0, 10);
@@ -40,7 +40,7 @@
 	</div>
 </div>
 <div>
-	<LeftMiniTitle name="Recently Released" />
+	<LeftMiniTitle icon={Rocket} name="Recently Released" />
 	<section class="flex w-full flex-wrap justify-evenly">
 		{@html '<!--What!!!! package is a reserved keyword!!!!!!-->'}
 		{#each top_10_latest_repos as [name, library]}
