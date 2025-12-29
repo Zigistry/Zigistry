@@ -12,7 +12,7 @@
 	<div class="searchArea rounded-lg sm:m-5 sm:p-5 sm:shadow-lg sm:shadow-black">
 		<h1 class="my-5 text-center text-2xl font-semibold">Search Ziglang Packages</h1>
 		<div class="flex">
-			<div data-testid="flowbite-tooltip-target" class="w-fit">
+			<div class="w-fit">
 				<div class="ml-4 flex">
 					<div class="relative w-max max-w-36 min-w-10">
 						<label for="dropDownID" class="hidden">Filter</label><select

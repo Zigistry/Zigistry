@@ -1,5 +1,5 @@
 <script>
-	import { MountainSnow,  Star, User, Github, Eye, GitFork, CircleDotDashed } from '@lucide/svelte';
+	import { MountainSnow, Star, User, Github, Eye, GitFork, CircleDotDashed } from '@lucide/svelte';
 	let props = $props();
 </script>
 
@@ -19,8 +19,8 @@
 				{#if props.provider === 'gh'}
 					<Github size={22} />
 				{:else if props.provider === 'cb'}
-					
-<MountainSnow size={22} />				{/if}
+					<MountainSnow size={22} />
+				{/if}
 			</span>
 		</p>
 		<div class="flex space-x-3">
