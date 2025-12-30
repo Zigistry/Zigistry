@@ -13,7 +13,11 @@
 
 		<p class="flex w-min truncate rounded-2xl bg-gray-600 text-gray-400 dark:text-gray-400">
 			<span class="flex w-fit rounded-2xl bg-gray-800 p-2 text-gray-600 dark:text-gray-400">
-				<User size={22} width={22} class="min-h-[22px] min-w-[22px]" />&nbsp;<a class="hover:underline" href={(props.provider === "gh" ? "/profiles/github/": "/profiles/codeberg") + props.owner_name}>{props.owner_name}</a>
+				<User size={22} width={22} class="min-h-[22px] min-w-[22px]" />&nbsp;<a
+					class="hover:underline"
+					href={(props.provider === 'gh' ? '/profiles/github/' : '/profiles/codeberg/') +
+						props.owner_name}>{props.owner_name}</a
+				>
 			</span>
 			<span class="flex content-center items-center px-2">
 				{#if props.provider === 'gh'}
