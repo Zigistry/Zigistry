@@ -67,7 +67,7 @@
                 color="skyblue"
                 viewBox="0 0 24 24"
                 height="20"
-                width="20"><use href="#icon-eye"></use></Eye
+                width="20"></Eye
             >{props.watchers}<GitFork
                 class="mr-1 ml-2 text-[lightpink]"
                 stroke="currentColor"
@@ -75,7 +75,7 @@
                 viewBox="0 0 24 24"
                 color="lightpink"
                 height="20"
-                width="20"><use href="#icon-fork"></use></GitFork
+                width="20"></GitFork
             >0<CircleDotDashed
                 class="mr-1 ml-2 text-[lightgreen]"
                 stroke="currentColor"

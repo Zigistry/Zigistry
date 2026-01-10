@@ -73,7 +73,6 @@
             {@html '<!--What!!!! package is a reserved keyword!!!!!!-->'}
             {#each top_10_latest_repos as [name, library]}
                 {@const name_splitted = name.split('/')}
-                {console.log(library)}
                 {#if name_splitted[0] === 'gh'}
                     <Card
                         avatar_url={'https://avatars.githubusercontent.com/' + name_splitted[1]}
@@ -112,7 +111,6 @@
         <section class="flex w-full flex-wrap justify-evenly">
             {#each most_used as [name, library]}
                 {@const name_splitted = name.split('/')}
-                {console.log(library)}
                 {#if name_splitted[0] === 'gh'}
                     <Card
                         avatar_url={'https://avatars.githubusercontent.com/' + name_splitted[1]}
@@ -154,7 +152,6 @@
         <section class="flex w-full flex-wrap justify-evenly">
             {#each search_results as [name, library]}
                 {@const name_splitted = name.split('/')}
-                {console.log(name_splitted)}
                 {#if name_splitted[0] === 'gh'}
                     <Card
                         avatar_url={'https://avatars.githubusercontent.com/' + name_splitted[1]}

@@ -12,8 +12,8 @@ export const load = ({ params }) => {
     }
     const provider_id = provider === 'github' ? 'gh' : 'cb';
     const complete_correct_name = `${provider_id}/${owner_name}/${repo_name}`.toLowerCase();
-    if (complete_correct_name in database.packages) {
-        const value = database.packages[complete_correct_name];
+    if (complete_correct_name in database.programs) {
+        const value = database.programs[complete_correct_name];
         return { complete_correct_name, value, provider_id };
     }
     throw error(404, `Unable to find ${owner_name} at ${provider}`);

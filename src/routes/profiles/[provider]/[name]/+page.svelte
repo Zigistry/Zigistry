@@ -41,7 +41,6 @@
         {#each packages as [name, library]}
             {@const name_splitted = name.split('/')}
             {@const name2 = name_splitted[0] + '/' + name_splitted[1]}
-            {console.log(library)}
             {@const sub = data.provider === 'github' ? 'gh' : 'cb'}
             {#if name2 === sub + '/' + data.owner_name && sub === 'gh'}
                 <Card
@@ -79,7 +78,6 @@
         {#each programs as [name, library]}
             {@const name_splitted = name.split('/')}
             {@const name2 = name_splitted[0] + '/' + name_splitted[1]}
-            {console.log(library)}
             {@const sub = data.provider === 'github' ? 'gh' : 'cb'}
             {#if name2 === sub + '/' + data.owner_name && sub === 'gh'}
                 <Card
