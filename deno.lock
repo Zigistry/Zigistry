@@ -6,6 +6,7 @@
     "npm:@lucide/svelte@0.562": "0.562.0_svelte@5.46.1__acorn@8.15.0",
     "npm:@sveltejs/adapter-auto@7": "7.0.0_@sveltejs+kit@2.49.2__@sveltejs+vite-plugin-svelte@6.2.1___svelte@5.46.1____acorn@8.15.0___vite@7.3.0____@types+node@24.10.4____picomatch@4.0.3___@types+node@24.10.4__svelte@5.46.1___acorn@8.15.0__vite@7.3.0___@types+node@24.10.4___picomatch@4.0.3__acorn@8.15.0__@types+node@24.10.4_@sveltejs+vite-plugin-svelte@6.2.1__svelte@5.46.1___acorn@8.15.0__vite@7.3.0___@types+node@24.10.4___picomatch@4.0.3__@types+node@24.10.4_svelte@5.46.1__acorn@8.15.0_vite@7.3.0__@types+node@24.10.4__picomatch@4.0.3_@types+node@24.10.4",
     "npm:@sveltejs/adapter-cloudflare-workers@^2.9.0": "2.9.0_@sveltejs+kit@2.49.2__@sveltejs+vite-plugin-svelte@6.2.1___svelte@5.46.1____acorn@8.15.0___vite@7.3.0____@types+node@24.10.4____picomatch@4.0.3___@types+node@24.10.4__svelte@5.46.1___acorn@8.15.0__vite@7.3.0___@types+node@24.10.4___picomatch@4.0.3__acorn@8.15.0__@types+node@24.10.4_wrangler@4.58.0__@cloudflare+workers-types@4.20260109.0__unenv@2.0.0-rc.24__workerd@1.20260107.1_@sveltejs+vite-plugin-svelte@6.2.1__svelte@5.46.1___acorn@8.15.0__vite@7.3.0___@types+node@24.10.4___picomatch@4.0.3__@types+node@24.10.4_svelte@5.46.1__acorn@8.15.0_vite@7.3.0__@types+node@24.10.4__picomatch@4.0.3_@cloudflare+workers-types@4.20260109.0_@types+node@24.10.4",
+    "npm:@sveltejs/adapter-cloudflare@^7.2.4": "7.2.4_@sveltejs+kit@2.49.2__@sveltejs+vite-plugin-svelte@6.2.1___svelte@5.46.1____acorn@8.15.0___vite@7.3.0____@types+node@24.10.4____picomatch@4.0.3___@types+node@24.10.4__svelte@5.46.1___acorn@8.15.0__vite@7.3.0___@types+node@24.10.4___picomatch@4.0.3__acorn@8.15.0__@types+node@24.10.4_wrangler@4.58.0__@cloudflare+workers-types@4.20260109.0__unenv@2.0.0-rc.24__workerd@1.20260107.1_@sveltejs+vite-plugin-svelte@6.2.1__svelte@5.46.1___acorn@8.15.0__vite@7.3.0___@types+node@24.10.4___picomatch@4.0.3__@types+node@24.10.4_svelte@5.46.1__acorn@8.15.0_vite@7.3.0__@types+node@24.10.4__picomatch@4.0.3_@cloudflare+workers-types@4.20260109.0_@types+node@24.10.4",
     "npm:@sveltejs/adapter-static@^3.0.10": "3.0.10_@sveltejs+kit@2.49.2__@sveltejs+vite-plugin-svelte@6.2.1___svelte@5.46.1____acorn@8.15.0___vite@7.3.0____@types+node@24.10.4____picomatch@4.0.3___@types+node@24.10.4__svelte@5.46.1___acorn@8.15.0__vite@7.3.0___@types+node@24.10.4___picomatch@4.0.3__acorn@8.15.0__@types+node@24.10.4_@sveltejs+vite-plugin-svelte@6.2.1__svelte@5.46.1___acorn@8.15.0__vite@7.3.0___@types+node@24.10.4___picomatch@4.0.3__@types+node@24.10.4_svelte@5.46.1__acorn@8.15.0_vite@7.3.0__@types+node@24.10.4__picomatch@4.0.3_@types+node@24.10.4",
     "npm:@sveltejs/kit@^2.49.1": "2.49.2_@sveltejs+vite-plugin-svelte@6.2.1__svelte@5.46.1___acorn@8.15.0__vite@7.3.0___@types+node@24.10.4___picomatch@4.0.3__@types+node@24.10.4_svelte@5.46.1__acorn@8.15.0_vite@7.3.0__@types+node@24.10.4__picomatch@4.0.3_acorn@8.15.0_@types+node@24.10.4",
     "npm:@sveltejs/vite-plugin-svelte@^6.2.1": "6.2.1_svelte@5.46.1__acorn@8.15.0_vite@7.3.0__@types+node@24.10.4__picomatch@4.0.3_@types+node@24.10.4",
@@ -912,6 +913,15 @@
         "wrangler"
       ],
       "deprecated": true
+    },
+    "@sveltejs/adapter-cloudflare@7.2.4_@sveltejs+kit@2.49.2__@sveltejs+vite-plugin-svelte@6.2.1___svelte@5.46.1____acorn@8.15.0___vite@7.3.0____@types+node@24.10.4____picomatch@4.0.3___@types+node@24.10.4__svelte@5.46.1___acorn@8.15.0__vite@7.3.0___@types+node@24.10.4___picomatch@4.0.3__acorn@8.15.0__@types+node@24.10.4_wrangler@4.58.0__@cloudflare+workers-types@4.20260109.0__unenv@2.0.0-rc.24__workerd@1.20260107.1_@sveltejs+vite-plugin-svelte@6.2.1__svelte@5.46.1___acorn@8.15.0__vite@7.3.0___@types+node@24.10.4___picomatch@4.0.3__@types+node@24.10.4_svelte@5.46.1__acorn@8.15.0_vite@7.3.0__@types+node@24.10.4__picomatch@4.0.3_@cloudflare+workers-types@4.20260109.0_@types+node@24.10.4": {
+      "integrity": "sha512-uD8VlOuGXGuZWL+zbBYSjtmC4WDtlonUodfqAZ/COd5uIy2Z0QptIicB/nkTrGNI9sbmzgf7z0N09CHyWYlUvQ==",
+      "dependencies": [
+        "@cloudflare/workers-types",
+        "@sveltejs/kit",
+        "worktop",
+        "wrangler"
+      ]
     },
     "@sveltejs/adapter-static@3.0.10_@sveltejs+kit@2.49.2__@sveltejs+vite-plugin-svelte@6.2.1___svelte@5.46.1____acorn@8.15.0___vite@7.3.0____@types+node@24.10.4____picomatch@4.0.3___@types+node@24.10.4__svelte@5.46.1___acorn@8.15.0__vite@7.3.0___@types+node@24.10.4___picomatch@4.0.3__acorn@8.15.0__@types+node@24.10.4_@sveltejs+vite-plugin-svelte@6.2.1__svelte@5.46.1___acorn@8.15.0__vite@7.3.0___@types+node@24.10.4___picomatch@4.0.3__@types+node@24.10.4_svelte@5.46.1__acorn@8.15.0_vite@7.3.0__@types+node@24.10.4__picomatch@4.0.3_@types+node@24.10.4": {
       "integrity": "sha512-7D9lYFWJmB7zxZyTE/qxjksvMqzMuYrrsyh1f4AlZqeZeACPRySjbC3aFiY55wb1tWUaKOQG9PVbm74JcN2Iew==",
@@ -2088,6 +2098,9 @@
     "readdirp@4.1.2": {
       "integrity": "sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg=="
     },
+    "regexparam@3.0.0": {
+      "integrity": "sha512-RSYAtP31mvYLkAHrOlh25pCNQ5hWnT106VukGaaFfuJrZFkGRX5GhUAdPqpSDXxOhA2c4akmRuplv1mRqnBn6Q=="
+    },
     "resolve-from@4.0.0": {
       "integrity": "sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g=="
     },
@@ -2397,6 +2410,13 @@
       "scripts": true,
       "bin": true
     },
+    "worktop@0.8.0-next.18": {
+      "integrity": "sha512-+TvsA6VAVoMC3XDKR5MoC/qlLqDixEfOBysDEKnPIPou/NvoPWCAuXHXMsswwlvmEuvX56lQjvELLyLuzTKvRw==",
+      "dependencies": [
+        "mrmime",
+        "regexparam"
+      ]
+    },
     "wrangler@4.58.0_@cloudflare+workers-types@4.20260109.0_unenv@2.0.0-rc.24_workerd@1.20260107.1": {
       "integrity": "sha512-Jm6EYtlt8iUcznOCPSMYC54DYkwrMNESzbH0Vh3GFHv/7XVw5gBC13YJAB+nWMRGJ+6B2dMzy/NVQS4ONL51Pw==",
       "dependencies": [
@@ -2459,6 +2479,7 @@
         "npm:@lucide/svelte@0.562",
         "npm:@sveltejs/adapter-auto@7",
         "npm:@sveltejs/adapter-cloudflare-workers@^2.9.0",
+        "npm:@sveltejs/adapter-cloudflare@^7.2.4",
         "npm:@sveltejs/adapter-static@^3.0.10",
         "npm:@sveltejs/kit@^2.49.1",
         "npm:@sveltejs/vite-plugin-svelte@^6.2.1",
