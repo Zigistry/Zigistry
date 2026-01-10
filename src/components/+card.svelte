@@ -15,13 +15,7 @@
     class="card z-0 my-2 flex w-72 transform-cpu flex-col rounded-lg border-0 border-gray-200 bg-white shadow-lg shadow-black transition-transform hover:z-10 hover:scale-110 dark:border-gray-700 dark:bg-[rgb(30,30,30)]"
 >
     <div class="flex h-full flex-col justify-center gap-4 p-6">
-        <img
-            src={props.avatar_url}
-            alt="-"
-            width="40"
-            height="40"
-            class="w-10 rounded-full"
-        />
+        <img src={props.avatar_url} alt="-" width="40" height="40" class="w-10 rounded-full" />
 
         <span class="truncate text-2xl font-bold text-gray-900 dark:text-white"
             >{props.repo_name}</span
@@ -29,7 +23,7 @@
 
         <p class="flex w-min truncate rounded-2xl bg-gray-600 text-gray-400 dark:text-gray-400">
             <span class="flex w-fit rounded-2xl bg-gray-800 p-2 text-gray-600 dark:text-gray-400">
-                <User size={22} width={22} class="min-h-[22px] min-w-[22px]" />&nbsp;<a
+                <User size={22} width={22} class="min-h-5.5 min-w-5.5" />&nbsp;<a
                     class="hover:underline"
                     href={(props.provider === 'gh' ? '/profiles/github/' : '/profiles/codeberg/') +
                         props.owner_name}>{props.owner_name}</a
@@ -99,21 +93,60 @@
             >
                 <div class="relative z-20">docker,oci,zig,zig-package</div>
                 <div
-                    class="absolute bottom-[-4px] left-[67px] z-10 h-2 w-2 rotate-45 bg-gray-900 dark:bg-gray-700"
+                    class="absolute -bottom-1 left-16.75 z-10 h-2 w-2 rotate-45 bg-gray-900 dark:bg-gray-700"
                 >
                     &nbsp;
                 </div>
             </div>
         </div>
         <div class="flex"></div>
-        <a
-            href={props.url}
-            type="button"
-            class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:ring-4 focus:outline-none enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
-            ><span
-                class="flex items-stretch rounded-md px-4 py-2 text-sm transition-all duration-200"
-                >View package</span
-            ></a
-        >
+        {#if props.type_of_card === 'packages-display'}
+            <a
+                href={'/packages/' +
+                    (props.provider === 'gh' ? 'github' : 'codeberg') +
+                    '/' +
+                    props.owner_name +
+                    '/' +
+                    props.repo_name}
+                type="button"
+                class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:ring-4 focus:outline-none enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+                ><span
+                    class="flex items-stretch rounded-md px-4 py-2 text-sm transition-all duration-200"
+                    >View Package</span
+                ></a
+            >
+        {:else if props.type_of_card === 'program-display'}
+            <a
+                href={'/programs/' +
+                    (props.provider === 'gh' ? 'github' : 'codeberg') +
+                    '/' +
+                    props.owner_name +
+                    '/' +
+                    props.repo_name}
+                type="button"
+                class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:ring-4 focus:outline-none enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+                ><span
+                    class="flex items-stretch rounded-md px-4 py-2 text-sm transition-all duration-200"
+                    >View Program</span
+                ></a
+            >
+        {:else if props.type_of_card === 'special-display'}
+            <a
+                href={(props.provider === 'gh' ? 'https://github.com/' : 'https://codeberg.org/') +
+                    props.owner_name +
+                    '/' +
+                    props.repo_name}
+                type="button"
+                class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:ring-4 focus:outline-none enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+                ><span
+                    class="flex items-stretch rounded-md px-4 py-2 text-sm transition-all duration-200"
+                    >View on {#if props.provider === 'gh'}
+                        GitHub <Github size={22} />
+                    {:else if props.provider === 'cb'}
+                        Codeberg <MountainSnow size={22} />
+                    {/if}</span
+                ></a
+            >
+        {/if}
     </div>
 </div>

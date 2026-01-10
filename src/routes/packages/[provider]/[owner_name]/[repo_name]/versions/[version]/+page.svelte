@@ -1,5 +1,5 @@
 <script>
-    import Card from '../../../../../components/+card.svelte';
+    import Card from '../../../../../../../components/+card.svelte';
     import { Tabs, TabItem } from 'flowbite-svelte';
     import DOMPurify from 'dompurify';
     import { load } from './+page.js';
@@ -26,7 +26,7 @@
                 }
             })
             .then((data) => {
-                readme_content = marked(DOMPurify.sanitize(data));
+                readme_content = marked(DOMPurify.sanitize(data.r[data.version]));
             })
             .catch((error) => {
                 console.error('There has been a problem with your fetch operation:', error);
@@ -52,7 +52,7 @@
         issues={library.i}
         provider="gh"
         spdx_id={library.l}
-        minimum_zig_version={library.dbi.m}
+        minimum_zig_version={library.r[data.version].m}
         type_of_card="special-display"
     />
 {:else if provider_id === 'cb'}
@@ -65,14 +65,14 @@
         stars={library.s}
         forks={library.f}
         issues={library.i}
-        minimum_zig_version={library.dbi.m}
+        minimum_zig_version={library.r[data.version].m}
         provider="cb"
         spdx_id={library.l}
         type_of_card="special-display"
     />
 {/if}
 
-<h1>Currently viewing: HEAD Branch</h1>
+<h1>Currently viewing: Version: {data.version}</h1>
 
 <Tabs>
     <TabItem open title="Readme">
@@ -86,7 +86,7 @@
                 This package has no dependencies.
             {:else}
                 <ul class="list-inside list-disc">
-                    {#each library.dbi.d as dependency}
+                    {#each library.r[data.version].d as dependency}
                         <div class="p-4">
                             <li>{dependency.n}</li>
                             <li>{dependency.h}</li>

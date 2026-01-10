@@ -55,6 +55,7 @@
                 provider="gh"
                 spdx_id={library.l}
                 minimum_zig_version={library.dbi.m}
+                type_of_card={all_props.thingy === 'programs' ? 'program-display': 'packages-display'}
             />
         {:else if name_splitted[0] === 'cb'}
             <Card
@@ -69,6 +70,7 @@
                 minimum_zig_version={library.dbi.m}
                 provider="cb"
                 spdx_id={library.l}
+                type_of_card={all_props.thingy === 'programs' ? 'program-display': 'packages-display'}
             />
         {/if}
     {/each}

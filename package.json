@@ -14,12 +14,15 @@
         "lint": "prettier --check . && eslint ."
     },
     "dependencies": {
-        "@lucide/svelte": "^0.562.0"
+        "@lucide/svelte": "^0.562.0",
+        "@sveltejs/adapter-auto": "^7.0.0",
+        "dompurify": "^3.3.1",
+        "flowbite-svelte": "^1.31.0",
+        "marked": "^17.0.1"
     },
     "devDependencies": {
         "@eslint/compat": "^1.4.0",
         "@eslint/js": "^9.39.1",
-        "@sveltejs/adapter-auto": "^7.0.0",
         "@sveltejs/kit": "^2.49.1",
         "@sveltejs/vite-plugin-svelte": "^6.2.1",
         "@tailwindcss/typography": "^0.5.19",
