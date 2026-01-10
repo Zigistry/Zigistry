@@ -17,11 +17,11 @@
     {:else if data.provider === 'codeberg'}
         <img
             class="max-w-[150px] min-w-[100px] rounded-full"
-            src={'https://codeberg.org/' + data.a}
+            src={'https://codeberg.org/avatars/' + data.user?.a}
         />
     {/if}
     <h2 class="mt-4 font-bold">Name: {data.owner_name}</h2>
-    <p>Bio: {data.user.b}</p>
+    <p>Bio: {data.user?.b}</p>
     {#if data.provider === 'github'}
         <a
             class="mt-2 flex w-fit items-center justify-center rounded-full bg-slate-800 p-2 hover:underline"
