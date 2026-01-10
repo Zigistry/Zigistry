@@ -1,18 +1,15 @@
 <script>
-    import LeftMiniTitle from '../components/+LeftMiniTitle.svelte';
-    import Card from '../components/+card.svelte';
-    import Infinite_Scroll from '../components/+InfiniteScroll.svelte';
-    import all_database from '../database.json';
+    import LeftMiniTitle from '../../components/+LeftMiniTitle.svelte';
+    import Card from '../../components/+card.svelte';
+    import Infinite_Scroll from '../../components/+InfiniteScroll.svelte';
+    import all_database from '../../database.json';
     import { Rocket } from '@lucide/svelte';
-    const top_10_latest_repos = Object.entries(all_database.packages)
+    const top_10_latest_repos = Object.entries(all_database.programs)
         .sort(([, a], [, b]) => new Date(b.c) - new Date(a.c))
         .slice(0, 10);
-    const most_used = Object.entries(all_database.packages)
+    const most_used = Object.entries(all_database.programs)
         .sort(([, a], [, b]) => b.dts.length - a.dts.length)
         .slice(0, 10);
-    const games = all_database.index_sections.games;
-    const gui = all_database.index_sections.gui;
-    const web = all_database.index_sections.web;
     let show_default = $state(true);
     let search_results = $state({});
     async function handle_search(e) {
@@ -24,7 +21,7 @@
         }
         if (e.key === 'Enter') {
             const result_data = await fetch(
-                'https://zigistry-new-api.hf.space/packages/search?' +
+                'https://rohanvashisht-api-zigistry.hf.space/search/programs?' +
                     encodeURI(`q=${value}&filter=a`)
             );
             let result = await result_data.json();
@@ -40,7 +37,7 @@
 
 <div class="flex flex-col items-center">
     <div class="searchArea rounded-lg sm:m-5 sm:p-5 sm:shadow-lg sm:shadow-black">
-        <h1 class="my-5 text-center text-2xl font-semibold">Search Ziglang Packages</h1>
+        <h1 class="my-5 text-center text-2xl font-semibold">Search Ziglang Programs</h1>
         <div class="flex">
             <div class="w-fit">
                 <div class="ml-4 flex">
@@ -60,7 +57,7 @@
                     <input
                         class="block w-full rounded-lg border border-slate-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600 dark:bg-[#2e2e2e] dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500"
                         type="text"
-                        placeholder="Search 500+ Zig libraries"
+                        placeholder="Search 2000+ Zig programs"
                         autofocus=""
                         on:keyup={handle_search}
                     />
@@ -83,9 +80,9 @@
                         owner_name={name_splitted[1]}
                         repo_name={name_splitted[2]}
                         stars={library.s}
-                        description={library.d || ''}
+                        description={library.d}
                         watchers={library.w}
-                        forks={library.f || ''}
+                        forks={library.f}
                         issues={library.i}
                         provider="gh"
                         spdx_id={library.l}
@@ -93,7 +90,7 @@
                     />
                 {:else if name_splitted[0] === 'cb'}
                     <Card
-                        avatar_url={'https://codeberg.org/avatars/' + library.a|| ''}
+                        avatar_url={'https://codeberg.org/avatars/' + library.a}
                         owner_name={name_splitted[1]}
                         repo_name={name_splitted[2]}
                         description={library.d}
@@ -145,128 +142,7 @@
                 {/if}
             {/each}
         </section>
-
-        <LeftMiniTitle icon={Rocket} name="Famous Game libs" />
-        <section class="flex w-full flex-wrap justify-evenly">
-            {#each games.slice(0, 10) as name}
-                {@const name_splitted = name.split('/')}
-                {console.log(name_splitted)}
-                {console.log('This one:' + library)}
-                {@const library = all_database.packages[name.toLowerCase()]}
-                {#if library}
-                    {#if name_splitted[0] === 'gh'}
-                        <Card
-                            avatar_url={'https://avatars.githubusercontent.com/' + name_splitted[1]}
-                            owner_name={name_splitted[1]}
-                            repo_name={name_splitted[2]}
-                            stars={library.s}
-                            description={library.d}
-                            watchers={library.w}
-                            forks={library.f}
-                            issues={library.i}
-                            provider="gh"
-                            spdx_id={library.l}
-                            minimum_zig_version={library.dbi.m}
-                        />
-                    {:else if name_splitted[0] === 'cb'}
-                        <Card
-                            avatar_url={'https://codeberg.org/avatars/' + library.a}
-                            owner_name={name_splitted[1]}
-                            repo_name={name_splitted[2]}
-                            description={library.d}
-                            watchers={library.w}
-                            stars={library.s}
-                            forks={library.f}
-                            issues={library.i}
-                            minimum_zig_version={library.dbi.m}
-                            provider="cb"
-                            spdx_id={library.l}
-                        />
-                    {/if}
-                {/if}
-            {/each}
-        </section>
-        <LeftMiniTitle icon={Rocket} name="Famous Web libs" />
-        <section class="flex w-full flex-wrap justify-evenly">
-            {#each web.slice(0, 10) as name}
-                {@const name_splitted = name.split('/')}
-                {console.log(name_splitted)}
-                {console.log('This one:' + library)}
-                {@const library = all_database.packages[name.toLowerCase()]}
-                {#if library}
-                    {#if name_splitted[0] === 'gh'}
-                        <Card
-                            avatar_url={'https://avatars.githubusercontent.com/' + name_splitted[1]}
-                            owner_name={name_splitted[1]}
-                            repo_name={name_splitted[2]}
-                            stars={library.s}
-                            description={library.d}
-                            watchers={library.w}
-                            forks={library.f}
-                            issues={library.i}
-                            provider="gh"
-                            spdx_id={library.l}
-                            minimum_zig_version={library.dbi.m}
-                        />
-                    {:else if name_splitted[0] === 'cb'}
-                        <Card
-                            avatar_url={'https://codeberg.org/avatars/' + library.a}
-                            owner_name={name_splitted[1]}
-                            repo_name={name_splitted[2]}
-                            description={library.d}
-                            watchers={library.w}
-                            stars={library.s}
-                            forks={library.f}
-                            issues={library.i}
-                            minimum_zig_version={library.dbi.m}
-                            provider="cb"
-                            spdx_id={library.l}
-                        />
-                    {/if}
-                {/if}
-            {/each}
-        </section>
-        <LeftMiniTitle icon={Rocket} name="Famous GUI libs" />
-        <section class="flex w-full flex-wrap justify-evenly">
-            {#each gui.slice(0, 10) as name}
-                {@const name_splitted = name.split('/')}
-                {console.log(name_splitted)}
-                {console.log('This one:' + library)}
-                {@const library = all_database.packages[name.toLowerCase()]}
-                {#if library}
-                    {#if name_splitted[0] === 'gh'}
-                        <Card
-                            avatar_url={'https://avatars.githubusercontent.com/' + name_splitted[1]}
-                            owner_name={name_splitted[1]}
-                            repo_name={name_splitted[2]}
-                            stars={library.s}
-                            description={library.d}
-                            watchers={library.w}
-                            forks={library.f}
-                            issues={library.i}
-                            provider="gh"
-                            spdx_id={library.l}
-                            minimum_zig_version={library.dbi.m}
-                        />
-                    {:else if name_splitted[0] === 'cb'}
-                        <Card
-                            avatar_url={'https://codeberg.org/avatars/' + library.a}
-                            owner_name={name_splitted[1]}
-                            repo_name={name_splitted[2]}
-                            description={library.d}
-                            watchers={library.w}
-                            stars={library.s}
-                            forks={library.f}
-                            issues={library.i}
-                            minimum_zig_version={library.dbi.m}
-                            provider="cb"
-                            spdx_id={library.l}
-                        />
-                    {/if}
-                {/if}
-            {/each}
-        </section>
-        <Infinite_Scroll thingy="packages" />
+        <Infinite_Scroll thingy="programs"/>
     </div>
 {:else}
     <div>
@@ -308,3 +184,4 @@
         </section>
     </div>
 {/if}
+

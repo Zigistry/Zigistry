@@ -1,26 +1,26 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		%sveltekit.head%
-		<script blocking="render">
-			if (
-				localStorage.getItem('color-theme') === 'dark' ||
-				(!('color-theme' in localStorage) &&
-					window.matchMedia('(prefers-color-scheme: dark)').matches)
-			) {
-				document.documentElement.classList.add('dark');
-			} else {
-				document.documentElement.classList.remove('dark');
-			}
-		</script>
-	</head>
-	<body
-		class="bg-white dark:bg-[rgb(30,30,30)] dark:text-white"
-		data-sveltekit-preload-data="hover"
-	>
-		<div style="display: contents">%sveltekit.body%</div>
-		<script src="/theme.js"></script>
-	</body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        %sveltekit.head%
+        <script blocking="render">
+            if (
+                localStorage.getItem('color-theme') === 'dark' ||
+                (!('color-theme' in localStorage) &&
+                    window.matchMedia('(prefers-color-scheme: dark)').matches)
+            ) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        </script>
+    </head>
+    <body
+        class="bg-white dark:bg-[rgb(30,30,30)] dark:text-white"
+        data-sveltekit-preload-data="hover"
+    >
+        <div style="display: contents">%sveltekit.body%</div>
+        <script src="/theme.js"></script>
+    </body>
 </html>
