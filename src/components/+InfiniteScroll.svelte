@@ -15,14 +15,12 @@
                 encodeURI('per_page=20&page=' + page)
         );
         const data_res = await data.json();
-        console.log('REACHED HERE!!!!');
         items = [...items, ...Object.entries(data_res)];
         page++;
     }
 
     onMount(async () => {
         if (listElement) {
-            console.log('listElm is defined');
             new IntersectionObserver(async (e) => {
                 if (e[0].isIntersecting) {
                     await loadMore();
@@ -41,7 +39,6 @@
     {@html '<!--What!!!! package is a reserved keyword!!!!!!-->'}
     {#each items as [name, library]}
         {@const name_splitted = name.split('/')}
-        {console.log(library)}
         {#if name_splitted[0] === 'gh'}
             <Card
                 avatar_url={'https://avatars.githubusercontent.com/' + name_splitted[1]}
