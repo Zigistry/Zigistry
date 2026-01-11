@@ -23,7 +23,7 @@
     <div class="space-y-2 sm:space-y-3">
         <div class="flex items-center space-x-2 text-sm sm:text-base">
             <span class="font-medium text-emerald-600 dark:text-emerald-400">Name</span><span
-                class="text-black dark:text-white">${name}</span
+                class="text-black dark:text-white">{name}</span
             >
         </div>
         <div class="space-y-1">

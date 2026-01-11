@@ -8,6 +8,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 :root {
     min-height: 100vh !important;
 }
@@ -169,4 +171,9 @@ textarea:focus {
     aside {
         animation: fadesideSidebar 0.4s ease-out;
     }
+}
+
+#tab-panel-s1 {
+    padding: 0 !important;
+    background-color: transparent !important;
 }
