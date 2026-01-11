@@ -73,9 +73,8 @@
             {@html '<!--What!!!! package is a reserved keyword!!!!!!-->'}
             {#each top_10_latest_repos as [name, library]}
                 {@const name_splitted = name.split('/')}
-                {#if name_splitted[0] === 'gh'}
                     <Card
-                        avatar_url={'https://avatars.githubusercontent.com/' + name_splitted[1]}
+                        avatar_url={library.a}
                         owner_name={name_splitted[1]}
                         repo_name={name_splitted[2]}
                         stars={library.s}
@@ -83,27 +82,11 @@
                         watchers={library.w}
                         forks={library.f}
                         issues={library.i}
-                        provider="gh"
+                        provider={name_splitted[0]}
                         spdx_id={library.l}
                         minimum_zig_version={library.dbi.m}
                         type_of_card="program-display"
                     />
-                {:else if name_splitted[0] === 'cb'}
-                    <Card
-                        avatar_url={'https://codeberg.org/avatars/' + library.a}
-                        owner_name={name_splitted[1]}
-                        repo_name={name_splitted[2]}
-                        description={library.d}
-                        watchers={library.w}
-                        stars={library.s}
-                        forks={library.f}
-                        issues={library.i}
-                        minimum_zig_version={library.dbi.m}
-                        provider="cb"
-                        spdx_id={library.l}
-                        type_of_card="program-display"
-                    />
-                {/if}
             {/each}
         </section>
 
@@ -111,9 +94,8 @@
         <section class="flex w-full flex-wrap justify-evenly">
             {#each most_used as [name, library]}
                 {@const name_splitted = name.split('/')}
-                {#if name_splitted[0] === 'gh'}
                     <Card
-                        avatar_url={'https://avatars.githubusercontent.com/' + name_splitted[1]}
+                        avatar_url={library.a}
                         owner_name={name_splitted[1]}
                         repo_name={name_splitted[2]}
                         stars={library.s}
@@ -121,27 +103,11 @@
                         watchers={library.w}
                         forks={library.f}
                         issues={library.i}
-                        provider="gh"
+                        provider={name_splitted[0]}
                         spdx_id={library.l}
                         minimum_zig_version={library.dbi.m}
                         type_of_card="program-display"
                     />
-                {:else if name_splitted[0] === 'cb'}
-                    <Card
-                        avatar_url={'https://codeberg.org/avatars/' + library.a}
-                        owner_name={name_splitted[1]}
-                        repo_name={name_splitted[2]}
-                        description={library.d}
-                        watchers={library.w}
-                        stars={library.s}
-                        forks={library.f}
-                        issues={library.i}
-                        minimum_zig_version={library.dbi.m}
-                        provider="cb"
-                        spdx_id={library.l}
-                        type_of_card="program-display"
-                    />
-                {/if}
             {/each}
         </section>
         <Infinite_Scroll thingy="programs"/>
@@ -152,9 +118,8 @@
         <section class="flex w-full flex-wrap justify-evenly">
             {#each search_results as [name, library]}
                 {@const name_splitted = name.split('/')}
-                {#if name_splitted[0] === 'gh'}
                     <Card
-                        avatar_url={'https://avatars.githubusercontent.com/' + name_splitted[1]}
+                        avatar_url={library.a}
                         owner_name={name_splitted[1]}
                         repo_name={name_splitted[2]}
                         stars={library.s}
@@ -162,27 +127,11 @@
                         watchers={library.w}
                         forks={library.f}
                         issues={library.i}
-                        provider="gh"
+                        provider={name_splitted[0]}
                         spdx_id={library.l}
                         minimum_zig_version={library.dbi.m}
                         type_of_card="program-display"
                     />
-                {:else if name_splitted[0] === 'cb'}
-                    <Card
-                        avatar_url={'https://codeberg.org/avatars/' + library.a}
-                        owner_name={name_splitted[1]}
-                        repo_name={name_splitted[2]}
-                        description={library.d}
-                        watchers={library.w}
-                        stars={library.s}
-                        forks={library.f}
-                        issues={library.i}
-                        minimum_zig_version={library.dbi.m}
-                        provider="cb"
-                        spdx_id={library.l}
-                        type_of_card="program-display"
-                    />
-                {/if}
             {/each}
         </section>
     </div>

@@ -41,7 +41,7 @@
         {@const name_splitted = name.split('/')}
         {#if name_splitted[0] === 'gh'}
             <Card
-                avatar_url={'https://avatars.githubusercontent.com/' + name_splitted[1]}
+                avatar_url={library.a}
                 owner_name={name_splitted[1]}
                 repo_name={name_splitted[2]}
                 stars={library.s}
@@ -56,7 +56,7 @@
             />
         {:else if name_splitted[0] === 'cb'}
             <Card
-                avatar_url={'https://codeberg.org/avatars/' + library.a}
+                avatar_url={library.a}
                 owner_name={name_splitted[1]}
                 repo_name={name_splitted[2]}
                 description={library.d}
