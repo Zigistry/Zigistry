@@ -21,7 +21,7 @@
         }
         if (e.key === 'Enter') {
             const result_data = await fetch(
-                'https://rohanvashisht-api-zigistry.hf.space/search/programs?' +
+                'https://zigistry-new-api.hf.space/programs/search?' +
                     encodeURI(`q=${value}&filter=a`)
             );
             let result = await result_data.json();
