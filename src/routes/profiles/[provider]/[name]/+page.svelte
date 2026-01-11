@@ -6,6 +6,7 @@
     import Card from '../../../../components/+card.svelte';
     let packages = Object.entries(database.packages);
     let programs = Object.entries(database.programs);
+    
 </script>
 
 <div class="px-40 py-20 sm:px-20 sm:py-10">
@@ -44,7 +45,7 @@
             {@const sub = data.provider === 'github' ? 'gh' : 'cb'}
             {#if name2 === sub + '/' + data.owner_name && sub === 'gh'}
                 <Card
-                    avatar_url={'https://avatars.githubusercontent.com/' + name_splitted[1]}
+                    avatar_url={library.a}
                     owner_name={name_splitted[1]}
                     repo_name={name_splitted[2]}
                     stars={library.s}
@@ -55,20 +56,7 @@
                     provider="gh"
                     spdx_id={library.l}
                     minimum_zig_version={library.dbi.m}
-                />
-            {:else if name2 === sub + '/' + data.owner_name && sub === 'cb'}
-                <Card
-                    avatar_url={'https://codeberg.org/avatars/' + library.a}
-                    owner_name={name_splitted[1]}
-                    repo_name={name_splitted[2]}
-                    description={library.d}
-                    watchers={library.w}
-                    stars={library.s}
-                    forks={library.f}
-                    issues={library.i}
-                    minimum_zig_version={library.dbi.m}
-                    provider="cb"
-                    spdx_id={library.l}
+                    type_of_card="packages-display"
                 />
             {/if}
         {/each}
@@ -81,7 +69,7 @@
             {@const sub = data.provider === 'github' ? 'gh' : 'cb'}
             {#if name2 === sub + '/' + data.owner_name && sub === 'gh'}
                 <Card
-                    avatar_url={'https://avatars.githubusercontent.com/' + name_splitted[1]}
+                    avatar_url={library.a}
                     owner_name={name_splitted[1]}
                     repo_name={name_splitted[2]}
                     stars={library.s}
@@ -92,20 +80,7 @@
                     provider="gh"
                     spdx_id={library.l}
                     minimum_zig_version={library.dbi.m}
-                />
-            {:else if name2 === sub + '/' + data.owner_name && sub === 'cb'}
-                <Card
-                    avatar_url={'https://codeberg.org/avatars/' + library.a}
-                    owner_name={name_splitted[1]}
-                    repo_name={name_splitted[2]}
-                    description={library.d}
-                    watchers={library.w}
-                    stars={library.s}
-                    forks={library.f}
-                    issues={library.i}
-                    minimum_zig_version={library.dbi.m}
-                    provider="cb"
-                    spdx_id={library.l}
+                    type_of_card="program-display"
                 />
             {/if}
         {/each}

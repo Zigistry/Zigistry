@@ -50,7 +50,7 @@
 
 <div class="mt-3 min-h-screen p-2 sm:px-4 sm:pb-4 md:px-6 md:pb-6 lg:px-8 lg:pb-8">
     <Card
-        avatar_url={'https://avatars.githubusercontent.com/' + data.avatar_id}
+        avatar_url={data.avatar_id}
         owner_name={data.owner_name}
         repo_name={data.repo_name}
         stars={data.stars_count}
