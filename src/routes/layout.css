@@ -1,4 +1,7 @@
 @import 'tailwindcss';
+@plugin 'flowbite/plugin';
+@source "../../node_modules/flowbite-svelte/dist";
+@source "../../node_modules/flowbite-svelte-icons/dist";
 @plugin '@tailwindcss/typography';
 @custom-variant dark (&:where(.dark, .dark *));
 @tailwind base;
