@@ -21,6 +21,7 @@
         "@sveltejs/adapter-static": "^3.0.10",
         "dompurify": "^3.3.1",
         "flowbite-svelte": "^1.31.0",
+        "javascript-time-ago": "^2.5.12",
         "marked": "^17.0.1"
     },
     "devDependencies": {
