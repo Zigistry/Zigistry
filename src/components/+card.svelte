@@ -10,14 +10,23 @@
     } from '@lucide/svelte';
     let props = $props();
 
-    const avatar_url = (props.provider === 'gh' ? 'https://avatars.githubusercontent.com/'  : 'https://codeberg.org/avatars/') + props.avatar_url;
+    const avatar_url =
+        (props.provider === 'gh'
+            ? 'https://avatars.githubusercontent.com/'
+            : 'https://codeberg.org/avatars/') + props.avatar_url;
 </script>
 
 <div
     class="card z-0 my-2 flex w-72 transform-cpu flex-col rounded-lg border-0 border-gray-200 bg-white shadow-lg shadow-black transition-transform hover:z-10 hover:scale-110 dark:border-gray-700 dark:bg-[rgb(30,30,30)]"
 >
     <div class="flex h-full flex-col justify-center gap-4 p-6">
-        <img src={avatar_url} alt="-" width="40" height="40" class="w-10 rounded-full" />
+        <img
+            src={avatar_url + '?size=40'}
+            alt="-"
+            width="40"
+            height="40"
+            class="w-10 rounded-full"
+        />
 
         <span class="truncate text-2xl font-bold text-gray-900 dark:text-white"
             >{props.repo_name}</span
@@ -69,16 +78,16 @@
                 color="skyblue"
                 viewBox="0 0 24 24"
                 height="20"
-                width="20"></Eye
-            >{props.watchers}<GitFork
+                width="20"
+            ></Eye>{props.watchers}<GitFork
                 class="mr-1 ml-2 text-[lightpink]"
                 stroke="currentColor"
                 stroke-width="0"
                 viewBox="0 0 24 24"
                 color="lightpink"
                 height="20"
-                width="20"></GitFork
-            >0<CircleDotDashed
+                width="20"
+            ></GitFork>0<CircleDotDashed
                 class="mr-1 ml-2 text-[lightgreen]"
                 stroke="currentColor"
                 stroke-width="0"

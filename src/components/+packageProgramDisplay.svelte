@@ -74,15 +74,22 @@
                 <h2
                     class="mb-3 border-b border-gray-300 pb-2 text-xl font-bold text-black sm:mb-4 sm:text-2xl dark:border-yellow-500 dark:text-white"
                 >
-                    README
+                    Readme
                 </h2>
-                {@html readme_content}
+                <div class="readmeDiv">
+                    {@html readme_content}
+                </div>
             </div>
         </TabItem>
         <TabItem title={'Dependencies: ' + data.dependencies.length} class="w-full">
             <div
                 class="m-0 rounded-lg bg-white p-3 shadow-lg shadow-black sm:rounded-xl sm:p-6 dark:bg-[#1e1e1e]"
             >
+                <h2
+                    class="mb-3 border-b border-gray-300 pb-2 text-xl font-bold text-black sm:mb-4 sm:text-2xl dark:border-yellow-500 dark:text-white"
+                >
+                    Dependencies
+                </h2>
                 <div class="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
                     {#if data.dependencies.length === 0}
                         This package has no dependencies.
@@ -103,6 +110,11 @@
                 <div
                     class="m-0 rounded-lg bg-white p-3 shadow-lg shadow-black sm:rounded-xl sm:p-6 dark:bg-[#1e1e1e]"
                 >
+                    <h2
+                        class="mb-3 border-b border-gray-300 pb-2 text-xl font-bold text-black sm:mb-4 sm:text-2xl dark:border-yellow-500 dark:text-white"
+                    >
+                        Dependents
+                    </h2>
                     <div class="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
                         {#if data.dependents.length === 0}
                             This package has no dependents.
@@ -128,6 +140,11 @@
             <div
                 class="m-0 rounded-lg bg-white p-3 shadow-lg shadow-black sm:rounded-xl sm:p-6 dark:bg-[#1e1e1e]"
             >
+                <h2
+                        class="mb-3 border-b border-gray-300 pb-2 text-xl font-bold text-black sm:mb-4 sm:text-2xl dark:border-yellow-500 dark:text-white"
+                    >
+                        Versions
+                </h2>
                 <div class="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
                     {#if library_r.length === 0}
                         This package has no version.
@@ -146,6 +163,11 @@
                                 <li>Updated at: {new Date(data.published_date)}</li>
                             </div>
                             {#each library_r as [a, b]}
+                            <DependencyCard
+                                name={dependency.n}
+                                url={dependency.u}
+                                hash={dependency.h}
+                            />
                                 <div class="p-4">
                                     <li>
                                         <a
