@@ -8,12 +8,13 @@
     import { marked } from 'marked';
     import { onMount } from 'svelte';
     import LeftMiniTitle from './+LeftMiniTitle.svelte';
-    import { InfoIcon } from '@lucide/svelte';
+    import { Heading4Icon, InfoIcon } from '@lucide/svelte';
 
     const data = $props();
     const provider_id = data.provider_id;
 
     const library_r = Object.entries(data.releases);
+    console.log(library_r);
 
     TimeAgo.addDefaultLocale(en);
     let readme_content = $state('');
@@ -149,40 +150,78 @@
                     {#if library_r.length === 0}
                         This package has no version.
                     {:else}
-                        <ul class="list-inside list-disc">
-                            <div class="p-4">
-                                <li>
-                                    <a
-                                        class="underline"
-                                        href="/packages/{data.provider_id === 'gh'
-                                            ? 'github'
-                                            : 'codeberg'}/{data.owner_name}/{data.repo_name}"
-                                        >Head Branch</a
+                        <div
+                                class="transform rounded-lg bg-gray-100 p-3 transition-all duration-300 hover:scale-102 hover:bg-gray-200 sm:p-4 dark:bg-[#2e2e2e] dark:hover:bg-slate-600"
+                            >
+                                <div class="space-y-1">
+                                    <div
+                                        class="flex text-sm font-medium text-emerald-600 sm:text-base dark:text-emerald-400"
                                     >
-                                </li>
-                                <li>Updated at: {new Date(data.published_date)}</li>
-                            </div>
-                            {#each library_r as [a, b]}
-                                <DependencyCard
-                                    name={dependency.n}
-                                    url={dependency.u}
-                                    hash={dependency.h}
-                                />
-                                <div class="p-4">
-                                    <li>
+                                        <span>Click to see version: </span> &nbsp;
                                         <a
-                                            class="underline"
                                             href="/packages/{provider_id === 'gh'
                                                 ? 'github'
-                                                : 'codeberg'}/{data.owner_name}/{data.repo_name}/versions/{a}"
-                                            >{a}</a
+                                                : 'codeberg'}/{data.owner_name}/{data.repo_name}"
+                                            target="_blank"
+                                            class="break-all text-black underline hover:text-purple-500 dark:text-white dark:hover:text-purple-300"
+                                            >Head Branch</a
                                         >
-                                    </li>
-
-                                    <li>Updated at: {new Date(b.p)}</li>
+                                    </div>
+                                    <div
+                                        class="flex text-sm font-medium text-sky-600 sm:text-base dark:text-sky-400"
+                                    >
+                                        <span>Is the default branch </span> &nbsp;
+                                        <span class="break-all text-black dark:text-white"
+                                            >true</span
+                                        >
+                                    </div>
+                                    <div
+                                        class="flex text-sm font-medium text-purple-600 sm:text-base dark:text-purple-400"
+                                    >
+                                        <span>Minimum Zig Version: </span> &nbsp;
+                                        <span class="break-all text-black dark:text-white"
+                                            >{data.minimum_zig_version ? data.minimum_zig_version : "Unknown"}</span
+                                        >
+                                    </div>
                                 </div>
-                            {/each}
-                        </ul>
+                            </div>
+                        {#each library_r as [release_name, release]}
+                            <div
+                                class="transform rounded-lg bg-gray-100 p-3 transition-all duration-300 hover:scale-102 hover:bg-gray-200 sm:p-4 dark:bg-[#2e2e2e] dark:hover:bg-slate-600"
+                            >
+                                <div class="space-y-1">
+                                    <div
+                                        class="flex text-sm font-medium text-emerald-600 sm:text-base dark:text-emerald-400"
+                                    >
+                                        <span>Click to see version: </span> &nbsp;
+                                        <a
+                                            href="/packages/{provider_id === 'gh'
+                                                ? 'github'
+                                                : 'codeberg'}/{data.owner_name}/{data.repo_name}/versions/{release_name}"
+                                            target="_blank"
+                                            class="break-all text-black underline hover:text-purple-500 dark:text-white dark:hover:text-purple-300"
+                                            >{release_name}</a
+                                        >
+                                    </div>
+                                    <div
+                                        class="flex text-sm font-medium text-sky-600 sm:text-base dark:text-sky-400"
+                                    >
+                                        <span>Is pre release? </span> &nbsp;
+                                        <span class="break-all text-black dark:text-white"
+                                            >{release.h}</span
+                                        >
+                                    </div>
+                                    <div
+                                        class="flex text-sm font-medium text-purple-600 sm:text-base dark:text-purple-400"
+                                    >
+                                        <span>Minimum Zig Version: </span> &nbsp;
+                                        <span class="break-all text-black dark:text-white"
+                                            >{release.m ? release.m : 'Unknown'}</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        {/each}
                     {/if}
                 </div>
             </div>
