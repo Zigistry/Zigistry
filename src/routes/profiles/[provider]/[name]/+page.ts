@@ -32,8 +32,20 @@ export const load = ({ params }) => {
         return splitted[0] === provider_id && splitted[1] === owner_name;
     });
 
-    const avatar_url = (provider_id === 'gh' ? "https://avatars.githubusercontent.com/" : "https://codeberg.org/avatars/") + owner_details.a;
+    const avatar_url =
+        (provider_id === 'gh'
+            ? 'https://avatars.githubusercontent.com/'
+            : 'https://codeberg.org/avatars/') + owner_details.a;
 
-    const owner_provider_link = (provider_id === 'gh' ? "https://github.com/" : "https://codeberg.org/") + owner_name;
-    return { owner_name, owner_details, packages_from_owner, programs_from_owner, provider_id, avatar_url, owner_provider_link }
+    const owner_provider_link =
+        (provider_id === 'gh' ? 'https://github.com/' : 'https://codeberg.org/') + owner_name;
+    return {
+        owner_name,
+        owner_details,
+        packages_from_owner,
+        programs_from_owner,
+        provider_id,
+        avatar_url,
+        owner_provider_link
+    };
 };
