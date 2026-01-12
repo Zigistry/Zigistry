@@ -19,7 +19,7 @@
     show_dependents={false}
     {provider_id}
     readme_url={library.r[version].r}
-    version_name={version + " version"}
+    version_name={version + ' version'}
     releases={library.r}
     publish_date={library.r[version].p}
     owner_name={name_splitted[1]}

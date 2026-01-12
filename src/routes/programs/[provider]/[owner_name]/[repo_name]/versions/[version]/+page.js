@@ -1,4 +1,4 @@
-export const prerender = true
+export const prerender = true;
 
 import { error } from '@sveltejs/kit';
 import database from '../../../../../../../database.json';

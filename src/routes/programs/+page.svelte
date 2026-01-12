@@ -73,20 +73,20 @@
             {@html '<!--What!!!! package is a reserved keyword!!!!!!-->'}
             {#each top_10_latest_repos as [name, library]}
                 {@const name_splitted = name.split('/')}
-                    <Card
-                        avatar_url={library.a}
-                        owner_name={name_splitted[1]}
-                        repo_name={name_splitted[2]}
-                        stars={library.s}
-                        description={library.d}
-                        watchers={library.w}
-                        forks={library.f}
-                        issues={library.i}
-                        provider={name_splitted[0]}
-                        spdx_id={library.l}
-                        minimum_zig_version={library.dbi.m}
-                        type_of_card="program-display"
-                    />
+                <Card
+                    avatar_url={library.a}
+                    owner_name={name_splitted[1]}
+                    repo_name={name_splitted[2]}
+                    stars={library.s}
+                    description={library.d}
+                    watchers={library.w}
+                    forks={library.f}
+                    issues={library.i}
+                    provider={name_splitted[0]}
+                    spdx_id={library.l}
+                    minimum_zig_version={library.dbi.m}
+                    type_of_card="program-display"
+                />
             {/each}
         </section>
 
@@ -94,23 +94,23 @@
         <section class="flex w-full flex-wrap justify-evenly">
             {#each most_used as [name, library]}
                 {@const name_splitted = name.split('/')}
-                    <Card
-                        avatar_url={library.a}
-                        owner_name={name_splitted[1]}
-                        repo_name={name_splitted[2]}
-                        stars={library.s}
-                        description={library.d}
-                        watchers={library.w}
-                        forks={library.f}
-                        issues={library.i}
-                        provider={name_splitted[0]}
-                        spdx_id={library.l}
-                        minimum_zig_version={library.dbi.m}
-                        type_of_card="program-display"
-                    />
+                <Card
+                    avatar_url={library.a}
+                    owner_name={name_splitted[1]}
+                    repo_name={name_splitted[2]}
+                    stars={library.s}
+                    description={library.d}
+                    watchers={library.w}
+                    forks={library.f}
+                    issues={library.i}
+                    provider={name_splitted[0]}
+                    spdx_id={library.l}
+                    minimum_zig_version={library.dbi.m}
+                    type_of_card="program-display"
+                />
             {/each}
         </section>
-        <Infinite_Scroll thingy="programs"/>
+        <Infinite_Scroll thingy="programs" />
     </div>
 {:else}
     <div>
@@ -118,22 +118,21 @@
         <section class="flex w-full flex-wrap justify-evenly">
             {#each search_results as [name, library]}
                 {@const name_splitted = name.split('/')}
-                    <Card
-                        avatar_url={library.a}
-                        owner_name={name_splitted[1]}
-                        repo_name={name_splitted[2]}
-                        stars={library.s}
-                        description={library.d}
-                        watchers={library.w}
-                        forks={library.f}
-                        issues={library.i}
-                        provider={name_splitted[0]}
-                        spdx_id={library.l}
-                        minimum_zig_version={library.dbi.m}
-                        type_of_card="program-display"
-                    />
+                <Card
+                    avatar_url={library.a}
+                    owner_name={name_splitted[1]}
+                    repo_name={name_splitted[2]}
+                    stars={library.s}
+                    description={library.d}
+                    watchers={library.w}
+                    forks={library.f}
+                    issues={library.i}
+                    provider={name_splitted[0]}
+                    spdx_id={library.l}
+                    minimum_zig_version={library.dbi.m}
+                    type_of_card="program-display"
+                />
             {/each}
         </section>
     </div>
 {/if}
-

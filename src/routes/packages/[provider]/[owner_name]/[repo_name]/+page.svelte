@@ -17,9 +17,9 @@
 
 <PackageProgramDisplay
     show_dependents={true}
-    provider_id={provider_id}
+    {provider_id}
     readme_url={library.dbi.r}
-    version_name={library.db + " branch"}
+    version_name={library.db + ' branch'}
     releases={library.r}
     publish_date={library.p}
     owner_name={name_splitted[1]}

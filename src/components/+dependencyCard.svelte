@@ -8,14 +8,9 @@
     // only get the repository url from this using regex
     // using : https?://([a-zA-Z0-9.-]*/[^/]+/[^/]+)(?:/archive/|$)
 
-    const repoUrlMatch = url.match(
-        /https?:\/\/([a-zA-Z0-9.-]*\/[^/]+\/[^/]+)(?:\/archive\/|$)/
-    );
+    const repoUrlMatch = url.match(/https?:\/\/([a-zA-Z0-9.-]*\/[^/]+\/[^/]+)(?:\/archive\/|$)/);
     const repo_link = repoUrlMatch ? `https://${repoUrlMatch[1]}` : data.url;
-
-
 </script>
-
 
 <div
     class="transform rounded-lg bg-gray-100 p-3 transition-all duration-300 hover:scale-102 hover:bg-gray-200 sm:p-4 dark:bg-[#2e2e2e] dark:hover:bg-slate-600"
