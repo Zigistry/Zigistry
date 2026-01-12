@@ -1,18 +1,13 @@
-<script>
+<script lang="ts">
     import TimeAgo from 'javascript-time-ago';
     import en from 'javascript-time-ago/locale/en';
-    import DOMPurify from 'dompurify';
-    import { marked } from 'marked';
-    import { onMount } from 'svelte';
     import PackageProgramDisplay from '../../../../../components/+packageProgramDisplay.svelte';
 
-    TimeAgo.addDefaultLocale(en);
+    TimeAgo.addLocale(en);
     const { data } = $props();
-    const key = data.complete_correct_name;
-    const value = data.value;
-    const provider_id = data.provider_id;
-    const name_splitted = key.split('/');
-    const library = value;
+    const provider_id = $derived(data.provider_id);
+    const name_splitted = $derived(data.complete_correct_name.split('/'));
+    const library = $derived(data.value);
 </script>
 
 <PackageProgramDisplay

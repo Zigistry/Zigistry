@@ -16,7 +16,7 @@
     const library_r = Object.entries(data.releases);
     console.log(library_r);
 
-    TimeAgo.addDefaultLocale(en);
+    TimeAgo.addLocale(en);
     let readme_content = $state('');
     function load_readme() {
         fetch(data.readme_url)
