@@ -1,41 +1,21 @@
-# sv
+# Zigistry
 
-Everything you need to build a Svelte project, powered by
-[`sv`](https://github.com/sveltejs/cli).
+**A place where you can find all the libraries and programs that suit your Zig lang needs.**
 
-## Creating a project
+---
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Adding your repo to Zigistry:
 
-```sh
-# create a new project in the current directory
-npx sv create
+Either on GitHub or on Codeberg:
 
-# create a new project in my-app
-npx sv create my-app
-```
+Go to your Repository:
 
-## Developing
+Add `zig-package` topic to it, if it is a Zig library.
+Or
+Add `zig-program` topic to it, if it is a Zig application/program.
 
-Once you've created a project and installed dependencies with `npm install` (or
-`pnpm install` or `yarn`), start a development server:
+## Contribution:
+- Feel free to create a Pull request, mention an issue or suggest any features that you want Zigistry should have or improve.
 
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an
-> [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## Code of conduct:
+- Zigistry follows the [Zig Code of Conduct](https://ziglang.org/code-of-conduct/)
