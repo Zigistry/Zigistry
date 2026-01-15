@@ -13,7 +13,15 @@
     const name_splitted = key.split('/');
     const version = data.version;
     const library = value;
+    const platorm = data.provider_id === 'gh' ? 'GitHub' : 'Codeberg';
 </script>
+
+<svelte:head>
+    <title
+        >Zig program: {name_splitted[1]}/{name_splitted[2]} from {platform} | Version: {library.db}</title
+    >
+    <meta name="description" content={'Zig program: ' + library.d} />
+</svelte:head>
 
 <PackageProgramDisplay
     show_dependents={false}
