@@ -12,7 +12,15 @@
     const provider_id = data.provider_id;
     const name_splitted = key.split('/');
     const library = value;
+    const provider = provider_id === 'gh' ? 'GitHub' : 'Codeberg';
 </script>
+
+<svelte:head>
+    <title
+        >Zig program: {name_splitted[1]}/{name_splitted[2]} from {provider} | Branch: {library.db}</title
+    >
+    <meta name="description" content={'Zig program: ' + library.d} />
+</svelte:head>
 
 <PackageProgramDisplay
     show_dependents={false}

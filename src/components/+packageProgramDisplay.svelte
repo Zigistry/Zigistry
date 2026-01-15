@@ -151,40 +151,40 @@
                         This package has no version.
                     {:else}
                         <div
-                                class="transform rounded-lg bg-gray-100 p-3 transition-all duration-300 hover:scale-102 hover:bg-gray-200 sm:p-4 dark:bg-[#2e2e2e] dark:hover:bg-slate-600"
-                            >
-                                <div class="space-y-1">
-                                    <div
-                                        class="flex text-sm font-medium text-emerald-600 sm:text-base dark:text-emerald-400"
+                            class="transform rounded-lg bg-gray-100 p-3 transition-all duration-300 hover:scale-102 hover:bg-gray-200 sm:p-4 dark:bg-[#2e2e2e] dark:hover:bg-slate-600"
+                        >
+                            <div class="space-y-1">
+                                <div
+                                    class="flex text-sm font-medium text-emerald-600 sm:text-base dark:text-emerald-400"
+                                >
+                                    <span>Click to see version: </span> &nbsp;
+                                    <a
+                                        href="/packages/{provider_id === 'gh'
+                                            ? 'github'
+                                            : 'codeberg'}/{data.owner_name}/{data.repo_name}"
+                                        target="_blank"
+                                        class="break-all text-black underline hover:text-purple-500 dark:text-white dark:hover:text-purple-300"
+                                        >Head Branch</a
                                     >
-                                        <span>Click to see version: </span> &nbsp;
-                                        <a
-                                            href="/packages/{provider_id === 'gh'
-                                                ? 'github'
-                                                : 'codeberg'}/{data.owner_name}/{data.repo_name}"
-                                            target="_blank"
-                                            class="break-all text-black underline hover:text-purple-500 dark:text-white dark:hover:text-purple-300"
-                                            >Head Branch</a
-                                        >
-                                    </div>
-                                    <div
-                                        class="flex text-sm font-medium text-sky-600 sm:text-base dark:text-sky-400"
+                                </div>
+                                <div
+                                    class="flex text-sm font-medium text-sky-600 sm:text-base dark:text-sky-400"
+                                >
+                                    <span>Is the default branch </span> &nbsp;
+                                    <span class="break-all text-black dark:text-white">true</span>
+                                </div>
+                                <div
+                                    class="flex text-sm font-medium text-purple-600 sm:text-base dark:text-purple-400"
+                                >
+                                    <span>Minimum Zig Version: </span> &nbsp;
+                                    <span class="break-all text-black dark:text-white"
+                                        >{data.minimum_zig_version
+                                            ? data.minimum_zig_version
+                                            : 'Unknown'}</span
                                     >
-                                        <span>Is the default branch </span> &nbsp;
-                                        <span class="break-all text-black dark:text-white"
-                                            >true</span
-                                        >
-                                    </div>
-                                    <div
-                                        class="flex text-sm font-medium text-purple-600 sm:text-base dark:text-purple-400"
-                                    >
-                                        <span>Minimum Zig Version: </span> &nbsp;
-                                        <span class="break-all text-black dark:text-white"
-                                            >{data.minimum_zig_version ? data.minimum_zig_version : "Unknown"}</span
-                                        >
-                                    </div>
                                 </div>
                             </div>
+                        </div>
                         {#each library_r as [release_name, release]}
                             <div
                                 class="transform rounded-lg bg-gray-100 p-3 transition-all duration-300 hover:scale-102 hover:bg-gray-200 sm:p-4 dark:bg-[#2e2e2e] dark:hover:bg-slate-600"

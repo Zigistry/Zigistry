@@ -38,6 +38,13 @@
     }
 </script>
 
+<svelte:head>
+    <title>Zigistry: A Packages and Programs registry for Zig programming language</title>
+    <meta
+        name="description"
+        content="A packages and programs registry for the Zig programming language. Browse packages and programs."
+    />
+</svelte:head>
 <div class="flex flex-col items-center">
     <div class="searchArea rounded-lg sm:m-5 sm:p-5 sm:shadow-lg sm:shadow-black">
         <h1 class="my-5 text-center text-2xl font-semibold">Search Ziglang Packages</h1>

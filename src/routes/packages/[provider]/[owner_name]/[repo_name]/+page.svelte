@@ -8,7 +8,15 @@
     const provider_id = $derived(data.provider_id);
     const name_splitted = $derived(data.complete_correct_name.split('/'));
     const library = $derived(data.value);
+    const provider = provider_id === 'gh' ? 'GitHub' : 'Codeberg';
 </script>
+
+<svelte:head>
+    <title
+        >Zig package: {name_splitted[1]}/{name_splitted[2]} from {provider} | Branch: {library.db}</title
+    >
+    <meta name="description" content={'Zig package: ' + library.d} />
+</svelte:head>
 
 <PackageProgramDisplay
     show_dependents={true}

@@ -12,7 +12,15 @@
     const library = value;
 
     let readme_content = $state('');
+    const platform = provider_id === 'gh' ? 'GitHub' : 'Codeberg';
 </script>
+
+<svelte:head>
+    <title
+        >Zig package: {name_splitted[1]}/{name_splitted[2]} from {platform} | Version: {version}</title
+    >
+    <meta name="description" content={'Zig package: ' + library.d} />
+</svelte:head>
 
 <PackageProgramDisplay
     show_dependents={true}
