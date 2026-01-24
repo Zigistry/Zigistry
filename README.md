@@ -14,6 +14,9 @@ Add `zig-package` topic to it, if it is a Zig library.
 Or
 Add `zig-program` topic to it, if it is a Zig application/program.
 
+> [!IMPORTANT]
+> Then create any commit and push.
+
 ## Contribution:
 
 - Feel free to create a Pull request, mention an issue or suggest any features that you want Zigistry should have or improve.
