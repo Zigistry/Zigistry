@@ -5,10 +5,10 @@
     import all_database from '../../database.json';
     import { Rocket } from '@lucide/svelte';
     const top_10_latest_repos = Object.entries(all_database.programs)
-        .sort(([, a], [, b]) => new Date(b.c) - new Date(a.c))
+        .sort(([, a], [, b]) => new Date(b.created_at) - new Date(a.created_at))
         .slice(0, 10);
     const most_used = Object.entries(all_database.programs)
-        .sort(([, a], [, b]) => b.dts.length - a.dts.length)
+        .sort(([, a], [, b]) => b.dependents_count - a.dependents_count)
         .slice(0, 10);
     let show_default = $state(true);
     let search_results = $state({});
@@ -21,8 +21,7 @@
         }
         if (e.key === 'Enter') {
             const result_data = await fetch(
-                'https://zigistry-new-api.hf.space/programs/search?' +
-                    encodeURI(`q=${value}&filter=a`)
+                'http://localhost:8000/search/programs?' + encodeURI(`q=${value}&filter=a`)
             );
             let result = await result_data.json();
             //  Now the entire data is loaded
@@ -82,17 +81,17 @@
             {#each top_10_latest_repos as [name, library]}
                 {@const name_splitted = name.split('/')}
                 <Card
-                    avatar_url={library.a}
+                    avatar_url={library.avatar_url}
                     owner_name={name_splitted[1]}
                     repo_name={name_splitted[2]}
-                    stars={library.s}
-                    description={library.d}
-                    watchers={library.w}
-                    forks={library.f}
-                    issues={library.i}
+                    stars={library.stars}
+                    description={library.description}
+                    watchers={library.watchers}
+                    forks={library.forks}
+                    issues={library.issues}
                     provider={name_splitted[0]}
-                    spdx_id={library.l}
-                    minimum_zig_version={library.dbi.m}
+                    spdx_id={library.spdx_id}
+                    minimum_zig_version={library.minimum_zig_version}
                     type_of_card="program-display"
                 />
             {/each}
@@ -103,17 +102,17 @@
             {#each most_used as [name, library]}
                 {@const name_splitted = name.split('/')}
                 <Card
-                    avatar_url={library.a}
+                    avatar_url={library.avatar_url}
                     owner_name={name_splitted[1]}
                     repo_name={name_splitted[2]}
-                    stars={library.s}
-                    description={library.d}
-                    watchers={library.w}
-                    forks={library.f}
-                    issues={library.i}
+                    stars={library.stars}
+                    description={library.description}
+                    watchers={library.watchers}
+                    forks={library.forks}
+                    issues={library.issues}
                     provider={name_splitted[0]}
-                    spdx_id={library.l}
-                    minimum_zig_version={library.dbi.m}
+                    spdx_id={library.spdx_id}
+                    minimum_zig_version={library.minimum_zig_version}
                     type_of_card="program-display"
                 />
             {/each}
@@ -127,17 +126,17 @@
             {#each search_results as [name, library]}
                 {@const name_splitted = name.split('/')}
                 <Card
-                    avatar_url={library.a}
+                    avatar_url={library.avatar_url}
                     owner_name={name_splitted[1]}
                     repo_name={name_splitted[2]}
-                    stars={library.s}
-                    description={library.d}
-                    watchers={library.w}
-                    forks={library.f}
-                    issues={library.i}
+                    stars={library.stars}
+                    description={library.description}
+                    watchers={library.watchers}
+                    forks={library.forks}
+                    issues={library.issues}
                     provider={name_splitted[0]}
-                    spdx_id={library.l}
-                    minimum_zig_version={library.dbi.m}
+                    spdx_id={library.spdx_id}
+                    minimum_zig_version={library.minimum_zig_version}
                     type_of_card="program-display"
                 />
             {/each}
