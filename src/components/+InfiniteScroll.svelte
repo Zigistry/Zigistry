@@ -11,7 +11,7 @@
 
     async function loadMore() {
         const data = await fetch(
-            `https://zigistry-new-api.hf.space/${all_props.thingy}/scroll?` +
+            `http://localhost:8000/${all_props.thingy}/scroll?` +
                 encodeURI('per_page=20&page=' + page)
         );
         const data_res = await data.json();
@@ -37,8 +37,7 @@
 <LeftMiniTitle icon={Rocket} name="View More" />
 <section class="flex w-full flex-wrap justify-evenly">
     {@html '<!--What!!!! package is a reserved keyword!!!!!!-->'}
-    {#each items as [name, library]}
-        {@const name_splitted = name.split('/')}
+    {#each items as library}
         {#if name_splitted[0] === 'gh'}
             <Card
                 avatar_url={library.a}

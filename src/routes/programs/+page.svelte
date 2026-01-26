@@ -2,14 +2,17 @@
     import LeftMiniTitle from '../../components/+LeftMiniTitle.svelte';
     import Card from '../../components/+card.svelte';
     import Infinite_Scroll from '../../components/+InfiniteScroll.svelte';
-    import all_database from '../../database.json';
     import { Rocket } from '@lucide/svelte';
-    const top_10_latest_repos = Object.entries(all_database.programs)
-        .sort(([, a], [, b]) => new Date(b.created_at) - new Date(a.created_at))
-        .slice(0, 10);
-    const most_used = Object.entries(all_database.programs)
-        .sort(([, a], [, b]) => b.dependents_count - a.dependents_count)
-        .slice(0, 10);
+
+    let top_10_latest_repos = $state([]);
+    let most_used = $state([]);
+    async function get_latest() {
+        top_10_latest_repos = await (await fetch('http://localhost:8000/programs/latest')).json();
+        most_used = await (await fetch('http://localhost:8000/programs/latest')).json();
+    }
+
+    get_latest();
+
     let show_default = $state(true);
     let search_results = $state({});
     async function handle_search(e) {
@@ -78,18 +81,17 @@
         <LeftMiniTitle icon={Rocket} name="Recently Released" />
         <section class="flex w-full flex-wrap justify-evenly">
             {@html '<!--What!!!! package is a reserved keyword!!!!!!-->'}
-            {#each top_10_latest_repos as [name, library]}
-                {@const name_splitted = name.split('/')}
+            {#each top_10_latest_repos as library}
                 <Card
                     avatar_url={library.avatar_url}
-                    owner_name={name_splitted[1]}
-                    repo_name={name_splitted[2]}
+                    owner_name={library.owner_name}
+                    repo_name={library.repo_name}
                     stars={library.stars}
                     description={library.description}
                     watchers={library.watchers}
                     forks={library.forks}
                     issues={library.issues}
-                    provider={name_splitted[0]}
+                    provider={library.provider}
                     spdx_id={library.spdx_id}
                     minimum_zig_version={library.minimum_zig_version}
                     type_of_card="program-display"
