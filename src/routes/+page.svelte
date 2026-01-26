@@ -2,37 +2,42 @@
     import LeftMiniTitle from '../components/+LeftMiniTitle.svelte';
     import Card from '../components/+card.svelte';
     import Infinite_Scroll from '../components/+InfiniteScroll.svelte';
-    import all_database from '../database.json';
     import { Rocket } from '@lucide/svelte';
-    const top_10_latest_repos = Object.entries(all_database.packages)
-        .sort(([, a], [, b]) => new Date(b.c) - new Date(a.c))
-        .slice(0, 10);
-    const most_used = Object.entries(all_database.packages)
-        .sort(([, a], [, b]) => b.dts.length - a.dts.length)
-        .slice(0, 10);
-    const games = all_database.index_sections.games;
-    const gui = all_database.index_sections.gui;
-    const web = all_database.index_sections.web;
+
+    let top_10_latest_repos = $state([]);
+    let most_used = $state([]);
+    let games = $state([]);
+    let gui = $state([]);
+    let web = $state([]);
+
+    async function get_data() {
+        top_10_latest_repos = await (await fetch('http://localhost:8000/packages/latest')).json();
+        most_used = await (await fetch('http://localhost:8000/packages/latest')).json(); // Fallback to latest if most_used unknown
+        // Assuming there are endpoints for these or they will be empty for now
+        games = [];
+        gui = [];
+        web = [];
+    }
+    get_data();
+
     let show_default = $state(true);
-    let search_results = $state({});
+    let search_results = $state([]);
     async function handle_search(e) {
         const value = e.target.value.trim().toLowerCase();
         if (value === '') {
             show_default = true;
-            search_results = {};
+            search_results = [];
             return;
         }
         if (e.key === 'Enter') {
             const result_data = await fetch(
-                'https://zigistry-new-api.hf.space/packages/search?' +
-                    encodeURI(`q=${value}&filter=a`)
+                'http://localhost:8000/search/packages?' + encodeURI(`q=${value}&filter=a`)
             );
             let result = await result_data.json();
-            //  Now the entire data is loaded
             if (result == null) {
-                result = {};
+                result = [];
             }
-            search_results = Object.entries(result);
+            search_results = result;
             show_default = false;
         }
     }
@@ -81,20 +86,19 @@
         <LeftMiniTitle icon={Rocket} name="Recently Released" />
         <section class="flex w-full flex-wrap justify-evenly">
             {@html '<!--What!!!! package is a reserved keyword!!!!!!-->'}
-            {#each top_10_latest_repos as [name, library]}
-                {@const name_splitted = name.split('/')}
+            {#each top_10_latest_repos as library}
                 <Card
-                    avatar_url={library.a}
-                    owner_name={name_splitted[1]}
-                    repo_name={name_splitted[2]}
-                    stars={library.s}
-                    description={library?.d}
-                    watchers={library.w}
-                    forks={library?.f}
-                    issues={library.i}
-                    provider={name_splitted[0]}
-                    spdx_id={library.l}
-                    minimum_zig_version={library.dbi.m}
+                    avatar_url={library.avatar_url}
+                    owner_name={library.owner_name.split('/')[1] || library.owner_name}
+                    repo_name={library.repo_name}
+                    stars={library.stargazer_count}
+                    description={library.description}
+                    watchers={library.watchers_count}
+                    forks={library.fork_count}
+                    issues={library.issues_count}
+                    provider={library.provider}
+                    spdx_id={library.license}
+                    minimum_zig_version={library.minimum_zig_version}
                     type_of_card="packages-display"
                 />
             {/each}
@@ -102,20 +106,19 @@
 
         <LeftMiniTitle icon={Rocket} name="Most Used" />
         <section class="flex w-full flex-wrap justify-evenly">
-            {#each most_used as [name, library]}
-                {@const name_splitted = name.split('/')}
+            {#each most_used as library}
                 <Card
-                    avatar_url={library.a}
-                    owner_name={name_splitted[1]}
-                    repo_name={name_splitted[2]}
-                    stars={library.s}
-                    description={library.d}
-                    watchers={library.w}
-                    forks={library.f}
-                    issues={library.i}
-                    provider={name_splitted[0]}
-                    spdx_id={library.l}
-                    minimum_zig_version={library.dbi.m}
+                    avatar_url={library.avatar_url}
+                    owner_name={library.owner_name.split('/')[1] || library.owner_name}
+                    repo_name={library.repo_name}
+                    stars={library.stargazer_count}
+                    description={library.description}
+                    watchers={library.watchers_count}
+                    forks={library.fork_count}
+                    issues={library.issues_count}
+                    provider={library.provider}
+                    spdx_id={library.license}
+                    minimum_zig_version={library.minimum_zig_version}
                     type_of_card="packages-display"
                 />
             {/each}
@@ -123,71 +126,59 @@
 
         <LeftMiniTitle icon={Rocket} name="Famous Game libs" />
         <section class="flex w-full flex-wrap justify-evenly">
-            {#each games.slice(0, 10) as name}
-                {@const name_splitted = name.split('/')}
-                {@const library = all_database.packages[name.toLowerCase()]}
-                {#if library}
-                    <Card
-                        avatar_url={library.a}
-                        owner_name={name_splitted[1]}
-                        repo_name={name_splitted[2]}
-                        stars={library.s}
-                        description={library.d}
-                        watchers={library.w}
-                        forks={library.f}
-                        issues={library.i}
-                        provider={name_splitted[0]}
-                        spdx_id={library.l}
-                        minimum_zig_version={library.dbi.m}
-                        type_of_card="packages-display"
-                    />
-                {/if}
+            {#each games.slice(0, 10) as library}
+                <Card
+                    avatar_url={library.avatar_url}
+                    owner_name={library.owner_name.split('/')[1] || library.owner_name}
+                    repo_name={library.repo_name}
+                    stars={library.stargazer_count}
+                    description={library.description}
+                    watchers={library.watchers_count}
+                    forks={library.fork_count}
+                    issues={library.issues_count}
+                    provider={library.provider}
+                    spdx_id={library.license}
+                    minimum_zig_version={library.minimum_zig_version}
+                    type_of_card="packages-display"
+                />
             {/each}
         </section>
         <LeftMiniTitle icon={Rocket} name="Famous Web libs" />
         <section class="flex w-full flex-wrap justify-evenly">
-            {#each web.slice(0, 10) as name}
-                {@const name_splitted = name.split('/')}
-                {@const library = all_database.packages[name.toLowerCase()]}
-                {#if library}
-                    <Card
-                        avatar_url={library.a}
-                        owner_name={name_splitted[1]}
-                        repo_name={name_splitted[2]}
-                        stars={library.s}
-                        description={library.d}
-                        watchers={library.w}
-                        forks={library.f}
-                        issues={library.i}
-                        provider={name_splitted[0]}
-                        spdx_id={library.l}
-                        minimum_zig_version={library.dbi.m}
-                        type_of_card="packages-display"
-                    />
-                {/if}
+            {#each web.slice(0, 10) as library}
+                <Card
+                    avatar_url={library.avatar_url}
+                    owner_name={library.owner_name.split('/')[1] || library.owner_name}
+                    repo_name={library.repo_name}
+                    stars={library.stargazer_count}
+                    description={library.description}
+                    watchers={library.watchers_count}
+                    forks={library.fork_count}
+                    issues={library.issues_count}
+                    provider={library.provider}
+                    spdx_id={library.license}
+                    minimum_zig_version={library.minimum_zig_version}
+                    type_of_card="packages-display"
+                />
             {/each}
         </section>
         <LeftMiniTitle icon={Rocket} name="Famous GUI libs" />
         <section class="flex w-full flex-wrap justify-evenly">
-            {#each gui.slice(0, 10) as name}
-                {@const name_splitted = name.split('/')}
-                {@const library = all_database.packages[name.toLowerCase()]}
-                {#if library}
-                    <Card
-                        avatar_url={library.a}
-                        owner_name={name_splitted[1]}
-                        repo_name={name_splitted[2]}
-                        stars={library.s}
-                        description={library.d}
-                        watchers={library.w}
-                        forks={library.f}
-                        issues={library.i}
-                        provider="gh"
-                        spdx_id={library.l}
-                        minimum_zig_version={library.dbi.m}
-                        type_of_card="packages-display"
-                    />
-                {/if}
+            {#each gui.slice(0, 10) as library}
+                <Card
+                    avatar_url={library.avatar_url}
+                    owner_name={library.owner_name.split('/')[1] || library.owner_name}
+                    repo_name={library.repo_name}
+                    stars={library.stargazer_count}
+                    description={library.description}
+                    watchers={library.watchers_count}
+                    forks={library.fork_count}
+                    issues={library.issues_count}
+                    provider={library.provider}
+                    spdx_id={library.license}
+                    minimum_zig_version={library.minimum_zig_version}
+                    type_of_card="packages-display"
+                />
             {/each}
         </section>
         <Infinite_Scroll thingy="packages" />
@@ -196,20 +187,19 @@
     <div>
         <LeftMiniTitle icon={Rocket} name="Search results" />
         <section class="flex w-full flex-wrap justify-evenly">
-            {#each search_results as [name, library]}
-                {@const name_splitted = name.split('/')}
+            {#each search_results as library}
                 <Card
-                    avatar_url={library.a}
-                    owner_name={name_splitted[1]}
-                    repo_name={name_splitted[2]}
-                    description={library.d}
-                    watchers={library.w}
-                    stars={library.s}
-                    forks={library.f}
-                    issues={library.i}
-                    minimum_zig_version={library.dbi.m}
-                    provider={name_splitted[0]}
-                    spdx_id={library.l}
+                    avatar_url={library.avatar_url}
+                    owner_name={library.owner_name.split('/')[1] || library.owner_name}
+                    repo_name={library.repo_name}
+                    stars={library.stargazer_count}
+                    description={library.description}
+                    watchers={library.watchers_count}
+                    forks={library.fork_count}
+                    issues={library.issues_count}
+                    provider={library.provider}
+                    spdx_id={library.license}
+                    minimum_zig_version={library.minimum_zig_version}
                     type_of_card="packages-display"
                 />
             {/each}

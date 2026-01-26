@@ -14,12 +14,12 @@
     get_latest();
 
     let show_default = $state(true);
-    let search_results = $state({});
+    let search_results = $state([]);
     async function handle_search(e) {
         const value = e.target.value.trim().toLowerCase();
         if (value === '') {
             show_default = true;
-            search_results = {};
+            search_results = [];
             return;
         }
         if (e.key === 'Enter') {
@@ -29,9 +29,9 @@
             let result = await result_data.json();
             //  Now the entire data is loaded
             if (result == null) {
-                result = {};
+                result = [];
             }
-            search_results = Object.entries(result);
+            search_results = result;
             show_default = false;
         }
     }
@@ -84,15 +84,15 @@
             {#each top_10_latest_repos as library}
                 <Card
                     avatar_url={library.avatar_url}
-                    owner_name={library.owner_name}
+                    owner_name={library.owner_name.split('/')[1] || library.owner_name}
                     repo_name={library.repo_name}
-                    stars={library.stars}
+                    stars={library.stargazer_count}
                     description={library.description}
-                    watchers={library.watchers}
-                    forks={library.forks}
-                    issues={library.issues}
+                    watchers={library.watchers_count}
+                    forks={library.fork_count}
+                    issues={library.issues_count}
                     provider={library.provider}
-                    spdx_id={library.spdx_id}
+                    spdx_id={library.license}
                     minimum_zig_version={library.minimum_zig_version}
                     type_of_card="program-display"
                 />
@@ -101,19 +101,18 @@
 
         <LeftMiniTitle icon={Rocket} name="Most Used" />
         <section class="flex w-full flex-wrap justify-evenly">
-            {#each most_used as [name, library]}
-                {@const name_splitted = name.split('/')}
+            {#each most_used as library}
                 <Card
                     avatar_url={library.avatar_url}
-                    owner_name={name_splitted[1]}
-                    repo_name={name_splitted[2]}
-                    stars={library.stars}
+                    owner_name={library.owner_name.split('/')[1] || library.owner_name}
+                    repo_name={library.repo_name}
+                    stars={library.stargazer_count}
                     description={library.description}
-                    watchers={library.watchers}
-                    forks={library.forks}
-                    issues={library.issues}
-                    provider={name_splitted[0]}
-                    spdx_id={library.spdx_id}
+                    watchers={library.watchers_count}
+                    forks={library.fork_count}
+                    issues={library.issues_count}
+                    provider={library.provider}
+                    spdx_id={library.license}
                     minimum_zig_version={library.minimum_zig_version}
                     type_of_card="program-display"
                 />
@@ -125,19 +124,18 @@
     <div>
         <LeftMiniTitle icon={Rocket} name="Search results" />
         <section class="flex w-full flex-wrap justify-evenly">
-            {#each search_results as [name, library]}
-                {@const name_splitted = name.split('/')}
+            {#each search_results as library}
                 <Card
                     avatar_url={library.avatar_url}
-                    owner_name={name_splitted[1]}
-                    repo_name={name_splitted[2]}
-                    stars={library.stars}
+                    owner_name={library.owner_name.split('/')[1] || library.owner_name}
+                    repo_name={library.repo_name}
+                    stars={library.stargazer_count}
                     description={library.description}
-                    watchers={library.watchers}
-                    forks={library.forks}
-                    issues={library.issues}
-                    provider={name_splitted[0]}
-                    spdx_id={library.spdx_id}
+                    watchers={library.watchers_count}
+                    forks={library.fork_count}
+                    issues={library.issues_count}
+                    provider={library.provider}
+                    spdx_id={library.license}
                     minimum_zig_version={library.minimum_zig_version}
                     type_of_card="program-display"
                 />
