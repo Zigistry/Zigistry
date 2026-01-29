@@ -11,16 +11,15 @@
     let web = $state([]);
 
     async function get_data() {
-        top_10_latest_repos = await (
-            await fetch('https://rohanvashisht-zigistrybackend.hf.space/packages/latest')
-        ).json();
-        most_used = await (
-            await fetch('https://rohanvashisht-zigistrybackend.hf.space/packages/latest')
-        ).json(); // Fallback to latest if most_used unknown
-        // Assuming there are endpoints for these or they will be empty for now
-        games = [];
-        gui = [];
-        web = [];
+        const response = await fetch(
+            'https://rohanvashisht-zigistrybackend.hf.space/packageIndexDetails'
+        );
+        const data = await response.json();
+        top_10_latest_repos = data.latest;
+        most_used = data.most_used;
+        games = data.games;
+        gui = data.gui;
+        web = data.web;
     }
     get_data();
 
@@ -35,8 +34,8 @@
         }
         if (e.key === 'Enter') {
             const result_data = await fetch(
-                'https://rohanvashisht-zigistrybackend.hf.space/search/packages?' +
-                    encodeURI(`q=${value}&filter=a`)
+                'https://rohanvashisht-zigistrybackend.hf.space/search/packages?q=' +
+                    encodeURIComponent(value)
             );
             let result = await result_data.json();
             if (result == null) {
