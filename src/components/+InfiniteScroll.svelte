@@ -11,7 +11,7 @@
 
     async function loadMore() {
         const data = await fetch(
-            `http://localhost:8000/${all_props.thingy}/scroll?` +
+            `https://rohanvashisht-zigistrybackend.hf.space/${all_props.thingy}/scroll?` +
                 encodeURI('per_page=20&ge=' + page)
         );
         const data_res = await data.json();

@@ -11,8 +11,12 @@
     let web = $state([]);
 
     async function get_data() {
-        top_10_latest_repos = await (await fetch('http://localhost:8000/packages/latest')).json();
-        most_used = await (await fetch('http://localhost:8000/packages/latest')).json(); // Fallback to latest if most_used unknown
+        top_10_latest_repos = await (
+            await fetch('https://rohanvashisht-zigistrybackend.hf.space/packages/latest')
+        ).json();
+        most_used = await (
+            await fetch('https://rohanvashisht-zigistrybackend.hf.space/packages/latest')
+        ).json(); // Fallback to latest if most_used unknown
         // Assuming there are endpoints for these or they will be empty for now
         games = [];
         gui = [];
@@ -31,7 +35,8 @@
         }
         if (e.key === 'Enter') {
             const result_data = await fetch(
-                'http://localhost:8000/search/packages?' + encodeURI(`q=${value}&filter=a`)
+                'https://rohanvashisht-zigistrybackend.hf.space/search/packages?' +
+                    encodeURI(`q=${value}&filter=a`)
             );
             let result = await result_data.json();
             if (result == null) {
