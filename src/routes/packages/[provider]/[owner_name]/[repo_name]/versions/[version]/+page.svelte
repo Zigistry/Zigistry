@@ -1,44 +1,40 @@
 <script>
-    import DOMPurify from 'dompurify';
+    import TimeAgo from 'javascript-time-ago';
+    import en from 'javascript-time-ago/locale/en';
     import PackageProgramDisplay from '../../../../../../../components/+packageProgramDisplay.svelte';
-    import { marked } from 'marked';
-    import { onMount } from 'svelte';
-    const { data } = $props();
-    const key = data.complete_correct_name;
-    const value = data.value;
-    const provider_id = data.provider_id;
-    const version = data.version;
-    const name_splitted = key.split('/');
-    const library = value;
 
-    let readme_content = $state('');
+    TimeAgo.addLocale(en);
+    const { data } = $props();
+    const provider_id = $derived(data.provider_id);
+    const version = $derived(data.version);
+    const library = $derived(data.value);
     const platform = provider_id === 'gh' ? 'GitHub' : 'Codeberg';
 </script>
 
 <svelte:head>
     <title
-        >Zig package: {name_splitted[1]}/{name_splitted[2]} from {platform} | Version: {version}</title
+        >Zig package: {library.owner_name}/{library.repo_name} from {platform} | Version: {version}</title
     >
-    <meta name="description" content={'Zig package: ' + library.d} />
+    <meta name="description" content={'Zig package: ' + library.description} />
 </svelte:head>
 
 <PackageProgramDisplay
     show_dependents={true}
     {provider_id}
-    readme_url={library.r[version].r}
+    readme_url={library.readme_url}
     version_name={version + ' version'}
-    releases={library.r}
-    publish_date={library.r[version].p}
-    owner_name={name_splitted[1]}
-    repo_name={name_splitted[2]}
-    avatar_id={library.a}
-    stars_count={library.s}
-    description={library.d}
-    forks_count={library.f}
-    issues_count={library.i}
-    license={library.l}
-    minimum_zig_version={library.r[version].m}
-    published_date={library.r[version].p}
-    dependents={library.dts}
-    dependencies={library.r[version].d}
+    releases={library.releases}
+    publish_date={library.published_at}
+    owner_name={library.owner_name}
+    repo_name={library.repo_name}
+    avatar_id={library.avatar_id}
+    stars_count={library.stars_count}
+    description={library.description}
+    forks_count={library.forks_count}
+    issues_count={library.issues_count}
+    license={library.license}
+    minimum_zig_version={library.minimum_zig_version}
+    published_date={library.published_at}
+    dependents={library.dependents}
+    dependencies={library.dependencies}
 />

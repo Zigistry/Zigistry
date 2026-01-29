@@ -6,35 +6,34 @@
     TimeAgo.addLocale(en);
     const { data } = $props();
     const provider_id = $derived(data.provider_id);
-    const name_splitted = $derived(data.complete_correct_name.split('/'));
     const library = $derived(data.value);
     const provider = provider_id === 'gh' ? 'GitHub' : 'Codeberg';
 </script>
 
 <svelte:head>
     <title
-        >Zig package: {name_splitted[1]}/{name_splitted[2]} from {provider} | Branch: {library.db}</title
+        >Zig package: {library.owner_name}/{library.repo_name} from {provider} | Branch: {library.default_branch_name}</title
     >
-    <meta name="description" content={'Zig package: ' + library.d} />
+    <meta name="description" content={'Zig package: ' + library.description} />
 </svelte:head>
 
 <PackageProgramDisplay
     show_dependents={true}
     {provider_id}
-    readme_url={library.dbi.r}
-    version_name={library.db + ' branch'}
-    releases={library.r}
-    publish_date={library.p}
-    owner_name={name_splitted[1]}
-    repo_name={name_splitted[2]}
-    avatar_id={library.a}
-    stars_count={library.s}
-    description={library.d}
-    forks_count={library.f}
-    issues_count={library.i}
-    license={library.l}
-    minimum_zig_version={library.m}
-    published_date={library.p}
-    dependents={library.dts}
-    dependencies={library.dbi.d}
+    readme_url={library.readme_url}
+    version_name={library.default_branch_name + ' branch'}
+    releases={library.releases}
+    publish_date={library.pushed_at}
+    owner_name={library.owner_name}
+    repo_name={library.repo_name}
+    avatar_id={library.avatar_id}
+    stars_count={library.stars_count}
+    description={library.description}
+    forks_count={library.forks_count}
+    issues_count={library.issues_count}
+    license={library.license}
+    minimum_zig_version={library.minimum_zig_version}
+    published_date={library.pushed_at}
+    dependents={library.dependents}
+    dependencies={library.dependencies}
 />

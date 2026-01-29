@@ -13,12 +13,16 @@
     const data = $props();
     const provider_id = data.provider_id;
 
-    const library_r = Object.entries(data.releases);
+    const library_r = data.releases;
     console.log(library_r);
 
     TimeAgo.addLocale(en);
     let readme_content = $state('');
     function load_readme() {
+        if (!data.readme_url) {
+            readme_content = 'No readme available.';
+            return;
+        }
         fetch(data.readme_url)
             .then((response) => {
                 if (response.ok) {
@@ -46,7 +50,9 @@
 <LeftMiniTitle name={data.version_name + ' details'} icon={InfoIcon} />
 
 <Badge rounded color="blue" class="mt-2 mr-0 mb-0 ml-10 text-xl"
-    >Last updated: {timeAgo.format(new Date(data.publish_date))}</Badge
+    >Last updated: {data.publish_date
+        ? timeAgo.format(new Date(data.publish_date))
+        : 'Recently'}</Badge
 >
 
 <div class="mt-3 min-h-screen p-2 sm:px-4 sm:pb-4 md:px-6 md:pb-6 lg:px-8 lg:pb-8">
@@ -97,9 +103,9 @@
                     {:else}
                         {#each data.dependencies as dependency}
                             <DependencyCard
-                                name={dependency.n}
-                                url={dependency.u}
-                                hash={dependency.h}
+                                name={dependency.name}
+                                url={dependency.url}
+                                hash={dependency.hash}
                             />
                         {/each}
                     {/if}
@@ -122,7 +128,7 @@
                         {:else}
                             {#each data.dependents as dependent}
                                 {@const dependent_iter = dependent.split('/')}
-                                {@const url = `https://zigistry.dev/packages/${dependent_iter[0] === 'gh' ? 'github' : 'codeberg'}/${dependent_iter[1]}/${dependent_iter[2]}`}
+                                {@const url = `/packages/${dependent_iter[0] === 'gh' ? 'github' : 'codeberg'}/${dependent_iter[1]}/${dependent_iter[2]}`}
                                 <div
                                     class="transform rounded-lg bg-gray-100 p-3 transition-all duration-300 hover:scale-102 hover:bg-gray-200 sm:p-4 dark:bg-[#2e2e2e] dark:hover:bg-slate-600"
                                 >
@@ -180,12 +186,12 @@
                                     <span class="break-all text-black dark:text-white"
                                         >{data.minimum_zig_version
                                             ? data.minimum_zig_version
-                                            : 'Unknown'}</span
+                                            : '0.0.0'}</span
                                     >
                                 </div>
                             </div>
                         </div>
-                        {#each library_r as [release_name, release]}
+                        {#each library_r as release_name}
                             <div
                                 class="transform rounded-lg bg-gray-100 p-3 transition-all duration-300 hover:scale-102 hover:bg-gray-200 sm:p-4 dark:bg-[#2e2e2e] dark:hover:bg-slate-600"
                             >
@@ -201,22 +207,6 @@
                                             target="_blank"
                                             class="break-all text-black underline hover:text-purple-500 dark:text-white dark:hover:text-purple-300"
                                             >{release_name}</a
-                                        >
-                                    </div>
-                                    <div
-                                        class="flex text-sm font-medium text-sky-600 sm:text-base dark:text-sky-400"
-                                    >
-                                        <span>Is pre release? </span> &nbsp;
-                                        <span class="break-all text-black dark:text-white"
-                                            >{release.h}</span
-                                        >
-                                    </div>
-                                    <div
-                                        class="flex text-sm font-medium text-purple-600 sm:text-base dark:text-purple-400"
-                                    >
-                                        <span>Minimum Zig Version: </span> &nbsp;
-                                        <span class="break-all text-black dark:text-white"
-                                            >{release.m ? release.m : 'Unknown'}</span
                                         >
                                     </div>
                                 </div>
