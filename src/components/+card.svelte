@@ -10,6 +10,10 @@
     } from '@lucide/svelte';
     let props = $props();
 
+    const clean_owner_name = $derived(
+        props.owner_name.includes('/') ? props.owner_name.split('/')[1] : props.owner_name
+    );
+
     const avatar_url =
         (props.provider === 'gh'
             ? 'https://avatars.githubusercontent.com/'
@@ -37,7 +41,7 @@
                 <User size={22} width={22} class="min-h-5.5 min-w-5.5" />&nbsp;<a
                     class="hover:underline"
                     href={(props.provider === 'gh' ? '/profiles/github/' : '/profiles/codeberg/') +
-                        props.owner_name}>{props.owner_name}</a
+                        clean_owner_name}>{clean_owner_name}</a
                 >
             </span>
             <span class="flex content-center items-center px-2">
@@ -116,7 +120,7 @@
                 href={'/packages/' +
                     (props.provider === 'gh' ? 'github' : 'codeberg') +
                     '/' +
-                    props.owner_name +
+                    clean_owner_name +
                     '/' +
                     props.repo_name}
                 type="button"
@@ -131,7 +135,7 @@
                 href={'/programs/' +
                     (props.provider === 'gh' ? 'github' : 'codeberg') +
                     '/' +
-                    props.owner_name +
+                    clean_owner_name +
                     '/' +
                     props.repo_name}
                 type="button"
@@ -144,7 +148,7 @@
         {:else if props.type_of_card === 'special-display'}
             <a
                 href={(props.provider === 'gh' ? 'https://github.com/' : 'https://codeberg.org/') +
-                    props.owner_name +
+                    clean_owner_name +
                     '/' +
                     props.repo_name}
                 type="button"

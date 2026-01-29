@@ -40,7 +40,7 @@
     {#each items as library}
         <Card
             avatar_url={library.avatar_url}
-            owner_name={library.owner_name.split('/')[1] || library.owner_name}
+            owner_name={library.owner_name}
             repo_name={library.repo_name}
             stars={library.stargazer_count}
             description={library.description}

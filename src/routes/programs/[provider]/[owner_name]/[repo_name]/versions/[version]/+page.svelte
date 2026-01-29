@@ -1,45 +1,40 @@
 <script>
-    import Card from '../../../../../../../components/+card.svelte';
-    import { Tabs, TabItem } from 'flowbite-svelte';
-    import DOMPurify from 'dompurify';
-    import { load } from './+page.js';
-    import { marked } from 'marked';
-    import { onMount } from 'svelte';
+    import TimeAgo from 'javascript-time-ago';
+    import en from 'javascript-time-ago/locale/en';
     import PackageProgramDisplay from '../../../../../../../components/+packageProgramDisplay.svelte';
+
+    TimeAgo.addLocale(en);
     const { data } = $props();
-    const key = data.complete_correct_name;
-    const value = data.value;
-    const provider_id = data.provider_id;
-    const name_splitted = key.split('/');
-    const version = data.version;
-    const library = value;
-    const platorm = data.provider_id === 'gh' ? 'GitHub' : 'Codeberg';
+    const provider_id = $derived(data.provider_id);
+    const version = $derived(data.version);
+    const library = $derived(data.value);
+    const platform = provider_id === 'gh' ? 'GitHub' : 'Codeberg';
 </script>
 
 <svelte:head>
     <title
-        >Zig program: {name_splitted[1]}/{name_splitted[2]} from {platform} | Version: {library.db}</title
+        >Zig program: {library.owner_name}/{library.repo_name} from {platform} | Version: {version}</title
     >
-    <meta name="description" content={'Zig program: ' + library.d} />
+    <meta name="description" content={'Zig program: ' + library.description} />
 </svelte:head>
 
 <PackageProgramDisplay
     show_dependents={false}
     {provider_id}
-    readme_url={library.r[version].r}
+    readme_url={library.readme_url}
     version_name={version + ' version'}
-    releases={library.r}
-    publish_date={library.r[version].p}
-    owner_name={name_splitted[1]}
-    repo_name={name_splitted[2]}
-    avatar_id={library.a}
-    stars_count={library.s}
-    description={library.d}
-    forks_count={library.f}
-    issues_count={library.i}
-    license={library.l}
-    minimum_zig_version={library.r[version].m}
-    published_date={library.r[version].p}
+    releases={library.releases}
+    publish_date={library.published_at}
+    owner_name={library.owner_name}
+    repo_name={library.repo_name}
+    avatar_id={library.avatar_id}
+    stars_count={library.stars_count}
+    description={library.description}
+    forks_count={library.forks_count}
+    issues_count={library.issues_count}
+    license={library.license}
+    minimum_zig_version={library.minimum_zig_version}
+    published_date={library.published_at}
     dependents={[]}
-    dependencies={library.r[version].d}
+    dependencies={library.dependencies}
 />

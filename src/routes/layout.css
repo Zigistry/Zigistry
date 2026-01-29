@@ -1,177 +1,177 @@
-@import 'tailwindcss';
-@plugin 'flowbite/plugin';
-@source '../../node_modules/flowbite-svelte/dist';
-@source '../../node_modules/flowbite-svelte-icons/dist';
-@plugin '@tailwindcss/typography';
+@import "tailwindcss";
+@plugin "flowbite/plugin";
+@source "../../node_modules/flowbite-svelte/dist";
+@source "../../node_modules/flowbite-svelte-icons/dist";
+@plugin "@tailwindcss/typography";
 @custom-variant dark (&:where(.dark, .dark *));
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-    min-height: 100vh !important;
+  min-height: 100vh !important;
 }
 
 html,
 body {
-    min-height: 100vh !important;
-    width: 100vw !important;
-    overflow-x: hidden !important;
+  min-height: 100vh !important;
+  width: 100vw !important;
+  overflow-x: hidden !important;
 }
 
 html.dark .readmeDiv a {
-    color: lightblue !important;
-    text-decoration: underline !important;
-    height: fit-content !important;
+  color: lightblue !important;
+  text-decoration: underline !important;
+  height: fit-content !important;
 }
 
 html .readmeDiv table,
 th,
 td {
-    padding: 5px !important;
-    border: 2px solid black;
-    width: fit-content;
+  padding: 5px !important;
+  border: 2px solid black;
+  width: fit-content;
 }
 
 html.dark .readmeDiv table,
 th,
 td {
-    padding: 5px !important;
-    border: 2px solid rgb(151, 187, 203);
-    width: fit-content;
+  padding: 5px !important;
+  border: 2px solid rgb(151, 187, 203);
+  width: fit-content;
 }
 
 textarea {
-    border: none;
-    overflow: auto;
-    outline: none;
+  border: none;
+  overflow: auto;
+  outline: none;
 
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 
-    resize: none;
+  resize: none;
 }
 
 textarea:focus {
-    border: none;
-    overflow: auto;
-    outline: none;
+  border: none;
+  overflow: auto;
+  outline: none;
 
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 
-    resize: none;
+  resize: none;
 }
 
 .swup-progress-bar {
-    background-color: rgb(125, 178, 230);
+  background-color: rgb(125, 178, 230);
 }
 
 .readmeDiv table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    /* Prevents the table from wrapping */
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  /* Prevents the table from wrapping */
 }
 
 .readmeDiv {
-    all: unset !important;
-    font-weight: 700;
+  all: unset !important;
+  font-weight: 700;
 }
 
 .readmeDiv h1 {
-    font-size: 40px;
+  font-size: 40px;
 }
 
 .readmeDiv h2 {
-    font-size: 35px;
+  font-size: 35px;
 }
 
 .readmeDiv h3 {
-    font-size: 30px;
+  font-size: 30px;
 }
 
 .readmeDiv pre {
-    padding: 20px !important;
-    overflow-x: scroll;
-    color: yellow;
-    border-radius: 10px !important;
-    border: solid rgb(40, 40, 40) 2px;
-    background-color: rgb(40, 40, 40) !important;
+  padding: 20px !important;
+  overflow-x: scroll;
+  color: yellow;
+  border-radius: 10px !important;
+  border: solid rgb(40, 40, 40) 2px;
+  background-color: rgb(40, 40, 40) !important;
 }
 
 .readmeDiv p {
-    padding: 5px 5px 5px 0 !important;
+  padding: 5px 5px 5px 0 !important;
 }
 
 .readmeDiv a {
-    color: rgb(45, 57, 61) !important;
-    text-decoration: underline !important;
-    height: fit-content !important;
+  color: rgb(45, 57, 61) !important;
+  text-decoration: underline !important;
+  height: fit-content !important;
 }
 
 .readmeDiv > .my_special {
-    font-weight: 600;
-    padding-bottom: 20px !important;
+  font-weight: 600;
+  padding-bottom: 20px !important;
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @keyframes fadesideSidebar {
-    from {
-        transform: translateX(-291px);
-    }
-    to {
-        transform: translateX(0);
-    }
+  from {
+    transform: translateX(-291px);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 @keyframes fadeside {
-    from {
-        transform: translateX(-50vw);
-    }
-    to {
-        transform: translateX(0);
-    }
+  from {
+    transform: translateX(-50vw);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .card {
-    animation: fadeInUp 0.4s ease-out;
+  animation: fadeInUp 0.4s ease-out;
 }
 
 .searchArea {
-    animation: fadeside 0.4s ease-out;
+  animation: fadeside 0.4s ease-out;
 }
 .titles {
-    animation: fadeIn 0.4s ease-out;
+  animation: fadeIn 0.4s ease-out;
 }
 
 @media (min-width: 768px) {
-    aside {
-        animation: fadesideSidebar 0.4s ease-out;
-    }
+  aside {
+    animation: fadesideSidebar 0.4s ease-out;
+  }
 }
 
 #tab-panel-s1 {
-    padding: 0 !important;
-    background-color: transparent !important;
+  padding: 0 !important;
+  background-color: transparent !important;
 }

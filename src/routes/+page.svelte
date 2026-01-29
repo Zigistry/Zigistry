@@ -89,7 +89,7 @@
             {#each top_10_latest_repos as library}
                 <Card
                     avatar_url={library.avatar_url}
-                    owner_name={library.owner_name.split('/')[1] || library.owner_name}
+                    owner_name={library.owner_name}
                     repo_name={library.repo_name}
                     stars={library.stargazer_count}
                     description={library.description}
@@ -109,7 +109,7 @@
             {#each most_used as library}
                 <Card
                     avatar_url={library.avatar_url}
-                    owner_name={library.owner_name.split('/')[1] || library.owner_name}
+                    owner_name={library.owner_name}
                     repo_name={library.repo_name}
                     stars={library.stargazer_count}
                     description={library.description}
@@ -129,7 +129,7 @@
             {#each games.slice(0, 10) as library}
                 <Card
                     avatar_url={library.avatar_url}
-                    owner_name={library.owner_name.split('/')[1] || library.owner_name}
+                    owner_name={library.owner_name}
                     repo_name={library.repo_name}
                     stars={library.stargazer_count}
                     description={library.description}
@@ -148,7 +148,7 @@
             {#each web.slice(0, 10) as library}
                 <Card
                     avatar_url={library.avatar_url}
-                    owner_name={library.owner_name.split('/')[1] || library.owner_name}
+                    owner_name={library.owner_name}
                     repo_name={library.repo_name}
                     stars={library.stargazer_count}
                     description={library.description}
@@ -167,7 +167,7 @@
             {#each gui.slice(0, 10) as library}
                 <Card
                     avatar_url={library.avatar_url}
-                    owner_name={library.owner_name.split('/')[1] || library.owner_name}
+                    owner_name={library.owner_name}
                     repo_name={library.repo_name}
                     stars={library.stargazer_count}
                     description={library.description}
@@ -190,7 +190,7 @@
             {#each search_results as library}
                 <Card
                     avatar_url={library.avatar_url}
-                    owner_name={library.owner_name.split('/')[1] || library.owner_name}
+                    owner_name={library.owner_name}
                     repo_name={library.repo_name}
                     stars={library.stargazer_count}
                     description={library.description}
