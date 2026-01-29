@@ -112,7 +112,7 @@ textarea:focus {
   height: fit-content !important;
 }
 
-.readmeDiv>.my_special {
+.readmeDiv > .my_special {
   font-weight: 600;
   padding-bottom: 20px !important;
 }
