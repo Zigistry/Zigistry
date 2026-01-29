@@ -7,8 +7,12 @@
     let top_10_latest_repos = $state([]);
     let most_used = $state([]);
     async function get_latest() {
-        top_10_latest_repos = await (await fetch('http://localhost:8000/programs/latest')).json();
-        most_used = await (await fetch('http://localhost:8000/programs/latest')).json();
+        top_10_latest_repos = await (
+            await fetch('https://rohanvashisht-zigistrybackend.hf.space/programs/latest')
+        ).json();
+        most_used = await (
+            await fetch('https://rohanvashisht-zigistrybackend.hf.space/programs/latest')
+        ).json();
     }
 
     get_latest();
@@ -24,7 +28,8 @@
         }
         if (e.key === 'Enter') {
             const result_data = await fetch(
-                'http://localhost:8000/search/programs?' + encodeURI(`q=${value}&filter=a`)
+                'https://rohanvashisht-zigistrybackend.hf.space/search/programs?' +
+                    encodeURI(`q=${value}&filter=a`)
             );
             let result = await result_data.json();
             //  Now the entire data is loaded
