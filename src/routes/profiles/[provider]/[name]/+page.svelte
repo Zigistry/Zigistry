@@ -18,7 +18,7 @@
 <div class="px-40 py-20 sm:px-20 sm:py-10">
     <img alt="profile" class="max-w-37.5 min-w-25 rounded-full" src={avatar_url} />
     <h2 class="mt-4 font-bold">Name: {owner_name}</h2>
-    <p>Bio: {owner_details?.b}</p>
+    <p>Bio: {owner_details}</p>
     <a
         class="mt-2 flex w-fit items-center justify-center rounded-full bg-slate-800 p-4 hover:underline"
         target="_blank"
@@ -32,20 +32,19 @@
     {#if packages_from_owner.length > 0}
         <LeftMiniTitle icon={Package} name="Packages" />
         <section class="flex w-full flex-wrap justify-evenly">
-            {#each packages_from_owner as [name, library]}
-                {@const name_splitted = name.split('/')}
+            {#each packages_from_owner as library}
                 <Card
-                    avatar_url={library.a}
-                    owner_name={name_splitted[1]}
-                    repo_name={name_splitted[2]}
-                    stars={library.s}
-                    description={library.d}
-                    watchers={library.w}
-                    forks={library.f}
-                    issues={library.i}
-                    provider={provider_id}
-                    spdx_id={library.l}
-                    minimum_zig_version={library.dbi.m}
+                    avatar_url={library.avatar_url}
+                    owner_name={library.owner_name}
+                    repo_name={library.repo_name}
+                    stars={library.stargazer_count}
+                    description={library.description}
+                    watchers={library.watchers_count}
+                    forks={library.fork_count}
+                    issues={library.issues_count}
+                    provider={library.provider}
+                    spdx_id={library.license}
+                    minimum_zig_version={library.minimum_zig_version}
                     type_of_card="packages-display"
                 />
             {/each}
@@ -54,20 +53,19 @@
     {#if programs_from_owner.length > 0}
         <LeftMiniTitle icon={Code} name="Programs"></LeftMiniTitle>
         <section class="flex w-full flex-wrap justify-evenly">
-            {#each programs_from_owner as [name, library]}
-                {@const name_splitted = name.split('/')}
+            {#each programs_from_owner as library}
                 <Card
-                    avatar_url={library.a}
-                    owner_name={name_splitted[1]}
-                    repo_name={name_splitted[2]}
-                    stars={library.s}
-                    description={library.d}
-                    watchers={library.w}
-                    forks={library.f}
-                    issues={library.i}
-                    provider={provider_id}
-                    spdx_id={library.l}
-                    minimum_zig_version={library.dbi.m}
+                    avatar_url={library.avatar_url}
+                    owner_name={library.owner_name}
+                    repo_name={library.repo_name}
+                    stars={library.stargazer_count}
+                    description={library.description}
+                    watchers={library.watchers_count}
+                    forks={library.fork_count}
+                    issues={library.issues_count}
+                    provider={library.provider}
+                    spdx_id={library.license}
+                    minimum_zig_version={library.minimum_zig_version}
                     type_of_card="program-display"
                 />
             {/each}
