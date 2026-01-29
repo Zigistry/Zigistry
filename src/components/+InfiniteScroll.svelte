@@ -7,16 +7,16 @@
     let listElement;
 
     let items = $state([]);
-    let page = 0;
+    let page = $state(1);
 
     async function loadMore() {
         const data = await fetch(
             `https://rohanvashisht-zigistrybackend.hf.space/${all_props.thingy}/scroll?` +
-                encodeURI('per_page=20&ge=' + page)
+                encodeURI('per_page=10&page=' + page)
         );
         const data_res = await data.json();
         items = [...items, ...data_res];
-        page++;
+        page = page + 1;
     }
 
     onMount(async () => {
