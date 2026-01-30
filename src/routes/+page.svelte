@@ -1,30 +1,15 @@
-<script>
+<script lang="ts">
+    import type { PageData } from './$types';
     import LeftMiniTitle from '../components/+LeftMiniTitle.svelte';
     import Card from '../components/+card.svelte';
     import Infinite_Scroll from '../components/+InfiniteScroll.svelte';
     import { Rocket } from '@lucide/svelte';
 
-    let top_10_latest_repos = $state([]);
-    let most_used = $state([]);
-    let games = $state([]);
-    let gui = $state([]);
-    let web = $state([]);
-
-    async function get_data() {
-        const response = await fetch(
-            'https://rohanvashisht-zigistrybackend.hf.space/packageIndexDetails'
-        );
-        const data = await response.json();
-        top_10_latest_repos = data.latest;
-        most_used = data.most_used;
-        games = data.games;
-        gui = data.gui;
-        web = data.web;
-    }
-    get_data();
+    let { data }: { data: PageData } = $props();
 
     let show_default = $state(true);
     let search_results = $state([]);
+
     async function handle_search(e) {
         const value = e.target.value.trim().toLowerCase();
         if (value === '') {
@@ -90,7 +75,7 @@
         <LeftMiniTitle icon={Rocket} name="Recently Released" />
         <section class="flex w-full flex-wrap justify-evenly">
             {@html '<!--What!!!! package is a reserved keyword!!!!!!-->'}
-            {#each top_10_latest_repos as library}
+            {#each data.top_10_latest_repos as library}
                 <Card
                     avatar_url={library.avatar_url}
                     owner_name={library.owner_name}
@@ -110,7 +95,7 @@
 
         <LeftMiniTitle icon={Rocket} name="Most Used" />
         <section class="flex w-full flex-wrap justify-evenly">
-            {#each most_used as library}
+            {#each data.most_used as library}
                 <Card
                     avatar_url={library.avatar_url}
                     owner_name={library.owner_name}
@@ -130,7 +115,7 @@
 
         <LeftMiniTitle icon={Rocket} name="Famous Game libs" />
         <section class="flex w-full flex-wrap justify-evenly">
-            {#each games.slice(0, 10) as library}
+            {#each data.games.slice(0, 10) as library}
                 <Card
                     avatar_url={library.avatar_url}
                     owner_name={library.owner_name}
@@ -149,7 +134,7 @@
         </section>
         <LeftMiniTitle icon={Rocket} name="Famous Web libs" />
         <section class="flex w-full flex-wrap justify-evenly">
-            {#each web.slice(0, 10) as library}
+            {#each data.web.slice(0, 10) as library}
                 <Card
                     avatar_url={library.avatar_url}
                     owner_name={library.owner_name}
@@ -168,7 +153,7 @@
         </section>
         <LeftMiniTitle icon={Rocket} name="Famous GUI libs" />
         <section class="flex w-full flex-wrap justify-evenly">
-            {#each gui.slice(0, 10) as library}
+            {#each data.gui.slice(0, 10) as library}
                 <Card
                     avatar_url={library.avatar_url}
                     owner_name={library.owner_name}

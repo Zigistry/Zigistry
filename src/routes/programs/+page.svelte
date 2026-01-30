@@ -1,24 +1,15 @@
-<script>
+<script lang="ts">
+    import type { PageData } from './$types';
     import LeftMiniTitle from '../../components/+LeftMiniTitle.svelte';
     import Card from '../../components/+card.svelte';
     import Infinite_Scroll from '../../components/+InfiniteScroll.svelte';
     import { Rocket } from '@lucide/svelte';
 
-    let top_10_latest_repos = $state([]);
-    let most_used = $state([]);
-    async function get_latest() {
-        const response = await fetch(
-            'https://rohanvashisht-zigistrybackend.hf.space/programIndexDetails'
-        );
-        const data = await response.json();
-        top_10_latest_repos = data.latest;
-        most_used = data.most_used;
-    }
-
-    get_latest();
+    let { data }: { data: PageData } = $props();
 
     let show_default = $state(true);
     let search_results = $state([]);
+
     async function handle_search(e) {
         const value = e.target.value.trim().toLowerCase();
         if (value === '') {
@@ -86,7 +77,7 @@
         <LeftMiniTitle icon={Rocket} name="Recently Released" />
         <section class="flex w-full flex-wrap justify-evenly">
             {@html '<!--What!!!! package is a reserved keyword!!!!!!-->'}
-            {#each top_10_latest_repos as library}
+            {#each data.top_10_latest_repos as library}
                 <Card
                     avatar_url={library.avatar_url}
                     owner_name={library.owner_name}
@@ -106,7 +97,7 @@
 
         <LeftMiniTitle icon={Rocket} name="Most Used" />
         <section class="flex w-full flex-wrap justify-evenly">
-            {#each most_used as library}
+            {#each data.most_used as library}
                 <Card
                     avatar_url={library.avatar_url}
                     owner_name={library.owner_name}
