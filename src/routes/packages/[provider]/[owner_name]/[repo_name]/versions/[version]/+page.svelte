@@ -1,35 +1,17 @@
 <script lang="ts">
-    import { page } from '$app/state';
-    import TimeAgo from 'javascript-time-ago';
-    import en from 'javascript-time-ago/locale/en';
+    import type { PageData } from './$types';
     import PackageProgramDisplay from '../../../../../../../components/+packageProgramDisplay.svelte';
 
-    TimeAgo.addLocale(en);
-
-    let library = $state(null);
-    let provider_id = $derived(page.params.provider === 'github' ? 'gh' : 'cb');
-    let provider = $derived(page.params.provider === 'github' ? 'GitHub' : 'Codeberg');
-    let version = $derived(page.params.version);
-
-    $effect(() => {
-        const complete_correct_name =
-            `${provider_id}/${page.params.owner_name}/${page.params.repo_name}`.toLowerCase();
-        fetch(
-            `https://rohanvashisht-zigistrybackend.hf.space/packages?q=${complete_correct_name}&version=${version}`
-        )
-            .then((res) => res.json())
-            .then((data) => {
-                library = data;
-            });
-    });
+    let { data: data_from_api }: { data: PageData } = $props();
 
     let title = $derived(
-        library
-            ? `Zig package: ${library.owner_name}/${library.repo_name} from ${provider} | Version: ${version}`
+        data_from_api.library
+            ? `Zig package: ${data_from_api.library.owner_name}/${data_from_api.library.repo_name} from ${data_from_api.provider} | Version: ${data_from_api.version}`
             : 'Loading package version...'
     );
+
     let meta_description = $derived(
-        library ? 'Zig package: ' + library.description : 'Loading package details...'
+        data_from_api.library ? 'Zig package: ' + data_from_api.library.description : 'Loading package details...'
     );
 </script>
 
@@ -38,26 +20,26 @@
     <meta name="description" content={meta_description} />
 </svelte:head>
 
-{#if library}
+{#if data_from_api.library}
     <PackageProgramDisplay
         show_dependents={true}
-        {provider_id}
-        readme_url={library.readme_url}
-        version_name={version + ' version'}
-        releases={library.releases}
-        publish_date={library.published_at}
-        owner_name={library.owner_name}
-        repo_name={library.repo_name}
-        avatar_id={library.avatar_id}
-        stars_count={library.stars_count}
-        description={library.description}
-        forks_count={library.forks_count}
-        issues_count={library.issues_count}
-        license={library.license}
-        minimum_zig_version={library.minimum_zig_version}
-        published_date={library.published_at}
-        dependents={library.dependents}
-        dependencies={library.dependencies}
+        provider_id={data_from_api.provider_id}
+        readme_url={data_from_api.library.readme_url}
+        version_name={data_from_api.version + ' version'}
+        releases={data_from_api.library.releases}
+        publish_date={data_from_api.library.published_at}
+        owner_name={data_from_api.library.owner_name}
+        repo_name={data_from_api.library.repo_name}
+        avatar_id={data_from_api.library.avatar_id}
+        stars_count={data_from_api.library.stars_count}
+        description={data_from_api.library.description}
+        forks_count={data_from_api.library.forks_count}
+        issues_count={data_from_api.library.issues_count}
+        license={data_from_api.library.license}
+        minimum_zig_version={data_from_api.library.minimum_zig_version}
+        published_date={data_from_api.library.published_at}
+        dependents={data_from_api.library.dependents}
+        dependencies={data_from_api.library.dependencies}
     />
 {:else}
     <div class="flex h-screen items-center justify-center">
