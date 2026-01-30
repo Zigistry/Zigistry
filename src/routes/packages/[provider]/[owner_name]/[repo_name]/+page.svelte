@@ -1,32 +1,19 @@
 <script lang="ts">
-    import { page } from '$app/state';
-    import TimeAgo from 'javascript-time-ago';
-    import en from 'javascript-time-ago/locale/en';
+    import type { PageData } from './$types';
     import PackageProgramDisplay from '../../../../../components/+packageProgramDisplay.svelte';
 
-    TimeAgo.addLocale(en);
-
-    let library = $state(null);
-    let provider_id = $derived(page.params.provider === 'github' ? 'gh' : 'cb');
-    let provider = $derived(page.params.provider === 'github' ? 'GitHub' : 'Codeberg');
-
-    $effect(() => {
-        const complete_correct_name =
-            `${provider_id}/${page.params.owner_name}/${page.params.repo_name}`.toLowerCase();
-        fetch(`https://rohanvashisht-zigistrybackend.hf.space/packages?q=${complete_correct_name}`)
-            .then((res) => res.json())
-            .then((data) => {
-                library = data;
-            });
-    });
+    let { data: data_from_api_csr_thingy }: { data: PageData } = $props();
 
     let title = $derived(
-        library
-            ? `Zig package: ${library.owner_name}/${library.repo_name} from ${provider} | Branch: ${library.default_branch_name}`
+        data_from_api_csr_thingy.library
+            ? `Zig package: ${data_from_api_csr_thingy.library.owner_name}/${data_from_api_csr_thingy.library.repo_name} from ${data_from_api_csr_thingy.provider} | Branch: ${data_from_api_csr_thingy.library.default_branch_name}`
             : 'Loading package...'
     );
+
     let meta_description = $derived(
-        library ? 'Zig package: ' + library.description : 'Loading package details...'
+        data_from_api_csr_thingy.library
+            ? 'Zig package: ' + data_from_api_csr_thingy.library.description
+            : 'Loading package details...'
     );
 </script>
 
@@ -35,26 +22,26 @@
     <meta name="description" content={meta_description} />
 </svelte:head>
 
-{#if library}
+{#if data_from_api_csr_thingy.library}
     <PackageProgramDisplay
         show_dependents={true}
-        {provider_id}
-        readme_url={library.readme_url}
-        version_name={library.default_branch_name + ' branch'}
-        releases={library.releases}
-        publish_date={library.pushed_at}
-        owner_name={library.owner_name}
-        repo_name={library.repo_name}
-        avatar_id={library.avatar_id}
-        stars_count={library.stars_count}
-        description={library.description}
-        forks_count={library.forks_count}
-        issues_count={library.issues_count}
-        license={library.license}
-        minimum_zig_version={library.minimum_zig_version}
-        published_date={library.pushed_at}
-        dependents={library.dependents}
-        dependencies={library.dependencies}
+        provider_id={data_from_api_csr_thingy.provider_id}
+        readme_url={data_from_api_csr_thingy.library.readme_url}
+        version_name={data_from_api_csr_thingy.library.default_branch_name + ' branch'}
+        releases={data_from_api_csr_thingy.library.releases}
+        publish_date={data_from_api_csr_thingy.library.pushed_at}
+        owner_name={data_from_api_csr_thingy.library.owner_name}
+        repo_name={data_from_api_csr_thingy.library.repo_name}
+        avatar_id={data_from_api_csr_thingy.library.avatar_id}
+        stars_count={data_from_api_csr_thingy.library.stars_count}
+        description={data_from_api_csr_thingy.library.description}
+        forks_count={data_from_api_csr_thingy.library.forks_count}
+        issues_count={data_from_api_csr_thingy.library.issues_count}
+        license={data_from_api_csr_thingy.library.license}
+        minimum_zig_version={data_from_api_csr_thingy.library.minimum_zig_version}
+        published_date={data_from_api_csr_thingy.library.pushed_at}
+        dependents={data_from_api_csr_thingy.library.dependents}
+        dependencies={data_from_api_csr_thingy.library.dependencies}
     />
 {:else}
     <div class="flex h-screen items-center justify-center">
