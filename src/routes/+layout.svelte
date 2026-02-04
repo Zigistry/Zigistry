@@ -51,35 +51,6 @@
                         >Programs</a
                     >
                 </li>
-                <li>
-                    <a
-                        href="/advancedSearch"
-                        class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
-                        >AI</a
-                    >
-                </li>
-                <li>
-                    <button
-                        data-dropdown-toggle="dropdownNavbar"
-                        data-dropdown-trigger="hover"
-                        class="flex w-full items-center justify-between rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:w-auto md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
-                        id="dropdownNavbarLink"
-                        >View More<svg
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 10 6"
-                            class="5 5 ms-2 h-2 w-2 transition-transform duration-200"
-                            ><path
-                                stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="m1 1 4 4 4-4"
-                            ></path></svg
-                        ></button
-                    >
-                </li>
                 <div
                     class="z-10 hidden w-44 divide-y divide-gray-100 rounded-lg bg-white font-normal shadow dark:divide-gray-600 dark:bg-gray-700"
                     id="dropdownNavbar"
