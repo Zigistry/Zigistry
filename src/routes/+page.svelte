@@ -3,6 +3,7 @@
     import LeftMiniTitle from '../components/+LeftMiniTitle.svelte';
     import Card from '../components/+card.svelte';
     import Infinite_Scroll from '../components/+InfiniteScroll.svelte';
+    import SearchSortSidebar from '../components/+SearchSortSidebar.svelte';
     import { Rocket } from '@lucide/svelte';
 
     let { data }: { data: PageData } = $props();
@@ -173,25 +174,28 @@
         <Infinite_Scroll thingy="packages" />
     </div>
 {:else}
-    <div>
-        <LeftMiniTitle icon={Rocket} name="Search results" />
-        <section class="flex w-full flex-wrap justify-evenly">
-            {#each search_results as library}
-                <Card
-                    avatar_url={library.avatar_url}
-                    owner_name={library.owner_name}
-                    repo_name={library.repo_name}
-                    stars={library.stargazer_count}
-                    description={library.description}
-                    watchers={library.watchers_count}
-                    forks={library.fork_count}
-                    issues={library.issues_count}
-                    provider={library.provider}
-                    spdx_id={library.license}
-                    minimum_zig_version={library.minimum_zig_version}
-                    type_of_card="packages-display"
-                />
-            {/each}
-        </section>
+    <div class="relative w-full">
+        <SearchSortSidebar />
+        <div class="md:pl-64">
+            <LeftMiniTitle icon={Rocket} name="Search results" />
+            <section class="flex w-full flex-wrap justify-evenly">
+                {#each search_results as library}
+                    <Card
+                        avatar_url={library.avatar_url}
+                        owner_name={library.owner_name}
+                        repo_name={library.repo_name}
+                        stars={library.stargazer_count}
+                        description={library.description}
+                        watchers={library.watchers_count}
+                        forks={library.fork_count}
+                        issues={library.issues_count}
+                        provider={library.provider}
+                        spdx_id={library.license}
+                        minimum_zig_version={library.minimum_zig_version}
+                        type_of_card="packages-display"
+                    />
+                {/each}
+            </section>
+        </div>
     </div>
 {/if}
