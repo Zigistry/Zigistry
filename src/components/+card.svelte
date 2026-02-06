@@ -52,27 +52,13 @@
                 {/if}
             </span>
             <span class="flex content-center items-center px-2 bg-gray-900">
-                {#if props.primary_language === 'Zig'}
-                    <img
-                        src="/zig-logo.png"
+                <img
+                        src={props.primary_language !== null ? '/languages-logo/' + props.primary_language.toLowerCase() + '-logo.png' : 'd'}
                         alt="zig"
                         width="22"
                         height="22"
                         class="min-h-5.5 min-w-5.5 rounded-full"
                     />
-                {:else if props.primary_language === 'C'}
-                    <img
-                        src="/c-logo.png"
-                        alt="zig"
-                        width="22"
-                        height="22"
-                        class="min-h-5.5 min-w-5.5 rounded-full"
-                    />
-                {:else}
-                    <span class="text-sm font-semibold text-gray-400">
-                        {props.primary_language}
-                    </span>
-                {/if}
             </span>
         </p>
         <div class="flex space-x-3">
