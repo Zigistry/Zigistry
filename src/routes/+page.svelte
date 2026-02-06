@@ -63,8 +63,8 @@
                         class="block w-full rounded-lg border border-slate-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600 dark:bg-[#2e2e2e] dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500"
                         type="text"
                         placeholder="Search 500+ Zig libraries"
-                        autofocus=""
-                        on:keyup={handle_search}
+                        autofocus={true}
+                        onkeyup={handle_search}
                     />
                 </div>
             </div>
@@ -89,6 +89,7 @@
                     provider={library.provider}
                     spdx_id={library.license}
                     minimum_zig_version={library.minimum_zig_version}
+                    primary_language={library.primary_language}
                     type_of_card="packages-display"
                 />
             {/each}
@@ -109,6 +110,7 @@
                     provider={library.provider}
                     spdx_id={library.license}
                     minimum_zig_version={library.minimum_zig_version}
+                    primary_language={library.primary_language}
                     type_of_card="packages-display"
                 />
             {/each}
@@ -129,6 +131,7 @@
                     provider={library.provider}
                     spdx_id={library.license}
                     minimum_zig_version={library.minimum_zig_version}
+                    primary_language={library.primary_language}
                     type_of_card="packages-display"
                 />
             {/each}
@@ -148,6 +151,7 @@
                     provider={library.provider}
                     spdx_id={library.license}
                     minimum_zig_version={library.minimum_zig_version}
+                    primary_language={library.primary_language}
                     type_of_card="packages-display"
                 />
             {/each}
@@ -167,6 +171,7 @@
                     provider={library.provider}
                     spdx_id={library.license}
                     minimum_zig_version={library.minimum_zig_version}
+                    primary_language={library.primary_language}
                     type_of_card="packages-display"
                 />
             {/each}
@@ -192,6 +197,7 @@
                         provider={library.provider}
                         spdx_id={library.license}
                         minimum_zig_version={library.minimum_zig_version}
+                        primary_language={library.primary_language}
                         type_of_card="packages-display"
                     />
                 {/each}
