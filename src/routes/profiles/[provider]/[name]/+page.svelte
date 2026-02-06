@@ -45,6 +45,7 @@
                     provider={library.provider}
                     spdx_id={library.license}
                     minimum_zig_version={library.minimum_zig_version}
+                    primary_language={library.primary_language}
                     type_of_card="packages-display"
                 />
             {/each}
@@ -66,6 +67,7 @@
                     provider={library.provider}
                     spdx_id={library.license}
                     minimum_zig_version={library.minimum_zig_version}
+                    primary_language={library.primary_language}
                     type_of_card="program-display"
                 />
             {/each}
