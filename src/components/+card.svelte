@@ -37,7 +37,7 @@
         >
 
         <p class="flex w-min truncate rounded-2xl bg-gray-600 text-gray-400 dark:text-gray-400">
-            <span class="flex w-fit rounded-2xl bg-gray-800 p-2 text-gray-600 dark:text-gray-400">
+            <span class="flex w-fit rounded-l-2xl bg-gray-800 p-2 text-gray-600 dark:text-gray-400">
                 <User size={22} width={22} class="min-h-5.5 min-w-5.5" />&nbsp;<a
                     class="hover:underline"
                     href={(props.provider === 'gh' ? '/profiles/github/' : '/profiles/codeberg/') +
@@ -49,6 +49,29 @@
                     <Github size={22} />
                 {:else if props.provider === 'cb'}
                     <MountainSnow size={22} />
+                {/if}
+            </span>
+            <span class="flex content-center items-center px-2 bg-gray-900">
+                {#if props.primary_language === 'Zig'}
+                    <img
+                        src="/zig-logo.png"
+                        alt="zig"
+                        width="22"
+                        height="22"
+                        class="min-h-5.5 min-w-5.5 rounded-full"
+                    />
+                {:else if props.primary_language === 'C'}
+                    <img
+                        src="/c-logo.png"
+                        alt="zig"
+                        width="22"
+                        height="22"
+                        class="min-h-5.5 min-w-5.5 rounded-full"
+                    />
+                {:else}
+                    <span class="text-sm font-semibold text-gray-400">
+                        {props.primary_language}
+                    </span>
                 {/if}
             </span>
         </p>

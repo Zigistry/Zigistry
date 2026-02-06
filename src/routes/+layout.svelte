@@ -7,7 +7,7 @@
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
 <nav class="border-b-2 border-b-[#faca15]">
-    <div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-3">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between p-3">
         <a href="/"
             ><span class="self-center text-2xl font-extrabold whitespace-nowrap dark:text-white"
                 ><span class="text-amber-600 dark:text-yellow-300">Zig</span>istry</span
@@ -113,7 +113,7 @@
                             class="mr-1.5 text-[#ffffff] dark:text-[#161616]"
                             stroke="currentColor"
                             fill="currentColor"
-                            strokewidth="0"
+                            stroke-width="0"
                             color="black"
                             viewBox="0 0 24 24"
                             height="18"
