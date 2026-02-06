@@ -68,6 +68,7 @@
         provider={data.provider_id}
         spdx_id={data.license}
         minimum_zig_version={data.minimum_zig_version}
+        primary_language={data.primary_language}
         type_of_card="special-display"
     />
 

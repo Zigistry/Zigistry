@@ -51,14 +51,31 @@
                     <MountainSnow size={22} />
                 {/if}
             </span>
-            <span class="flex content-center items-center px-2 bg-gray-900">
+            <span class="flex content-center items-center gap-1 bg-gray-900 px-2">
                 <img
-                        src={props.primary_language !== null ? '/languages-logo/' + props.primary_language.toLowerCase() + '-logo.png' : 'd'}
+                    src={props.primary_language === 'Zig'
+                        ? '/languages-logo/zig-logo.png'
+                        : '/languages-logo/' +
+                          (typeof props.primary_language === 'string' &&
+                          props.primary_language !== ''
+                              ? encodeURIComponent(props.primary_language.toLowerCase())
+                              : 'undefined') +
+                          '-logo.png'}
+                    alt={props.primary_language}
+                    width="22"
+                    height="22"
+                    class="min-h-5.5 min-w-5.5 rounded-full"
+                />
+
+                {#if props.primary_language !== 'Zig'}
+                    <img
+                        src="/languages-logo/zig-logo.png"
                         alt="zig"
                         width="22"
                         height="22"
                         class="min-h-5.5 min-w-5.5 rounded-full"
                     />
+                {/if}
             </span>
         </p>
         <div class="flex space-x-3">
