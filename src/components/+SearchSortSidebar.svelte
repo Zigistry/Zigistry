@@ -1,7 +1,15 @@
 <aside
-    class="fixed left-0 top-0 z-50 h-screen w-64 transform transition-transform md:translate-x-0 -translate-x-full"
+    class="fixed top-[0px] left-0 z-40 h-[calc(100vh-66px)] w-64 -translate-x-full transform transition-transform md:translate-x-0"
 >
-    <div class="h-full overflow-y-auto border-r border-gray-200 bg-white px-3 py-4 dark:border-gray-700 dark:bg-[#1e1e1e]">
+    <h2
+        class="bg-gray-100 cursor-pointer border-r-2 border-r-[#faca15] py-3 text-center text-lg font-semibold text-gray-900 hover:bg-gray-100 dark:bg-[#1e1e1e] dark:text-white dark:hover:bg-gray-700"
+        onclick={window.scrollTo({ top: 0, behavior: 'smooth' })}
+    >
+        Go to top
+    </h2>
+    <div
+        class="h-full overflow-y-auto border-r-2 border-r-[#faca15] bg-white px-3 py-4 dark:bg-[#1e1e1e]"
+    >
         <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Sort By</h2>
         <div class="flex flex-col space-y-2">
             <button

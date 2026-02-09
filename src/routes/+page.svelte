@@ -6,16 +6,15 @@
     import SearchSortSidebar from '../components/+SearchSortSidebar.svelte';
     import { Rocket } from '@lucide/svelte';
 
+    import { search_results, show_default, search_query } from '$lib/stores';
+
     let { data }: { data: PageData } = $props();
 
-    let show_default = $state(true);
-    let search_results = $state([]);
-
-    async function handle_search(e) {
+    async function handle_search(e: any) {
         const value = e.target.value.trim().toLowerCase();
         if (value === '') {
-            show_default = true;
-            search_results = [];
+            $show_default = true;
+            $search_results = [];
             return;
         }
         if (e.key === 'Enter') {
@@ -27,8 +26,8 @@
             if (result == null) {
                 result = [];
             }
-            search_results = result;
-            show_default = false;
+            $search_results = result;
+            $show_default = false;
         }
     }
 </script>
@@ -64,6 +63,7 @@
                         type="text"
                         placeholder="Search 500+ Zig libraries"
                         autofocus={true}
+                        bind:value={$search_query}
                         onkeyup={handle_search}
                     />
                 </div>
@@ -71,7 +71,7 @@
         </div>
     </div>
 </div>
-{#if show_default}
+{#if $show_default}
     <div>
         <LeftMiniTitle icon={Rocket} name="Recently Released" />
         <section class="flex w-full flex-wrap justify-evenly">
@@ -184,7 +184,7 @@
         <div class="md:pl-64">
             <LeftMiniTitle icon={Rocket} name="Search results" />
             <section class="flex w-full flex-wrap justify-evenly">
-                {#each search_results as library}
+                {#each $search_results as library}
                     <Card
                         avatar_url={library.avatar_url}
                         owner_name={library.owner_name}
