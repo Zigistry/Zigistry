@@ -1,14 +1,21 @@
 <script lang="ts">
     import './layout.css';
     import favicon from '$lib/assets/favicon.ico';
+    import { search_results, show_default, search_query } from '$lib/stores';
     let { children } = $props();
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
-<nav class="border-b-2 border-b-[#faca15]">
+<nav class="sticky top-0 z-[60] border-b-2 border-b-[#faca15] bg-white dark:bg-[#1e1e1e]">
     <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between p-3">
-        <a href="/"
+        <a
+            href="/"
+            onclick={() => {
+                $search_results = [];
+                $show_default = true;
+                $search_query = '';
+            }}
             ><span class="self-center text-2xl font-extrabold whitespace-nowrap dark:text-white"
                 ><span class="text-amber-600 dark:text-yellow-300">Zig</span>istry</span
             ></a
