@@ -1,8 +1,32 @@
+<script>
+    import { Filter, X } from '@lucide/svelte';
+    let isOpen = $state(false);
+</script>
+
+{#if !isOpen}
+    <button
+        class="fixed top-20 left-0 z-50 rounded-r-md bg-yellow-400 p-2 text-black shadow-md hover:bg-yellow-500 focus:outline-none md:hidden"
+        onclick={() => (isOpen = true)}
+        aria-label="Open filters"
+    >
+        <Filter size={20} />
+    </button>
+{/if}
+
 <aside
-    class="fixed top-[0px] left-0 z-40 h-[calc(100vh-66px)] w-64 -translate-x-full transform transition-transform md:translate-x-0"
+    class="fixed top-[66px] left-0 z-40 h-[calc(100vh-66px)] w-64 transform transition-transform md:translate-x-0 {isOpen
+        ? 'translate-x-0'
+        : '-translate-x-full'}"
 >
+    <button
+        class="absolute top-2 right-2 z-50 p-2 text-gray-600 hover:text-gray-900 md:hidden dark:text-gray-400 dark:hover:text-white"
+        onclick={() => (isOpen = false)}
+        aria-label="Close filters"
+    >
+        <X size={20} />
+    </button>
     <h2
-        class="bg-gray-100 cursor-pointer border-r-2 border-r-[#faca15] py-3 text-center text-lg font-semibold text-gray-900 hover:bg-gray-100 dark:bg-[#1e1e1e] dark:text-white dark:hover:bg-gray-700"
+        class="cursor-pointer border-r-2 border-r-[#faca15] bg-gray-100 py-3 text-center text-lg font-semibold text-gray-900 hover:bg-gray-100 dark:bg-[#1e1e1e] dark:text-white dark:hover:bg-gray-700"
         onclick={window.scrollTo({ top: 0, behavior: 'smooth' })}
     >
         Go to top
