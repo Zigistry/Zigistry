@@ -14,7 +14,7 @@
 {/if}
 
 <aside
-    class="fixed top-[66px] left-0 z-40 h-[calc(100vh-66px)] w-64 transform transition-transform md:translate-x-0 {isOpen
+    class="fixed top-[66px] left-0 z-50 h-[calc(100vh-66px)] w-64 transform transition-transform md:top-0 md:z-40 md:translate-x-0 {isOpen
         ? 'translate-x-0'
         : '-translate-x-full'}"
 >
@@ -27,7 +27,7 @@
     </button>
     <h2
         class="cursor-pointer border-r-2 border-r-[#faca15] bg-gray-100 py-3 text-center text-lg font-semibold text-gray-900 hover:bg-gray-100 dark:bg-[#1e1e1e] dark:text-white dark:hover:bg-gray-700"
-        onclick={window.scrollTo({ top: 0, behavior: 'smooth' })}
+        onclick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
     >
         Go to top
     </h2>
