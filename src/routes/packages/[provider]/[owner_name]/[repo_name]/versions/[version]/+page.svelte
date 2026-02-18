@@ -11,7 +11,9 @@
     );
 
     let meta_description = $derived(
-        data_from_api.library ? 'Zig package: ' + data_from_api.library.description : 'Loading package details...'
+        data_from_api.library
+            ? 'Zig package: ' + data_from_api.library.description
+            : 'Loading package details...'
     );
 </script>
 

@@ -1,6 +1,7 @@
 <script>
     import { Filter, X } from '@lucide/svelte';
     let isOpen = $state(false);
+    let { onSort } = $props();
 </script>
 
 {#if !isOpen}
@@ -39,6 +40,10 @@
             <button
                 type="button"
                 class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                onclick={() => {
+                    onSort('intelligent');
+                    isOpen = false;
+                }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -58,6 +63,10 @@
             <button
                 type="button"
                 class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                onclick={() => {
+                    onSort('stars');
+                    isOpen = false;
+                }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -77,6 +86,10 @@
             <button
                 type="button"
                 class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                onclick={() => {
+                    onSort('dependents');
+                    isOpen = false;
+                }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -98,6 +111,10 @@
             <button
                 type="button"
                 class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                onclick={() => {
+                    onSort('recently_updated');
+                    isOpen = false;
+                }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -119,6 +136,10 @@
             <button
                 type="button"
                 class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                onclick={() => {
+                    onSort('newly_added');
+                    isOpen = false;
+                }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -140,6 +161,10 @@
             <button
                 type="button"
                 class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                onclick={() => {
+                    onSort('oldest');
+                    isOpen = false;
+                }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -164,6 +189,10 @@
             <button
                 type="button"
                 class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                onclick={() => {
+                    onSort('a_z');
+                    isOpen = false;
+                }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -183,6 +212,10 @@
             <button
                 type="button"
                 class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                onclick={() => {
+                    onSort('z_a');
+                    isOpen = false;
+                }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -203,6 +236,10 @@
             <button
                 type="button"
                 class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                onclick={() => {
+                    onSort('forks');
+                    isOpen = false;
+                }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -224,6 +261,10 @@
             <button
                 type="button"
                 class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                onclick={() => {
+                    onSort('issues_desc');
+                    isOpen = false;
+                }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -245,6 +286,10 @@
             <button
                 type="button"
                 class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                onclick={() => {
+                    onSort('issues_asc');
+                    isOpen = false;
+                }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -266,6 +311,10 @@
             <button
                 type="button"
                 class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                onclick={() => {
+                    onSort('zig_ver_desc');
+                    isOpen = false;
+                }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -289,6 +338,10 @@
             <button
                 type="button"
                 class="flex items-center rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                onclick={() => {
+                    onSort('zig_ver_asc');
+                    isOpen = false;
+                }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

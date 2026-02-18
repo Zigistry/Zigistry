@@ -1,34 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="preconnect" href="https://rohanvashisht-zigistrybackend.hf.space" crossorigin />
+        <link rel="dns-prefetch" href="https://rohanvashisht-zigistrybackend.hf.space" />
+        <link rel="preconnect" href="https://codeberg.org" crossorigin />
+        <link rel="dns-prefetch" href="https://codeberg.org" />
 
-<head>
-  <meta charset="utf-8" />
-  <link rel="preconnect" href="https://zigistry-new-api.hf.space" crossorigin />
-  <link rel="dns-prefetch" href="https://zigistry-new-api.hf.space" />
-  <link rel="preconnect" href="https://codeberg.org" crossorigin />
-  <link rel="dns-prefetch" href="https://codeberg.org" />
+        <link rel="preconnect" href="https://avatars.githubusercontent.com" crossorigin />
+        <link rel="dns-prefetch" href="https://avatars.githubusercontent.com" />
 
-  <link rel="preconnect" href="https://avatars.githubusercontent.com" crossorigin />
-  <link rel="dns-prefetch" href="https://avatars.githubusercontent.com" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        %sveltekit.head%
+        <script blocking="render">
+            if (
+                localStorage.getItem('color-theme') === 'dark' ||
+                (!('color-theme' in localStorage) &&
+                    window.matchMedia('(prefers-color-scheme: dark)').matches)
+            ) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        </script>
+    </head>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  %sveltekit.head%
-  <script blocking="render">
-    if (
-      localStorage.getItem("color-theme") === "dark" ||
-      (!("color-theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  </script>
-</head>
-
-<body class="bg-white dark:bg-[rgb(30,30,30)] dark:text-white" data-sveltekit-preload-data="hover">
-  <div style="display: contents">%sveltekit.body%</div>
-  <script src="/main.js"></script>
-</body>
-
+    <body
+        class="bg-white dark:bg-[rgb(30,30,30)] dark:text-white"
+        data-sveltekit-preload-data="hover"
+    >
+        <div style="display: contents">%sveltekit.body%</div>
+        <script src="/main.js"></script>
+    </body>
 </html>

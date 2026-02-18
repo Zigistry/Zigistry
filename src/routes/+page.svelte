@@ -9,12 +9,14 @@
     import { search_results, show_default, search_query } from '$lib/stores';
 
     let { data }: { data: PageData } = $props();
+    let original_results: any[] = [];
 
     async function handle_search(e: any) {
         const value = e.target.value.trim().toLowerCase();
         if (value === '') {
             $show_default = true;
             $search_results = [];
+            original_results = [];
             return;
         }
         if (e.key === 'Enter') {
@@ -27,8 +29,57 @@
                 result = [];
             }
             $search_results = result;
+            original_results = [...result];
             $show_default = false;
         }
+    }
+
+    function sort_data(criteria: string) {
+        if (criteria === 'intelligent') {
+            $search_results = [...original_results];
+            return;
+        }
+
+        $search_results = $search_results.sort((a, b) => {
+            switch (criteria) {
+                case 'stars':
+                    return (b.stargazer_count || 0) - (a.stargazer_count || 0);
+                case 'dependents':
+                    return (b.dependents_count || 0) - (a.dependents_count || 0);
+                case 'recently_updated':
+                    return new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime();
+                case 'newly_added':
+                    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+                case 'oldest':
+                    return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+                case 'a_z':
+                    return (a.repo_name || '').localeCompare(b.repo_name || '');
+                case 'z_a':
+                    return (b.repo_name || '').localeCompare(a.repo_name || '');
+                case 'forks':
+                    return (b.fork_count || 0) - (a.fork_count || 0);
+                case 'issues_desc':
+                    return (b.issues_count || 0) - (a.issues_count || 0);
+                case 'issues_asc':
+                    return (a.issues_count || 0) - (b.issues_count || 0);
+                case 'zig_ver_desc':
+                    return (b.minimum_zig_version || '0.0.0').localeCompare(
+                        a.minimum_zig_version || '0.0.0',
+                        undefined,
+                        { numeric: true }
+                    );
+                case 'zig_ver_asc':
+                    return (a.minimum_zig_version || '0.0.0').localeCompare(
+                        b.minimum_zig_version || '0.0.0',
+                        undefined,
+                        { numeric: true }
+                    );
+                default:
+                    return 0;
+            }
+        });
+        // Force update if store doesn't detect deep change (standard array sort mutates)
+        $search_results = [...$search_results];
     }
 </script>
 
@@ -180,7 +231,7 @@
     </div>
 {:else}
     <div class="relative w-full">
-        <SearchSortSidebar />
+        <SearchSortSidebar onSort={sort_data} />
         <div class="md:pl-64">
             <LeftMiniTitle icon={Rocket} name="Search results" />
             <section class="flex w-full flex-wrap justify-evenly">
