@@ -2,7 +2,9 @@ import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ fetch }) => {
     try {
-        const response = await fetch('https://rohanvashisht-zigistrybackend.hf.space/packageIndexDetails');
+        const response = await fetch(
+            'https://rohanvashisht-zigistrybackend.hf.space/packageIndexDetails'
+        );
         const data = await response.json();
 
         return {

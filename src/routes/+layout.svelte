@@ -1,8 +1,70 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
     import './layout.css';
     import favicon from '$lib/assets/favicon.ico';
     import { search_results, show_default, search_query } from '$lib/stores';
     let { children } = $props();
+
+    onMount(() => {
+        function setTheme(theme: 'dark' | 'light') {
+            document.documentElement.classList.toggle('dark', theme === 'dark');
+            localStorage.setItem('color-theme', theme);
+            document
+                .getElementById('theme-toggle-dark-icon')
+                ?.classList.toggle('hidden', theme === 'dark');
+            document
+                .getElementById('theme-toggle-light-icon')
+                ?.classList.toggle('hidden', theme !== 'dark');
+        }
+
+        const savedTheme =
+            localStorage.getItem('color-theme') ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        setTheme(savedTheme as 'dark' | 'light');
+
+        const themeToggle = document.getElementById('theme-toggle');
+        const handleThemeToggle = () => {
+            setTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark');
+        };
+        themeToggle?.addEventListener('click', handleThemeToggle);
+
+        const toggleBtn = document.querySelector('[data-collapse-toggle="navbar-default"]');
+        const navbar = document.getElementById('navbar-default');
+        const handleNavbarToggle = () => {
+            navbar?.classList.toggle('hidden');
+            toggleBtn?.setAttribute('aria-expanded', String(!navbar?.classList.contains('hidden')));
+        };
+        toggleBtn?.addEventListener('click', handleNavbarToggle);
+
+        const dropdownToggle = document.getElementById('dropdownNavbarLink');
+        const dropdownMenu = document.getElementById('dropdownNavbar');
+        const handleDropdownToggle = (e: Event) => {
+            e.stopPropagation();
+            dropdownMenu?.classList.toggle('hidden');
+        };
+        dropdownToggle?.addEventListener('click', handleDropdownToggle);
+
+        const handleDocumentClick = (e: MouseEvent) => {
+            if (!dropdownMenu?.contains(e.target as Node) && e.target !== dropdownToggle) {
+                dropdownMenu?.classList.add('hidden');
+            }
+        };
+        document.addEventListener('click', handleDocumentClick);
+
+        fetch('https://api.github.com/repos/zigistry/zigistry')
+            .then((res) => res.json())
+            .then((json) => {
+                const el = document.getElementById('star_count');
+                if (el) el.innerHTML = String(json.stargazers_count);
+            });
+
+        return () => {
+            themeToggle?.removeEventListener('click', handleThemeToggle);
+            toggleBtn?.removeEventListener('click', handleNavbarToggle);
+            dropdownToggle?.removeEventListener('click', handleDropdownToggle);
+            document.removeEventListener('click', handleDocumentClick);
+        };
+    });
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
