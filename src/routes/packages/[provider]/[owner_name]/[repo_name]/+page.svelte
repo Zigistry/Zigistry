@@ -7,13 +7,13 @@
     let title = $derived(
         data_from_api_csr_thingy.library
             ? `Zig package: ${data_from_api_csr_thingy.library.owner_name}/${data_from_api_csr_thingy.library.repo_name} from ${data_from_api_csr_thingy.provider} | Branch: ${data_from_api_csr_thingy.library.default_branch_name}`
-            : 'Loading package...'
+            : 'Zig package | Zigistry'
     );
 
     let meta_description = $derived(
         data_from_api_csr_thingy.library
             ? 'Zig package: ' + data_from_api_csr_thingy.library.description
-            : 'Loading package details...'
+            : 'Zig package details on Zigistry.'
     );
 </script>
 
@@ -45,6 +45,6 @@
     />
 {:else}
     <div class="flex h-screen items-center justify-center">
-        <div class="text-2xl font-bold text-black dark:text-white">Loading package details...</div>
+        <div class="text-2xl font-bold text-black dark:text-white">Package not found.</div>
     </div>
 {/if}

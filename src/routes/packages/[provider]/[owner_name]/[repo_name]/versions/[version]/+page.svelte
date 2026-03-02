@@ -7,13 +7,13 @@
     let title = $derived(
         data_from_api.library
             ? `Zig package: ${data_from_api.library.owner_name}/${data_from_api.library.repo_name} from ${data_from_api.provider} | Version: ${data_from_api.version}`
-            : 'Loading package version...'
+            : 'Zig package version | Zigistry'
     );
 
     let meta_description = $derived(
         data_from_api.library
             ? 'Zig package: ' + data_from_api.library.description
-            : 'Loading package details...'
+            : 'Zig package version details on Zigistry.'
     );
 </script>
 
@@ -45,6 +45,6 @@
     />
 {:else}
     <div class="flex h-screen items-center justify-center">
-        <div class="text-2xl font-bold text-black dark:text-white">Loading package version...</div>
+        <div class="text-2xl font-bold text-black dark:text-white">Package version not found.</div>
     </div>
 {/if}
