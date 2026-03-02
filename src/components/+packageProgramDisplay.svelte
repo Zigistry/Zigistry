@@ -13,8 +13,10 @@
     const data = $props();
     const provider_id = data.provider_id;
 
-    const library_r = data.releases;
-    console.log(library_r);
+    const DEFAULT_BRANCH_VERSION = '__ZIGISTRY__DEFAULT__BRANCH__';
+    
+    const library_r = Array.isArray(data.releases) ? data.releases : [];
+    const versions_to_show = library_r.filter((release_name) => release_name !== DEFAULT_BRANCH_VERSION);
 
     TimeAgo.addLocale(en);
     let readme_text_html_content = $state('');
@@ -148,10 +150,7 @@
                 </div>
             </TabItem>
         {/if}
-        <TabItem
-            title={'Versions: ' + (library_r.length ? library_r.length : 0)}
-            class="tabItemClass w-full"
-        >
+        <TabItem title={'Versions: ' + (versions_to_show.length ? versions_to_show.length : 0)} class="tabItemClass w-full">
             <div
                 class="m-0 rounded-lg bg-white p-3 shadow-lg shadow-black sm:rounded-xl sm:p-6 dark:bg-[#1e1e1e]"
             >
@@ -199,7 +198,7 @@
                                 </div>
                             </div>
                         </div>
-                        {#each library_r as release_name}
+                        {#each versions_to_show as release_name}
                             <div
                                 class="transform rounded-lg bg-gray-100 p-3 transition-all duration-300 hover:scale-102 hover:bg-gray-200 sm:p-4 dark:bg-[#2e2e2e] dark:hover:bg-slate-600"
                             >
