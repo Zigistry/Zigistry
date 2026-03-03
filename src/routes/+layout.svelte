@@ -5,64 +5,38 @@
     import { search_results, show_default, search_query } from '$lib/stores';
     let { children } = $props();
 
+    let isDarkTheme = $state(false);
+    let isNavbarOpen = $state(false);
+    let stargazerCount = $state('606');
+
+    function setTheme(theme: 'dark' | 'light') {
+        const isDark = theme === 'dark';
+        isDarkTheme = isDark;
+        document.documentElement.classList.toggle('dark', isDark);
+        localStorage.setItem('color-theme', theme);
+    }
+
+    function toggleTheme() {
+        setTheme(isDarkTheme ? 'light' : 'dark');
+    }
+
     onMount(() => {
-        function setTheme(theme: 'dark' | 'light') {
-            document.documentElement.classList.toggle('dark', theme === 'dark');
-            localStorage.setItem('color-theme', theme);
-            document
-                .getElementById('theme-toggle-dark-icon')
-                ?.classList.toggle('hidden', theme === 'dark');
-            document
-                .getElementById('theme-toggle-light-icon')
-                ?.classList.toggle('hidden', theme !== 'dark');
-        }
+        const savedTheme = localStorage.getItem('color-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setTheme(savedTheme === 'dark' || (!savedTheme && prefersDark) ? 'dark' : 'light');
 
-        const savedTheme =
-            localStorage.getItem('color-theme') ||
-            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        setTheme(savedTheme as 'dark' | 'light');
-
-        const themeToggle = document.getElementById('theme-toggle');
-        const handleThemeToggle = () => {
-            setTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark');
-        };
-        themeToggle?.addEventListener('click', handleThemeToggle);
-
-        const toggleBtn = document.querySelector('[data-collapse-toggle="navbar-default"]');
-        const navbar = document.getElementById('navbar-default');
-        const handleNavbarToggle = () => {
-            navbar?.classList.toggle('hidden');
-            toggleBtn?.setAttribute('aria-expanded', String(!navbar?.classList.contains('hidden')));
-        };
-        toggleBtn?.addEventListener('click', handleNavbarToggle);
-
-        const dropdownToggle = document.getElementById('dropdownNavbarLink');
-        const dropdownMenu = document.getElementById('dropdownNavbar');
-        const handleDropdownToggle = (e: Event) => {
-            e.stopPropagation();
-            dropdownMenu?.classList.toggle('hidden');
-        };
-        dropdownToggle?.addEventListener('click', handleDropdownToggle);
-
-        const handleDocumentClick = (e: MouseEvent) => {
-            if (!dropdownMenu?.contains(e.target as Node) && e.target !== dropdownToggle) {
-                dropdownMenu?.classList.add('hidden');
-            }
-        };
-        document.addEventListener('click', handleDocumentClick);
-
-        fetch('https://api.github.com/repos/zigistry/zigistry')
+        const controller = new AbortController();
+        fetch('https://api.github.com/repos/zigistry/zigistry', { signal: controller.signal })
             .then((res) => res.json())
             .then((json) => {
-                const el = document.getElementById('star_count');
-                if (el) el.innerHTML = String(json.stargazers_count);
-            });
+                if (typeof json?.stargazers_count === 'number') {
+                    stargazerCount = String(json.stargazers_count);
+                }
+            })
+            .catch(() => {});
 
         return () => {
-            themeToggle?.removeEventListener('click', handleThemeToggle);
-            toggleBtn?.removeEventListener('click', handleNavbarToggle);
-            dropdownToggle?.removeEventListener('click', handleDropdownToggle);
-            document.removeEventListener('click', handleDocumentClick);
+            controller.abort();
         };
     });
 </script>
@@ -82,11 +56,11 @@
                 ><span class="text-amber-600 dark:text-yellow-300">Zig</span>istry</span
             ></a
         ><button
-            data-collapse-toggle="navbar-default"
             type="button"
             class="inline-flex size-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:ring-2 focus:ring-gray-200 focus:outline-none md:hidden dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             aria-controls="navbar-default"
-            aria-expanded="false"
+            aria-expanded={isNavbarOpen}
+            onclick={() => (isNavbarOpen = !isNavbarOpen)}
             ><span class="sr-only">Open main menu</span><svg
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +76,12 @@
                 ></path></svg
             ></button
         >
-        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+        <div
+            class="w-full md:block md:w-auto"
+            class:hidden={!isNavbarOpen}
+            class:block={isNavbarOpen}
+            id="navbar-default"
+        >
             <ul
                 class="mt-4 flex flex-col rounded-lg border border-gray-100 p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse"
             >
@@ -194,8 +173,7 @@
                                 d="M11.083 5.104c.35-.8 1.485-.8 1.834 0l1.752 4.022a1 1 0 0 0 .84.597l4.463.342c.9.069 1.255 1.2.556 1.771l-3.33 2.723a1 1 0 0 0-.337 1.016l1.03 4.119c.214.858-.71 1.552-1.474 1.106l-3.913-2.281a1 1 0 0 0-1.008 0L7.583 20.8c-.764.446-1.688-.248-1.474-1.106l1.03-4.119A1 1 0 0 0 6.8 14.56l-3.33-2.723c-.698-.571-.342-1.702.557-1.771l4.462-.342a1 1 0 0 0 .84-.597l1.753-4.022Z"
                             ></path></svg
                         ><span class="pr-1.5"> Star</span><span
-                            class="border-l-2 pl-1.5"
-                            id="star_count">606</span
+                            class="border-l-2 pl-1.5">{stargazerCount}</span
                         ></a
                     >
                 </li>
@@ -204,13 +182,13 @@
                         aria-label="theme toggle"
                         type="button"
                         class="rounded-lg p-1 text-sm text-gray-500 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
-                        id="theme-toggle"
+                        onclick={toggleTheme}
                         ><svg
                             fill="currentColor"
                             viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg"
-                            class="hidden h-5 w-5"
-                            id="theme-toggle-dark-icon"
+                            class="h-5 w-5"
+                            class:hidden={isDarkTheme}
                             ><path
                                 d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
                             ></path></svg
@@ -219,7 +197,7 @@
                             viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg"
                             class="h-5 w-5"
-                            id="theme-toggle-light-icon"
+                            class:hidden={!isDarkTheme}
                             ><path
                                 d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
                                 fill-rule="evenodd"
