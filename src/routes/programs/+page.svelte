@@ -9,41 +9,23 @@
     let { data }: { data: PageData } = $props();
 
     let show_default = $state(true);
+    let search_query = $state('');
     let search_results = $state([]);
     let original_results: any[] = [];
+    const MAXIMUM_SEARCH_ALLOWED_PER_PAGE = 12;
+    let current_search_page = $state(1);
+    let search_total_pages = $state(0);
+    let search_total_results = $state(0);
 
-    async function handle_search(e) {
-        const value = e.target.value.trim().toLowerCase();
-        if (value === '') {
-            show_default = true;
-            search_results = [];
-            original_results = [];
-            return;
-        }
-        if (e.key === 'Enter') {
-            const result_data = await fetch(
-                'https://rohanvashisht-zigistrybackend.hf.space/search/programs?q=' +
-                    encodeURIComponent(value)
-            );
-            let result = await result_data.json();
-            //  Now the entire data is loaded
-            if (result == null) {
-                result = [];
-            }
-            search_results = result;
-            original_results = [...result];
-            show_default = false;
-        }
-    }
-
-    function sort_data(criteria: string) {
-        if (criteria === 'intelligent') {
-            search_results = [...original_results];
-            return;
+    // Currently, there is nothing intelligent about this XD. Basically, the default search results
+    let active_sort_kind_of_filter = $state('intelligent');
+    function get_sorted_results(results: any[], kind_of_filter: string) {
+        if (kind_of_filter === 'intelligent') {
+            return [...results];
         }
 
-        search_results = search_results.sort((a, b) => {
-            switch (criteria) {
+        return [...results].sort((a, b) => {
+            switch (kind_of_filter) {
                 case 'stars':
                     return (b.stargazer_count || 0) - (a.stargazer_count || 0);
                 case 'dependents':
@@ -80,7 +62,77 @@
                     return 0;
             }
         });
-        search_results = [...search_results];
+    }
+
+    async function load_search_results(page: number, query_override?: string) {
+        const what_person_wants_to_search = (query_override ?? search_query).trim().toLowerCase();
+        if (what_person_wants_to_search === '') {
+            return;
+        }
+
+        const result_data = await fetch(
+            'https://rohanvashisht-zigistrybackend.hf.space/search/programs?' +
+                new URLSearchParams({
+                    q: what_person_wants_to_search,
+                    page: String(page),
+                    per_page: String(MAXIMUM_SEARCH_ALLOWED_PER_PAGE)
+                }).toString()
+        );
+        const result = await result_data.json();
+        const items = Array.isArray(result?.items) ? result.items : [];
+
+        original_results = [...items];
+        search_results = get_sorted_results(original_results, active_sort_kind_of_filter);
+        // i am just checking if these even exist or not.
+        if (typeof result?.total === 'number') {
+            search_total_results = result.total;
+        } else {
+            search_total_results = items.length;
+        }
+
+        if (typeof result?.total_pages === 'number') {
+            search_total_pages = result.total_pages;
+        } else {
+            search_total_pages = items.length > 0 ? 1 : 0;
+        }
+
+        if (typeof result?.page === 'number') {
+            current_search_page = result.page;
+        } else {
+            current_search_page = page;
+        }
+        show_default = false;
+    }
+
+    async function handle_search(e: any) {
+        const value = e.target.value.trim().toLowerCase();
+        if (value === '') {
+            show_default = true;
+            search_results = [];
+            original_results = [];
+            current_search_page = 1;
+            search_total_pages = 0;
+            search_total_results = 0;
+            return;
+        }
+        if (e.key === 'Enter') {
+            search_query = value;
+            await load_search_results(1, value);
+        }
+    }
+
+    async function go_to_search_page(page: number) {
+        // just a basic bound check.
+        if (page < 1 || page > search_total_pages || page === current_search_page) {
+            return;
+        }
+
+        await load_search_results(page);
+    }
+
+    function sort_data(kind_of_filter: string) {
+        active_sort_kind_of_filter = kind_of_filter;
+        search_results = get_sorted_results(original_results, kind_of_filter);
     }
 </script>
 
@@ -115,8 +167,9 @@
                         class="block w-full rounded-lg border border-slate-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600 dark:bg-[#2e2e2e] dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500"
                         type="text"
                         placeholder="Search 2000+ Zig programs"
-                        autofocus=""
-                        on:keyup={handle_search}
+                        autofocus={true}
+                        bind:value={search_query}
+                        onkeyup={handle_search}
                     />
                 </div>
             </div>
@@ -174,6 +227,9 @@
         <SearchSortSidebar onSort={sort_data} />
         <div class="md:pl-64">
             <LeftMiniTitle icon={Rocket} name="Search results" />
+            <p class="px-4 text-sm text-gray-600 dark:text-gray-300">
+                {search_total_results} result{search_total_results === 1 ? '' : 's'}
+            </p>
             <section class="flex w-full flex-wrap justify-evenly">
                 {#each search_results as library}
                     <Card
@@ -193,6 +249,33 @@
                     />
                 {/each}
             </section>
+            {#if search_total_results === 0}
+                <p class="my-4 text-center text-lg text-gray-600 dark:text-gray-300">
+                    No results found.
+                </p>
+            {:else}
+                <div class="my-4 flex items-center justify-center gap-3">
+                    <button
+                        type="button"
+                        class="rounded-lg border border-gray-300 px-3 py-1.5 text-sm disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600"
+                        onclick={() => go_to_search_page(current_search_page - 1)}
+                        disabled={current_search_page <= 1}
+                    >
+                        Previous
+                    </button>
+                    <span class="text-sm text-gray-700 dark:text-gray-300">
+                        Page {current_search_page} of {search_total_pages}
+                    </span>
+                    <button
+                        type="button"
+                        class="rounded-lg border border-gray-300 px-3 py-1.5 text-sm disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600"
+                        onclick={() => go_to_search_page(current_search_page + 1)}
+                        disabled={current_search_page >= search_total_pages}
+                    >
+                        Next
+                    </button>
+                </div>
+            {/if}
         </div>
     </div>
 {/if}

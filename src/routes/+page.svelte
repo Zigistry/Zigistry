@@ -10,38 +10,19 @@
 
     let { data }: { data: PageData } = $props();
     let original_results: any[] = [];
+    const MAXIMUM_SEARCH_ALLOWED_PER_PAGE = 12;
+    let current_search_page = $state(1);
+    let search_total_pages = $state(0);
+    let search_total_results = $state(0);
+    let active_sort_kind_of_filter = $state('intelligent');
 
-    async function handle_search(e: any) {
-        const value = e.target.value.trim().toLowerCase();
-        if (value === '') {
-            $show_default = true;
-            $search_results = [];
-            original_results = [];
-            return;
-        }
-        if (e.key === 'Enter') {
-            const result_data = await fetch(
-                'https://rohanvashisht-zigistrybackend.hf.space/search/packages?q=' +
-                    encodeURIComponent(value)
-            );
-            let result = await result_data.json();
-            if (result == null) {
-                result = [];
-            }
-            $search_results = result;
-            original_results = [...result];
-            $show_default = false;
-        }
-    }
-
-    function sort_data(criteria: string) {
-        if (criteria === 'intelligent') {
-            $search_results = [...original_results];
-            return;
+    function get_sorted_results(results: any[], kind_of_filter: string) {
+        if (kind_of_filter === 'intelligent') {
+            return [...results];
         }
 
-        $search_results = $search_results.sort((a, b) => {
-            switch (criteria) {
+        return [...results].sort((a, b) => {
+            switch (kind_of_filter) {
                 case 'stars':
                     return (b.stargazer_count || 0) - (a.stargazer_count || 0);
                 case 'dependents':
@@ -78,8 +59,62 @@
                     return 0;
             }
         });
-        // Force update if store doesn't detect deep change (standard array sort mutates)
-        $search_results = [...$search_results];
+    }
+
+    async function load_search_results(page: number, query_override?: string) {
+        const active_query = (query_override ?? $search_query).trim().toLowerCase();
+        if (active_query === '') {
+            return;
+        }
+
+        const result_data = await fetch(
+            'https://rohanvashisht-zigistrybackend.hf.space/search/packages?' +
+                new URLSearchParams({
+                    q: active_query,
+                    page: String(page),
+                    per_page: String(MAXIMUM_SEARCH_ALLOWED_PER_PAGE)
+                }).toString()
+        );
+        const result = await result_data.json();
+        const items = Array.isArray(result?.items) ? result.items : [];
+
+        original_results = [...items];
+        $search_results = get_sorted_results(original_results, active_sort_kind_of_filter);
+        search_total_results = typeof result?.total === 'number' ? result.total : items.length;
+        search_total_pages =
+            typeof result?.total_pages === 'number' ? result.total_pages : items.length > 0 ? 1 : 0;
+        current_search_page = typeof result?.page === 'number' ? result.page : page;
+        $show_default = false;
+    }
+
+    async function handle_search(e: any) {
+        const value = e.target.value.trim().toLowerCase();
+        if (value === '') {
+            $show_default = true;
+            $search_results = [];
+            original_results = [];
+            current_search_page = 1;
+            search_total_pages = 0;
+            search_total_results = 0;
+            return;
+        }
+        if (e.key === 'Enter') {
+            $search_query = value;
+            await load_search_results(1, value);
+        }
+    }
+
+    async function go_to_search_page(page: number) {
+        if (page < 1 || page > search_total_pages || page === current_search_page) {
+            return;
+        }
+
+        await load_search_results(page);
+    }
+
+    function sort_data(kind_of_filter: string) {
+        active_sort_kind_of_filter = kind_of_filter;
+        $search_results = get_sorted_results(original_results, kind_of_filter);
     }
 </script>
 
@@ -234,6 +269,9 @@
         <SearchSortSidebar onSort={sort_data} />
         <div class="md:pl-64">
             <LeftMiniTitle icon={Rocket} name="Search results" />
+            <p class="px-4 text-sm text-gray-600 dark:text-gray-300">
+                {search_total_results} result{search_total_results === 1 ? '' : 's'}
+            </p>
             <section class="flex w-full flex-wrap justify-evenly">
                 {#each $search_results as library}
                     <Card
@@ -253,6 +291,33 @@
                     />
                 {/each}
             </section>
+            {#if search_total_results === 0}
+                <p class="my-4 text-center text-sm text-gray-600 dark:text-gray-300">
+                    No results found.
+                </p>
+            {:else}
+                <div class="my-4 flex items-center justify-center gap-3">
+                    <button
+                        type="button"
+                        class="rounded-lg border border-gray-300 px-3 py-1.5 text-sm disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600"
+                        onclick={() => go_to_search_page(current_search_page - 1)}
+                        disabled={current_search_page <= 1}
+                    >
+                        Previous
+                    </button>
+                    <span class="text-sm text-gray-700 dark:text-gray-300">
+                        Page {current_search_page} of {search_total_pages}
+                    </span>
+                    <button
+                        type="button"
+                        class="rounded-lg border border-gray-300 px-3 py-1.5 text-sm disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600"
+                        onclick={() => go_to_search_page(current_search_page + 1)}
+                        disabled={current_search_page >= search_total_pages}
+                    >
+                        Next
+                    </button>
+                </div>
+            {/if}
         </div>
     </div>
 {/if}
