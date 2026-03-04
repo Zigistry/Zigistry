@@ -14,7 +14,7 @@
     const provider_id = data.provider_id;
 
     const DEFAULT_BRANCH_VERSION = '__ZIGISTRY__DEFAULT__BRANCH__';
-    
+
     const library_r = Array.isArray(data.releases) ? data.releases : [];
     const versions_to_show = library_r.filter(
         (release_name) => release_name !== DEFAULT_BRANCH_VERSION

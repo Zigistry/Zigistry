@@ -5,6 +5,7 @@
     import Infinite_Scroll from '../components/+InfiniteScroll.svelte';
     import SearchSortSidebar from '../components/+SearchSortSidebar.svelte';
     import { Rocket } from '@lucide/svelte';
+    import { P, PaginationNav } from 'flowbite-svelte';
 
     import { search_results, show_default, search_query } from '$lib/stores';
 
@@ -296,26 +297,16 @@
                     No results found.
                 </p>
             {:else}
-                <div class="my-4 flex items-center justify-center gap-3">
-                    <button
-                        type="button"
-                        class="rounded-lg border border-gray-300 px-3 py-1.5 text-sm disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600"
-                        onclick={() => go_to_search_page(current_search_page - 1)}
-                        disabled={current_search_page <= 1}
+                <div class="my-4 flex flex-col items-center gap-3">
+                    <P class="text-sm"
+                        >Showing {current_search_page} of {search_total_pages} Entries</P
                     >
-                        Previous
-                    </button>
-                    <span class="text-sm text-gray-700 dark:text-gray-300">
-                        Page {current_search_page} of {search_total_pages}
-                    </span>
-                    <button
-                        type="button"
-                        class="rounded-lg border border-gray-300 px-3 py-1.5 text-sm disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600"
-                        onclick={() => go_to_search_page(current_search_page + 1)}
-                        disabled={current_search_page >= search_total_pages}
-                    >
-                        Next
-                    </button>
+                    <PaginationNav
+                        currentPage={current_search_page}
+                        totalPages={search_total_pages}
+                        onPageChange={go_to_search_page}
+                        layout="navigation"
+                    />
                 </div>
             {/if}
         </div>
