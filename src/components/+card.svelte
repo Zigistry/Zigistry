@@ -14,10 +14,11 @@
         props.owner_name.includes('/') ? props.owner_name.split('/')[1] : props.owner_name
     );
 
-    const avatar_url =
+    const avatar_url = $derived(
         (props.provider === 'gh'
             ? 'https://avatars.githubusercontent.com/'
-            : 'https://codeberg.org/avatars/') + props.avatar_url;
+            : 'https://codeberg.org/avatars/') + props.avatar_url
+    );
 </script>
 
 <div
@@ -36,10 +37,14 @@
             >{props.repo_name}</span
         >
 
-        <p class="flex w-min truncate rounded-2xl bg-gray-600 text-gray-400 dark:text-gray-400">
-            <span class="flex w-fit rounded-l-2xl bg-gray-800 p-2 text-gray-600 dark:text-gray-400">
+        <p
+            class="flex w-min truncate rounded-2xl bg-amber-100 text-amber-900 dark:bg-slate-700 dark:text-amber-100"
+        >
+            <span
+                class="flex w-fit rounded-l-2xl bg-amber-200 p-2 text-amber-900 dark:bg-slate-800 dark:text-amber-100"
+            >
                 <User size={22} width={22} class="min-h-5.5 min-w-5.5" />&nbsp;<a
-                    class="hover:underline"
+                    class="hover:text-amber-700 hover:underline dark:hover:text-amber-300"
                     href={(props.provider === 'gh' ? '/profiles/github/' : '/profiles/codeberg/') +
                         clean_owner_name}>{clean_owner_name}</a
                 >
