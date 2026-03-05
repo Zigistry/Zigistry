@@ -12,6 +12,7 @@
 
     const data = $props();
     const provider_id = data.provider_id;
+    const route_thingy = data.route_thingy === 'programs' ? 'programs' : 'packages';
 
     const DEFAULT_BRANCH_VERSION = '__ZIGISTRY__DEFAULT__BRANCH__';
 
@@ -177,7 +178,7 @@
                                 >
                                     <span>Click to see version: </span> &nbsp;
                                     <a
-                                        href="/packages/{provider_id === 'gh'
+                                        href="/{route_thingy}/{provider_id === 'gh'
                                             ? 'github'
                                             : 'codeberg'}/{data.owner_name}/{data.repo_name}"
                                         target="_blank"
@@ -213,7 +214,7 @@
                                     >
                                         <span>Click to see version: </span> &nbsp;
                                         <a
-                                            href="/packages/{provider_id === 'gh'
+                                            href="/{route_thingy}/{provider_id === 'gh'
                                                 ? 'github'
                                                 : 'codeberg'}/{data.owner_name}/{data.repo_name}/versions/{release_name}"
                                             target="_blank"

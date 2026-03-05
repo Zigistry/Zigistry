@@ -24,6 +24,7 @@
 
 {#if data_from_api.library}
     <PackageProgramDisplay
+        route_thingy="packages"
         show_dependents={true}
         provider_id={data_from_api.provider_id}
         readme_url={data_from_api.library.readme_url}

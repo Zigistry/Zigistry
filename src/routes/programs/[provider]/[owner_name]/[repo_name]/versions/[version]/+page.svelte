@@ -23,6 +23,7 @@
 
 {#if data.library}
     <PackageProgramDisplay
+        route_thingy="programs"
         show_dependents={false}
         provider_id={data.provider_id}
         readme_url={data.library.readme_url}
