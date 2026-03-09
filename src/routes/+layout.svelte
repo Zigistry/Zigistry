@@ -116,23 +116,9 @@
                     >
                         <li>
                             <a
-                                href="/statistics"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                >Statistics</a
-                            >
-                        </li>
-                        <li>
-                            <a
                                 href="/apps"
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                 >Apps</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="/API-docs"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                >API</a
                             >
                         </li>
                         <li>
