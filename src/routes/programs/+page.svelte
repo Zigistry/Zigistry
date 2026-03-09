@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
     import type { PageData } from './$types';
     import LeftMiniTitle from '../../components/+LeftMiniTitle.svelte';
     import Card from '../../components/+card.svelte';
@@ -6,12 +7,13 @@
     import SearchSortSidebar from '../../components/+SearchSortSidebar.svelte';
     import { Rocket } from '@lucide/svelte';
     import { P, PaginationNav } from 'flowbite-svelte';
+    import { create_url_search_part, get_search_parameters_from_url } from '$lib/search-share';
 
     let { data }: { data: PageData } = $props();
 
     let show_default = $state(true);
     let search_query = $state('');
-    let search_results = $state([]);
+    let search_results = $state<any[]>([]);
     let original_results: any[] = [];
     const MAXIMUM_SEARCH_ALLOWED_PER_PAGE = 12;
     let current_search_page = $state(1);
@@ -65,6 +67,24 @@
         });
     }
 
+    function make_search_state_empty() {
+        show_default = true;
+        search_results = [];
+        original_results = [];
+        current_search_page = 1;
+        search_total_pages = 0;
+        search_total_results = 0;
+    }
+
+    function keep_everything_in_sync(query = search_query, sort = active_sort_kind_of_filter) {
+        if (typeof window === 'undefined') return;
+
+        const hash = create_url_search_part(query, sort);
+        if (window.location.hash !== hash) {
+            window.location.hash = hash;
+        }
+    }
+
     async function load_search_results(page: number, query_override?: string) {
         const what_person_wants_to_search = (query_override ?? search_query).trim().toLowerCase();
         if (what_person_wants_to_search === '') {
@@ -106,19 +126,17 @@
     }
 
     async function handle_search(e: any) {
-        const value = e.target.value.trim().toLowerCase();
+        const value = e.target.value.trim();
         if (value === '') {
-            show_default = true;
-            search_results = [];
-            original_results = [];
-            current_search_page = 1;
-            search_total_pages = 0;
-            search_total_results = 0;
+            search_query = '';
+            make_search_state_empty();
+            keep_everything_in_sync('');
             return;
         }
         if (e.key === 'Enter') {
             search_query = value;
             await load_search_results(1, value);
+            keep_everything_in_sync(value, active_sort_kind_of_filter);
         }
     }
 
@@ -131,10 +149,36 @@
         await load_search_results(page);
     }
 
-    function sort_data(kind_of_filter: string) {
-        active_sort_kind_of_filter = kind_of_filter;
-        search_results = get_sorted_results(original_results, kind_of_filter);
+    function sort_data(kind: string) {
+        active_sort_kind_of_filter = kind;
+        search_results = get_sorted_results(original_results, kind);
+        keep_everything_in_sync(search_query, kind);
     }
+
+    async function restore_from_hash() {
+        const { search, sort } = get_search_parameters_from_url(window.location.hash);
+
+        active_sort_kind_of_filter = sort;
+
+        if (!search) {
+            search_query = '';
+            make_search_state_empty();
+            return;
+        }
+
+        search_query = search;
+        await load_search_results(1, search);
+    }
+
+    onMount(() => {
+        restore_from_hash();
+
+        window.addEventListener('hashchange', restore_from_hash);
+
+        return () => {
+            window.removeEventListener('hashchange', restore_from_hash);
+        };
+    });
 </script>
 
 <svelte:head>
