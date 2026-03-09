@@ -1,5 +1,5 @@
 <div class="graph-frame">
-    <iframe title="Zigistry dependency graph" src="/graph.html"></iframe>
+    <iframe title="Zigistry dependency graph" src="/dependency-graph.html"></iframe>
 </div>
 
 <style>

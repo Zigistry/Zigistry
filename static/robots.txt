@@ -1,2 +1,2 @@
 User-agent: *
-Disallow: /static/graph.html
+Disallow: /static/dependency-graph.html
