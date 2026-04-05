@@ -37,10 +37,23 @@
                     <li>
                         <iframe
                             class="my-5 h-40 w-48 rounded-xl border-2 border-gray-300 sm:w-80 dark:border-gray-700"
-                            width="996"
-                            height="521"
-                            src="https://www.youtube.com/embed/8iedG5WDv1I?controls=0"
-                            title="How to add your Zig package to Zigistry?"
+                            width="1200"
+                            height="675"
+                            src="https://www.youtube.com/embed/8iedG5WDv1I"
+                            title="GitHub: How to add your Zig package to Zigistry?"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen=""
+                        ></iframe>
+                    </li>
+                    <li>
+                        <iframe
+                            class="my-5 h-40 w-48 rounded-xl border-2 border-gray-300 sm:w-80 dark:border-gray-700"
+                            width="1200"
+                            height="675"
+                            src="https://www.youtube.com/embed/kFaskJD3eik"
+                            title="Codeberg: How to add your Zig package to Zigistry?"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin"
