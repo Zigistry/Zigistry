@@ -27,6 +27,7 @@
         route_thingy="packages"
         show_dependents={true}
         provider_id={data_from_api.provider_id}
+        current_version_tag={data_from_api.version}
         readme_url={data_from_api.library.readme_url}
         version_name={data_from_api.version + ' version'}
         releases={data_from_api.library.releases}

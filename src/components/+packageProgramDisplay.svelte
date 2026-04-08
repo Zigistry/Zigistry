@@ -15,11 +15,31 @@
     const route_thingy = data.route_thingy === 'programs' ? 'programs' : 'packages';
 
     const DEFAULT_BRANCH_VERSION = '__ZIGISTRY__DEFAULT__BRANCH__';
+    const LATEST_UNSTABLE_OPTION = '__ZIGISTRY__LATEST__UNSTABLE__'; // this is just for the ui, not an actual value from db.
 
     const library_r = Array.isArray(data.releases) ? data.releases : [];
-    const versions_to_show = library_r.filter(
-        (release_name) => release_name !== DEFAULT_BRANCH_VERSION
+    const versions_to_show = Array.from(
+        new Set(library_r.filter((release_name) => release_name !== DEFAULT_BRANCH_VERSION))
     );
+    const repository_git_url = `https://${provider_id === 'gh' ? 'github.com' : 'codeberg.org'}/${data.owner_name}/${data.repo_name}.git`;
+    const default_selected_release = $derived(
+        route_thingy === 'packages'
+            ? typeof data.current_version_tag === 'string' &&
+              versions_to_show.includes(data.current_version_tag)
+                ? data.current_version_tag
+                : versions_to_show[0] || LATEST_UNSTABLE_OPTION
+            : LATEST_UNSTABLE_OPTION
+    );
+    let selected_release = $state(LATEST_UNSTABLE_OPTION);
+    const install_command = $derived(
+        versions_to_show.length > 0 && selected_release !== LATEST_UNSTABLE_OPTION
+            ? `zig fetch --save git+${repository_git_url}#${selected_release}`
+            : `zig fetch --save git+${repository_git_url}`
+    );
+
+    $effect(() => {
+        selected_release = default_selected_release;
+    });
 
     TimeAgo.addLocale(en);
     let readme_text_html_content = $state('');
@@ -78,6 +98,51 @@
     />
 
     <div class="mb-10"></div>
+
+    {#if route_thingy === 'packages'}
+        <div
+            class="mb-6 rounded-2xl border border-[#d4af37] bg-[#1e1e1e] p-3 shadow-lg shadow-black/40 sm:p-4"
+        >
+            <div class="flex flex-col gap-3">
+                {#if versions_to_show.length > 0}
+                    <label class="sr-only" for="version-selection-dropdown"
+                        >Repository version</label
+                    >
+                    <select
+                        id="version-selection-dropdown"
+                        bind:value={selected_release}
+                        class="w-full rounded-xl border border-[#d4af37] bg-[#2e2e2e] px-4 py-3 font-mono text-sm text-[#f5e7b2] transition outline-none focus:border-[#f2c94c] sm:max-w-sm"
+                    >
+                        {#each versions_to_show as release_name}
+                            <option value={release_name}>{release_name}</option>
+                        {/each}
+                        <option value={LATEST_UNSTABLE_OPTION}>latest (unstable)</option>
+                    </select>
+                {/if}
+                <div
+                    class="flex overflow-x-auto rounded-xl border border-[#d4af37] bg-[#2e2e2e] px-4 py-3"
+                >
+                    <code
+                        class="my-auto mr-5 block min-w-max cursor-pointer font-mono text-sm text-[#f5e7b2]
+                        sm:text-base">{install_command}</code
+                    >
+                    <button
+                        class="rounded-xl border border-[#d4af37] bg-[#2e2e2e] px-4 py-3 font-mono text-sm text-[#f5e7b2] transition outline-none focus:border-[#f2c94c]"
+                        onclick={(e) => {
+                            const btn = e.currentTarget;
+                            navigator.clipboard.writeText(install_command);
+                            btn.innerText = 'Copied!';
+                            setTimeout(() => {
+                                btn.innerText = 'Copy';
+                            }, 2000);
+                        }}
+                    >
+                        Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+    {/if}
 
     <Tabs tabStyle="full" class="mt-4 dark:bg-[#1e1e1e]">
         <TabItem open title="Readme" class="w-full">

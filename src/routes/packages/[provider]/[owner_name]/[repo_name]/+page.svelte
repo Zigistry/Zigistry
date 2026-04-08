@@ -27,6 +27,7 @@
         route_thingy="packages"
         show_dependents={true}
         provider_id={data_from_api_csr_thingy.provider_id}
+        current_version_tag={null}
         readme_url={data_from_api_csr_thingy.library.readme_url}
         version_name={data_from_api_csr_thingy.library.default_branch_name + ' branch'}
         releases={data_from_api_csr_thingy.library.releases}
