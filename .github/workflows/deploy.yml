@@ -1,0 +1,37 @@
+name: deploy to cloudflare
+
+on:
+    push:
+        branches:
+            - main
+    schedule:
+        - cron: "0 * * * *"
+
+jobs:
+    deploy:
+        name: deploy to cloudflare
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            deployments: write
+
+        steps:
+            - name: checkout
+              uses: actions/checkout@v4
+
+            - uses: oven-sh/setup-bun@v2
+              with:
+                  bun-version: latest
+
+            - name: install dependenciess
+              run: bun install
+
+            - name: build
+              run: bun run build
+
+            - name: deploy
+              uses: cloudflare/wrangler-action@v3
+              with:
+                  apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                  projectName: zigistryok
+                  directory: ./cloudflare/build
