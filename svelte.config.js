@@ -7,13 +7,15 @@ const config = {
 
     kit: {
         prerender: {
-            entries: ['*']
+            entries: ['/', '/programs', '/graph', '/about', '/help'],
+            handleHttpError: 'warn',
+            handleUnseenRoutes: 'warn'
         },
 
         adapter: adapter({
             pages: './cloudflare/build',
             assets: './cloudflare/build',
-            fallback: 'index.html'
+            fallback: '404.html'
         })
     }
 };
