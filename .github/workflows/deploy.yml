@@ -33,5 +33,4 @@ jobs:
               uses: cloudflare/wrangler-action@v3
               with:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-                  projectName: zigistryok
-                  directory: ./cloudflare/build
+                  command: pages deploy ./cloudflare/build --project-name=zigistryok
