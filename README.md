@@ -11,7 +11,7 @@ Either on GitHub or on Codeberg:
 
 Go to your Repository:
 
-Add `zig-package` topic to it, if it is a Zig library. Or Add `zig-program`
+Add `zig-package` topic to it, if it is a Zig library. Or Add `zig`
 topic to it, if it is a Zig application/program.
 
 > [!IMPORTANT]
