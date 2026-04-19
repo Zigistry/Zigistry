@@ -18,6 +18,7 @@
     let search_total_pages = $state(0);
     let search_total_results = $state(0);
     let active_sort_kind_of_filter = $state('intelligent');
+    let card_display_mode = $state('grid');
 
     function get_sorted_results(results: any[], kind_of_filter: string) {
         if (kind_of_filter === 'intelligent') {
@@ -179,12 +180,12 @@
             <div class="w-fit">
                 <div class="ml-4 flex">
                     <div class="relative w-max max-w-36 min-w-10">
-                        <label for="dropDownID" class="hidden">Filter</label><select
-                            class="block w-full rounded-lg border border-yellow-500 bg-yellow-50 p-2.5 text-sm text-yellow-900 placeholder-yellow-700 focus:border-yellow-500 focus:ring-yellow-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-yellow-400 dark:bg-yellow-100 dark:focus:border-yellow-500 dark:focus:ring-yellow-500"
+                        <label for="dropDownID" class="hidden">Display</label><select
+                            class="block w-27 rounded-lg border border-yellow-500 bg-yellow-50 p-2.5 text-sm text-yellow-900 placeholder-yellow-700 focus:border-yellow-500 focus:ring-yellow-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-yellow-400 dark:bg-yellow-100 dark:focus:border-yellow-500 dark:focus:ring-yellow-500"
                             id="dropDownID"
-                            ><option>No Filter</option><option>api</option><option>http</option
-                            ><option>rest</option><option>gamedev</option><option>gui</option
-                            ><option>cross-platform</option></select
+                            onchange={(e) => (card_display_mode = e.currentTarget.value)}
+                            ><option value="grid">Grid</option><option value="list">List</option
+                            ></select
                         >
                     </div>
                 </div>
@@ -207,7 +208,11 @@
 {#if $show_default}
     <div>
         <LeftMiniTitle icon={Rocket} name="Recently Released" />
-        <section class="flex w-full flex-wrap justify-evenly">
+        <section
+            class={card_display_mode === 'list'
+                ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
+                : 'flex w-full flex-wrap justify-evenly'}
+        >
             {@html '<!--What!!!! package is a reserved keyword!!!!!!-->'}
             {#each data.top_10_latest_repos as library}
                 <Card
@@ -223,13 +228,19 @@
                     spdx_id={library.license}
                     minimum_zig_version={library.minimum_zig_version}
                     primary_language={library.primary_language}
+                    pushed_at={library.pushed_at}
                     type_of_card="packages-display"
+                    variant={card_display_mode}
                 />
             {/each}
         </section>
 
         <LeftMiniTitle icon={Rocket} name="Most Used" />
-        <section class="flex w-full flex-wrap justify-evenly">
+        <section
+            class={card_display_mode === 'list'
+                ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
+                : 'flex w-full flex-wrap justify-evenly'}
+        >
             {#each data.most_used as library}
                 <Card
                     avatar_url={library.avatar_url}
@@ -244,13 +255,19 @@
                     spdx_id={library.license}
                     minimum_zig_version={library.minimum_zig_version}
                     primary_language={library.primary_language}
+                    pushed_at={library.pushed_at}
                     type_of_card="packages-display"
+                    variant={card_display_mode}
                 />
             {/each}
         </section>
 
         <LeftMiniTitle icon={Rocket} name="Famous Game libs" />
-        <section class="flex w-full flex-wrap justify-evenly">
+        <section
+            class={card_display_mode === 'list'
+                ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
+                : 'flex w-full flex-wrap justify-evenly'}
+        >
             {#each data.games.slice(0, 10) as library}
                 <Card
                     avatar_url={library.avatar_url}
@@ -265,12 +282,18 @@
                     spdx_id={library.license}
                     minimum_zig_version={library.minimum_zig_version}
                     primary_language={library.primary_language}
+                    pushed_at={library.pushed_at}
                     type_of_card="packages-display"
+                    variant={card_display_mode}
                 />
             {/each}
         </section>
         <LeftMiniTitle icon={Rocket} name="Famous Web libs" />
-        <section class="flex w-full flex-wrap justify-evenly">
+        <section
+            class={card_display_mode === 'list'
+                ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
+                : 'flex w-full flex-wrap justify-evenly'}
+        >
             {#each data.web.slice(0, 10) as library}
                 <Card
                     avatar_url={library.avatar_url}
@@ -285,12 +308,18 @@
                     spdx_id={library.license}
                     minimum_zig_version={library.minimum_zig_version}
                     primary_language={library.primary_language}
+                    pushed_at={library.pushed_at}
                     type_of_card="packages-display"
+                    variant={card_display_mode}
                 />
             {/each}
         </section>
         <LeftMiniTitle icon={Rocket} name="Famous GUI libs" />
-        <section class="flex w-full flex-wrap justify-evenly">
+        <section
+            class={card_display_mode === 'list'
+                ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
+                : 'flex w-full flex-wrap justify-evenly'}
+        >
             {#each data.gui.slice(0, 10) as library}
                 <Card
                     avatar_url={library.avatar_url}
@@ -305,7 +334,9 @@
                     spdx_id={library.license}
                     minimum_zig_version={library.minimum_zig_version}
                     primary_language={library.primary_language}
+                    pushed_at={library.pushed_at}
                     type_of_card="packages-display"
+                    variant={card_display_mode}
                 />
             {/each}
         </section>
@@ -319,7 +350,11 @@
             <p class="px-4 text-sm text-gray-600 dark:text-gray-300">
                 {search_total_results} result{search_total_results === 1 ? '' : 's'}
             </p>
-            <section class="flex w-full flex-wrap justify-evenly">
+            <section
+                class={card_display_mode === 'list'
+                    ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
+                    : 'flex w-full flex-wrap justify-evenly'}
+            >
                 {#each $search_results as library}
                     <Card
                         avatar_url={library.avatar_url}
@@ -334,7 +369,9 @@
                         spdx_id={library.license}
                         minimum_zig_version={library.minimum_zig_version}
                         primary_language={library.primary_language}
+                        pushed_at={library.pushed_at}
                         type_of_card="packages-display"
+                        variant={card_display_mode}
                     />
                 {/each}
             </section>
