@@ -340,7 +340,7 @@
                 />
             {/each}
         </section>
-        <Infinite_Scroll thingy="packages" />
+        <Infinite_Scroll thingy="packages" variant={card_display_mode} />
     </div>
 {:else}
     <div class="relative w-full">

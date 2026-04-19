@@ -35,7 +35,11 @@
 </script>
 
 <LeftMiniTitle icon={Rocket} name="View More" />
-<section class="flex w-full flex-wrap justify-evenly">
+<section
+    class={all_props.variant === 'list'
+        ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
+        : 'flex w-full flex-wrap justify-evenly'}
+>
     {@html '<!--What!!!! package is a reserved keyword!!!!!!-->'}
     {#each items as library}
         <Card
@@ -52,6 +56,7 @@
             minimum_zig_version={library.minimum_zig_version}
             primary_language={library.primary_language}
             type_of_card={all_props.thingy === 'programs' ? 'program-display' : 'packages-display'}
+            variant={all_props.variant}
         />
     {/each}
 </section>

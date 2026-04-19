@@ -278,7 +278,7 @@
                 />
             {/each}
         </section>
-        <Infinite_Scroll thingy="programs" />
+        <Infinite_Scroll thingy="programs" variant={show_card_like} />
     </div>
 {:else}
     <div class="relative w-full">
