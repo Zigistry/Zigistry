@@ -31,7 +31,7 @@
                     </li>
                     <li>
                         And congrats! Your library will be added to Zigistry! <span class="italic"
-                            >(Zigistry will register your library in an hour).</span
+                            >(Zigistry will register your library within a day).</span
                         >
                     </li>
                     <li>
