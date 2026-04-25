@@ -1,11 +1,12 @@
 import type { PageLoad } from './$types';
+import { getApiBaseUrl } from '$lib/api';
 
 export const prerender = true;
 
-export const load: PageLoad = async ({ fetch }) => {
+export const load: PageLoad = async ({ fetch, url }) => {
     try {
         const response = await fetch(
-            'https://rohanvashisht-zigistrybackend.hf.space/packageIndexDetails'
+            `${getApiBaseUrl(url.hostname)}/packageIndexDetails`
         );
         const data = await response.json();
 

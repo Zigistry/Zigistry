@@ -1,6 +1,7 @@
 import type { PageLoad } from './$types';
+import { getApiBaseUrl } from '$lib/api';
 
-export const load: PageLoad = async ({ params, fetch }) => {
+export const load: PageLoad = async ({ fetch, url, params }) => {
     const provider_id = params.provider === 'github' ? 'gh' : 'cb';
     const provider = params.provider === 'github' ? 'GitHub' : 'Codeberg';
 
@@ -9,7 +10,7 @@ export const load: PageLoad = async ({ params, fetch }) => {
 
     try {
         const res = await fetch(
-            `https://rohanvashisht-zigistrybackend.hf.space/programs?q=${complete_correct_name}`
+            `${getApiBaseUrl(url.hostname)}/programs?q=${complete_correct_name}`
         );
         const library = await res.json();
 
