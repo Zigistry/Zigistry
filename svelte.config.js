@@ -19,8 +19,8 @@ const config = {
                 'base-uri': ['self'],
                 'form-action': ['self'],
                 'frame-ancestors': ['none'],
-                'frame-src': ['self', https://www.youtube.com', 'https://www.youtube-nocookie.com'],
-                    'upgrade-insecure-requests': true
+                'frame-src': ['self', 'https://www.youtube.com', 'https://www.youtube-nocookie.com'],
+                'upgrade-insecure-requests': true
             }
         },
         prerender: {
