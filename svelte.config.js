@@ -9,9 +9,9 @@ const config = {
         csp: {
             mode: 'hash',
             directives: {
-                'default-src': ['self'],
+                'default-src': ['none'],
                 'script-src': ['self'],
-                'style-src': ['self', 'unsafe-inline'],
+                'style-src': ['self'],
                 'img-src': ['self', 'data:', 'https://avatars.githubusercontent.com', 'https://codeberg.org'],
                 'connect-src': ['self', 'https://raw.githubusercontent.com', 'https://rohanvashisht-zigistrybackend.hf.space', 'https://api.github.com'],
                 'font-src': ['self'],
