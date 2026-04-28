@@ -13,7 +13,7 @@ const config = {
                 'script-src': ['self'],
                 'style-src': ['self', 'unsafe-inline'],
                 'img-src': ['self', 'data:', 'https://avatars.githubusercontent.com', 'https://codeberg.org'],
-                'connect-src': ['self', 'https://rohanvashisht-zigistrybackend.hf.space', 'https://api.github.com', 'http://localhost:*', 'ws://localhost:*'],
+                'connect-src': ['self', 'https://raw.githubusercontent.com', 'https://rohanvashisht-zigistrybackend.hf.space', 'https://api.github.com', 'http://localhost:*', 'ws://localhost:*'],
                 'font-src': ['self'],
                 'object-src': ['none'],
                 'base-uri': ['self'],
