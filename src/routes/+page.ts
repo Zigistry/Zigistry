@@ -5,9 +5,7 @@ export const prerender = true;
 
 export const load: PageLoad = async ({ fetch, url }) => {
     try {
-        const response = await fetch(
-            `${getApiBaseUrl(url.hostname)}/packageIndexDetails`
-        );
+        const response = await fetch(`${getApiBaseUrl(url.hostname)}/packageIndexDetails/`);
         const data = await response.json();
 
         return {
@@ -15,7 +13,8 @@ export const load: PageLoad = async ({ fetch, url }) => {
             most_used: data.most_used || [],
             games: data.games || [],
             gui: data.gui || [],
-            web: data.web || []
+            web: data.web || [],
+            apiBaseUrl: getApiBaseUrl(url.hostname)
         };
     } catch (error) {
         return {
@@ -23,7 +22,8 @@ export const load: PageLoad = async ({ fetch, url }) => {
             most_used: [],
             games: [],
             gui: [],
-            web: []
+            web: [],
+            apiBaseUrl: getApiBaseUrl(url.hostname)
         };
     }
 };

@@ -10,7 +10,7 @@ export const load: PageLoad = async ({ fetch, url, params }) => {
 
     try {
         const res = await fetch(
-            `${getApiBaseUrl(url.hostname)}/programs?q=${complete_correct_name}`
+            `${getApiBaseUrl(url.hostname)}/programs/?q=${complete_correct_name}`
         );
         const library = await res.json();
 

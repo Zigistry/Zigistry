@@ -4,9 +4,7 @@ import { getApiBaseUrl } from '$lib/api';
 export const load: PageLoad = async ({ fetch, url, params: parameters }) => {
     const provider_id = parameters.provider === 'github' ? 'gh' : 'cb';
     const user_query = `${provider_id}/${parameters.name}`;
-    const res = await fetch(
-        `${getApiBaseUrl(url.hostname)}/users/?q=${user_query}`
-    );
+    const res = await fetch(`${getApiBaseUrl(url.hostname)}/users/?q=${user_query}`);
     const owner_data = await res.json();
 
     const avatar_url =

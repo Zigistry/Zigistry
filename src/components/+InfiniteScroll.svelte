@@ -9,10 +9,18 @@
     let items = $state([]);
     let page = $state(1);
 
+    const getApiBaseUrl = (hostname) => {
+        if (hostname === 'localhost' || hostname.includes('localhost:')) {
+            return 'http://localhost:7860';
+        }
+        return 'https://rohanvashisht-zigistrybackend.hf.space';
+    };
+
     async function loadMore() {
+        const hostname = window.location.hostname;
+        const baseUrl = getApiBaseUrl(hostname);
         const data = await fetch(
-            `https://rohanvashisht-zigistrybackend.hf.space/${all_props.thingy}/scroll?` +
-                encodeURI('per_page=10&page=' + page)
+            `${baseUrl}/${all_props.thingy}/scroll/?` + encodeURI('per_page=10&page=' + page)
         );
         const data_res = await data.json();
         items = [...items, ...data_res];

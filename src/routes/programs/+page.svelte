@@ -93,7 +93,7 @@
         }
 
         const result_data = await fetch(
-            'https://rohanvashisht-zigistrybackend.hf.space/search/programs?' +
+            `${data.apiBaseUrl || 'https://rohanvashisht-zigistrybackend.hf.space'}/search/programs/?` +
                 new URLSearchParams({
                     q: what_person_wants_to_search,
                     page: String(page),
