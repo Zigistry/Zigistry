@@ -92,7 +92,7 @@
         }
 
         const result_data = await fetch(
-            `${data.apiBaseUrl || 'https://rohanvashisht-zigistrybackend.hf.space'}/search/packages/?` +
+            `${data.apiBaseUrl || 'https://zigistry-backend.hf.space'}/search/packages/?` +
                 new URLSearchParams({
                     q: active_query,
                     page: String(page),

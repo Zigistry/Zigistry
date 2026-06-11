@@ -11,7 +11,7 @@ const directives_release = {
     'connect-src': [
         '*',
         'https://raw.githubusercontent.com',
-        'https://rohanvashisht-zigistrybackend.hf.space',
+        'https://zigistry-backend.hf.space',
         'https://api.github.com',
         'http://localhost:7860'
     ],

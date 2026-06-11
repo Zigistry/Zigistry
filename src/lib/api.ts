@@ -1,6 +1,15 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://rohanvashisht-zigistrybackend.hf.space';
+const FALLBACK_URL = 'https://zigistry-backend.hf.space';
+
+function resolveUrl(): string {
+    if (import.meta.env.VITE_API_BASE_URL) {
+        return import.meta.env.VITE_API_BASE_URL;
+    }
+    return FALLBACK_URL;
+}
+
+const BASE_URL = resolveUrl();
 
 export const api = axios.create({
     baseURL: BASE_URL,
@@ -16,8 +25,11 @@ export const endpoints = {
 };
 
 export const getApiBaseUrl = (hostname: string) => {
+    if (import.meta.env.VITE_API_BASE_URL) {
+        return import.meta.env.VITE_API_BASE_URL;
+    }
     if (hostname === 'localhost' || hostname.includes('localhost:')) {
         return 'http://localhost:7860';
     }
-    return BASE_URL;
+    return FALLBACK_URL;
 };

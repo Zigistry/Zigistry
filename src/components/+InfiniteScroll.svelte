@@ -10,10 +10,13 @@
     let page = $state(1);
 
     const getApiBaseUrl = (hostname) => {
+        if (import.meta.env.VITE_API_BASE_URL) {
+            return import.meta.env.VITE_API_BASE_URL;
+        }
         if (hostname === 'localhost' || hostname.includes('localhost:')) {
             return 'http://localhost:7860';
         }
-        return 'https://rohanvashisht-zigistrybackend.hf.space';
+        return 'https://zigistry-backend.hf.space';
     };
 
     async function loadMore() {
