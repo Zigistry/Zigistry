@@ -10,12 +10,14 @@ export const load: PageLoad = async ({ fetch, url }) => {
 
         return {
             top_10_latest_repos: data.latest || [],
+            recently_updated: data.recently_updated || [],
             most_used: data.most_used || [],
             apiBaseUrl: getApiBaseUrl(url.hostname)
         };
     } catch (error) {
         return {
             top_10_latest_repos: [],
+            recently_updated: [],
             most_used: [],
             apiBaseUrl: getApiBaseUrl(url.hostname)
         };

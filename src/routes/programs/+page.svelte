@@ -252,6 +252,33 @@
             {/each}
         </section>
 
+        <LeftMiniTitle icon={Rocket} name="Recently Updated" />
+        <section
+            class={show_card_like === 'list'
+                ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
+                : 'flex w-full flex-wrap justify-evenly'}
+        >
+            {#each data.recently_updated as library}
+                <Card
+                    avatar_url={library.avatar_url}
+                    owner_name={library.owner_name}
+                    repo_name={library.repo_name}
+                    stars={library.stargazer_count}
+                    description={library.description}
+                    watchers={library.watchers_count}
+                    forks={library.fork_count}
+                    issues={library.issues_count}
+                    provider={library.provider}
+                    spdx_id={library.license}
+                    minimum_zig_version={library.minimum_zig_version}
+                    primary_language={library.primary_language}
+                    pushed_at={library.pushed_at}
+                    type_of_card="program-display"
+                    variant={show_card_like}
+                />
+            {/each}
+        </section>
+
         <LeftMiniTitle icon={Rocket} name="Most Used" />
         <section
             class={show_card_like === 'list'
