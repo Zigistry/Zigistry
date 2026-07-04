@@ -19,12 +19,16 @@
         "@sveltejs/adapter-cloudflare": "^7.2.8",
         "@sveltejs/adapter-cloudflare-workers": "^2.9.0",
         "@sveltejs/adapter-static": "^3.0.10",
+        "asciidoctor": "^4.0.1",
         "axios": "^1.16.1",
         "dompurify": "^3.4.3",
         "flowbite": "^4.0.2",
         "flowbite-svelte": "^1.33.1",
         "javascript-time-ago": "^2.6.4",
-        "marked": "^17.0.6"
+        "marked": "^17.0.6",
+        "org": "^0.2.0",
+        "rst-compiler": "^0.5.9",
+        "textile-js": "^2.1.1"
     },
     "devDependencies": {
         "@eslint/compat": "^1.4.1",

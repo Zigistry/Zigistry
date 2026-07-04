@@ -6,9 +6,15 @@
     import DependencyCard from './+dependencyCard.svelte';
     import DOMPurify from 'dompurify';
     import { marked } from 'marked';
+    import { convert as asciidoctorConvert } from 'asciidoctor';
+    import { RstToHtmlCompiler } from 'rst-compiler';
+    import orgPkg from 'org';
+    import textile from 'textile-js';
     import { onMount } from 'svelte';
     import LeftMiniTitle from './+LeftMiniTitle.svelte';
     import { Heading4Icon, InfoIcon } from '@lucide/svelte';
+
+    const { Parser: OrgParser, ConverterHTML: OrgConverterHTML } = orgPkg;
 
     const data = $props();
     const provider_id = data.provider_id;
@@ -43,26 +49,78 @@
 
     TimeAgo.addLocale(en);
     let readme_text_html_content = $state('');
-    function get_readme_contents() {
+
+    const rstCompiler = new RstToHtmlCompiler();
+    const orgParser = new OrgParser();
+
+    const README_EXTENSION_MAP = [
+        ['.adoc', 'asciidoc'],
+        ['.asciidoc', 'asciidoc'],
+        ['.asc', 'asciidoc'],
+        ['.rst', 'rst'],
+        ['.org', 'org'],
+        ['.textile', 'textile'],
+        ['.rdoc', 'rdoc'],
+        ['.creole', 'creole'],
+        ['.mediawiki', 'mediawiki'],
+        ['.wiki', 'mediawiki'],
+        ['.pod', 'pod']
+    ];
+
+    function get_the_readme_format(url) {
+        const path = new URL(url).pathname.toLowerCase();
+        for (const [ext, fmt] of README_EXTENSION_MAP) {
+            if (path.endsWith(ext)) return fmt;
+        }
+        return 'markdown';
+    }
+
+    async function renderReadme(content, format) {
+        switch (format) {
+            case 'asciidoc':
+                return asciidoctorConvert(content);
+            case 'rst': {
+                const parseResult = rstCompiler.parse(content);
+                const result = rstCompiler.generate({
+                    basePath: '/',
+                    currentDocPath: 'readme',
+                    docs: [{ docPath: 'readme', parserOutput: parseResult }]
+                });
+                return result.body;
+            }
+            case 'org': {
+                const doc = orgParser.parse(content);
+                const htmlDoc = doc.convert(OrgConverterHTML, {
+                    headerOffset: 1,
+                    exportFromLineNumber: false,
+                    suppressSubScriptHandling: false,
+                    suppressAutoLink: false
+                });
+                return htmlDoc.toString();
+            }
+            case 'textile':
+                return textile(content);
+            default:
+                return marked(content).toString();
+        }
+    }
+
+    async function get_readme_contents() {
         if (!data.readme_url) {
             readme_text_html_content = 'No readme available.';
             return;
         }
-        fetch(data.readme_url)
-            .then((response) => {
-                if (response.ok) {
-                    return response.text();
-                } else {
-                    throw new Error('Network response was not ok');
-                }
-            })
-            .then((data) => {
-                readme_text_html_content = marked(DOMPurify.sanitize(data)).toString();
-            })
-            .catch((error) => {
-                console.error('There has been a problem with your fetch operation:', error);
-                readme_text_html_content = 'No readme available.';
-            });
+        try {
+            const response = await fetch(data.readme_url);
+            if (!response.ok) throw new Error('Network response was not ok');
+            const text = await response.text();
+            const format = get_the_readme_format(data.readme_url);
+            const html = await renderReadme(text, format);
+            readme_text_html_content = DOMPurify.sanitize(html);
+        } catch (error) {
+            console.error('Error fetching/rendering readme:', error);
+            readme_text_html_content = 'No readme available.';
+        }
     }
 
     const timeAgo = new TimeAgo('en-US');
