@@ -35,8 +35,9 @@
         owner_name={data_from_api.library.owner_name}
         repo_name={data_from_api.library.repo_name}
         avatar_id={data_from_api.library.avatar_id}
-        stars_count={data_from_api.library.stars_count}
+        stars_count={data_from_api.library.stargazer_count}
         description={data_from_api.library.description}
+        watchers_count={data_from_api.library.watchers_count}
         forks_count={data_from_api.library.forks_count}
         issues_count={data_from_api.library.issues_count}
         license={data_from_api.library.license}

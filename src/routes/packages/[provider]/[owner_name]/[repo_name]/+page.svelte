@@ -35,8 +35,9 @@
         owner_name={data_from_api_csr_thingy.library.owner_name}
         repo_name={data_from_api_csr_thingy.library.repo_name}
         avatar_id={data_from_api_csr_thingy.library.avatar_id}
-        stars_count={data_from_api_csr_thingy.library.stars_count}
+        stars_count={data_from_api_csr_thingy.library.stargazer_count}
         description={data_from_api_csr_thingy.library.description}
+        watchers_count={data_from_api_csr_thingy.library.watchers_count}
         forks_count={data_from_api_csr_thingy.library.forks_count}
         issues_count={data_from_api_csr_thingy.library.issues_count}
         license={data_from_api_csr_thingy.library.license}

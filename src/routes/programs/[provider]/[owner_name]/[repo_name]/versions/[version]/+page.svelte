@@ -33,8 +33,9 @@
         owner_name={data.library.owner_name}
         repo_name={data.library.repo_name}
         avatar_id={data.library.avatar_id}
-        stars_count={data.library.stars_count}
+        stars_count={data.library.stargazer_count}
         description={data.library.description}
+        watchers_count={data.library.watchers_count}
         forks_count={data.library.forks_count}
         issues_count={data.library.issues_count}
         license={data.library.license}
