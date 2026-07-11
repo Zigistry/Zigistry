@@ -6,10 +6,14 @@
         Github,
         Eye,
         GitFork,
-        CircleDotDashed
+        CircleDotDashed,
+        Clock,
+        Scale,
+        Package
     } from '@lucide/svelte';
     import TimeAgo from 'javascript-time-ago';
     import en from 'javascript-time-ago/locale/en';
+
 
     let props = $props();
 
@@ -253,20 +257,27 @@
                     {/if}
                 </span>
             </p>
-            <div class="flex space-x-3">
-                <span
-                    class="mt-1 flex h-fit w-fit items-center gap-1 rounded border border-slate-200 bg-white p-1 px-2 py-0.5 text-xs font-semibold dark:border-none dark:bg-slate-600"
-                >
-                    <span>{props.minimum_zig_version}</span>
-                </span><span
-                    class="mt-1 flex h-fit w-fit items-center gap-1 rounded border border-slate-200 bg-white p-1 px-2 py-0.5 text-xs font-semibold dark:border-none dark:bg-slate-600"
-                    ><span>{props.spdx_id}</span></span
-                >
+            <div class="flex flex-wrap gap-1.5">
+                <span class="flex h-5 items-center rounded-full bg-slate-100 dark:bg-slate-700">
+                    <span class="flex h-full items-center rounded-full bg-slate-200 px-1.5 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                        <Package size={10} />
+                    </span>
+                    <span class="px-1.5 text-xs font-medium text-slate-700 dark:text-slate-300">{props.minimum_zig_version}</span>
+                </span>
+
+                <span class="flex h-5 items-center rounded-full bg-emerald-100 dark:bg-emerald-900/40">
+                    <span class="flex h-full items-center rounded-full bg-emerald-200 px-1.5 text-emerald-700 dark:bg-emerald-800 dark:text-emerald-300">
+                        <Scale size={10} />
+                    </span>
+                    <span class="px-1.5 text-xs font-medium text-emerald-700 dark:text-emerald-300">{props.spdx_id}</span>
+                </span>
+
                 {#if props.pushed_at}
-                    <span
-                        class="mt-1 flex h-fit w-fit items-center gap-1 rounded border border-slate-200 bg-white p-1 px-2 py-0.5 text-xs font-semibold dark:border-none dark:bg-slate-600"
-                    >
-                        <span>{timeAgo.format(new Date(props.pushed_at))}</span>
+                    <span class="flex h-5 items-center rounded-full bg-sky-100 dark:bg-sky-900/40">
+                        <span class="flex h-full items-center rounded-full bg-sky-200 px-1.5 text-sky-700 dark:bg-sky-800 dark:text-sky-300">
+                            <Clock size={10} />
+                        </span>
+                        <span class="px-1.5 text-xs font-medium text-sky-700 dark:text-sky-300">{timeAgo.format(new Date(props.pushed_at))}</span>
                     </span>
                 {/if}
             </div>
