@@ -25,6 +25,7 @@ jobs:
 
             - name: Compile and run yaml generator
               run: | 
+                    sudo apt update && sudo apt install libsqlite3-dev
                     git clone https://github.com/Zigistry/dictionary-and-yaml-creator.git
                     cd ./dictionary-and-yaml-creator/
                     gcc ./main.c 
