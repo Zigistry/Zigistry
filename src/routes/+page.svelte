@@ -5,7 +5,7 @@
     import Card from '../components/+card.svelte';
     import Infinite_Scroll from '../components/+InfiniteScroll.svelte';
     import SearchSortSidebar from '../components/+SearchSortSidebar.svelte';
-    import { Rocket } from '@lucide/svelte';
+    import { Rocket, CircleFadingArrowUp, Gamepad2, Star, Globe, AppWindow } from '@lucide/svelte';
     import { P, PaginationNav } from 'flowbite-svelte';
 
     import { search_results, show_default, search_query } from '$lib/stores';
@@ -235,7 +235,7 @@
             {/each}
         </section>
 
-        <LeftMiniTitle icon={Rocket} name="Recently Updated" />
+        <LeftMiniTitle icon={CircleFadingArrowUp} name="Recently Updated" />
         <section
             class={card_display_mode === 'list'
                 ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
@@ -262,7 +262,7 @@
             {/each}
         </section>
 
-        <LeftMiniTitle icon={Rocket} name="Most Used" />
+        <LeftMiniTitle icon={Star} name="Most Used" />
         <section
             class={card_display_mode === 'list'
                 ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
@@ -289,7 +289,7 @@
             {/each}
         </section>
 
-        <LeftMiniTitle icon={Rocket} name="Famous Game libs" />
+        <LeftMiniTitle icon={Gamepad2} name="Famous Game libs" />
         <section
             class={card_display_mode === 'list'
                 ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
@@ -315,7 +315,7 @@
                 />
             {/each}
         </section>
-        <LeftMiniTitle icon={Rocket} name="Famous Web libs" />
+        <LeftMiniTitle icon={Globe} name="Famous Web libs" />
         <section
             class={card_display_mode === 'list'
                 ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
@@ -341,7 +341,7 @@
                 />
             {/each}
         </section>
-        <LeftMiniTitle icon={Rocket} name="Famous GUI libs" />
+        <LeftMiniTitle icon={AppWindow} name="Famous GUI libs" />
         <section
             class={card_display_mode === 'list'
                 ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'

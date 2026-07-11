@@ -2,7 +2,7 @@
     import { onMount, onDestroy } from 'svelte';
     import LeftMiniTitle from '../components/+LeftMiniTitle.svelte';
     import Card from '../components/+card.svelte';
-    import { Rocket } from '@lucide/svelte';
+    import { GalleryVertical } from '@lucide/svelte';
     let all_props = $props();
     let listElement;
 
@@ -45,7 +45,7 @@
     });
 </script>
 
-<LeftMiniTitle icon={Rocket} name="View More" />
+<LeftMiniTitle icon={GalleryVertical} name="View More" />
 <section
     class={all_props.variant === 'list'
         ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'

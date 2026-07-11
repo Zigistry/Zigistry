@@ -12,7 +12,7 @@
     import textile from 'textile-js';
     import { onMount } from 'svelte';
     import LeftMiniTitle from './+LeftMiniTitle.svelte';
-    import { Heading4Icon, InfoIcon } from '@lucide/svelte';
+    import { Heading4Icon, InfoIcon, Folder, File } from '@lucide/svelte';
 
     const { Parser: OrgParser, ConverterHTML: OrgConverterHTML } = orgPkg;
 
@@ -24,6 +24,15 @@
     const LATEST_UNSTABLE_OPTION = '__ZIGISTRY__LATEST__UNSTABLE__'; // this is just for the ui, not an actual value from db.
 
     const library_r = Array.isArray(data.releases) ? data.releases : [];
+
+    const project_structure = $derived.by(() => {
+        const raw = data.directory_files;
+        if (!raw || typeof raw !== 'string') return { directories: [], files: [] };
+        const parts = raw.split('\n\n');
+        const directories = parts[0] ? parts[0].split('\n').filter(Boolean) : [];
+        const files = parts[1] ? parts[1].split('\n').filter(Boolean) : [];
+        return { directories, files };
+    });
     const versions_to_show = Array.from(
         new Set(library_r.filter((release_name) => release_name !== DEFAULT_BRANCH_VERSION))
     );
@@ -273,6 +282,42 @@
                             {/each}
                         {/if}
                     </div>
+                </div>
+            </TabItem>
+        {/if}
+        {#if data.directory_files}
+            <TabItem
+                title={'Project Structure: ' + (project_structure.directories.length + project_structure.files.length)}
+                class="w-full"
+            >
+                <div
+                    class="m-0 rounded-lg bg-white p-3 shadow-lg shadow-black sm:rounded-xl sm:p-6 dark:bg-[#1e1e1e]"
+                >
+                    <h2
+                        class="mb-3 border-b border-gray-300 pb-2 text-xl font-bold text-black sm:mb-4 sm:text-2xl dark:border-yellow-500 dark:text-white"
+                    >
+                        Project Structure
+                    </h2>
+                    <ul
+                        class="space-y-1 font-mono text-sm text-black dark:text-gray-400"
+                    >
+                        {#if project_structure.directories.length > 0}
+                            {#each project_structure.directories as dir}
+                                <li class="flex items-center gap-2">
+                                    <Folder class="text-blue-500" size={16} />
+                                    {dir}/
+                                </li>
+                            {/each}
+                        {/if}
+                        {#if project_structure.files.length > 0}
+                            {#each project_structure.files as file}
+                                <li class="flex items-center gap-2">
+                                    <File class="text-yellow-500" size={16} />
+                                    {file}
+                                </li>
+                            {/each}
+                        {/if}
+                    </ul>
                 </div>
             </TabItem>
         {/if}

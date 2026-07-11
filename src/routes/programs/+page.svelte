@@ -5,7 +5,7 @@
     import Card from '../../components/+card.svelte';
     import Infinite_Scroll from '../../components/+InfiniteScroll.svelte';
     import SearchSortSidebar from '../../components/+SearchSortSidebar.svelte';
-    import { Rocket } from '@lucide/svelte';
+    import { Rocket, CircleFadingArrowUp, Star } from '@lucide/svelte';
     import { P, PaginationNav } from 'flowbite-svelte';
     import { create_url_search_part, get_search_parameters_from_url } from '$lib/search-share';
 
@@ -252,7 +252,7 @@
             {/each}
         </section>
 
-        <LeftMiniTitle icon={Rocket} name="Recently Updated" />
+        <LeftMiniTitle icon={CircleFadingArrowUp} name="Recently Updated" />
         <section
             class={show_card_like === 'list'
                 ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
@@ -279,7 +279,7 @@
             {/each}
         </section>
 
-        <LeftMiniTitle icon={Rocket} name="Most Used" />
+        <LeftMiniTitle icon={Star} name="Most Used" />
         <section
             class={show_card_like === 'list'
                 ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'

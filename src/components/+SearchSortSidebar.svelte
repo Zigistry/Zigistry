@@ -26,12 +26,13 @@
     >
         <X size={20} />
     </button>
-    <h2
-        class="cursor-pointer border-r-2 border-r-[#faca15] bg-gray-100 py-3 text-center text-lg font-semibold text-gray-900 hover:bg-gray-100 dark:bg-[#1e1e1e] dark:text-white dark:hover:bg-gray-700"
+    <button
+        type="button"
+        class="w-full cursor-pointer border-r-2 border-r-[#faca15] bg-gray-100 py-3 text-center text-lg font-semibold text-gray-900 hover:bg-gray-100 dark:bg-[#1e1e1e] dark:text-white dark:hover:bg-gray-700"
         onclick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
     >
         Go to top
-    </h2>
+    </button>
     <div
         class="h-full overflow-y-auto border-r-2 border-r-[#faca15] bg-white px-3 py-4 dark:bg-[#1e1e1e]"
     >

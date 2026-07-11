@@ -45,6 +45,7 @@
         published_date={data_from_api_csr_thingy.library.pushed_at}
         dependents={data_from_api_csr_thingy.library.dependents}
         dependencies={data_from_api_csr_thingy.library.dependencies}
+        directory_files={data_from_api_csr_thingy.library.directory_files}
     />
 {:else}
     <div class="flex h-screen items-center justify-center">

@@ -43,6 +43,7 @@
         published_date={data.library.pushed_at}
         dependents={[]}
         dependencies={data.library.dependencies}
+        directory_files={data.library.directory_files}
     />
 {:else}
     <div class="flex h-screen items-center justify-center">
