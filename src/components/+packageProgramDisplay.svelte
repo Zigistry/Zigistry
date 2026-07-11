@@ -36,7 +36,11 @@
     const versions_to_show = Array.from(
         new Set(library_r.filter((release_name) => release_name !== DEFAULT_BRANCH_VERSION))
     );
-    const repository_git_url = `https://${provider_id === 'gh' ? 'github.com' : 'codeberg.org'}/${data.owner_name}/${data.repo_name}.git`;
+    const repository_web_url = `https://${provider_id === 'gh' ? 'github.com' : 'codeberg.org'}/${data.owner_name}/${data.repo_name}`;
+    const repository_git_url = `${repository_web_url}.git`;
+    const tree_ref = $derived(data.current_version_tag || data.default_branch_name || 'main');
+    const dir_url_prefix = $derived(provider_id === 'gh' ? `${repository_web_url}/tree/${tree_ref}` : `${repository_web_url}/src/branch/${tree_ref}`);
+    const file_url_prefix = $derived(provider_id === 'gh' ? `${repository_web_url}/blob/${tree_ref}` : `${repository_web_url}/src/branch/${tree_ref}`);
     const default_selected_release = $derived(
         route_thingy === 'packages'
             ? typeof data.current_version_tag === 'string' &&
@@ -211,7 +215,7 @@
         </div>
     {/if}
 
-    <Tabs tabStyle="full" class="mt-4 dark:bg-[#1e1e1e]">
+    <Tabs tabStyle="full" class="mt-4 dark:bg-[#1e1e1e] max-sm:grid max-sm:grid-cols-2 max-sm:gap-1 max-sm:space-x-0">
         <TabItem open title="Readme" class="w-full">
             <div
                 class="rounded-lg bg-white p-3 shadow-lg shadow-black sm:rounded-lg sm:p-6 dark:bg-[#1e1e1e]"
@@ -305,7 +309,13 @@
                             {#each project_structure.directories as dir}
                                 <li class="flex items-center gap-2">
                                     <Folder class="text-blue-500" size={16} />
-                                    {dir}/
+                                    <a
+                                        href="{dir_url_prefix}/{dir}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="hover:underline"
+                                        >{dir}/</a
+                                    >
                                 </li>
                             {/each}
                         {/if}
@@ -313,7 +323,13 @@
                             {#each project_structure.files as file}
                                 <li class="flex items-center gap-2">
                                     <File class="text-yellow-500" size={16} />
-                                    {file}
+                                    <a
+                                        href="{file_url_prefix}/{file}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="hover:underline"
+                                        >{file}</a
+                                    >
                                 </li>
                             {/each}
                         {/if}
@@ -399,3 +415,5 @@
         </TabItem>
     </Tabs>
 </div>
+
+

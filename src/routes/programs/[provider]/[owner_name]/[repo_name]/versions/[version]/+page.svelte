@@ -26,6 +26,7 @@
         route_thingy="programs"
         show_dependents={false}
         provider_id={data.provider_id}
+        default_branch_name={data.library.default_branch_name}
         readme_url={data.library.readme_url}
         version_name={data.version + ' version'}
         releases={data.library.releases}
