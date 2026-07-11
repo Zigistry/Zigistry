@@ -25,13 +25,8 @@
                     </li>
                     <!-- Important! Then create any commit and push. -->
                     <li>
-                        <strong class="text-slate-600 dark:text-slate-400"> Important!</strong> Once
-                        you have completed the steps above, your repository will be indexed
-                        <u>on your next push</u>.
-                    </li>
-                    <li>
-                        And congrats! Your library will be added to Zigistry! <span class="italic"
-                            >(Zigistry will register your library within a day).</span
+                        And congrats! in a couple of hours, your library will be added to Zigistry! <span
+                            class="italic">(Zigistry will register your library within a day).</span
                         >
                     </li>
                     <li>

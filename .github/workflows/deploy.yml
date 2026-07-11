@@ -23,7 +23,15 @@ jobs:
               with:
                   bun-version: latest
 
-            - name: install dependenciess
+            - name: Compile and run yaml generator
+              run: | 
+                    git clone https://github.com/Zigistry/dictionary-and-yaml-creator.git
+                    cd ./dictionary-and-yaml-creator/
+                    gcc ./main.c 
+                    ./a.out
+                    cp ./sitemap.xml ../static/
+                    
+            - name: install dependencies
               run: bun install
 
             - name: build

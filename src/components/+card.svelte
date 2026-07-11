@@ -284,54 +284,26 @@
             <p class="font-normal text-gray-700 dark:text-gray-400">
                 {props.description}
             </p>
-            <div class="flex items-center">
-                <Star
-                    class="mr-1 text-[#cfbc0e]"
-                    stroke="currentColor"
-                    fill="currentColor"
-                    stroke-width="0"
-                    viewBox="-5 -5 30 30"
-                    color="#cfbc0e"
-                    height="10"
-                    width="10"
-                ></Star>{props.stars}<Eye
-                    class="mr-1 ml-2 text-[skyblue]"
-                    stroke="currentColor"
-                    stroke-width="0"
-                    color="skyblue"
-                    viewBox="0 0 24 24"
-                    height="20"
-                    width="20"
-                ></Eye>{props.watchers}<GitFork
-                    class="mr-1 ml-2 text-[lightpink]"
-                    stroke="currentColor"
-                    stroke-width="0"
-                    viewBox="0 0 24 24"
-                    color="lightpink"
-                    height="20"
-                    width="20"
-                ></GitFork>0<CircleDotDashed
-                    class="mr-1 ml-2 text-[lightgreen]"
-                    stroke="currentColor"
-                    stroke-width="0"
-                    viewBox="0 0 24 24"
-                    color="lightgreen"
-                    height="18"
-                    width="18">{props.forks}</CircleDotDashed
-                >{props.issues}
-                <div
-                    tabindex="-1"
-                    class="invisible absolute top-[211.993px] left-[134.169px] z-10 mr-1 ml-2 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700"
-                    id=":r0Rkq2a:"
-                    role="tooltip"
-                >
-                    <div class="relative z-20">docker,oci,zig,zig-package</div>
-                    <div
-                        class="absolute -bottom-1 left-16.75 z-10 h-2 w-2 rotate-45 bg-gray-900 dark:bg-gray-700"
-                    >
-                        &nbsp;
-                    </div>
-                </div>
+            <div class="flex h-7 w-full items-center overflow-hidden rounded-full bg-gray-100 text-sm font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+                <span class="flex h-full flex-1 items-center justify-center bg-amber-50 dark:bg-amber-950/30">
+                    <Star size={12} class="text-amber-500" fill="currentColor" stroke="none" />
+                </span>
+                <span class="flex-1 text-center">{props.stars.toLocaleString()}</span>
+                <span class="h-4 w-px bg-gray-300 dark:bg-gray-600"></span>
+                <span class="flex h-full flex-1 items-center justify-center bg-sky-50 dark:bg-sky-950/30">
+                    <Eye size={12} class="text-sky-500" />
+                </span>
+                <span class="flex-1 text-center">{props.watchers}</span>
+                <span class="h-4 w-px bg-gray-300 dark:bg-gray-600"></span>
+                <span class="flex h-full flex-1 items-center justify-center bg-pink-50 dark:bg-pink-950/30">
+                    <GitFork size={12} class="text-pink-500" />
+                </span>
+                <span class="flex-1 text-center">{props.forks}</span>
+                <span class="h-4 w-px bg-gray-300 dark:bg-gray-600"></span>
+                <span class="flex h-full flex-1 items-center justify-center bg-green-50 dark:bg-green-950/30">
+                    <CircleDotDashed size={12} class="text-green-500" />
+                </span>
+                <span class="flex-1 text-center">{props.issues}</span>
             </div>
             <div class="flex"></div>
             {#if props.type_of_card === 'packages-display'}
