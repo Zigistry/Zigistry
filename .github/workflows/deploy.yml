@@ -40,6 +40,7 @@ jobs:
               run: |
                     git clone https://github.com/Zigistry/dependency-dependent-graph.git
                     cd ./dependency-dependent-graph
+                    wget -O ./zigistry.db https://huggingface.co/buckets/Zigistry/Zigistry/resolve/zigistry.db?download=true
                     uv sync
                     uv run ./main.py
                     
