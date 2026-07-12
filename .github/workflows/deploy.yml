@@ -43,6 +43,7 @@ jobs:
                     wget -O ./zigistry.db https://huggingface.co/buckets/Zigistry/Zigistry/resolve/zigistry.db?download=true
                     uv sync
                     uv run ./main.py
+                    cp ./graph.html ../static/dependency-graph.html
                     
             - name: install dependencies
               run: bun install
