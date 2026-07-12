@@ -23,6 +23,10 @@ jobs:
               with:
                   bun-version: latest
 
+            - name: Install UV
+              # https://docs.astral.sh/uv/guides/integration/github/#setting-up-python
+              uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b
+
             - name: Compile and run yaml generator
               run: | 
                     sudo apt update && sudo apt install libsqlite3-dev
@@ -32,6 +36,12 @@ jobs:
                     wget -O ./zigistry.db https://huggingface.co/buckets/Zigistry/Zigistry/resolve/zigistry.db?download=true
                     ./a.out
                     cp ./sitemap.xml ../static/
+            - name: run the dependence dependencies
+              run: |
+                    git clone https://github.com/Zigistry/dependency-dependent-graph.git
+                    cd ./dependency-dependent-graph
+                    uv sync
+                    uv run ./main.py
                     
             - name: install dependencies
               run: bun install
