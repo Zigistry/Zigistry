@@ -5,6 +5,7 @@
     import Card from '../components/+card.svelte';
     import Infinite_Scroll from '../components/+InfiniteScroll.svelte';
     import SearchSortSidebar from '../components/+SearchSortSidebar.svelte';
+    import ViewMoreBulge from '../components/+ViewMoreBulge.svelte';
     import { Rocket, CircleFadingArrowUp, Gamepad2, Star, Globe, AppWindow } from '@lucide/svelte';
     import { P, PaginationNav } from 'flowbite-svelte';
 
@@ -234,6 +235,7 @@
                 />
             {/each}
         </section>
+        <ViewMoreBulge href="/" label="View More Recently Released" />
 
         <LeftMiniTitle icon={CircleFadingArrowUp} name="Recently Updated" />
         <section
@@ -261,6 +263,7 @@
                 />
             {/each}
         </section>
+        <ViewMoreBulge href="/" label="View More Recently Updated" />
 
         <LeftMiniTitle icon={Star} name="Most Used" />
         <section
@@ -288,6 +291,7 @@
                 />
             {/each}
         </section>
+        <ViewMoreBulge href="/" label="View More Most Used" />
 
         <LeftMiniTitle icon={Gamepad2} name="Famous Game libs" />
         <section
@@ -315,6 +319,8 @@
                 />
             {/each}
         </section>
+        <ViewMoreBulge href="/" label="View More Game Libs" />
+
         <LeftMiniTitle icon={Globe} name="Famous Web libs" />
         <section
             class={card_display_mode === 'list'
@@ -341,6 +347,8 @@
                 />
             {/each}
         </section>
+        <ViewMoreBulge href="/" label="View More Web Libs" />
+
         <LeftMiniTitle icon={AppWindow} name="Famous GUI libs" />
         <section
             class={card_display_mode === 'list'
@@ -367,6 +375,7 @@
                 />
             {/each}
         </section>
+        <ViewMoreBulge href="/" label="View More GUI Libs" />
         <Infinite_Scroll thingy="packages" variant={card_display_mode} />
     </div>
 {:else}

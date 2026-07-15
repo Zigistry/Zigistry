@@ -5,6 +5,7 @@
     import Card from '../../components/+card.svelte';
     import Infinite_Scroll from '../../components/+InfiniteScroll.svelte';
     import SearchSortSidebar from '../../components/+SearchSortSidebar.svelte';
+    import ViewMoreBulge from '../../components/+ViewMoreBulge.svelte';
     import { Rocket, CircleFadingArrowUp, Star } from '@lucide/svelte';
     import { P, PaginationNav } from 'flowbite-svelte';
     import { create_url_search_part, get_search_parameters_from_url } from '$lib/search-share';
@@ -251,6 +252,7 @@
                 />
             {/each}
         </section>
+        <ViewMoreBulge href="/programs" label="View More Recently Released" />
 
         <LeftMiniTitle icon={CircleFadingArrowUp} name="Recently Updated" />
         <section
@@ -278,6 +280,7 @@
                 />
             {/each}
         </section>
+        <ViewMoreBulge href="/programs" label="View More Recently Updated" />
 
         <LeftMiniTitle icon={Star} name="Most Used" />
         <section
@@ -305,6 +308,7 @@
                 />
             {/each}
         </section>
+        <ViewMoreBulge href="/programs" label="View More Most Used" />
         <Infinite_Scroll thingy="programs" variant={show_card_like} />
     </div>
 {:else}
