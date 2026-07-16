@@ -2,7 +2,6 @@
     import { onMount } from 'svelte';
     import './layout.css';
     import favicon from '$lib/assets/favicon.ico';
-    import { search_results, show_default, search_query } from '$lib/stores';
     let { children } = $props();
 
     let isDarkTheme = $state(false);
@@ -47,11 +46,6 @@
     <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between p-3">
         <a
             href="/"
-            onclick={() => {
-                $search_results = [];
-                $show_default = true;
-                $search_query = '';
-            }}
             ><span class="self-center text-2xl font-extrabold whitespace-nowrap dark:text-white"
                 ><span class="text-amber-600 dark:text-yellow-300">Zig</span>istry</span
             ></a

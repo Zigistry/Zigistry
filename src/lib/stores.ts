@@ -1,5 +1,2 @@
-import { writable } from 'svelte/store';
-
-export const search_query = writable('');
-export const search_results = writable<any[]>([]);
-export const show_default = writable(true);
+// Now that I am using # in the url, I really don't need
+// writeable in this.

@@ -1,170 +1,23 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
+    import { goto } from '$app/navigation';
     import type { PageData } from './$types';
     import LeftMiniTitle from '../components/+LeftMiniTitle.svelte';
     import Card from '../components/+card.svelte';
     import Infinite_Scroll from '../components/+InfiniteScroll.svelte';
-    import SearchSortSidebar from '../components/+SearchSortSidebar.svelte';
     import ViewMoreBulge from '../components/+ViewMoreBulge.svelte';
     import { Rocket, CircleFadingArrowUp, Gamepad2, Star, Globe, AppWindow } from '@lucide/svelte';
-    import { P, PaginationNav } from 'flowbite-svelte';
-
-    import { search_results, show_default, search_query } from '$lib/stores';
-    import { create_url_search_part, get_search_parameters_from_url } from '$lib/search-share';
 
     let { data }: { data: PageData } = $props();
-    let original_results: any[] = [];
-    const MAXIMUM_SEARCH_ALLOWED_PER_PAGE = 12;
-    let current_search_page = $state(1);
-    let search_total_pages = $state(0);
-    let search_total_results = $state(0);
-    let active_sort_kind_of_filter = $state('intelligent');
+    let search_query = $state('');
     let card_display_mode = $state('grid');
 
-    function get_sorted_results(results: any[], kind_of_filter: string) {
-        if (kind_of_filter === 'intelligent') {
-            return [...results];
-        }
-
-        return [...results].sort((a, b) => {
-            switch (kind_of_filter) {
-                case 'stars':
-                    return (b.stargazer_count || 0) - (a.stargazer_count || 0);
-                case 'dependents':
-                    return (b.dependents_count || 0) - (a.dependents_count || 0);
-                case 'recently_updated':
-                    return new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime();
-                case 'newly_added':
-                    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-                case 'oldest':
-                    return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
-                case 'a_z':
-                    return (a.repo_name || '').localeCompare(b.repo_name || '');
-                case 'z_a':
-                    return (b.repo_name || '').localeCompare(a.repo_name || '');
-                case 'forks':
-                    return (b.fork_count || 0) - (a.fork_count || 0);
-                case 'issues_desc':
-                    return (b.issues_count || 0) - (a.issues_count || 0);
-                case 'issues_ascending':
-                    return (a.issues_count || 0) - (b.issues_count || 0);
-                case 'zig_descending_version':
-                    return (b.minimum_zig_version || '0.0.0').localeCompare(
-                        a.minimum_zig_version || '0.0.0',
-                        undefined,
-                        { numeric: true }
-                    );
-                case 'zig_ascending_version':
-                    return (a.minimum_zig_version || '0.0.0').localeCompare(
-                        b.minimum_zig_version || '0.0.0',
-                        undefined,
-                        { numeric: true }
-                    );
-                default:
-                    return 0;
-            }
-        });
-    }
-
-    function make_search_state_empty() {
-        $show_default = true;
-        $search_results = [];
-        original_results = [];
-        current_search_page = 1;
-        search_total_pages = 0;
-        search_total_results = 0;
-    }
-
-    function keep_everything_in_sync(query = $search_query, sort = active_sort_kind_of_filter) {
-        if (typeof window === 'undefined') return;
-
-        const hash = create_url_search_part(query, sort);
-        // afaik, this is actually good, I should be
-        // able to go back to what I had previously searched for.
-        if (window.location.hash !== hash) {
-            window.location.hash = hash;
-        }
-    }
-
-    async function load_search_results(page: number, query_override?: string) {
-        const active_query = (query_override ?? $search_query).trim().toLowerCase();
-        if (active_query === '') {
-            return;
-        }
-
-        const result_data = await fetch(
-            `${data.apiBaseUrl || 'https://zigistry-backend.hf.space'}/search/packages/?` +
-                new URLSearchParams({
-                    q: active_query,
-                    page: String(page),
-                    per_page: String(MAXIMUM_SEARCH_ALLOWED_PER_PAGE)
-                }).toString()
-        );
-        const result = await result_data.json();
-        const items = Array.isArray(result?.items) ? result.items : [];
-
-        original_results = [...items];
-        $search_results = get_sorted_results(original_results, active_sort_kind_of_filter);
-        search_total_results = typeof result?.total === 'number' ? result.total : items.length;
-        search_total_pages =
-            typeof result?.total_pages === 'number' ? result.total_pages : items.length > 0 ? 1 : 0;
-        current_search_page = typeof result?.page === 'number' ? result.page : page;
-        $show_default = false;
-    }
-
-    async function handle_search(e: any) {
+    function handle_search(e: any) {
         const value = e.target.value.trim();
-        if (value === '') {
-            $search_query = '';
-            make_search_state_empty();
-            keep_everything_in_sync('');
-            return;
-        }
-        if (e.key === 'Enter') {
-            $search_query = value;
-            await load_search_results(1, value);
-            keep_everything_in_sync(value, active_sort_kind_of_filter);
+        if (e.key === 'Enter' && value !== '') {
+            const hash = `#search=${encodeURIComponent(value)}&sort=intelligent&type=packages`;
+            goto(`/search${hash}`);
         }
     }
-
-    async function go_to_search_page(page: number) {
-        if (page < 1 || page > search_total_pages || page === current_search_page) {
-            return;
-        }
-
-        await load_search_results(page);
-    }
-
-    function sort_data(kind: string) {
-        active_sort_kind_of_filter = kind;
-        $search_results = get_sorted_results(original_results, kind);
-        keep_everything_in_sync($search_query, kind);
-    }
-
-    async function restore_from_hash() {
-        const { search, sort } = get_search_parameters_from_url(window.location.hash);
-
-        active_sort_kind_of_filter = sort;
-
-        if (!search) {
-            $search_query = '';
-            make_search_state_empty();
-            return;
-        }
-
-        $search_query = search;
-        await load_search_results(1, search);
-    }
-
-    onMount(() => {
-        restore_from_hash();
-
-        window.addEventListener('hashchange', restore_from_hash);
-
-        return () => {
-            window.removeEventListener('hashchange', restore_from_hash);
-        };
-    });
 </script>
 
 <svelte:head>
@@ -198,7 +51,7 @@
                         type="text"
                         placeholder="Search 500+ Zig libraries"
                         autofocus={true}
-                        bind:value={$search_query}
+                        bind:value={search_query}
                         onkeyup={handle_search}
                     />
                 </div>
@@ -206,8 +59,7 @@
         </div>
     </div>
 </div>
-{#if $show_default}
-    <div>
+<div>
         <LeftMiniTitle icon={Rocket} name="Recently Released" />
         <section
             class={card_display_mode === 'list'
@@ -378,56 +230,4 @@
         <ViewMoreBulge href="/" label="View More GUI Libs" />
         <Infinite_Scroll thingy="packages" variant={card_display_mode} />
     </div>
-{:else}
-    <div class="relative w-full">
-        <SearchSortSidebar onSort={sort_data} />
-        <div class="md:pl-64">
-            <LeftMiniTitle icon={Rocket} name="Search results" />
-            <p class="px-4 text-sm text-gray-600 dark:text-gray-300">
-                {search_total_results} result{search_total_results === 1 ? '' : 's'}
-            </p>
-            <section
-                class={card_display_mode === 'list'
-                    ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
-                    : 'flex w-full flex-wrap justify-evenly'}
-            >
-                {#each $search_results as library}
-                    <Card
-                        avatar_url={library.avatar_url}
-                        owner_name={library.owner_name}
-                        repo_name={library.repo_name}
-                        stars={library.stargazer_count}
-                        description={library.description}
-                        watchers={library.watchers_count}
-                        forks={library.fork_count}
-                        issues={library.issues_count}
-                        provider={library.provider}
-                        spdx_id={library.license}
-                        minimum_zig_version={library.minimum_zig_version}
-                        primary_language={library.primary_language}
-                        pushed_at={library.pushed_at}
-                        type_of_card="packages-display"
-                        variant={card_display_mode}
-                    />
-                {/each}
-            </section>
-            {#if search_total_results === 0}
-                <p class="my-4 text-center text-sm text-gray-600 dark:text-gray-300">
-                    No results found.
-                </p>
-            {:else}
-                <div class="my-4 flex flex-col items-center gap-3">
-                    <P class="text-sm"
-                        >Showing {current_search_page} of {search_total_pages} Entries</P
-                    >
-                    <PaginationNav
-                        currentPage={current_search_page}
-                        totalPages={search_total_pages}
-                        onPageChange={go_to_search_page}
-                        layout="navigation"
-                    />
-                </div>
-            {/if}
-        </div>
-    </div>
-{/if}
+
