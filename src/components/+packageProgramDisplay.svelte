@@ -39,8 +39,16 @@
     const repository_web_url = `https://${provider_id === 'gh' ? 'github.com' : 'codeberg.org'}/${data.owner_name}/${data.repo_name}`;
     const repository_git_url = `${repository_web_url}.git`;
     const tree_ref = $derived(data.current_version_tag || data.default_branch_name || 'main');
-    const dir_url_prefix = $derived(provider_id === 'gh' ? `${repository_web_url}/tree/${tree_ref}` : `${repository_web_url}/src/branch/${tree_ref}`);
-    const file_url_prefix = $derived(provider_id === 'gh' ? `${repository_web_url}/blob/${tree_ref}` : `${repository_web_url}/src/branch/${tree_ref}`);
+    const dir_url_prefix = $derived(
+        provider_id === 'gh'
+            ? `${repository_web_url}/tree/${tree_ref}`
+            : `${repository_web_url}/src/branch/${tree_ref}`
+    );
+    const file_url_prefix = $derived(
+        provider_id === 'gh'
+            ? `${repository_web_url}/blob/${tree_ref}`
+            : `${repository_web_url}/src/branch/${tree_ref}`
+    );
     const default_selected_release = $derived(
         route_thingy === 'packages'
             ? typeof data.current_version_tag === 'string' &&
@@ -215,7 +223,10 @@
         </div>
     {/if}
 
-    <Tabs tabStyle="full" class="mt-4 dark:bg-[#1e1e1e] max-sm:grid max-sm:grid-cols-2 max-sm:gap-1 max-sm:space-x-0">
+    <Tabs
+        tabStyle="full"
+        class="mt-4 max-sm:grid max-sm:grid-cols-2 max-sm:gap-1 max-sm:space-x-0 dark:bg-[#1e1e1e]"
+    >
         <TabItem open title="Readme" class="w-full">
             <div
                 class="rounded-lg bg-white p-3 shadow-lg shadow-black sm:rounded-lg sm:p-6 dark:bg-[#1e1e1e]"
@@ -291,7 +302,8 @@
         {/if}
         {#if data.directory_files}
             <TabItem
-                title={'Project Structure: ' + (project_structure.directories.length + project_structure.files.length)}
+                title={'Project Structure: ' +
+                    (project_structure.directories.length + project_structure.files.length)}
                 class="w-full"
             >
                 <div
@@ -302,9 +314,7 @@
                     >
                         Project Structure
                     </h2>
-                    <ul
-                        class="space-y-1 font-mono text-sm text-black dark:text-gray-400"
-                    >
+                    <ul class="space-y-1 font-mono text-sm text-black dark:text-gray-400">
                         {#if project_structure.directories.length > 0}
                             {#each project_structure.directories as dir}
                                 <li class="flex items-center gap-2">
@@ -313,8 +323,7 @@
                                         href="{dir_url_prefix}/{dir}"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        class="hover:underline"
-                                        >{dir}/</a
+                                        class="hover:underline">{dir}/</a
                                     >
                                 </li>
                             {/each}
@@ -327,8 +336,7 @@
                                         href="{file_url_prefix}/{file}"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        class="hover:underline"
-                                        >{file}</a
+                                        class="hover:underline">{file}</a
                                     >
                                 </li>
                             {/each}
@@ -415,5 +423,3 @@
         </TabItem>
     </Tabs>
 </div>
-
-

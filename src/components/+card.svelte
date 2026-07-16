@@ -14,7 +14,6 @@
     import TimeAgo from 'javascript-time-ago';
     import en from 'javascript-time-ago/locale/en';
 
-
     let props = $props();
 
     TimeAgo.addLocale(en);
@@ -259,48 +258,72 @@
             </p>
             <div class="flex flex-wrap gap-1.5">
                 <span class="flex h-5 items-center rounded-full bg-slate-100 dark:bg-slate-700">
-                    <span class="flex h-full items-center rounded-full bg-slate-200 px-1.5 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                    <span
+                        class="flex h-full items-center rounded-full bg-slate-200 px-1.5 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                    >
                         <Package size={10} />
                     </span>
-                    <span class="px-1.5 text-xs font-medium text-slate-700 dark:text-slate-300">{props.minimum_zig_version}</span>
+                    <span class="px-1.5 text-xs font-medium text-slate-700 dark:text-slate-300"
+                        >{props.minimum_zig_version}</span
+                    >
                 </span>
 
-                <span class="flex h-5 items-center rounded-full bg-emerald-100 dark:bg-emerald-900/40">
-                    <span class="flex h-full items-center rounded-full bg-emerald-200 px-1.5 text-emerald-700 dark:bg-emerald-800 dark:text-emerald-300">
+                <span
+                    class="flex h-5 items-center rounded-full bg-emerald-100 dark:bg-emerald-900/40"
+                >
+                    <span
+                        class="flex h-full items-center rounded-full bg-emerald-200 px-1.5 text-emerald-700 dark:bg-emerald-800 dark:text-emerald-300"
+                    >
                         <Scale size={10} />
                     </span>
-                    <span class="px-1.5 text-xs font-medium text-emerald-700 dark:text-emerald-300">{props.spdx_id}</span>
+                    <span class="px-1.5 text-xs font-medium text-emerald-700 dark:text-emerald-300"
+                        >{props.spdx_id}</span
+                    >
                 </span>
 
                 {#if props.pushed_at}
                     <span class="flex h-5 items-center rounded-full bg-sky-100 dark:bg-sky-900/40">
-                        <span class="flex h-full items-center rounded-full bg-sky-200 px-1.5 text-sky-700 dark:bg-sky-800 dark:text-sky-300">
+                        <span
+                            class="flex h-full items-center rounded-full bg-sky-200 px-1.5 text-sky-700 dark:bg-sky-800 dark:text-sky-300"
+                        >
                             <Clock size={10} />
                         </span>
-                        <span class="px-1.5 text-xs font-medium text-sky-700 dark:text-sky-300">{timeAgo.format(new Date(props.pushed_at))}</span>
+                        <span class="px-1.5 text-xs font-medium text-sky-700 dark:text-sky-300"
+                            >{timeAgo.format(new Date(props.pushed_at))}</span
+                        >
                     </span>
                 {/if}
             </div>
             <p class="font-normal text-gray-700 dark:text-gray-400">
                 {props.description}
             </p>
-            <div class="flex h-7 w-full items-center overflow-hidden rounded-full bg-gray-100 text-sm font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300">
-                <span class="flex h-full flex-1 items-center justify-center bg-amber-50 dark:bg-amber-950/30">
+            <div
+                class="flex h-7 w-full items-center overflow-hidden rounded-full bg-gray-100 text-sm font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+            >
+                <span
+                    class="flex h-full flex-1 items-center justify-center bg-amber-50 dark:bg-amber-950/30"
+                >
                     <Star size={12} class="text-amber-500" fill="currentColor" stroke="none" />
                 </span>
                 <span class="flex-1 text-center">{props.stars.toLocaleString()}</span>
                 <span class="h-4 w-px bg-gray-300 dark:bg-gray-600"></span>
-                <span class="flex h-full flex-1 items-center justify-center bg-sky-50 dark:bg-sky-950/30">
+                <span
+                    class="flex h-full flex-1 items-center justify-center bg-sky-50 dark:bg-sky-950/30"
+                >
                     <Eye size={12} class="text-sky-500" />
                 </span>
                 <span class="flex-1 text-center">{props.watchers}</span>
                 <span class="h-4 w-px bg-gray-300 dark:bg-gray-600"></span>
-                <span class="flex h-full flex-1 items-center justify-center bg-pink-50 dark:bg-pink-950/30">
+                <span
+                    class="flex h-full flex-1 items-center justify-center bg-pink-50 dark:bg-pink-950/30"
+                >
                     <GitFork size={12} class="text-pink-500" />
                 </span>
                 <span class="flex-1 text-center">{props.forks}</span>
                 <span class="h-4 w-px bg-gray-300 dark:bg-gray-600"></span>
-                <span class="flex h-full flex-1 items-center justify-center bg-green-50 dark:bg-green-950/30">
+                <span
+                    class="flex h-full flex-1 items-center justify-center bg-green-50 dark:bg-green-950/30"
+                >
                     <CircleDotDashed size={12} class="text-green-500" />
                 </span>
                 <span class="flex-1 text-center">{props.issues}</span>

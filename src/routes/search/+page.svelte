@@ -88,24 +88,50 @@
             return;
         }
 
-        const endpoint = search_type === 'programs' ? 'programs' : 'packages';
-        const result_data = await fetch(
-            `${data.apiBaseUrl || 'https://zigistry-backend.hf.space'}/search/${endpoint}/?` +
-                new URLSearchParams({
-                    q: active_query,
-                    page: String(page),
-                    per_page: String(MAXIMUM_SEARCH_ALLOWED_PER_PAGE)
-                }).toString()
-        );
-        const result = await result_data.json();
-        const items = Array.isArray(result?.items) ? result.items : [];
+        const base_url = data.apiBaseUrl || 'https://zigistry-backend.hf.space';
+        const params = new URLSearchParams({
+            q: active_query,
+            page: String(page),
+            per_page: String(MAXIMUM_SEARCH_ALLOWED_PER_PAGE)
+        });
 
-        original_results = [...items];
-        search_results = get_sorted_results(original_results, active_sort_kind_of_filter);
-        search_total_results = typeof result?.total === 'number' ? result.total : items.length;
-        search_total_pages =
-            typeof result?.total_pages === 'number' ? result.total_pages : items.length > 0 ? 1 : 0;
-        current_search_page = typeof result?.page === 'number' ? result.page : page;
+        if (search_type === 'all') {
+            const [packagesRes, programsRes] = await Promise.all([
+                fetch(`${base_url}/search/packages/?${params.toString()}`).then((r) => r.json()),
+                fetch(`${base_url}/search/programs/?${params.toString()}`).then((r) => r.json())
+            ]);
+
+            const packagesItems = Array.isArray(packagesRes?.items) ? packagesRes.items : [];
+            const programsItems = Array.isArray(programsRes?.items) ? programsRes.items : [];
+            const items = [...packagesItems, ...programsItems];
+
+            const packagesTotal = typeof packagesRes?.total === 'number' ? packagesRes.total : 0;
+            const programsTotal = typeof programsRes?.total === 'number' ? programsRes.total : 0;
+
+            original_results = [...items];
+            search_results = get_sorted_results(original_results, active_sort_kind_of_filter);
+            search_total_results = packagesTotal + programsTotal;
+            search_total_pages =
+                Math.ceil(search_total_results / MAXIMUM_SEARCH_ALLOWED_PER_PAGE) ||
+                (items.length > 0 ? 1 : 0);
+            current_search_page = page;
+        } else {
+            const endpoint = search_type === 'programs' ? 'programs' : 'packages';
+            const result_data = await fetch(`${base_url}/search/${endpoint}/?${params.toString()}`);
+            const result = await result_data.json();
+            const items = Array.isArray(result?.items) ? result.items : [];
+
+            original_results = [...items];
+            search_results = get_sorted_results(original_results, active_sort_kind_of_filter);
+            search_total_results = typeof result?.total === 'number' ? result.total : items.length;
+            search_total_pages =
+                typeof result?.total_pages === 'number'
+                    ? result.total_pages
+                    : items.length > 0
+                      ? 1
+                      : 0;
+            current_search_page = typeof result?.page === 'number' ? result.page : page;
+        }
     }
 
     async function go_to_search_page(page: number) {
@@ -122,6 +148,19 @@
         keep_everything_in_sync();
     }
 
+    async function filter_by_type(type: string) {
+        if (type === 'all') {
+            search_type = 'all';
+        } else if (type === 'programs') {
+            search_type = 'programs';
+        } else {
+            search_type = 'packages';
+        }
+        current_search_page = 1;
+        await load_search_results(1);
+        keep_everything_in_sync();
+    }
+
     async function restore_from_hash() {
         const hash = window.location.hash;
         const params = new URLSearchParams(hash.replace(/^#/, ''));
@@ -130,7 +169,11 @@
         const type = params.get('type')?.trim() || 'packages';
 
         active_sort_kind_of_filter = sort;
-        search_type = type;
+        if (type === 'all' || type === 'libraries' || type === 'programs') {
+            search_type = type === 'libraries' ? 'packages' : type;
+        } else {
+            search_type = type;
+        }
 
         if (!search) {
             goto(search_type === 'programs' ? '/programs' : '/');
@@ -156,24 +199,33 @@
 
 <svelte:head>
     <title>Search results - Zigistry</title>
-    <meta
-        name="description"
-        content="Search results for Zig packages and programs on Zigistry."
-    />
+    <meta name="description" content="Search results for Zig packages and programs on Zigistry." />
 </svelte:head>
 
 <div class="relative w-full">
-    <SearchSortSidebar onSort={sort_data} />
+    <SearchSortSidebar
+        onSort={sort_data}
+        onType={filter_by_type}
+        activeType={search_type === 'all'
+            ? 'all'
+            : search_type === 'programs'
+              ? 'programs'
+              : 'libraries'}
+    />
     <div class="md:pl-64">
         {#if !has_loaded}
-            <p class="px-4 py-8 text-center text-sm text-gray-600 dark:text-gray-300">
-                Loading...
-            </p>
+            <p class="px-4 py-8 text-center text-sm text-gray-600 dark:text-gray-300">Loading...</p>
         {:else}
             <div class="flex flex-col items-center">
                 <div class="searchArea rounded-lg sm:m-5 sm:p-5 sm:shadow-lg sm:shadow-black">
                     <h1 class="my-5 text-center text-2xl font-semibold">
-                        {search_type === 'programs' ? 'Search Ziglang Programs' : 'Search Ziglang Packages'}
+                        {#if search_type === 'all'}
+                            Search Ziglang Packages & Programs
+                        {:else if search_type === 'programs'}
+                            Search Ziglang Programs
+                        {:else}
+                            Search Ziglang Packages
+                        {/if}
                     </h1>
                     <div class="flex">
                         <div class="w-fit">
@@ -182,8 +234,10 @@
                                     <label for="dropDownID" class="hidden">Display</label><select
                                         class="block w-27 rounded-lg border border-yellow-500 bg-yellow-50 p-2.5 text-sm text-yellow-900 placeholder-yellow-700 focus:border-yellow-500 focus:ring-yellow-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-yellow-400 dark:bg-yellow-100 dark:focus:border-yellow-500 dark:focus:ring-yellow-500"
                                         id="dropDownID"
-                                        onchange={(e) => (card_display_mode = e.currentTarget.value)}
-                                        ><option value="grid">Grid</option><option value="list">List</option
+                                        onchange={(e) =>
+                                            (card_display_mode = e.currentTarget.value)}
+                                        ><option value="grid">Grid</option><option value="list"
+                                            >List</option
                                         ></select
                                     >
                                 </div>
@@ -194,13 +248,19 @@
                                 <input
                                     class="block w-full rounded-lg border border-slate-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600 dark:bg-[#2e2e2e] dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500"
                                     type="text"
-                                    placeholder={search_type === 'programs' ? 'Search 2000+ Zig programs' : 'Search 500+ Zig libraries'}
+                                    placeholder={search_type === 'all'
+                                        ? 'Search Zig packages & programs'
+                                        : search_type === 'programs'
+                                          ? 'Search 2000+ Zig programs'
+                                          : 'Search 500+ Zig libraries'}
                                     bind:value={search_query}
                                     onkeyup={(e: any) => {
                                         if (e.key === 'Enter') {
                                             const value = e.target.value.trim();
                                             if (value === '') {
-                                                goto(search_type === 'programs' ? '/programs' : '/');
+                                                goto(
+                                                    search_type === 'programs' ? '/programs' : '/'
+                                                );
                                                 return;
                                             }
                                             search_query = value;
@@ -238,7 +298,11 @@
                         minimum_zig_version={library.minimum_zig_version}
                         primary_language={library.primary_language}
                         pushed_at={library.pushed_at}
-                        type_of_card={search_type === 'programs' ? 'program-display' : 'packages-display'}
+                        type_of_card={search_type === 'programs'
+                            ? 'program-display'
+                            : search_type === 'all'
+                              ? 'packages-display'
+                              : 'packages-display'}
                         variant={card_display_mode}
                     />
                 {/each}

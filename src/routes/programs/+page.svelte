@@ -61,90 +61,89 @@
     </div>
 </div>
 <div>
-        <LeftMiniTitle icon={Rocket} name="Recently Released" />
-        <section
-            class={show_card_like === 'list'
-                ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
-                : 'flex w-full flex-wrap justify-evenly'}
-        >
-            {@html '<!--What!!!! package is a reserved keyword!!!!!!-->'}
-            {#each data.top_10_latest_repos as library}
-                <Card
-                    avatar_url={library.avatar_url}
-                    owner_name={library.owner_name}
-                    repo_name={library.repo_name}
-                    stars={library.stargazer_count}
-                    description={library.description}
-                    watchers={library.watchers_count}
-                    forks={library.fork_count}
-                    issues={library.issues_count}
-                    provider={library.provider}
-                    spdx_id={library.license}
-                    minimum_zig_version={library.minimum_zig_version}
-                    primary_language={library.primary_language}
-                    pushed_at={library.pushed_at}
-                    type_of_card="program-display"
-                    variant={show_card_like}
-                />
-            {/each}
-        </section>
-        <ViewMoreBulge href="/programs" label="View More Recently Released" />
+    <LeftMiniTitle icon={Rocket} name="Recently Released" />
+    <section
+        class={show_card_like === 'list'
+            ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
+            : 'flex w-full flex-wrap justify-evenly'}
+    >
+        {@html '<!--What!!!! package is a reserved keyword!!!!!!-->'}
+        {#each data.top_10_latest_repos as library}
+            <Card
+                avatar_url={library.avatar_url}
+                owner_name={library.owner_name}
+                repo_name={library.repo_name}
+                stars={library.stargazer_count}
+                description={library.description}
+                watchers={library.watchers_count}
+                forks={library.fork_count}
+                issues={library.issues_count}
+                provider={library.provider}
+                spdx_id={library.license}
+                minimum_zig_version={library.minimum_zig_version}
+                primary_language={library.primary_language}
+                pushed_at={library.pushed_at}
+                type_of_card="program-display"
+                variant={show_card_like}
+            />
+        {/each}
+    </section>
+    <ViewMoreBulge href="/programs" label="View More Recently Released" />
 
-        <LeftMiniTitle icon={CircleFadingArrowUp} name="Recently Updated" />
-        <section
-            class={show_card_like === 'list'
-                ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
-                : 'flex w-full flex-wrap justify-evenly'}
-        >
-            {#each data.recently_updated as library}
-                <Card
-                    avatar_url={library.avatar_url}
-                    owner_name={library.owner_name}
-                    repo_name={library.repo_name}
-                    stars={library.stargazer_count}
-                    description={library.description}
-                    watchers={library.watchers_count}
-                    forks={library.fork_count}
-                    issues={library.issues_count}
-                    provider={library.provider}
-                    spdx_id={library.license}
-                    minimum_zig_version={library.minimum_zig_version}
-                    primary_language={library.primary_language}
-                    pushed_at={library.pushed_at}
-                    type_of_card="program-display"
-                    variant={show_card_like}
-                />
-            {/each}
-        </section>
-        <ViewMoreBulge href="/programs" label="View More Recently Updated" />
+    <LeftMiniTitle icon={CircleFadingArrowUp} name="Recently Updated" />
+    <section
+        class={show_card_like === 'list'
+            ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
+            : 'flex w-full flex-wrap justify-evenly'}
+    >
+        {#each data.recently_updated as library}
+            <Card
+                avatar_url={library.avatar_url}
+                owner_name={library.owner_name}
+                repo_name={library.repo_name}
+                stars={library.stargazer_count}
+                description={library.description}
+                watchers={library.watchers_count}
+                forks={library.fork_count}
+                issues={library.issues_count}
+                provider={library.provider}
+                spdx_id={library.license}
+                minimum_zig_version={library.minimum_zig_version}
+                primary_language={library.primary_language}
+                pushed_at={library.pushed_at}
+                type_of_card="program-display"
+                variant={show_card_like}
+            />
+        {/each}
+    </section>
+    <ViewMoreBulge href="/programs" label="View More Recently Updated" />
 
-        <LeftMiniTitle icon={Star} name="Most Used" />
-        <section
-            class={show_card_like === 'list'
-                ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
-                : 'flex w-full flex-wrap justify-evenly'}
-        >
-            {#each data.most_used as library}
-                <Card
-                    avatar_url={library.avatar_url}
-                    owner_name={library.owner_name}
-                    repo_name={library.repo_name}
-                    stars={library.stargazer_count}
-                    description={library.description}
-                    watchers={library.watchers_count}
-                    forks={library.fork_count}
-                    issues={library.issues_count}
-                    provider={library.provider}
-                    spdx_id={library.license}
-                    minimum_zig_version={library.minimum_zig_version}
-                    primary_language={library.primary_language}
-                    pushed_at={library.pushed_at}
-                    type_of_card="program-display"
-                    variant={show_card_like}
-                />
-            {/each}
-        </section>
-        <ViewMoreBulge href="/programs" label="View More Most Used" />
-        <Infinite_Scroll thingy="programs" variant={show_card_like} />
-    </div>
-
+    <LeftMiniTitle icon={Star} name="Most Used" />
+    <section
+        class={show_card_like === 'list'
+            ? 'mx-auto flex max-w-5xl flex-col gap-2 px-4'
+            : 'flex w-full flex-wrap justify-evenly'}
+    >
+        {#each data.most_used as library}
+            <Card
+                avatar_url={library.avatar_url}
+                owner_name={library.owner_name}
+                repo_name={library.repo_name}
+                stars={library.stargazer_count}
+                description={library.description}
+                watchers={library.watchers_count}
+                forks={library.fork_count}
+                issues={library.issues_count}
+                provider={library.provider}
+                spdx_id={library.license}
+                minimum_zig_version={library.minimum_zig_version}
+                primary_language={library.primary_language}
+                pushed_at={library.pushed_at}
+                type_of_card="program-display"
+                variant={show_card_like}
+            />
+        {/each}
+    </section>
+    <ViewMoreBulge href="/programs" label="View More Most Used" />
+    <Infinite_Scroll thingy="programs" variant={show_card_like} />
+</div>

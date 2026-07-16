@@ -1,7 +1,7 @@
 <script>
-    import { Filter, X } from '@lucide/svelte';
+    import { Filter, X, Group, Package, AppWindow } from '@lucide/svelte';
     let isOpen = $state(false);
-    let { onSort } = $props();
+    let { onSort, onType, activeType = 'all' } = $props();
 </script>
 
 {#if !isOpen}
@@ -36,6 +36,49 @@
     <div
         class="h-full overflow-y-auto border-r-2 border-r-[#faca15] bg-white px-3 py-4 dark:bg-[#1e1e1e]"
     >
+        <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Type</h2>
+        <div class="flex flex-col space-y-2">
+            <button
+                type="button"
+                class="flex items-center rounded-lg px-3 py-2 {activeType === 'all'
+                    ? 'bg-yellow-100 text-yellow-900 dark:bg-yellow-900/30 dark:text-yellow-200'
+                    : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'}"
+                onclick={() => {
+                    onType('all');
+                    isOpen = false;
+                }}
+            >
+                <Group size={20} class="mr-3" />
+                All
+            </button>
+            <button
+                type="button"
+                class="flex items-center rounded-lg px-3 py-2 {activeType === 'libraries'
+                    ? 'bg-yellow-100 text-yellow-900 dark:bg-yellow-900/30 dark:text-yellow-200'
+                    : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'}"
+                onclick={() => {
+                    onType('libraries');
+                    isOpen = false;
+                }}
+            >
+                <Package size={20} class="mr-3" />
+                Libraries
+            </button>
+            <button
+                type="button"
+                class="flex items-center rounded-lg px-3 py-2 {activeType === 'programs'
+                    ? 'bg-yellow-100 text-yellow-900 dark:bg-yellow-900/30 dark:text-yellow-200'
+                    : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'}"
+                onclick={() => {
+                    onType('programs');
+                    isOpen = false;
+                }}
+            >
+                <AppWindow size={20} class="mr-3" />
+                Programs
+            </button>
+        </div>
+        <div class="my-4 border-t border-gray-200 dark:border-gray-700"></div>
         <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Sort By</h2>
         <div class="flex flex-col space-y-2">
             <button
