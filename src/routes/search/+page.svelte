@@ -20,51 +20,50 @@
     let search_total_pages = $state(0);
     let search_total_results = $state(0);
     let active_sort_kind_of_filter = $state('intelligent');
+    let sort_ascending_or_descending = $state('desc');
     let card_display_mode = $state('grid');
     let has_loaded = $state(false);
 
-    function get_sorted_results(results: any[], kind_of_filter: string) {
+    function get_sorted_results(results: any[], kind_of_filter: string, direction: string = 'desc') {
         if (kind_of_filter === 'intelligent') {
             return [...results];
         }
 
         return [...results].sort((a, b) => {
+            let compairision = 0;
             switch (kind_of_filter) {
                 case 'stars':
-                    return (b.stargazer_count || 0) - (a.stargazer_count || 0);
+                    compairision = (a.stargazer_count || 0) - (b.stargazer_count || 0);
+                    break;
                 case 'dependents':
-                    return (b.dependents_count || 0) - (a.dependents_count || 0);
+                    compairision = (a.dependents_count || 0) - (b.dependents_count || 0);
+                    break;
                 case 'recently_updated':
-                    return new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime();
+                    compairision = new Date(a.pushed_at).getTime() - new Date(b.pushed_at).getTime();
+                    break;
                 case 'newly_added':
-                    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-                case 'oldest':
-                    return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
-                case 'a_z':
-                    return (a.repo_name || '').localeCompare(b.repo_name || '');
-                case 'z_a':
-                    return (b.repo_name || '').localeCompare(a.repo_name || '');
+                    compairision = new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+                    break;
+                case 'name':
+                    compairision = (a.repo_name || '').localeCompare(b.repo_name || '');
+                    break;
                 case 'forks':
-                    return (b.fork_count || 0) - (a.fork_count || 0);
-                case 'issues_desc':
-                    return (b.issues_count || 0) - (a.issues_count || 0);
-                case 'issues_ascending':
-                    return (a.issues_count || 0) - (b.issues_count || 0);
-                case 'zig_descending_version':
-                    return (b.minimum_zig_version || '0.0.0').localeCompare(
-                        a.minimum_zig_version || '0.0.0',
-                        undefined,
-                        { numeric: true }
-                    );
-                case 'zig_ascending_version':
-                    return (a.minimum_zig_version || '0.0.0').localeCompare(
+                    compairision = (a.fork_count || 0) - (b.fork_count || 0);
+                    break;
+                case 'issues':
+                    compairision = (a.issues_count || 0) - (b.issues_count || 0);
+                    break;
+                case 'zig_version':
+                    compairision = (a.minimum_zig_version || '0.0.0').localeCompare(
                         b.minimum_zig_version || '0.0.0',
                         undefined,
                         { numeric: true }
                     );
+                    break;
                 default:
                     return 0;
             }
+            return direction === 'asc' ? compairision : -compairision;
         });
     }
 
@@ -74,6 +73,7 @@
         const params = new URLSearchParams();
         params.set('search', search_query);
         params.set('sort', active_sort_kind_of_filter);
+        params.set('dir', sort_ascending_or_descending);
         params.set('type', search_type);
         const hash = `#${params.toString()}`;
 
@@ -109,7 +109,7 @@
             const programsTotal = typeof programsRes?.total === 'number' ? programsRes.total : 0;
 
             original_results = [...items];
-            search_results = get_sorted_results(original_results, active_sort_kind_of_filter);
+            search_results = get_sorted_results(original_results, active_sort_kind_of_filter, sort_ascending_or_descending);
             search_total_results = packagesTotal + programsTotal;
             search_total_pages =
                 Math.ceil(search_total_results / MAXIMUM_SEARCH_ALLOWED_PER_PAGE) ||
@@ -122,7 +122,7 @@
             const items = Array.isArray(result?.items) ? result.items : [];
 
             original_results = [...items];
-            search_results = get_sorted_results(original_results, active_sort_kind_of_filter);
+            search_results = get_sorted_results(original_results, active_sort_kind_of_filter, sort_ascending_or_descending);
             search_total_results = typeof result?.total === 'number' ? result.total : items.length;
             search_total_pages =
                 typeof result?.total_pages === 'number'
@@ -144,7 +144,13 @@
 
     function sort_data(kind: string) {
         active_sort_kind_of_filter = kind;
-        search_results = get_sorted_results(original_results, kind);
+        search_results = get_sorted_results(original_results, kind, sort_ascending_or_descending);
+        keep_everything_in_sync();
+    }
+
+    function sort_direction_data(direction: string) {
+        sort_ascending_or_descending = direction;
+        search_results = get_sorted_results(original_results, active_sort_kind_of_filter, direction);
         keep_everything_in_sync();
     }
 
@@ -166,9 +172,11 @@
         const params = new URLSearchParams(hash.replace(/^#/, ''));
         const search = params.get('search')?.trim().toLowerCase() || '';
         const sort = params.get('sort')?.trim() || 'intelligent';
+        const dir = params.get('dir')?.trim() || 'desc';
         const type = params.get('type')?.trim() || 'packages';
 
         active_sort_kind_of_filter = sort;
+        sort_ascending_or_descending = dir === 'asc' ? 'asc' : 'desc';
         if (type === 'all' || type === 'libraries' || type === 'programs') {
             search_type = type === 'libraries' ? 'packages' : type;
         } else {
@@ -206,6 +214,9 @@
     <SearchSortSidebar
         onSort={sort_data}
         onType={filter_by_type}
+        onDirection={sort_direction_data}
+        activeSort={active_sort_kind_of_filter}
+        currentDirection={sort_ascending_or_descending}
         activeType={search_type === 'all'
             ? 'all'
             : search_type === 'programs'
