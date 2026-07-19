@@ -13,7 +13,6 @@
 
     let search_query = $state('');
     let search_type = $state('packages');
-    let original_results: any[] = $state([]);
     let search_results: any[] = $state([]);
     const MAXIMUM_SEARCH_ALLOWED_PER_PAGE = 12;
     let current_search_page = $state(1);
@@ -23,49 +22,6 @@
     let sort_ascending_or_descending = $state('desc');
     let card_display_mode = $state('grid');
     let has_loaded = $state(false);
-
-    function get_sorted_results(results: any[], kind_of_filter: string, direction: string = 'desc') {
-        if (kind_of_filter === 'intelligent') {
-            return [...results];
-        }
-
-        return [...results].sort((a, b) => {
-            let compairision = 0;
-            switch (kind_of_filter) {
-                case 'stars':
-                    compairision = (a.stargazer_count || 0) - (b.stargazer_count || 0);
-                    break;
-                case 'dependents':
-                    compairision = (a.dependents_count || 0) - (b.dependents_count || 0);
-                    break;
-                case 'recently_updated':
-                    compairision = new Date(a.pushed_at).getTime() - new Date(b.pushed_at).getTime();
-                    break;
-                case 'newly_added':
-                    compairision = new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
-                    break;
-                case 'name':
-                    compairision = (a.repo_name || '').localeCompare(b.repo_name || '');
-                    break;
-                case 'forks':
-                    compairision = (a.fork_count || 0) - (b.fork_count || 0);
-                    break;
-                case 'issues':
-                    compairision = (a.issues_count || 0) - (b.issues_count || 0);
-                    break;
-                case 'zig_version':
-                    compairision = (a.minimum_zig_version || '0.0.0').localeCompare(
-                        b.minimum_zig_version || '0.0.0',
-                        undefined,
-                        { numeric: true }
-                    );
-                    break;
-                default:
-                    return 0;
-            }
-            return direction === 'asc' ? compairision : -compairision;
-        });
-    }
 
     function keep_everything_in_sync() {
         if (typeof window === 'undefined') return;
@@ -92,7 +48,9 @@
         const params = new URLSearchParams({
             q: active_query,
             page: String(page),
-            per_page: String(MAXIMUM_SEARCH_ALLOWED_PER_PAGE)
+            per_page: String(MAXIMUM_SEARCH_ALLOWED_PER_PAGE),
+            sort: active_sort_kind_of_filter,
+            dir: sort_ascending_or_descending
         });
 
         if (search_type === 'all') {
@@ -103,17 +61,15 @@
 
             const packagesItems = Array.isArray(packagesRes?.items) ? packagesRes.items : [];
             const programsItems = Array.isArray(programsRes?.items) ? programsRes.items : [];
-            const items = [...packagesItems, ...programsItems];
+            search_results = [...packagesItems, ...programsItems];
 
             const packagesTotal = typeof packagesRes?.total === 'number' ? packagesRes.total : 0;
             const programsTotal = typeof programsRes?.total === 'number' ? programsRes.total : 0;
 
-            original_results = [...items];
-            search_results = get_sorted_results(original_results, active_sort_kind_of_filter, sort_ascending_or_descending);
             search_total_results = packagesTotal + programsTotal;
             search_total_pages =
                 Math.ceil(search_total_results / MAXIMUM_SEARCH_ALLOWED_PER_PAGE) ||
-                (items.length > 0 ? 1 : 0);
+                (search_results.length > 0 ? 1 : 0);
             current_search_page = page;
         } else {
             const endpoint = search_type === 'programs' ? 'programs' : 'packages';
@@ -121,8 +77,7 @@
             const result = await result_data.json();
             const items = Array.isArray(result?.items) ? result.items : [];
 
-            original_results = [...items];
-            search_results = get_sorted_results(original_results, active_sort_kind_of_filter, sort_ascending_or_descending);
+            search_results = items;
             search_total_results = typeof result?.total === 'number' ? result.total : items.length;
             search_total_pages =
                 typeof result?.total_pages === 'number'
@@ -144,13 +99,13 @@
 
     function sort_data(kind: string) {
         active_sort_kind_of_filter = kind;
-        search_results = get_sorted_results(original_results, kind, sort_ascending_or_descending);
+        load_search_results(1);
         keep_everything_in_sync();
     }
 
     function sort_direction_data(direction: string) {
         sort_ascending_or_descending = direction;
-        search_results = get_sorted_results(original_results, active_sort_kind_of_filter, direction);
+        load_search_results(1);
         keep_everything_in_sync();
     }
 
