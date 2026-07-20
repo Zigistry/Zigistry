@@ -12,7 +12,7 @@ export const load: PageLoad = async ({ fetch, url, params: parameters }) => {
             ? 'https://avatars.githubusercontent.com/'
             : 'https://codeberg.org/avatars/') +
         owner_data.avatar_id +
-        '?size=250';
+        (provider_id === 'gh' ? '?size=250' : '');
 
     const owner_provider_link =
         (provider_id === 'gh' ? 'https://github.com/' : 'https://codeberg.org/') + parameters.name;

@@ -198,7 +198,7 @@
     >
         <div class="flex h-full flex-col justify-center gap-4 p-6">
             <img
-                src={avatar_url + '?size=40'}
+                src={avatar_url + (provider === 'github' ? '?size=40' : '')}
                 alt="-"
                 width="40"
                 height="40"

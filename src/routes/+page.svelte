@@ -5,6 +5,7 @@
     import Card from '../components/+card.svelte';
     import Infinite_Scroll from '../components/+InfiniteScroll.svelte';
     import ViewMoreBulge from '../components/+ViewMoreBulge.svelte';
+    import Badges from '../components/+Badges.svelte';
     import { Rocket, CircleFadingArrowUp, Gamepad2, Star, Globe, AppWindow } from '@lucide/svelte';
 
     let { data }: { data: PageData } = $props();
@@ -29,7 +30,7 @@
 </svelte:head>
 <div class="flex flex-col items-center">
     <div class="searchArea rounded-lg sm:m-5 sm:p-5 sm:shadow-lg sm:shadow-black">
-        <h1 class="my-5 text-center text-2xl font-semibold">Search Ziglang Packages</h1>
+        <h1 class="my-5 ml-5 text-center text-2xl font-semibold">Search Ziglang Packages</h1>
         <div class="flex">
             <div class="w-fit">
                 <div class="ml-4 flex">
@@ -57,6 +58,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="mx-5 mt-1 mb-5 rounded-lg bg-gray-50 sm:mx-5 sm:shadow-md dark:bg-[#252525]">
+        <Badges type="packages" />
     </div>
 </div>
 <div>

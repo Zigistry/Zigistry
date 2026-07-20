@@ -5,6 +5,7 @@
     import Card from '../../components/+card.svelte';
     import Infinite_Scroll from '../../components/+InfiniteScroll.svelte';
     import ViewMoreBulge from '../../components/+ViewMoreBulge.svelte';
+    import Badges from '../../components/+Badges.svelte';
     import { Rocket, CircleFadingArrowUp, Star } from '@lucide/svelte';
 
     let { data }: { data: PageData } = $props();
@@ -58,6 +59,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="mx-5 mt-1 mb-5 rounded-lg bg-gray-50 sm:mx-5 sm:shadow-md dark:bg-[#252525]">
+        <Badges type="programs" />
     </div>
 </div>
 <div>

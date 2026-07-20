@@ -1,7 +1,14 @@
 <script>
     import { Filter, X, Group, Package, AppWindow, ArrowUp, ArrowDown } from '@lucide/svelte';
     let isOpen = $state(false);
-    let {onSort, onType, onDirection, activeType = 'all', activeSort = 'intelligent', currentDirection = 'desc' } = $props();
+    let {
+        onSort,
+        onType,
+        onDirection,
+        activeType = 'all',
+        activeSort = 'intelligent',
+        currentDirection = 'desc'
+    } = $props();
 </script>
 
 {#if !isOpen}

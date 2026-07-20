@@ -124,6 +124,8 @@
 
     async function restore_from_hash() {
         const hash = window.location.hash;
+        if (!hash) return;
+
         const params = new URLSearchParams(hash.replace(/^#/, ''));
         const search = params.get('search')?.trim().toLowerCase() || '';
         const sort = params.get('sort')?.trim() || 'intelligent';
