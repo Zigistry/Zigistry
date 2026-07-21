@@ -46,13 +46,14 @@ export function get_search_parameters_from_url(urls_hash_part) {
         search: simplify(params.get('search')),
         sort: simplify(params.get('sort')),
         dir: simplify(params.get('dir')),
-        type: simplify(params.get('type'))
+        type: simplify(params.get('type')),
+        topic: simplify(params.get('topic'))
     };
 }
 
-export function create_url_search_part(search, sort, dir, type) {
+export function create_url_search_part(search, sort, dir, type, topic) {
     const query = simplify(search);
-    if (!query) return '';
+    if (!query && !topic) return '';
 
     const params = new URLSearchParams({
         search: query,
@@ -60,6 +61,10 @@ export function create_url_search_part(search, sort, dir, type) {
         dir: apply_sort_direction_check(dir),
         type: apply_type_check(type)
     });
+
+    if (topic) {
+        params.set('topic', simplify(topic));
+    }
 
     return `#${params}`;
 }

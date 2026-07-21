@@ -5,21 +5,21 @@
 
 <div class="flex items-center justify-around gap-3">
     <a
-        href="/search#search=web&sort=stars&type={type}"
+        href="/search#search=&sort=stars&type={type}&topic=web"
         class="inline-flex items-center gap-1 rounded-full border border-sky-200 bg-sky-50 px-2.5 py-1 text-xs font-medium text-sky-700 transition-all hover:bg-sky-100 hover:shadow-sm dark:border-sky-800 dark:bg-sky-900/30 dark:text-sky-300 dark:hover:bg-sky-900/50"
     >
         <Globe size={14} />
         Web
     </a>
     <a
-        href="/search#search=gui&sort=stars&type={type}"
+        href="/search#search=&sort=stars&type={type}&topic=gui"
         class="inline-flex items-center gap-1 rounded-full border border-violet-200 bg-violet-50 px-2.5 py-1 text-xs font-medium text-violet-700 transition-all hover:bg-violet-100 hover:shadow-sm dark:border-violet-800 dark:bg-violet-900/30 dark:text-violet-300 dark:hover:bg-violet-900/50"
     >
         <AppWindow size={14} />
         GUI
     </a>
     <a
-        href="/search#search=game&sort=stars&type={type}"
+        href="/search#search=&sort=stars&type={type}&topic=game"
         class="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 transition-all hover:bg-emerald-100 hover:shadow-sm dark:border-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 dark:hover:bg-emerald-900/50"
     >
         <Gamepad2 size={14} />

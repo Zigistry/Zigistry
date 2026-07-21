@@ -20,6 +20,7 @@
     let search_total_results = $state(0);
     let active_sort_kind_of_filter = $state('intelligent');
     let sort_ascending_or_descending = $state('desc');
+    let search_topic = $state('');
     let card_display_mode = $state('grid');
     let has_loaded = $state(false);
 
@@ -31,6 +32,9 @@
         params.set('sort', active_sort_kind_of_filter);
         params.set('dir', sort_ascending_or_descending);
         params.set('type', search_type);
+        if (search_topic) {
+            params.set('topic', search_topic);
+        }
         const hash = `#${params.toString()}`;
 
         if (window.location.hash !== hash) {
@@ -40,9 +44,6 @@
 
     async function load_search_results(page: number, query_override?: string) {
         const active_query = (query_override ?? search_query).trim().toLowerCase();
-        if (active_query === '') {
-            return;
-        }
 
         const base_url = data.apiBaseUrl || 'https://zigistry-backend.hf.space';
         const params = new URLSearchParams({
@@ -52,6 +53,9 @@
             sort: active_sort_kind_of_filter,
             dir: sort_ascending_or_descending
         });
+        if (search_topic) {
+            params.set('topic', search_topic);
+        }
 
         if (search_type === 'all') {
             const [packagesRes, programsRes] = await Promise.all([
@@ -131,6 +135,7 @@
         const sort = params.get('sort')?.trim() || 'intelligent';
         const dir = params.get('dir')?.trim() || 'desc';
         const type = params.get('type')?.trim() || 'packages';
+        const topic = params.get('topic')?.trim().toLowerCase() || '';
 
         active_sort_kind_of_filter = sort;
         sort_ascending_or_descending = dir === 'asc' ? 'asc' : 'desc';
@@ -139,14 +144,15 @@
         } else {
             search_type = type;
         }
+        search_topic = topic;
 
-        if (!search) {
+        if (!search && !search_topic) {
             goto(search_type === 'programs' ? '/programs' : '/');
             return;
         }
 
         search_query = search;
-        await load_search_results(1, search);
+        await load_search_results(1, search || undefined);
     }
 
     onMount(() => {
