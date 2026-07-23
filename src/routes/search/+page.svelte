@@ -12,6 +12,7 @@
     let { data }: { data: PageData } = $props();
 
     let search_query = $state('');
+    let display_query = $state('');
     let search_type = $state('packages');
     let search_results: any[] = $state([]);
     const MAXIMUM_SEARCH_ALLOWED_PER_PAGE = 12;
@@ -23,6 +24,7 @@
     let search_topic = $state('');
     let card_display_mode = $state('grid');
     let has_loaded = $state(false);
+    let _programmatic_hash_update = false;
 
     function keep_everything_in_sync() {
         if (typeof window === 'undefined') return;
@@ -32,12 +34,14 @@
         params.set('sort', active_sort_kind_of_filter);
         params.set('dir', sort_ascending_or_descending);
         params.set('type', search_type);
+        params.set('page', String(current_search_page));
         if (search_topic) {
             params.set('topic', search_topic);
         }
         const hash = `#${params.toString()}`;
 
         if (window.location.hash !== hash) {
+            _programmatic_hash_update = true;
             window.location.hash = hash;
         }
     }
@@ -99,6 +103,7 @@
         }
 
         await load_search_results(page);
+        keep_everything_in_sync();
     }
 
     function sort_data(kind: string) {
@@ -128,7 +133,18 @@
 
     async function restore_from_hash() {
         const hash = window.location.hash;
-        if (!hash) return;
+        if (!hash) {
+            search_type = 'all';
+            active_sort_kind_of_filter = 'stars';
+            sort_ascending_or_descending = 'desc';
+            search_query = '*';
+            display_query = '';
+            current_search_page = 1;
+            search_topic = '';
+            await load_search_results(1, '*');
+            keep_everything_in_sync();
+            return;
+        }
 
         const params = new URLSearchParams(hash.replace(/^#/, ''));
         const search = params.get('search')?.trim().toLowerCase() || '';
@@ -136,6 +152,7 @@
         const dir = params.get('dir')?.trim() || 'desc';
         const type = params.get('type')?.trim() || 'packages';
         const topic = params.get('topic')?.trim().toLowerCase() || '';
+        const page = Math.max(parseInt(params.get('page') || '1', 10) || 1, 1);
 
         active_sort_kind_of_filter = sort;
         sort_ascending_or_descending = dir === 'asc' ? 'asc' : 'desc';
@@ -145,14 +162,12 @@
             search_type = type;
         }
         search_topic = topic;
+        current_search_page = page;
 
-        if (!search && !search_topic) {
-            goto(search_type === 'programs' ? '/programs' : '/');
-            return;
-        }
-
-        search_query = search;
-        await load_search_results(1, search || undefined);
+        search_query = search || '*';
+        display_query = search === '*' ? '' : search;
+        const effective_query = search || (topic ? undefined : '*');
+        await load_search_results(page, effective_query);
     }
 
     onMount(() => {
@@ -160,10 +175,18 @@
             has_loaded = true;
         });
 
-        window.addEventListener('hashchange', restore_from_hash);
+        function on_hashchange() {
+            if (_programmatic_hash_update) {
+                _programmatic_hash_update = false;
+                return;
+            }
+            restore_from_hash();
+        }
+
+        window.addEventListener('hashchange', on_hashchange);
 
         return () => {
-            window.removeEventListener('hashchange', restore_from_hash);
+            window.removeEventListener('hashchange', on_hashchange);
         };
     });
 </script>
@@ -227,7 +250,7 @@
                                         : search_type === 'programs'
                                           ? 'Search 2000+ Zig programs'
                                           : 'Search 500+ Zig libraries'}
-                                    bind:value={search_query}
+                                    bind:value={display_query}
                                     onkeyup={(e: any) => {
                                         if (e.key === 'Enter') {
                                             const value = e.target.value.trim();
