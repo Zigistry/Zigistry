@@ -104,12 +104,14 @@
 
         await load_search_results(page);
         keep_everything_in_sync();
+        window.scrollTo({ top: 0, behavior: 'instant' });
     }
 
     function sort_data(kind: string) {
         active_sort_kind_of_filter = kind;
         load_search_results(1);
         keep_everything_in_sync();
+        window.scrollTo({ top: 0, behavior: 'instant' });
     }
 
     function sort_direction_data(direction: string) {

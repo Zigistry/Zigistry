@@ -1,7 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import './layout.css';
-    import favicon from '$lib/assets/favicon.ico';
     let { children } = $props();
 
     let isDarkTheme = $state(false);
@@ -40,7 +39,6 @@
     });
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
 <nav class="sticky top-0 z-[60] border-b-2 border-b-[#faca15] bg-white dark:bg-[#1e1e1e]">
     <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between p-3">
