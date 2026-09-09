@@ -1,3 +1,23 @@
+<svelte:head>
+    <title>How to Add Your Package or Program | Zigistry | Help</title>
+    <meta
+        name="description"
+        content="Step by step instructions about how to add your Zig libraries and programs to Zigistry using GitHub and Codeberg repository topics."
+    />
+    <link rel="canonical" href="https://zigistry.dev/help" />
+    <meta property="og:title" content="How to Add Your Package or Program | Zigistry | Help" />
+    <meta
+        property="og:description"
+        content="Step by step instructions about how to add your Zig libraries and programs to Zigistry using GitHub and Codeberg repository topics."
+    />
+    <meta property="og:url" content="https://zigistry.dev/help" />
+    <meta name="twitter:title" content="How to Add Your Package or Program | Zigistry | Help" />
+    <meta
+        name="twitter:description"
+        content="Step by step instructions about how to add your Zig libraries and programs to Zigistry using GitHub and Codeberg repository topics."
+    />
+</svelte:head>
+
 <div class="readme px-6 py-8 font-sans text-gray-800 sm:px-10 dark:text-gray-200">
     <div class="readmeDiv space-y-10">
         <div>
@@ -39,7 +59,7 @@
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin"
-                            allowfullscreen=""
+                            allowfullscreen
                         ></iframe>
                     </li>
                     <li>
@@ -52,7 +72,7 @@
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin"
-                            allowfullscreen=""
+                            allowfullscreen
                         ></iframe>
                     </li>
                     <li>

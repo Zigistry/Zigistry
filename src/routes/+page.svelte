@@ -27,6 +27,24 @@
         name="description"
         content="A packages and programs registry for the Zig programming language. Browse packages and programs."
     />
+    <link rel="canonical" href="https://zigistry.dev/" />
+    <meta
+        property="og:title"
+        content="Zigistry: A Packages and Programs registry for Zig programming language"
+    />
+    <meta
+        property="og:description"
+        content="A packages and programs registry for the Zig programming language. Browse packages and programs."
+    />
+    <meta property="og:url" content="https://zigistry.dev/" />
+    <meta
+        name="twitter:title"
+        content="Zigistry: A Packages and Programs registry for Zig programming language"
+    />
+    <meta
+        name="twitter:description"
+        content="A packages and programs registry for the Zig programming language. Browse packages and programs."
+    />
 </svelte:head>
 <div class="flex flex-col items-center">
     <div class="searchArea rounded-lg sm:m-5 sm:p-5 sm:shadow-lg sm:shadow-black">
@@ -91,7 +109,10 @@
             />
         {/each}
     </section>
-    <ViewMoreBulge href="/search#search=&sort=newly_added&type=packages" label="View More Recently Released" />
+    <ViewMoreBulge
+        href="/search#search=&sort=newly_added&type=packages"
+        label="View More Recently Released"
+    />
 
     <LeftMiniTitle icon={CircleFadingArrowUp} name="Recently Updated" />
     <section
@@ -119,7 +140,10 @@
             />
         {/each}
     </section>
-    <ViewMoreBulge href="/search#search=&sort=recently_updated&type=packages" label="View More Recently Updated" />
+    <ViewMoreBulge
+        href="/search#search=&sort=recently_updated&type=packages"
+        label="View More Recently Updated"
+    />
 
     <LeftMiniTitle icon={Star} name="Most Used" />
     <section
@@ -175,7 +199,10 @@
             />
         {/each}
     </section>
-    <ViewMoreBulge href="/search#search=&sort=stars&type=packages&topic=game" label="View More Game Libs" />
+    <ViewMoreBulge
+        href="/search#search=&sort=stars&type=packages&topic=game"
+        label="View More Game Libs"
+    />
 
     <LeftMiniTitle icon={Globe} name="Famous Web libs" />
     <section
@@ -203,7 +230,10 @@
             />
         {/each}
     </section>
-    <ViewMoreBulge href="/search#search=&sort=stars&type=packages&topic=web" label="View More Web Libs" />
+    <ViewMoreBulge
+        href="/search#search=&sort=stars&type=packages&topic=web"
+        label="View More Web Libs"
+    />
 
     <LeftMiniTitle icon={AppWindow} name="Famous GUI libs" />
     <section
@@ -231,6 +261,9 @@
             />
         {/each}
     </section>
-    <ViewMoreBulge href="/search#search=&sort=stars&type=packages&topic=gui" label="View More GUI Libs" />
+    <ViewMoreBulge
+        href="/search#search=&sort=stars&type=packages&topic=gui"
+        label="View More GUI Libs"
+    />
     <Infinite_Scroll thingy="packages" variant={card_display_mode} />
 </div>

@@ -196,6 +196,7 @@
 <svelte:head>
     <title>Search results - Zigistry</title>
     <meta name="description" content="Search results for Zig packages and programs on Zigistry." />
+    <meta name="robots" content="noindex, follow" />
 </svelte:head>
 
 <div class="relative w-full">

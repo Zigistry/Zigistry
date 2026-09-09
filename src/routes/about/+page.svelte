@@ -1,3 +1,23 @@
+<svelte:head>
+    <title>About Zigistry - Zig Package & Program Registry</title>
+    <meta
+        name="description"
+        content="Learn about Zigistry, the open-source community package and program registry for the Zig programming language created by Rohan Vashisht."
+    />
+    <link rel="canonical" href="https://zigistry.dev/about" />
+    <meta property="og:title" content="About Zigistry - Zig Package & Program Registry" />
+    <meta
+        property="og:description"
+        content="Learn about Zigistry, the open-source community package and program registry for the Zig programming language."
+    />
+    <meta property="og:url" content="https://zigistry.dev/about" />
+    <meta name="twitter:title" content="About Zigistry - Zig Package & Program Registry" />
+    <meta
+        name="twitter:description"
+        content="Learn about Zigistry, the open-source community package and program registry for the Zig programming language."
+    />
+</svelte:head>
+
 <div class="flex h-[calc(100vh-122px)] items-center justify-center">
     <div>
         <span

@@ -22,6 +22,38 @@
         <link rel="preconnect" href="https://avatars.githubusercontent.com" crossorigin />
         <link rel="dns-prefetch" href="https://avatars.githubusercontent.com" />
 
+        <meta name="robots" content="index, follow" />
+        <meta
+            name="keywords"
+            content="zig package manager, zig, ziglang, zig packages, zig libraries, zig programs, zig registry"
+        />
+        <meta name="author" content="Rohan Vashisht" />
+        <meta name="theme-color" content="#1e1e1e" />
+
+        <meta property="og:site_name" content="Zigistry" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://zigistry.dev/zigister-finds-repos.svg" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:image" content="https://zigistry.dev/zigister-finds-repos.svg" />
+
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "Zigistry",
+                "url": "https://zigistry.dev/",
+                "description": "A registry and index for libraries and programs written for the Zig programming language.",
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": {
+                        "@type": "EntryPoint",
+                        "urlTemplate": "https://zigistry.dev/search#search={search_term_string}&type=all"
+                    },
+                    "query-input": "required name=search_term_string"
+                }
+            }
+        </script>
+
         <meta name="rocket-rocketloader" content="off" />
         %sveltekit.head%
     </head>

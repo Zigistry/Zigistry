@@ -20,6 +20,21 @@
 <svelte:head>
     <title>{title}</title>
     <meta name="description" content={meta_description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={meta_description} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={meta_description} />
+    {#if data_from_api_csr_thingy.library}
+        {@html `<script type="application/ld+json">${JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareSourceCode',
+            name: `${data_from_api_csr_thingy.library.owner_name}/${data_from_api_csr_thingy.library.repo_name}`,
+            programmingLanguage: 'Zig',
+            description: data_from_api_csr_thingy.library.description,
+            codeRepository: `https://${data_from_api_csr_thingy.provider_id === 'gh' ? 'github.com' : 'codeberg.org'}/${data_from_api_csr_thingy.library.owner_name}/${data_from_api_csr_thingy.library.repo_name}`,
+            license: data_from_api_csr_thingy.library.license || undefined
+        })}</script>`}
+    {/if}
 </svelte:head>
 
 {#if data_from_api_csr_thingy.library}

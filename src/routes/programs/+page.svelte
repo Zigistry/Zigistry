@@ -22,10 +22,22 @@
 </script>
 
 <svelte:head>
-    <title>Zigistry: Browse Zig programs</title>
+    <title>Zigistry: Browse Zig programs and applications</title>
     <meta
         name="description"
-        content="A packages and programs registry for the Zig programming language. Browse packages and programs."
+        content="Discover standalone tools, CLI applications, games, and software built with the Zig programming language."
+    />
+    <link rel="canonical" href="https://zigistry.dev/programs" />
+    <meta property="og:title" content="Zigistry: Browse Zig programs and applications" />
+    <meta
+        property="og:description"
+        content="Discover packages, web,  tools, CLI applications, games, and software built with the Zig programming language."
+    />
+    <meta property="og:url" content="https://zigistry.dev/programs" />
+    <meta name="twitter:title" content="Zigistry: Browse Zig programs and applications" />
+    <meta
+        name="twitter:description"
+        content="Discover standalone tools, CLI applications, games, and software built with the Zig programming language."
     />
 </svelte:head>
 

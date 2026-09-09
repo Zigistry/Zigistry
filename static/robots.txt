@@ -1,2 +1,5 @@
 User-agent: *
+Allow: /
 Disallow: /static/dependency-graph.html
+
+Sitemap: https://zigistry.dev/sitemap.xml

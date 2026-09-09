@@ -19,6 +19,21 @@
 <svelte:head>
     <title>{title}</title>
     <meta name="description" content={meta_description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={meta_description} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={meta_description} />
+    {#if data.library}
+        {@html `<script type="application/ld+json">${JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            name: `${data.library.owner_name}/${data.library.repo_name}`,
+            applicationCategory: 'DeveloperApplication',
+            description: data.library.description,
+            codeRepository: `https://${data.provider_id === 'gh' ? 'github.com' : 'codeberg.org'}/${data.library.owner_name}/${data.library.repo_name}`,
+            license: data.library.license || undefined
+        })}</script>`}
+    {/if}
 </svelte:head>
 
 {#if data.library}
