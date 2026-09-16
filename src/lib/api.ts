@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const FALLBACK_URL = 'https://zigistry-backend.hf.space';
+const FALLBACK_URL = 'https://api.zigistry.dev';
 
 function resolveUrl(): string {
     if (import.meta.env.VITE_API_BASE_URL) {
