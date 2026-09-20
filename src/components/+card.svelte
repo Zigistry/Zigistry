@@ -9,7 +9,9 @@
         CircleDotDashed,
         Clock,
         Scale,
-        Package
+        Package,
+        BookOpen,
+        ExternalLink
     } from '@lucide/svelte';
     import TimeAgo from 'javascript-time-ago';
     import en from 'javascript-time-ago/locale/en';
@@ -20,7 +22,25 @@
     const timeAgo = new TimeAgo('en-US');
 
     const clean_owner_name = $derived(
-        props.owner_name.includes('/') ? props.owner_name.split('/')[1] : props.owner_name
+        props.owner_name && props.owner_name.includes('/')
+            ? props.owner_name.split('/')[1]
+            : props.owner_name || ''
+    );
+
+    const is_package = $derived(
+        props.is_package !== undefined
+            ? Boolean(props.is_package)
+            : props.type_of_card === 'packages-display'
+    );
+
+    const zigref_provider = $derived(
+        props.provider === 'cb' || props.provider === 'codeberg' ? 'cb' : 'gh'
+    );
+
+    const documentation_url = $derived(
+        clean_owner_name && props.repo_name
+            ? `https://zigref.dev/${zigref_provider}/${clean_owner_name}/${props.repo_name}`
+            : ''
     );
 
     const avatar_url = $derived(
@@ -360,24 +380,40 @@
                     ></a
                 >
             {:else if props.type_of_card === 'special-display'}
-                <a
-                    href={(props.provider === 'gh'
-                        ? 'https://github.com/'
-                        : 'https://codeberg.org/') +
-                        clean_owner_name +
-                        '/' +
-                        props.repo_name}
-                    type="button"
-                    class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:ring-4 focus:outline-none enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
-                    ><span
-                        class="flex items-stretch rounded-md px-4 py-2 text-sm transition-all duration-200"
-                        >View on {#if props.provider === 'gh'}
-                            GitHub <Github size={22} />
-                        {:else if props.provider === 'cb'}
-                            Codeberg <MountainSnow size={22} />
-                        {/if}</span
-                    ></a
-                >
+                <div class="flex flex-col gap-2">
+                    <a
+                        href={(props.provider === 'gh'
+                            ? 'https://github.com/'
+                            : 'https://codeberg.org/') +
+                            clean_owner_name +
+                            '/' +
+                            props.repo_name}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        type="button"
+                        class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:ring-4 focus:outline-none enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
+                        ><span
+                            class="flex items-stretch rounded-md px-4 py-2 text-sm transition-all duration-200"
+                            >View on {#if props.provider === 'gh'}
+                                GitHub <Github size={22} />
+                            {:else if props.provider === 'cb'}
+                                Codeberg <MountainSnow size={22} />
+                            {/if}</span
+                        ></a
+                    >
+                    {#if is_package && documentation_url}
+                        <a
+                            href={documentation_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="group relative flex items-center justify-center gap-2 rounded-full border border-yellow-500/80 bg-yellow-400/10 px-4 py-2 text-center text-sm font-semibold text-yellow-700 transition-[color,background-color,border-color] hover:bg-yellow-400 hover:text-black focus:outline-none focus:ring-2 focus:ring-yellow-400/40 dark:border-[#d4af37] dark:bg-[#d4af37]/20 dark:text-[#f5e7b2] dark:hover:bg-[#d4af37] dark:hover:text-black"
+                        >
+                            <BookOpen size={16} />
+                            <span>View Documentation</span>
+                            <ExternalLink size={14} />
+                        </a>
+                    {/if}
+                </div>
             {/if}
         </div>
     </div>

@@ -174,6 +174,7 @@
         minimum_zig_version={data.minimum_zig_version}
         primary_language={data.primary_language}
         type_of_card="special-display"
+        is_package={route_thingy === 'packages'}
     />
 
     <div class="mb-10"></div>
