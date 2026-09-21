@@ -49,7 +49,7 @@
     async function load_search_results(page: number, query_override?: string) {
         const active_query = (query_override ?? search_query).trim().toLowerCase();
 
-        const base_url = data.apiBaseUrl || 'https://zigistry-backend.hf.space';
+        const base_url = data.apiBaseUrl || 'https://api.zigistry.dev';
         const params = new URLSearchParams({
             q: active_query,
             page: String(page),

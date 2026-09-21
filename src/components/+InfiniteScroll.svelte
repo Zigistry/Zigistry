@@ -16,7 +16,7 @@
         if (hostname === 'localhost' || hostname.includes('localhost:')) {
             return 'http://localhost:7860';
         }
-        return 'https://zigistry-backend.hf.space';
+        return 'https://api.zigistry.dev';
     };
 
     async function loadMore() {
