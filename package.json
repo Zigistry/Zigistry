@@ -13,7 +13,6 @@
         "format": "prettier --write .",
         "lint": "prettier --check . && eslint ."
     },
-    "packageManager": "npm@10.9.2",
     "dependencies": {
         "@lucide/svelte": "^0.562.0",
         "@sveltejs/adapter-static": "^3.0.10",
