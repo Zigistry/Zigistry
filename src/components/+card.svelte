@@ -3,7 +3,6 @@
         MountainSnow,
         Star,
         User,
-        Github,
         Eye,
         GitFork,
         CircleDotDashed,
@@ -17,6 +16,7 @@
     import en from 'javascript-time-ago/locale/en';
 
     import { get_the_actual_avatar_url, parseDate } from '$lib/api';
+    import Github from './+Github.svelte';
 
     let props = $props();
 
@@ -35,9 +35,11 @@
             : props.type_of_card === 'packages-display'
     );
 
-    const zigref_provider = $derived(
-        props.provider === 'cb' || props.provider === 'codeberg' ? 'cb' : 'gh'
+    const is_codeberg = $derived(
+        props.provider === 'cb' || props.provider === 'codeberg' || props.provider === 'Codeberg'
     );
+
+    const zigref_provider = $derived(is_codeberg ? 'cb' : 'gh');
 
     const documentation_url = $derived(
         clean_owner_name && props.repo_name
@@ -49,9 +51,7 @@
         get_the_actual_avatar_url(props.provider, props.avatar_url || props.avatar_id)
     );
 
-    const forks_count = $derived(
-        props.forks_count ?? props.fork_count ?? props.forks ?? 0
-    );
+    const forks_count = $derived(props.forks_count ?? props.fork_count ?? props.forks ?? 0);
 
     const formatted_pushed_at = $derived.by(() => {
         const d = parseDate(props.pushed_at);
@@ -60,7 +60,7 @@
 
     const is_list_view = $derived(props.variant === 'list');
 
-    const provider = $derived(props.provider === 'gh' ? 'github' : 'codeberg');
+    const provider = $derived(is_codeberg ? 'codeberg' : 'github');
 
     const detail_href = $derived.by(() => {
         if (props.type_of_card === 'packages-display') {
@@ -72,7 +72,7 @@
         }
 
         if (props.type_of_card === 'special-display') {
-            const base = props.provider === 'gh' ? 'https://github.com/' : 'https://codeberg.org/';
+            const base = is_codeberg ? 'https://codeberg.org/' : 'https://github.com/';
 
             return `${base}${clean_owner_name}/${props.repo_name}`;
         }
@@ -90,7 +90,7 @@
         }
 
         if (props.type_of_card === 'special-display') {
-            return props.provider === 'gh' ? 'View on GitHub' : 'View on Codeberg';
+            return is_codeberg ? 'View on Codeberg' : 'View on GitHub';
         }
 
         return 'View';
@@ -113,9 +113,8 @@
                     <span class="text-sm text-gray-500">
                         by <a
                             class="text-gray-700 hover:text-amber-700 hover:underline dark:text-gray-300 dark:hover:text-amber-300"
-                            href={(props.provider === 'gh'
-                                ? '/profiles/github/'
-                                : '/profiles/codeberg/') + clean_owner_name}>{clean_owner_name}</a
+                            href={(is_codeberg ? '/profiles/codeberg/' : '/profiles/github/') +
+                                clean_owner_name}>{clean_owner_name}</a
                         >
                     </span>
                 </div>
@@ -177,10 +176,10 @@
                     <span
                         class="flex h-fit w-fit items-center gap-1 rounded border border-slate-200 bg-white px-2 py-0.5 text-xs font-semibold dark:border-none dark:bg-slate-600"
                     >
-                        {#if props.provider === 'gh'}
-                            <Github size={12} /> GitHub
-                        {:else}
+                        {#if is_codeberg}
                             <MountainSnow size={12} /> Codeberg
+                        {:else}
+                            <Github size={12} /> GitHub
                         {/if}
                     </span>
                 </div>
@@ -240,26 +239,30 @@
             >
 
             <p
-                class="flex w-min truncate rounded-2xl bg-amber-100 text-amber-900 dark:bg-slate-700 dark:text-amber-100"
+                class="flex w-fit max-w-full items-stretch rounded-2xl bg-amber-100 text-amber-900 dark:bg-slate-700 dark:text-amber-100"
             >
                 <span
-                    class="flex w-fit rounded-l-2xl bg-amber-200 p-2 text-amber-900 dark:bg-slate-800 dark:text-amber-100"
+                    class="flex max-w-[140px] min-w-0 items-center rounded-l-2xl bg-amber-200 p-2 text-amber-900 dark:bg-slate-800 dark:text-amber-100"
                 >
-                    <User size={22} width={22} class="min-h-5.5 min-w-5.5" />&nbsp;<a
-                        class="hover:text-amber-700 hover:underline dark:hover:text-amber-300"
-                        href={(props.provider === 'gh'
-                            ? '/profiles/github/'
-                            : '/profiles/codeberg/') + clean_owner_name}>{clean_owner_name}</a
+                    <User size={22} width={22} class="min-h-5.5 min-w-5.5 shrink-0" />&nbsp;<a
+                        class="truncate hover:text-amber-700 hover:underline dark:hover:text-amber-300"
+                        href={(is_codeberg ? '/profiles/codeberg/' : '/profiles/github/') +
+                            clean_owner_name}>{clean_owner_name}</a
                     >
                 </span>
-                <span class="flex content-center items-center px-2">
-                    {#if props.provider === 'gh'}
-                        <Github size={22} />
-                    {:else if props.provider === 'cb'}
-                        <MountainSnow size={22} />
+                <span
+                    class="flex shrink-0 items-center justify-center px-2"
+                    title={is_codeberg ? 'Codeberg' : 'GitHub'}
+                >
+                    {#if is_codeberg}
+                        <MountainSnow size={22} class="min-h-5.5 min-w-5.5 shrink-0" />
+                    {:else}
+                        <Github size={22} class="min-h-5.5 min-w-5.5 shrink-0" />
                     {/if}
                 </span>
-                <span class="flex content-center items-center gap-1 bg-gray-900 px-2">
+                <span
+                    class="flex shrink-0 items-center justify-center gap-1 rounded-r-2xl bg-gray-900 px-2"
+                >
                     <img
                         src={props.primary_language === 'Zig'
                             ? '/languages-logo/zig-logo.png'
@@ -361,12 +364,7 @@
             <div class="flex"></div>
             {#if props.type_of_card === 'packages-display'}
                 <a
-                    href={'/packages/' +
-                        (props.provider === 'gh' ? 'github' : 'codeberg') +
-                        '/' +
-                        clean_owner_name +
-                        '/' +
-                        props.repo_name}
+                    href={detail_href}
                     type="button"
                     class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:ring-4 focus:outline-none enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
                     ><span
@@ -376,12 +374,7 @@
                 >
             {:else if props.type_of_card === 'program-display'}
                 <a
-                    href={'/programs/' +
-                        (props.provider === 'gh' ? 'github' : 'codeberg') +
-                        '/' +
-                        clean_owner_name +
-                        '/' +
-                        props.repo_name}
+                    href={detail_href}
                     type="button"
                     class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:ring-4 focus:outline-none enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
                     ><span
@@ -392,22 +385,17 @@
             {:else if props.type_of_card === 'special-display'}
                 <div class="flex flex-col gap-2">
                     <a
-                        href={(props.provider === 'gh'
-                            ? 'https://github.com/'
-                            : 'https://codeberg.org/') +
-                            clean_owner_name +
-                            '/' +
-                            props.repo_name}
+                        href={detail_href}
                         target="_blank"
                         rel="noopener noreferrer"
                         type="button"
                         class=":ring-cyan-700 group relative flex items-stretch justify-center rounded-full border border-gray-200 bg-white p-0.5 text-center font-medium text-gray-900 transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:text-cyan-700 focus:ring-4 focus:outline-none enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white"
                         ><span
-                            class="flex items-stretch rounded-md px-4 py-2 text-sm transition-all duration-200"
-                            >View on {#if props.provider === 'gh'}
-                                GitHub <Github size={22} />
-                            {:else if props.provider === 'cb'}
-                                Codeberg <MountainSnow size={22} />
+                            class="flex items-center justify-center gap-1.5 rounded-md px-4 py-2 text-sm transition-all duration-200"
+                            >View on {#if is_codeberg}
+                                Codeberg <MountainSnow size={20} />
+                            {:else}
+                                GitHub <Github size={20} />
                             {/if}</span
                         ></a
                     >
@@ -416,7 +404,7 @@
                             href={documentation_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="group relative flex items-center justify-center gap-2 rounded-full border border-yellow-500/80 bg-yellow-400/10 px-4 py-2 text-center text-sm font-semibold text-yellow-700 transition-[color,background-color,border-color] hover:bg-yellow-400 hover:text-black focus:outline-none focus:ring-2 focus:ring-yellow-400/40 dark:border-[#d4af37] dark:bg-[#d4af37]/20 dark:text-[#f5e7b2] dark:hover:bg-[#d4af37] dark:hover:text-black"
+                            class="group relative flex items-center justify-center gap-2 rounded-full border border-yellow-500/80 bg-yellow-400/10 px-4 py-2 text-center text-sm font-semibold text-yellow-700 transition-[color,background-color,border-color] hover:bg-yellow-400 hover:text-black focus:ring-2 focus:ring-yellow-400/40 focus:outline-none dark:border-[#d4af37] dark:bg-[#d4af37]/20 dark:text-[#f5e7b2] dark:hover:bg-[#d4af37] dark:hover:text-black"
                         >
                             <BookOpen size={16} />
                             <span>View Documentation</span>
