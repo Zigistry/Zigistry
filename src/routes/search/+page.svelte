@@ -47,7 +47,10 @@
     }
 
     async function load_search_results(page: number, query_override?: string) {
-        const active_query = (query_override ?? search_query).trim().toLowerCase();
+        let active_query = (query_override ?? search_query).trim().toLowerCase();
+        if (!active_query && !search_topic) {
+            active_query = '*';
+        }
 
         const base_url = data.apiBaseUrl || 'https://api.zigistry.dev';
         const params = new URLSearchParams({

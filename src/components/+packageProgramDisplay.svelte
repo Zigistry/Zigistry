@@ -13,6 +13,7 @@
     import { onMount } from 'svelte';
     import LeftMiniTitle from './+LeftMiniTitle.svelte';
     import { Heading4Icon, InfoIcon, Folder, File } from '@lucide/svelte';
+    import { parseDate } from '$lib/api';
 
     const { Parser: OrgParser, ConverterHTML: OrgConverterHTML } = orgPkg;
 
@@ -24,6 +25,14 @@
     const LATEST_UNSTABLE_OPTION = '__ZIGISTRY__LATEST__UNSTABLE__'; // this is just for the ui, not an actual value from db.
 
     const library_r = Array.isArray(data.releases) ? data.releases : [];
+    const dependencies_list = $derived(Array.isArray(data.dependencies) ? data.dependencies : []);
+    const dependents_list = $derived(Array.isArray(data.dependents) ? data.dependents : []);
+
+    const formatted_publish_date = $derived.by(() => {
+        const raw = data.publish_date || data.published_date;
+        const d = parseDate(raw);
+        return d ? timeAgo.format(d) : 'Recently';
+    });
 
     const project_structure = $derived.by(() => {
         const raw = data.directory_files;
@@ -154,9 +163,7 @@
 <LeftMiniTitle name={data.version_name + ' details'} icon={InfoIcon} />
 
 <Badge rounded color="blue" class="mt-2 mr-0 mb-0 ml-10 text-xl"
-    >Last updated: {data.publish_date
-        ? timeAgo.format(new Date(data.publish_date))
-        : 'Recently'}</Badge
+    >Last updated: {formatted_publish_date}</Badge
 >
 
 <div class="mt-3 min-h-screen p-2 sm:px-4 sm:pb-4 md:px-6 md:pb-6 lg:px-8 lg:pb-8">
@@ -242,7 +249,7 @@
                 </div>
             </div>
         </TabItem>
-        <TabItem title={'Dependencies: ' + data.dependencies.length} class="w-full">
+        <TabItem title={'Dependencies: ' + dependencies_list.length} class="w-full">
             <div
                 class="m-0 rounded-lg bg-white p-3 shadow-lg shadow-black sm:rounded-xl sm:p-6 dark:bg-[#1e1e1e]"
             >
@@ -252,10 +259,10 @@
                     Dependencies
                 </h2>
                 <div class="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
-                    {#if data.dependencies.length === 0}
+                    {#if dependencies_list.length === 0}
                         This package has no dependencies.
                     {:else}
-                        {#each data.dependencies as dependency}
+                        {#each dependencies_list as dependency}
                             <DependencyCard
                                 name={dependency.name}
                                 url={dependency.url}
@@ -267,7 +274,7 @@
             </div>
         </TabItem>
         {#if data.show_dependents}
-            <TabItem title={'Dependents: ' + data.dependents.length} class="w-full">
+            <TabItem title={'Dependents: ' + dependents_list.length} class="w-full">
                 <div
                     class="m-0 rounded-lg bg-white p-3 shadow-lg shadow-black sm:rounded-xl sm:p-6 dark:bg-[#1e1e1e]"
                 >
@@ -277,10 +284,10 @@
                         Dependents
                     </h2>
                     <div class="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
-                        {#if data.dependents.length === 0}
+                        {#if dependents_list.length === 0}
                             This package has no dependents.
                         {:else}
-                            {#each data.dependents as dependent}
+                            {#each dependents_list as dependent}
                                 {@const dependent_iter = dependent.split('/')}
                                 <!-- a package or a program can be a dependent. 
                                 but a program can never be a dependency, as of

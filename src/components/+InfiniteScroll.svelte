@@ -26,8 +26,10 @@
             `${baseUrl}/${all_props.thingy}/scroll/?` + encodeURI('per_page=10&page=' + page)
         );
         const data_res = await data.json();
-        items = [...items, ...data_res];
-        page = page + 1;
+        if (Array.isArray(data_res)) {
+            items = [...items, ...data_res];
+            page = page + 1;
+        }
     }
 
     onMount(async () => {

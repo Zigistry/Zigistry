@@ -16,6 +16,8 @@
     import TimeAgo from 'javascript-time-ago';
     import en from 'javascript-time-ago/locale/en';
 
+    import { get_the_actual_avatar_url, parseDate } from '$lib/api';
+
     let props = $props();
 
     TimeAgo.addLocale(en);
@@ -44,10 +46,18 @@
     );
 
     const avatar_url = $derived(
-        (props.provider === 'gh'
-            ? 'https://avatars.githubusercontent.com/'
-            : 'https://codeberg.org/avatars/') + props.avatar_url
+        get_the_actual_avatar_url(props.provider, props.avatar_url || props.avatar_id)
     );
+
+    const forks_count = $derived(
+        props.forks_count ?? props.fork_count ?? props.forks ?? 0
+    );
+
+    const formatted_pushed_at = $derived.by(() => {
+        const d = parseDate(props.pushed_at);
+        return d ? timeAgo.format(d) : null;
+    });
+
     const is_list_view = $derived(props.variant === 'list');
 
     const provider = $derived(props.provider === 'gh' ? 'github' : 'codeberg');
@@ -150,11 +160,11 @@
                         {props.minimum_zig_version}
                     </span>
 
-                    {#if props.pushed_at}
+                    {#if formatted_pushed_at}
                         <span
                             class="flex h-fit w-fit items-center gap-1 rounded border border-slate-200 bg-white px-2 py-0.5 text-xs font-semibold dark:border-none dark:bg-slate-600"
                         >
-                            {timeAgo.format(new Date(props.pushed_at))}
+                            {formatted_pushed_at}
                         </span>
                     {/if}
 
@@ -194,7 +204,7 @@
                         </span>
                         <span class="flex items-center gap-1" title="Forks">
                             <GitFork size={14} class="text-[lightpink]" />
-                            {props.forks}
+                            {forks_count}
                         </span>
                         <span class="flex items-center gap-1" title="Issues">
                             <CircleDotDashed size={14} class="text-[lightgreen]" />
@@ -301,7 +311,7 @@
                     >
                 </span>
 
-                {#if props.pushed_at}
+                {#if formatted_pushed_at}
                     <span class="flex h-5 items-center rounded-full bg-sky-100 dark:bg-sky-900/40">
                         <span
                             class="flex h-full items-center rounded-full bg-sky-200 px-1.5 text-sky-700 dark:bg-sky-800 dark:text-sky-300"
@@ -309,7 +319,7 @@
                             <Clock size={10} />
                         </span>
                         <span class="px-1.5 text-xs font-medium text-sky-700 dark:text-sky-300"
-                            >{timeAgo.format(new Date(props.pushed_at))}</span
+                            >{formatted_pushed_at}</span
                         >
                     </span>
                 {/if}
@@ -339,7 +349,7 @@
                 >
                     <GitFork size={12} class="text-pink-500" />
                 </span>
-                <span class="flex-1 text-center">{props.forks}</span>
+                <span class="flex-1 text-center">{forks_count}</span>
                 <span class="h-4 w-px bg-gray-300 dark:bg-gray-600"></span>
                 <span
                     class="flex h-full flex-1 items-center justify-center bg-green-50 dark:bg-green-950/30"
